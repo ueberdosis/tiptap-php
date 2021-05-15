@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Marks;
 
 class Subscript extends Mark
 {
-    public function matching()
+    public function parseHTML()
     {
         return $this->DOMNode->nodeName === 'sub';
     }

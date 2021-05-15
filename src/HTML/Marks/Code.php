@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Marks;
 
 class Code extends Mark
 {
-    public function matching()
+    public function parseHTML()
     {
         if ($this->DOMNode->parentNode->nodeName === 'pre') {
             return false;

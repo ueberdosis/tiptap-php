@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Nodes;
 
 class Paragraph extends Node
 {
-    public function matching()
+    public function parseHTML()
     {
         return $this->DOMNode->nodeName === 'p';
     }

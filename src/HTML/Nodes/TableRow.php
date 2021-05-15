@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Nodes;
 
 class TableRow extends Node
 {
-    public function matching()
+    public function parseHTML()
     {
         return $this->DOMNode->nodeName === 'tr';
     }

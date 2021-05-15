@@ -4,12 +4,11 @@ namespace Tiptap\HTML\Nodes;
 
 class TableCell extends Node
 {
-    protected $tagName = 'td';
     protected $nodeType = 'table_cell';
 
-    public function matching()
+    public function parseHTML()
     {
-        return $this->DOMNode->nodeName === $this->tagName;
+        return $this->DOMNode->nodeName === 'td';
     }
 
     public function data()

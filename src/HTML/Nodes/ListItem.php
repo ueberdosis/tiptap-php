@@ -8,7 +8,7 @@ class ListItem extends Node
         'type' => 'paragraph',
     ];
 
-    public function matching()
+    public function parseHTML()
     {
         return $this->DOMNode->nodeName === 'li';
     }

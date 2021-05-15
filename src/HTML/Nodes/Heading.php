@@ -11,7 +11,7 @@ class Heading extends Node
         return $match[1] ?? null;
     }
 
-    public function matching()
+    public function parseHTML()
     {
         return (boolean) $this->getLevel($this->DOMNode->nodeName);
     }

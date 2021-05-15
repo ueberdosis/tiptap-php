@@ -153,7 +153,7 @@ class DOMParser
         foreach ($classes as $class) {
             $instance = new $class($node);
 
-            if ($instance->matching()) {
+            if ($instance->parseHTML()) {
                 return $instance;
             }
         }

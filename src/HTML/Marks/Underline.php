@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Marks;
 
 class Underline extends Mark
 {
-    public function matching()
+    public function parseHTML()
     {
         return $this->DOMNode->nodeName === 'u';
     }

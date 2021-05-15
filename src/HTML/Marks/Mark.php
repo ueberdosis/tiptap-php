@@ -13,7 +13,7 @@ class Mark
         $this->DOMNode = $DOMNode;
     }
 
-    public function matching()
+    public function parseHTML()
     {
         return false;
     }

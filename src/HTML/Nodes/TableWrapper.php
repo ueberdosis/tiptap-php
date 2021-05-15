@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Nodes;
 
 class TableWrapper extends Node
 {
-    public function matching()
+    public function parseHTML()
     {
         return $this->DOMNode->nodeName === 'table';
     }

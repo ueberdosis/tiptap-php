@@ -2,8 +2,8 @@
 
 namespace Tiptap\Editor\Tests;
 
-use Tiptap\Editor;
 use PHPUnit\Framework\TestCase;
+use Tiptap\Editor;
 
 class SetJSONTest extends TestCase
 {
@@ -35,8 +35,8 @@ class SetJSONTest extends TestCase
                             'type' => 'text',
                             'text' => 'Example Text',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ], $output);
     }
@@ -54,8 +54,8 @@ class SetJSONTest extends TestCase
                             'type' => 'text',
                             'text' => 'Example Text',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
 

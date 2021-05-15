@@ -18,6 +18,7 @@ class Mark
         if (isset($this->mark->type)) {
             return $this->mark->type === $this->markType;
         }
+
         return false;
     }
 

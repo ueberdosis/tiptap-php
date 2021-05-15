@@ -86,6 +86,7 @@ class DOMSerializer
 
             if ($renderClass->matching()) {
                 $html[] = $this->renderOpeningTag($renderClass->tag());
+
                 break;
             }
         }
@@ -143,11 +144,11 @@ class DOMSerializer
 
     private function nodeHasMark($node, $mark)
     {
-        if (!$node) {
+        if (! $node) {
             return true;
         }
 
-        if (!property_exists($node, 'marks')) {
+        if (! property_exists($node, 'marks')) {
             return true;
         }
 
@@ -165,7 +166,7 @@ class DOMSerializer
     {
         $tags = (array) $tags;
 
-        if (!$tags || !count($tags)) {
+        if (! $tags || ! count($tags)) {
             return null;
         }
 
@@ -190,7 +191,7 @@ class DOMSerializer
         $tags = (array) $tags;
         $tags = array_reverse($tags);
 
-        if (!$tags || !count($tags)) {
+        if (! $tags || ! count($tags)) {
             return null;
         }
 

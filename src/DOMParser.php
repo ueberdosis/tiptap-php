@@ -2,6 +2,6 @@
 
 namespace Tiptap;
 
-class DOMParser {
-
+class DOMParser
+{
 }

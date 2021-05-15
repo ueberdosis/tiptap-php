@@ -16,10 +16,8 @@ class OrderedList extends Node
         }
 
         return [
-            [
-                'tag' => $this->tagName,
-                'attrs' => $attrs,
-            ],
+            'tag' => $this->tagName,
+            'attrs' => $attrs,
         ];
     }
 }

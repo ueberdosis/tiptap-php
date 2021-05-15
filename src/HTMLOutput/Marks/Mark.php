@@ -26,4 +26,9 @@ class Mark
     {
         return $this->tagName;
     }
+
+    public function text()
+    {
+        return $this->mark->text;
+    }
 }

@@ -15,10 +15,8 @@ class Image extends Node
     public function tag()
     {
         return [
-            [
-                'tag' => $this->tagName,
-                'attrs' => $this->node->attrs,
-            ],
+            'tag' => $this->tagName,
+            'attrs' => $this->node->attrs,
         ];
     }
 }

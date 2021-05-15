@@ -22,10 +22,8 @@ class Link extends Mark
         $attrs['href'] = $this->mark->attrs->href;
 
         return [
-            [
-                'tag' => $this->tagName,
-                'attrs' => $attrs,
-            ],
+            'tag' => $this->tagName,
+            'attrs' => $attrs,
         ];
     }
 }

@@ -5,5 +5,9 @@ namespace Tiptap\HTMLOutput\Marks;
 class Bold extends Mark
 {
     protected $name = 'bold';
-    protected $tagName = 'strong';
+
+    public function tag()
+    {
+        return 'strong';
+    }
 }

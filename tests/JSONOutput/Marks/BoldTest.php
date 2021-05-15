@@ -13,14 +13,14 @@ class BoldTest extends TestCase
         $html = '<p><strong>Example text using strong</strong> and <b>some example text using b</b></p>';
 
         $json = [
-            'type'    => 'doc',
+            'type' => 'doc',
             'content' => [
                 [
-                    'type'    => 'paragraph',
+                    'type' => 'paragraph',
                     'content' => [
                         [
-                            'type'  => 'text',
-                            'text'  => 'Example text using strong',
+                            'type' => 'text',
+                            'text' => 'Example text using strong',
                             'marks' => [
                                 [
                                     'type' => 'bold',
@@ -32,8 +32,8 @@ class BoldTest extends TestCase
                             'text' => ' and ',
                         ],
                         [
-                            'type'  => 'text',
-                            'text'  => 'some example text using b',
+                            'type' => 'text',
+                            'text' => 'some example text using b',
                             'marks' => [
                                 [
                                     'type' => 'bold',

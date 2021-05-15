@@ -17,19 +17,19 @@ class TableTest extends TestCase
             '</tbody></table>';
 
         $json = [
-            'type'    => 'doc',
+            'type' => 'doc',
             'content' => [
                 [
-                    'type'    => 'table',
+                    'type' => 'table',
                     'content' => [
                         [
-                            'type'    => 'table_row',
+                            'type' => 'table_row',
                             'content' => [
                                 [
-                                    'type'    => 'table_header',
+                                    'type' => 'table_header',
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -40,9 +40,9 @@ class TableTest extends TestCase
                                     ],
                                 ],
                                 [
-                                    'type'    => 'table_header',
-                                    'attrs'   => [
-                                        'colspan'  => 2,
+                                    'type' => 'table_header',
+                                    'attrs' => [
+                                        'colspan' => 2,
                                         'colwidth' => [
                                             100,
                                             0,
@@ -50,7 +50,7 @@ class TableTest extends TestCase
                                     ],
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -63,16 +63,16 @@ class TableTest extends TestCase
                             ],
                         ],
                         [
-                            'type'    => 'table_row',
+                            'type' => 'table_row',
                             'content' => [
                                 [
-                                    'type'    => 'table_cell',
-                                    'attrs'   => [
+                                    'type' => 'table_cell',
+                                    'attrs' => [
                                         'rowspan' => 2,
                                     ],
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -81,7 +81,7 @@ class TableTest extends TestCase
                                             ],
                                         ],
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -92,10 +92,10 @@ class TableTest extends TestCase
                                     ],
                                 ],
                                 [
-                                    'type'    => 'table_cell',
+                                    'type' => 'table_cell',
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -106,10 +106,10 @@ class TableTest extends TestCase
                                     ],
                                 ],
                                 [
-                                    'type'    => 'table_cell',
+                                    'type' => 'table_cell',
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -122,13 +122,13 @@ class TableTest extends TestCase
                             ],
                         ],
                         [
-                            'type'    => 'table_row',
+                            'type' => 'table_row',
                             'content' => [
                                 [
-                                    'type'    => 'table_cell',
+                                    'type' => 'table_cell',
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',
@@ -139,10 +139,10 @@ class TableTest extends TestCase
                                     ],
                                 ],
                                 [
-                                    'type'    => 'table_cell',
+                                    'type' => 'table_cell',
                                     'content' => [
                                         [
-                                            'type'    => 'paragraph',
+                                            'type' => 'paragraph',
                                             'content' => [
                                                 [
                                                     'type' => 'text',

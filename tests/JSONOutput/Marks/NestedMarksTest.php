@@ -13,11 +13,11 @@ class NestedMarksTest extends TestCase
         $html = '<strong>only bold <em>bold and italic</em> only bold</strong>';
 
         $json = [
-            'type'    => 'doc',
+            'type' => 'doc',
             'content' => [
                 [
-                    'type'  => 'text',
-                    'text'  => 'only bold ',
+                    'type' => 'text',
+                    'text' => 'only bold ',
                     'marks' => [
                         [
                             'type' => 'bold',
@@ -25,8 +25,8 @@ class NestedMarksTest extends TestCase
                     ],
                 ],
                 [
-                    'type'  => 'text',
-                    'text'  => 'bold and italic',
+                    'type' => 'text',
+                    'text' => 'bold and italic',
                     'marks' => [
                         [
                             'type' => 'bold',
@@ -37,8 +37,8 @@ class NestedMarksTest extends TestCase
                     ],
                 ],
                 [
-                    'type'  => 'text',
-                    'text'  => ' only bold',
+                    'type' => 'text',
+                    'text' => ' only bold',
                     'marks' => [
                         [
                             'type' => 'bold',

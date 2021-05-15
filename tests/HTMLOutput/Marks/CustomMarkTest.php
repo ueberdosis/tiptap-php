@@ -3,9 +3,8 @@
 namespace Tiptap\Tests\HTMLOutput\Marks;
 
 use Tiptap\HTMLOutput\Marks\Bold;
-use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 use Tiptap\Tests\HTMLOutput\Marks\Custom\CustomMark;
+use Tiptap\Tests\HTMLOutput\TestCase;
 
 class CustomBold extends Bold
 {

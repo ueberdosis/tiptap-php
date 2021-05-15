@@ -13,14 +13,14 @@ class ItalicTest extends TestCase
         $html = '<p><i>Example text using i</i> and <em>some example text using em</em></p>';
 
         $json = [
-            'type'    => 'doc',
+            'type' => 'doc',
             'content' => [
                 [
-                    'type'    => 'paragraph',
+                    'type' => 'paragraph',
                     'content' => [
                         [
-                            'type'  => 'text',
-                            'text'  => 'Example text using i',
+                            'type' => 'text',
+                            'text' => 'Example text using i',
                             'marks' => [
                                 [
                                     'type' => 'italic',
@@ -32,8 +32,8 @@ class ItalicTest extends TestCase
                             'text' => ' and ',
                         ],
                         [
-                            'type'  => 'text',
-                            'text'  => 'some example text using em',
+                            'type' => 'text',
+                            'text' => 'some example text using em',
                             'marks' => [
                                 [
                                     'type' => 'italic',

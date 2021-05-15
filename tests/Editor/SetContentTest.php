@@ -2,8 +2,8 @@
 
 namespace Tiptap\Editor\Tests;
 
-use Tiptap\Editor;
 use PHPUnit\Framework\TestCase;
+use Tiptap\Editor;
 
 class SetContentTest extends TestCase
 {
@@ -35,8 +35,8 @@ class SetContentTest extends TestCase
                             'type' => 'text',
                             'text' => 'Example Text',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ], $output);
     }
@@ -55,8 +55,8 @@ class SetContentTest extends TestCase
                             'type' => 'text',
                             'text' => 'Example Text',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
 

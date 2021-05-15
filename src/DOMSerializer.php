@@ -7,31 +7,31 @@ class DOMSerializer
     protected $document;
 
     protected $nodes = [
-        Nodes\Blockquote::class,
-        Nodes\BulletList::class,
-        Nodes\CodeBlock::class,
-        Nodes\HardBreak::class,
-        Nodes\Heading::class,
-        Nodes\HorizontalRule::class,
-        Nodes\Image::class,
-        Nodes\ListItem::class,
-        Nodes\OrderedList::class,
-        Nodes\Paragraph::class,
-        Nodes\Table::class,
-        Nodes\TableCell::class,
-        Nodes\TableHeader::class,
-        Nodes\TableRow::class,
+        HTMLOutput\Nodes\Blockquote::class,
+        HTMLOutput\Nodes\BulletList::class,
+        HTMLOutput\Nodes\CodeBlock::class,
+        HTMLOutput\Nodes\HardBreak::class,
+        HTMLOutput\Nodes\Heading::class,
+        HTMLOutput\Nodes\HorizontalRule::class,
+        HTMLOutput\Nodes\Image::class,
+        HTMLOutput\Nodes\ListItem::class,
+        HTMLOutput\Nodes\OrderedList::class,
+        HTMLOutput\Nodes\Paragraph::class,
+        HTMLOutput\Nodes\Table::class,
+        HTMLOutput\Nodes\TableCell::class,
+        HTMLOutput\Nodes\TableHeader::class,
+        HTMLOutput\Nodes\TableRow::class,
     ];
 
     protected $marks = [
-        Marks\Bold::class,
-        Marks\Code::class,
-        Marks\Italic::class,
-        Marks\Link::class,
-        Marks\Subscript::class,
-        Marks\Underline::class,
-        Marks\Strike::class,
-        Marks\Superscript::class,
+        HTMLOutput\Marks\Bold::class,
+        HTMLOutput\Marks\Code::class,
+        HTMLOutput\Marks\Italic::class,
+        HTMLOutput\Marks\Link::class,
+        HTMLOutput\Marks\Subscript::class,
+        HTMLOutput\Marks\Underline::class,
+        HTMLOutput\Marks\Strike::class,
+        HTMLOutput\Marks\Superscript::class,
     ];
 
     public function withMarks($marks = null)

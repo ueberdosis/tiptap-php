@@ -4,7 +4,7 @@ namespace Tiptap\HTML\Nodes;
 
 class TableCell extends Node
 {
-    protected $nodeType = 'table_cell';
+    protected $name = 'table_cell';
 
     public function parseHTML()
     {
@@ -14,7 +14,7 @@ class TableCell extends Node
     public function data()
     {
         $data = [
-            'type' => $this->nodeType,
+            'type' => $this->name,
         ];
 
         $attrs = [];

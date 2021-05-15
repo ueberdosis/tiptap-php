@@ -1,16 +1,16 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "ueberdosis/tiptap",
+    "description": "A PHP package to work with tiptap output",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "ueberdosis",
+        "tiptap"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/ueberdosis/tiptap",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Hans Pagel",
+            "email": "humans@tiptap.dev",
             "role": "Developer"
         }
     ],
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Ueberdosis\\Tiptap\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Ueberdosis\\Tiptap\\Tests\\": "tests"
         }
     },
     "scripts": {

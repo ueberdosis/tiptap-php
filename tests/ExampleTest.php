@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Ueberdosis\Tiptap\Tests;
 
 use PHPUnit\Framework\TestCase;
 

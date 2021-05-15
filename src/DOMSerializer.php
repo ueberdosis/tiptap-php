@@ -139,15 +139,25 @@ class DOMSerializer
                 $child->appendChild($attribute);
             }
         } elseif (is_array($renderHTML)) {
-            $tree = null;
             foreach ($renderHTML as $tag) {
-                $newElement = $this->dom->createElement(
-                    $tag
-                );
+                if (!isset($child)) {
+                    $child = $this->dom->createElement(
+                        $tag
+                    );
+                } else {
+                    $newElement = $this->dom->createElement(
+                        $tag
+                    );
 
+                    $child = $child->appendChild($newElement);
+                }
                 // TODO: WHAT NOW?
                 // phpunit --filter table_node_gets_rendered_correctly
+
+                // isset($child) ? $child = $child->appendChild($newElement) : $child = $newElement;
             }
+
+            var_dump($child);
         } else {
             // TODO: Improve error output
             var_dump($renderHTML);

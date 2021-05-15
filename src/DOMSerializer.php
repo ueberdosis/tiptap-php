@@ -140,7 +140,7 @@ class DOMSerializer
             }
         } elseif (is_array($renderHTML)) {
             foreach ($renderHTML as $tag) {
-                if (!isset($child)) {
+                if (! isset($child)) {
                     $child = $this->dom->createElement(
                         $tag
                     );

@@ -5,12 +5,12 @@ namespace Tiptap\Editor\Tests;
 use Tiptap\Editor;
 use PHPUnit\Framework\TestCase;
 
-class SetJSONTest extends TestCase
+class SetContentTest extends TestCase
 {
     /** @test */
-    public function json_string_is_converted_to_an_array()
+    public function json_strings_are_detected()
     {
-        $output = (new Editor)->setJSON('{
+        $output = (new Editor)->setContent('{
             "type": "doc",
             "content": [
                 {
@@ -41,8 +41,9 @@ class SetJSONTest extends TestCase
         ], $output);
     }
 
+
     /** @test */
-    public function an_array_is_stored_as_an_array()
+    public function arrays_are_detected()
     {
         $input = [
             'type' => 'doc',
@@ -59,8 +60,38 @@ class SetJSONTest extends TestCase
             ],
         ];
 
-        $output = (new Editor)->setJSON($input)->getDocument();
+        $output = (new Editor)->setContent($input)->getDocument();
 
         $this->assertEquals($input, $output);
+    }
+
+    /** @test */
+    public function html_is_detected()
+    {
+        $output = (new Editor)->setContent('<p>Example <strong>Text</strong></p>')->getDocument();
+
+        $this->assertEquals([
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Example ',
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => 'Text',
+                            'marks' => [
+                                [
+                                    'type' => 'bold',
+                                ]
+                            ],
+                        ]
+                    ]
+                ]
+            ],
+        ], $output);
     }
 }

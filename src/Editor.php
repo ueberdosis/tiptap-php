@@ -13,15 +13,19 @@ class Editor
         $this->extensions = $configuration['extensions'] ?? [];
     }
 
-    public function setJSON($value)
+    public function setContent($value)
     {
         if (is_string($value)) {
-            $value = json_decode($value, true);
+            try {
+                $this->document = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+            } catch (\Exception $e) {
+                $this->document = (new DOMParser)->render($value);
+            }
         } elseif (is_array($value)) {
-            $value = json_decode(json_encode($value), true);
+            $this->document = json_decode(json_encode($value), true, 512, JSON_THROW_ON_ERROR);
+        } else {
+            // TODO: Throw exception, unkown format
         }
-
-        $this->document = $value;
 
         return $this;
     }

@@ -25,7 +25,7 @@ class GetHTMLTest extends TestCase
             ],
         ];
 
-        $output = (new Editor)->setJSON($input)->getHTML();
+        $output = (new Editor)->setContent($input)->getHTML();
 
         $this->assertEquals('<p>Example Text</p>', $output);
     }

@@ -108,7 +108,7 @@ class DOMSerializer
             } elseif ($element) {
                 $element->appendChild($text);
             } else {
-                $element =$text;
+                $element = $text;
             }
         }
         // TODO: Shouldn’t that come before the other if?
@@ -151,6 +151,7 @@ class DOMSerializer
         } else {
             // TODO: Improve error output
             var_dump($renderHTML);
+
             throw new \Exception("Failed to use renderHTML output.");
         }
 

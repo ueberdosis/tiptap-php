@@ -34,24 +34,6 @@ class DOMSerializer
         HTMLOutput\Marks\Superscript::class,
     ];
 
-    public function withMarks($marks = null)
-    {
-        if (is_array($marks)) {
-            $this->marks = $marks;
-        }
-
-        return $this;
-    }
-
-    public function withNodes($nodes = null)
-    {
-        if (is_array($nodes)) {
-            $this->nodes = $nodes;
-        }
-
-        return $this;
-    }
-
     public function document($value)
     {
         if (is_string($value)) {
@@ -220,59 +202,5 @@ class DOMSerializer
         }
 
         return join($html);
-    }
-
-    public function addNode($node)
-    {
-        $this->nodes[] = $node;
-
-        return $this;
-    }
-
-    public function addNodes($nodes)
-    {
-        foreach ($nodes as $node) {
-            $this->addNode($node);
-        }
-
-        return $this;
-    }
-
-    public function addMark($mark)
-    {
-        $this->marks[] = $mark;
-
-        return $this;
-    }
-
-    public function addMarks($marks)
-    {
-        foreach ($marks as $mark) {
-            $this->addMark($mark);
-        }
-
-        return $this;
-    }
-
-    public function replaceNode($search_node, $replace_node)
-    {
-        foreach ($this->nodes as $key => $node_class) {
-            if ($node_class == $search_node) {
-                $this->nodes[$key] = $replace_node;
-            }
-        }
-
-        return $this;
-    }
-
-    public function replaceMark($search_mark, $replace_mark)
-    {
-        foreach ($this->marks as $key => $mark_class) {
-            if ($mark_class == $search_mark) {
-                $this->marks[$key] = $replace_mark;
-            }
-        }
-
-        return $this;
     }
 }

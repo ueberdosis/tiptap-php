@@ -16,12 +16,12 @@ composer require ueberdosis/tiptap
 ## Usage
 ### Convert tiptap HTML to JSON
 ```php
-$json = (new Tiptap\Tiptap)->setContent('<p>Example Text</p>')->getDocument();
+$json = (new Tiptap\Editor)->setContent('<p>Example Text</p>')->getDocument();
 ```
 
 ### Convert tiptap JSON to HTML
 ```php
-$html = (new Tiptap\Tiptap)->setContent([
+$html = (new Tiptap\Editor)->setContent([
     'type' => 'doc',
     'content' => [
         [

@@ -4,6 +4,6 @@ namespace Tiptap\HTMLOutput\Marks;
 
 class Superscript extends Mark
 {
-    protected $markType = 'superscript';
+    protected $name = 'superscript';
     protected $tagName = 'sup';
 }

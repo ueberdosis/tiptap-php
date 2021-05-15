@@ -4,6 +4,6 @@ namespace Tiptap\HTMLOutput\Marks;
 
 class Underline extends Mark
 {
-    protected $markType = 'underline';
+    protected $name = 'underline';
     protected $tagName = 'u';
 }

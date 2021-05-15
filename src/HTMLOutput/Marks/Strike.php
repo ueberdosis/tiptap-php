@@ -4,6 +4,6 @@ namespace Tiptap\HTMLOutput\Marks;
 
 class Strike extends Mark
 {
-    protected $markType = 'strike';
+    protected $name = 'strike';
     protected $tagName = 'strike';
 }

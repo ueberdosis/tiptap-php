@@ -4,6 +4,6 @@ namespace Tiptap\HTMLOutput\Marks;
 
 class Italic extends Mark
 {
-    protected $markType = 'italic';
+    protected $name = 'italic';
     protected $tagName = 'em';
 }

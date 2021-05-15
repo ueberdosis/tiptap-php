@@ -4,6 +4,6 @@ namespace Tiptap\HTMLOutput\Marks;
 
 class Code extends Mark
 {
-    protected $markType = 'code';
+    protected $name = 'code';
     protected $tagName = 'code';
 }

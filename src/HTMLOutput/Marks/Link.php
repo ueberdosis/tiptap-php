@@ -4,7 +4,7 @@ namespace Tiptap\HTMLOutput\Marks;
 
 class Link extends Mark
 {
-    protected $markType = 'link';
+    protected $name = 'link';
     protected $tagName = 'a';
 
     public function tag()

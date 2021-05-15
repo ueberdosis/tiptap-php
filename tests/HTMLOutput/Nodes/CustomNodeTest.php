@@ -2,7 +2,6 @@
 
 namespace Tiptap\Tests\HTMLOutput\Nodes;
 
-use Tiptap\Editor;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class CustomNodeTest extends TestCase

@@ -1,20 +1,20 @@
 <?php
 
-namespace Tiptap\Tests\Editor;
+namespace Tiptap\Tests\HTMLOutput\Nodes;
 
-use PHPUnit\Framework\TestCase;
 use Tiptap\Editor;
+use Tiptap\Tests\HTMLOutput\TestCase;
 
-class GetHTMLTest extends TestCase
+class CodeBlockTest extends TestCase
 {
     /** @test */
-    public function get_html_outputs_html()
+    public function code_block_node_gets_rendered_correctly()
     {
-        $input = [
+        $json = [
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'paragraph',
+                    'type' => 'code_block',
                     'content' => [
                         [
                             'type' => 'text',
@@ -25,8 +25,8 @@ class GetHTMLTest extends TestCase
             ],
         ];
 
-        $output = (new Editor)->setContent($input)->getHTML();
+        $html = '<pre><code>Example Text</code></pre>';
 
-        $this->assertEquals('<p>Example Text</p>', $output);
+        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
     }
 }

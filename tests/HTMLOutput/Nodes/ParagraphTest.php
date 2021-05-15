@@ -1,16 +1,16 @@
 <?php
 
-namespace Tiptap\Tests\Editor;
+namespace Tiptap\Tests\HTMLOutput\Nodes;
 
-use PHPUnit\Framework\TestCase;
 use Tiptap\Editor;
+use Tiptap\Tests\HTMLOutput\TestCase;
 
-class GetHTMLTest extends TestCase
+class ParagraphTest extends TestCase
 {
     /** @test */
-    public function get_html_outputs_html()
+    public function paragraph_node_gets_rendered_correctly()
     {
-        $input = [
+        $json = [
             'type' => 'doc',
             'content' => [
                 [
@@ -18,15 +18,15 @@ class GetHTMLTest extends TestCase
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'Example Text',
+                            'text' => 'Example Paragraph',
                         ],
                     ],
                 ],
             ],
         ];
 
-        $output = (new Editor)->setContent($input)->getHTML();
+        $html = '<p>Example Paragraph</p>';
 
-        $this->assertEquals('<p>Example Text</p>', $output);
+        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
     }
 }

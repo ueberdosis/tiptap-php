@@ -1,16 +1,17 @@
 <?php
 
-namespace Tiptap\Tests\Editor;
+namespace Tiptap\Tests\JSONOutput;
 
-use PHPUnit\Framework\TestCase;
 use Tiptap\Editor;
 
-class GetHTMLTest extends TestCase
+class EmojiTest extends TestCase
 {
     /** @test */
-    public function get_html_outputs_html()
+    public function emojis_are_transformed_correctly()
     {
-        $input = [
+        $html = "<p>🔥</p>";
+
+        $json = [
             'type' => 'doc',
             'content' => [
                 [
@@ -18,15 +19,13 @@ class GetHTMLTest extends TestCase
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'Example Text',
+                            'text' => "🔥",
                         ],
                     ],
                 ],
             ],
         ];
 
-        $output = (new Editor)->setContent($input)->getHTML();
-
-        $this->assertEquals('<p>Example Text</p>', $output);
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
     }
 }

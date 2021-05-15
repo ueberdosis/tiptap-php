@@ -18,8 +18,7 @@ composer require ueberdosis/tiptap
 ## Usage
 
 ```php
-$tiptap = new Ueberdosis\Tiptap();
-echo $tiptap->echoPhrase('Hello, Ueberdosis!');
+$tiptap = new Tiptap\Tiptap();
 ```
 
 ## Testing

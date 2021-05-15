@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Ueberdosis\\Tiptap\\": "src"
+            "Tiptap\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Ueberdosis\\Tiptap\\Tests\\": "tests"
+            "Tiptap\\Tests\\": "tests"
         }
     },
     "scripts": {

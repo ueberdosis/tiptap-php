@@ -2,8 +2,8 @@
 
 namespace Tiptap;
 
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 
 class DOMParser
 {
@@ -52,7 +52,7 @@ class DOMParser
         );
 
         return [
-                'type'    => 'doc',
+                'type' => 'doc',
                 'content' => $content,
             ];
     }
@@ -98,6 +98,7 @@ class DOMParser
                     if ($child->hasChildNodes()) {
                         $nodes = array_merge($nodes, $this->renderChildren($child));
                     }
+
                     continue;
                 }
 

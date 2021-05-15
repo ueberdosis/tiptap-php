@@ -86,11 +86,11 @@ class SetContentTest extends TestCase
                             'marks' => [
                                 [
                                     'type' => 'bold',
-                                ]
+                                ],
                             ],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
         ], $output);
     }

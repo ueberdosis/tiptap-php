@@ -34,7 +34,7 @@ class TableCell extends Node
             $attrs['rowspan'] = intval($rowspan);
         }
 
-        if (!empty($attrs)) {
+        if (! empty($attrs)) {
             $data['attrs'] = $attrs;
         }
 

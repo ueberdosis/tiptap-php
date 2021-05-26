@@ -66,8 +66,6 @@ class DOMSerializer
                                 $element->content,
                                 $element->content->appendChild($pointer->element)
                             ) : $pointer;
-                        } else {
-                            // TODO: What now?
                         }
                     }
                 }

@@ -63,7 +63,10 @@ class DOMSerializer
                         if ($this->markShouldOpen($mark, $prevNode)) {
                             if ($element) {
                                 // echo "append {$pointer->element->tagName} to {$element->element->tagName}.\n";
-                                $element->content->appendChild($pointer->element);
+                                $element = new DOMSerializerPointer(
+                                    $element->content,
+                                    $element->content->appendChild($pointer->element)
+                                );
                             } else {
                                 $element = $pointer;
                             }
@@ -123,22 +126,35 @@ class DOMSerializer
 
                 $prevNode = $nestedNode;
             }
-        } elseif ($text = $renderClass->text()) {
-            $text = $this->dom->createTextNode($text);
-            // echo "append text to {$child->tagName}.\n";
-            $child->appendChild($text);
-        } elseif (isset($node->text)) {
+
+            return $element;
+        }
+
+        // if ($text = $renderClass->text()) {
+        //     $text = $this->dom->createTextNode($text);
+        //     // echo "append text to {$child->tagName}.\n";
+        //     // TODO: $child!? Should be $element->content
+        //     $child->appendChild($text);
+        // }
+
+        if (isset($node->text)) {
+            // echo "add text\n";
             $text = $this->dom->createTextNode($node->text);
 
-            if ($child) {
-                // echo "append text to {$child->tagName}.\n";
-                $child->appendChild($text);
-            } elseif ($element) {
-                // echo "append text to {$element->element->tagName}.\n";
-                $element->content->appendChild($text);
-            } else {
-                $element = new DOMSerializerPointer($text);
+            if (!$element) {
+                return new DOMSerializerPointer($text);
             }
+
+            // if ($child) {
+            //     // echo "append text to {$child->tagName}.\n";
+            //     // TODO: $child!? Should be $element->content
+            //     $child->appendChild($text);
+            // }
+
+            // echo "append text to {$element->content->tagName}.\n";
+            $element->content->appendChild($text);
+
+            return $element;
         }
 
         return $element;

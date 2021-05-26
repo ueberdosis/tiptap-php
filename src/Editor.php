@@ -19,7 +19,7 @@ class Editor
             try {
                 $this->document = json_decode($value, false, 512, JSON_THROW_ON_ERROR);
             } catch (\Exception $e) {
-                $this->document = (new DOMParser)->render($value);
+                $this->document = json_decode(json_encode((new DOMParser)->render($value)), false, 512, JSON_THROW_ON_ERROR);
             }
         } elseif (is_array($value)) {
             $this->document = json_decode(json_encode($value), false, 512, JSON_THROW_ON_ERROR);

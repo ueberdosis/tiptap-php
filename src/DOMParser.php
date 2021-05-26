@@ -52,9 +52,9 @@ class DOMParser
         );
 
         return [
-                'type' => 'doc',
-                'content' => $content,
-            ];
+            'type' => 'doc',
+            'content' => $content,
+        ];
     }
 
     private function setDocument(string $value): DOMParser

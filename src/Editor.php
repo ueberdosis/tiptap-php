@@ -17,16 +17,15 @@ class Editor
     {
         if (is_string($value)) {
             try {
-                $this->document = json_decode($value, false, 512, JSON_THROW_ON_ERROR);
+                $this->document = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
             } catch (\Exception $e) {
-                $this->document = json_decode(json_encode((new DOMParser)->render($value)), false, 512, JSON_THROW_ON_ERROR);
+                $this->document = (new DOMParser)->render($value);
             }
         } elseif (is_array($value)) {
-            $this->document = json_decode(json_encode($value), false, 512, JSON_THROW_ON_ERROR);
+            $this->document = json_decode(json_encode($value), true, 512, JSON_THROW_ON_ERROR);
         } else {
             // TODO: Throw exception, unkown format
         }
-
 
         return $this;
     }

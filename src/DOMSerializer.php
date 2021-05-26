@@ -241,7 +241,7 @@ class DOMSerializer
 
     public function render($value)
     {
-        $this->document = $value;
+        $this->document = json_decode(json_encode($value));
 
         $content = is_array($this->document->content) ? $this->document->content : [];
 

@@ -25,7 +25,7 @@ class SetContentTest extends TestCase
             ]
         }')->getDocument();
 
-        $this->assertEquals(json_decode(json_encode([
+        $this->assertEquals([
             'type' => 'doc',
             'content' => [
                 [
@@ -38,9 +38,8 @@ class SetContentTest extends TestCase
                     ],
                 ],
             ],
-        ])), $output);
+        ], $output);
     }
-
 
     /** @test */
     public function arrays_are_detected()
@@ -62,7 +61,7 @@ class SetContentTest extends TestCase
 
         $output = (new Editor)->setContent($input)->getDocument();
 
-        $this->assertEquals(json_decode(json_encode($input)), $output);
+        $this->assertEquals($input, $output);
     }
 
     /** @test */
@@ -70,7 +69,7 @@ class SetContentTest extends TestCase
     {
         $output = (new Editor)->setContent('<p>Example <strong>Text</strong></p>')->getDocument();
 
-        $this->assertEquals(json_decode(json_encode([
+        $this->assertEquals([
             'type' => 'doc',
             'content' => [
                 [
@@ -92,6 +91,6 @@ class SetContentTest extends TestCase
                     ],
                 ],
             ],
-        ])), $output);
+        ], $output);
     }
 }

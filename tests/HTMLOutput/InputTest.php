@@ -56,13 +56,13 @@ class InputTest extends TestCase
             ],
         ];
 
-        $html = 'Äffchen';
+        $html = '&Auml;ffchen';
 
         $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
     }
 
     /** @test */
-    public function quotes_are_escape()
+    public function quotes_are_not_escaped()
     {
         $json = [
             'type' => 'doc',
@@ -74,7 +74,7 @@ class InputTest extends TestCase
             ],
         ];
 
-        $html = '&quot;Example Text&quot;';
+        $html = '"Example Text"';
 
         $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
     }

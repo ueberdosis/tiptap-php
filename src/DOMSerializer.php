@@ -45,28 +45,37 @@ class DOMSerializer
 
     private function renderNode($node, $prevNode = null, $nextNode = null)
     {
+        // The element that’s returned
         $element = null;
+
+        // A temporary child element
         $child = null;
 
+        // Loop through all marks
         if (isset($node->marks)) {
             foreach ($node->marks as $mark) {
                 foreach ($this->marks as $class) {
                     $renderClass = new $class($mark);
 
-                    if ($renderClass->matching() && $this->markShouldOpen($mark, $prevNode)) {
+                    if ($renderClass->matching()) {
                         $child = $this->renderHTML($renderClass);
 
-                        $element ? $element->appendChild($child) : $element = $child;
+                        if ($this->markShouldOpen($mark, $prevNode)) {
+                            $element ? $element->appendChild($child) : $element = $child;
+                        }
                     }
                 }
             }
         }
 
+        // Loop through all nodes
         foreach ($this->nodes as $class) {
             $renderClass = new $class($node);
 
             if ($renderClass->matching()) {
                 $child = $this->renderHTML($renderClass);
+
+                var_dump($child->tagName);
 
                 $element ? $element->appendChild($child) : $element = $child;
 
@@ -74,6 +83,7 @@ class DOMSerializer
             }
         }
 
+        // Render the content
         if (isset($node->content)) {
             foreach ($node->content as $index => $nestedNode) {
                 $prevNestedNode = $node->content[$index - 1] ?? null;
@@ -85,9 +95,10 @@ class DOMSerializer
 
                 $prevNode = $nestedNode;
             }
+        } elseif ($text = $renderClass->text()) {
+            $text = $this->dom->createTextNode($text);
+            $child->appendChild($text);
         } elseif (isset($node->text)) {
-            // TODO: Check escaping
-            // $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
             $text = $this->dom->createTextNode($node->text);
 
             if ($child) {
@@ -98,11 +109,6 @@ class DOMSerializer
                 $element = $text;
             }
         }
-        // TODO: Shouldn’t that come before the other if?
-        elseif ($text = $renderClass->text()) {
-            $text = $this->dom->createTextNode($text);
-            $child->appendChild($text);
-        }
 
         return $element;
     }
@@ -111,53 +117,50 @@ class DOMSerializer
     {
         $renderHTML = $renderClass->tag();
 
+        // 'strong'
         if (is_string($renderHTML)) {
-            $child = $this->dom->createElement(
+            return $this->dom->createElement(
                 $renderHTML
             );
-        } elseif (isset($renderHTML['tag'])) {
-            $child = $this->dom->createElement(
+        }
+
+        // ['tag' => 'a', 'attrs' => ['href' => '#']]
+        if (isset($renderHTML['tag'])) {
+            $element = $this->dom->createElement(
                 $renderHTML['tag']
             );
 
             foreach ($renderHTML['attrs'] ?? [] as $name => $value) {
                 $attribute = $this->dom->createAttribute($name);
                 $attribute->value = $value;
-                $child->appendChild($attribute);
-            }
-        } elseif (is_array($renderHTML)) {
-            foreach ($renderHTML as $tag) {
-                if (! isset($child)) {
-                    $child = $this->dom->createElement(
-                        $tag
-                    );
-                } else {
-                    $newElement = $this->dom->createElement(
-                        $tag
-                    );
-
-                    $child = $child->appendChild($newElement);
-                }
-                // TODO: WHAT NOW?
-                // phpunit --filter table_node_gets_rendered_correctly
-
-                // isset($child) ? $child = $child->appendChild($newElement) : $child = $newElement;
+                $element->appendChild($attribute);
             }
 
-            var_dump($child);
-        } else {
-            // TODO: Improve error output
-            var_dump($renderHTML);
-
-            throw new \Exception("Failed to use renderHTML output.");
+            return $element;
         }
 
-        return $child;
+        // ['table', 'tbody']
+        if (is_array($renderHTML)) {
+            $element = $this->dom->createElement(array_shift($renderHTML));
+            $lastElement = $element;
+
+            foreach ($renderHTML as $tag) {
+                $lastElement = $lastElement->appendChild($this->dom->createElement($tag));
+            }
+
+            return $element;
+        }
+
+        // TODO:
+        // [['tag' => 'table', 'attrs' => ['width' => '100%']], ['tag' => 'tbody']]
+
+        // TODO: Improve error output
+        var_dump($renderHTML);
+        throw new \Exception("Failed to use renderHTML output.");
     }
 
     private function markShouldOpen($mark, $prevNode)
     {
-        return true;
         return $this->nodeHasMark($prevNode, $mark);
     }
 

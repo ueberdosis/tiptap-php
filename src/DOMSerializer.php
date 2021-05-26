@@ -251,7 +251,7 @@ class DOMSerializer
 
             $pointer = $this->renderNode($node, $prevNode, $nextNode);
 
-            if ($pointer->element) {
+            if ($pointer && $pointer->element) {
                 $this->dom->appendChild($pointer->element);
             }
         }

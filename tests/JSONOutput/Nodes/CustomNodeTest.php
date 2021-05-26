@@ -9,7 +9,7 @@ class CustomNodeTest extends TestCase
     /** @test */
     public function b_and_strong_get_rendered_correctly()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p>A custom node <span data-foo="bla bla" bar="nanana"></span> and some normal text.</p>';
 
         // $json = [

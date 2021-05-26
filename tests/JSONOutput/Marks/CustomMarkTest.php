@@ -9,7 +9,7 @@ class CustomMarkTest extends TestCase
     /** @test */
     public function b_and_strong_get_rendered_correctly()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p><span data-foo="bla bla" bar="nanana">Example text inside custom mark</span> and some more text.</p>';
 
         // $json = [

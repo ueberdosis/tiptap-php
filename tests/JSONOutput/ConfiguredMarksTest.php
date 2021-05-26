@@ -9,7 +9,7 @@ class ConfiguredMarksTest extends TestCase
     /** @test */
     public function bold_is_enabled_by_default()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<strong>Example Text</strong>';
 
         // $json = [
@@ -33,7 +33,7 @@ class ConfiguredMarksTest extends TestCase
     /** @test */
     public function bold_is_enabled_explicitly()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<strong>Example Text</strong>';
 
         // $json = [
@@ -59,7 +59,7 @@ class ConfiguredMarksTest extends TestCase
     /** @test */
     public function all_marks_are_disabled()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p><strong>Example Text</strong></p>';
 
         // $json = [
@@ -83,7 +83,7 @@ class ConfiguredMarksTest extends TestCase
     /** @test */
     public function bold_is_replaced_with_a_custom_integration()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p><b>Example Text</b></p>';
 
         // $json = [

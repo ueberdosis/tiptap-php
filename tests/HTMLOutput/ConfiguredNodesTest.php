@@ -9,7 +9,7 @@ class ConfiguredNodesTest extends TestCase
     /** @test */
     public function paragraph_is_enabled_by_default()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [
@@ -33,7 +33,7 @@ class ConfiguredNodesTest extends TestCase
     /** @test */
     public function paragraph_is_enabled_explicitly()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [
@@ -59,7 +59,7 @@ class ConfiguredNodesTest extends TestCase
     /** @test */
     public function all_marks_are_disabled()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [
@@ -83,7 +83,7 @@ class ConfiguredNodesTest extends TestCase
     /** @test */
     public function paragraph_is_replaced_with_a_custom_integration()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [

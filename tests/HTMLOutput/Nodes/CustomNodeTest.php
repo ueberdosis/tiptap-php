@@ -9,7 +9,7 @@ class CustomNodeTest extends TestCase
     /** @test */
     public function custom_node_gets_rendered_correctly()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [
@@ -30,7 +30,7 @@ class CustomNodeTest extends TestCase
     /** @test */
     public function multiple_custom_nodes_get_rendered_correctly()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [
@@ -51,7 +51,7 @@ class CustomNodeTest extends TestCase
     /** @test */
     public function custom_node_renders_with_correct_text()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->markTestSkipped('This test has not been implemented yet.');
         // $json = [
         //     'type' => 'doc',
         //     'content' => [

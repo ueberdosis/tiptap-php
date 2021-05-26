@@ -61,15 +61,13 @@ class DOMSerializer
                         $pointer = $this->renderHTML($renderClass);
 
                         if ($this->markShouldOpen($mark, $prevNode)) {
-                            if ($element) {
-                                // echo "append {$pointer->element->tagName} to {$element->element->tagName}.\n";
-                                $element = new DOMSerializerPointer(
-                                    $element->content,
-                                    $element->content->appendChild($pointer->element)
-                                );
-                            } else {
-                                $element = $pointer;
-                            }
+                            // echo "append {$pointer->element->tagName} to {$element->element->tagName}.\n";
+                            $element = $element ? new DOMSerializerPointer(
+                                $element->content,
+                                $element->content->appendChild($pointer->element)
+                            ) : $pointer;
+                        } else {
+                            // TODO: What now?
                         }
                     }
                 }

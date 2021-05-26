@@ -43,19 +43,6 @@ class DOMSerializer
         $this->dom = new DOMDocument('1.0', 'utf-8');
     }
 
-    public function document($value)
-    {
-        if (is_string($value)) {
-            $value = json_decode($value);
-        } elseif (is_array($value)) {
-            $value = json_decode(json_encode($value));
-        }
-
-        $this->document = $value;
-
-        return $this;
-    }
-
     private function renderNode($node, $prevNode = null, $nextNode = null)
     {
         $element = null;
@@ -170,13 +157,14 @@ class DOMSerializer
 
     private function markShouldOpen($mark, $prevNode)
     {
+        return true;
         return $this->nodeHasMark($prevNode, $mark);
     }
 
-    private function markShouldClose($mark, $nextNode)
-    {
-        return $this->nodeHasMark($nextNode, $mark);
-    }
+    // private function markShouldClose($mark, $nextNode)
+    // {
+    //     return $this->nodeHasMark($nextNode, $mark);
+    // }
 
     private function nodeHasMark($node, $mark)
     {
@@ -198,51 +186,9 @@ class DOMSerializer
         return true;
     }
 
-    private function renderOpeningTag($tags)
-    {
-        $tags = (array) $tags;
-
-        if (! $tags || ! count($tags)) {
-            return null;
-        }
-
-        return join('', array_map(function ($item) {
-            if (is_string($item)) {
-                return "<{$item}>";
-            }
-
-            $attrs = '';
-            if (isset($item['attrs'])) {
-                foreach ($item['attrs'] as $attribute => $value) {
-                    $attrs .= " {$attribute}=\"{$value}\"";
-                }
-            }
-
-            return "<{$item['tag']}{$attrs}>";
-        }, $tags));
-    }
-
-    private function renderClosingTag($tags)
-    {
-        $tags = (array) $tags;
-        $tags = array_reverse($tags);
-
-        if (! $tags || ! count($tags)) {
-            return null;
-        }
-
-        return join('', array_map(function ($item) {
-            if (is_string($item)) {
-                return "</{$item}>";
-            }
-
-            return "</{$item['tag']}>";
-        }, $tags));
-    }
-
     public function render($value)
     {
-        $this->document($value);
+        $this->document = $value;
 
         $content = is_array($this->document->content) ? $this->document->content : [];
 

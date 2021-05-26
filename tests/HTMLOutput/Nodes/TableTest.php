@@ -8,6 +8,44 @@ use Tiptap\Tests\HTMLOutput\TestCase;
 class TableTest extends TestCase
 {
     /** @test */
+    public function simple_table_node_gets_rendered_correctly()
+    {
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'table',
+                    'content' => [
+                        [
+                            'type' => 'table_row',
+                            'content' => [
+                                [
+                                    'type' => 'table_header',
+                                    'content' => [
+                                        [
+                                            'type' => 'paragraph',
+                                            'content' => [
+                                                [
+                                                    'type' => 'text',
+                                                    'text' => 'text in header cell',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $html = '<table><tbody><tr><th><p>text in header cell</p></th></tr></tbody></table>';
+
+        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+    }
+
+    /** @test */
     public function table_node_gets_rendered_correctly()
     {
         $json = [

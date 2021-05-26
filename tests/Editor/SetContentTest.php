@@ -25,7 +25,7 @@ class SetContentTest extends TestCase
             ]
         }')->getDocument();
 
-        $this->assertEquals([
+        $this->assertEquals(json_decode(json_encode([
             'type' => 'doc',
             'content' => [
                 [
@@ -38,7 +38,7 @@ class SetContentTest extends TestCase
                     ],
                 ],
             ],
-        ], $output);
+        ])), $output);
     }
 
 
@@ -62,7 +62,7 @@ class SetContentTest extends TestCase
 
         $output = (new Editor)->setContent($input)->getDocument();
 
-        $this->assertEquals($input, $output);
+        $this->assertEquals(json_decode(json_encode($input)), $output);
     }
 
     /** @test */
@@ -70,7 +70,7 @@ class SetContentTest extends TestCase
     {
         $output = (new Editor)->setContent('<p>Example <strong>Text</strong></p>')->getDocument();
 
-        $this->assertEquals([
+        $this->assertEquals(json_decode(json_encode([
             'type' => 'doc',
             'content' => [
                 [
@@ -92,6 +92,6 @@ class SetContentTest extends TestCase
                     ],
                 ],
             ],
-        ], $output);
+        ])), $output);
     }
 }

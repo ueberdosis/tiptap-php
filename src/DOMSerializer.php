@@ -139,7 +139,7 @@ class DOMSerializer
             // echo "add text\n";
             $text = $this->dom->createTextNode($node->text);
 
-            if (!$element) {
+            if (! $element) {
                 return new DOMSerializerPointer($text);
             }
 
@@ -204,6 +204,7 @@ class DOMSerializer
 
         // TODO: Improve error output
         var_dump($renderHTML);
+
         throw new \Exception("Failed to use renderHTML output.");
     }
 

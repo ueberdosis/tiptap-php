@@ -22,7 +22,7 @@ class CodeBlock extends Node
             return [
                 'type' => 'code_block',
                 'attrs' => [
-                    'language' => $this->getLanguage(),
+                    'language' => $language,
                 ],
             ];
         }

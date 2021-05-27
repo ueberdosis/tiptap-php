@@ -2,7 +2,7 @@
 
 namespace Tiptap\Tests\HTMLOutput\Marks\Custom;
 
-use Tiptap\HTMLOutput\Marks\Mark;
+use Tiptap\HTMLOutput\Contracts\Mark;
 
 class CustomMark extends Mark
 {
@@ -11,7 +11,7 @@ class CustomMark extends Mark
         return $this->mark->type === 'custom_mark';
     }
 
-    public function tag()
+    public function renderHTML()
     {
         return 'custom_mark';
     }

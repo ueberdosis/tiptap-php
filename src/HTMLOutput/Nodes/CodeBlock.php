@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class CodeBlock extends Node
 {
     protected $name = 'code_block';
-    protected $tagName = ['pre', 'code'];
+
+    public function renderHTML()
+    {
+        return ['pre', 'code'];
+    }
 }

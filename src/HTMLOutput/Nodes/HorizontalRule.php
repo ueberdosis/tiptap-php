@@ -2,13 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class HorizontalRule extends Node
 {
     protected $name = 'horizontal_rule';
-    protected $tagName = 'hr';
 
-    public function selfClosing()
+    public function renderHTML()
     {
-        return true;
+        return 'hr';
     }
 }

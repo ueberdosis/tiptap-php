@@ -2,20 +2,16 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class Image extends Node
 {
     protected $name = 'image';
-    protected $tagName = 'img';
 
-    public function selfClosing()
-    {
-        return true;
-    }
-
-    public function tag()
+    public function renderHTML()
     {
         return [
-            'tag' => $this->tagName,
+            'tag' => 'img',
             'attrs' => $this->node->attrs,
         ];
     }

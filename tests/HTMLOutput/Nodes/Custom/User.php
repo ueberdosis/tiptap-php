@@ -2,7 +2,7 @@
 
 namespace Tiptap\Tests\HTMLOutput\Nodes\Custom;
 
-use Tiptap\HTMLOutput\Nodes\Node;
+use Tiptap\HTMLOutput\Contracts\Node;
 
 class User extends Node
 {

@@ -2,12 +2,13 @@
 
 namespace Tiptap\HTMLOutput\Marks;
 
+use Tiptap\HTMLOutput\Contracts\Mark;
+
 class Link extends Mark
 {
     protected $name = 'link';
-    protected $tagName = 'a';
 
-    public function tag()
+    public function renderHTML()
     {
         $attrs = [];
 
@@ -22,7 +23,7 @@ class Link extends Mark
         $attrs['href'] = $this->mark->attrs->href;
 
         return [
-            'tag' => $this->tagName,
+            'tag' => 'a',
             'attrs' => $attrs,
         ];
     }

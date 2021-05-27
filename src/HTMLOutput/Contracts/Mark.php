@@ -1,12 +1,11 @@
 <?php
 
-namespace Tiptap\HTMLOutput\Marks;
+namespace Tiptap\HTMLOutput\Contracts;
 
 class Mark
 {
     protected $mark;
     protected $name;
-    protected $tagName = null;
 
     public function __construct($mark)
     {
@@ -22,9 +21,9 @@ class Mark
         return false;
     }
 
-    public function tag()
+    public function renderHTML()
     {
-        return $this->tagName;
+        return null;
     }
 
     public function text()

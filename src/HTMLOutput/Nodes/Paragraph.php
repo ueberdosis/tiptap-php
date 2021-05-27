@@ -2,8 +2,13 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class Paragraph extends Node
 {
     protected $name = 'paragraph';
-    protected $tagName = 'p';
+    public function renderHTML()
+    {
+        return 'p';
+    }
 }

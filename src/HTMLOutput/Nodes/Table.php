@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class Table extends Node
 {
     protected $name = 'table';
-    protected $tagName = ['table', 'tbody'];
+
+    public function renderHTML()
+    {
+        return ['table', 'tbody'];
+    }
 }

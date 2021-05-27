@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class BulletList extends Node
 {
     protected $name = 'bullet_list';
-    protected $tagName = 'ul';
+
+    public function renderHTML()
+    {
+        return 'ul';
+    }
 }

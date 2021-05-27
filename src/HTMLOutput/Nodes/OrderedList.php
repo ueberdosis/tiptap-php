@@ -2,12 +2,13 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class OrderedList extends Node
 {
     protected $name = 'ordered_list';
-    protected $tagName = 'ol';
 
-    public function tag()
+    public function renderHTML()
     {
         $attrs = [];
 
@@ -16,7 +17,7 @@ class OrderedList extends Node
         }
 
         return [
-            'tag' => $this->tagName,
+            'tag' => 'ol',
             'attrs' => $attrs,
         ];
     }

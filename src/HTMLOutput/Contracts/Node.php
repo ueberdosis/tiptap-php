@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\HTMLOutput\Nodes;
+namespace Tiptap\HTMLOutput\Contracts;
 
 class Node
 {
@@ -27,7 +27,7 @@ class Node
         return false;
     }
 
-    public function tag()
+    public function renderHTML()
     {
         return $this->tagName;
     }

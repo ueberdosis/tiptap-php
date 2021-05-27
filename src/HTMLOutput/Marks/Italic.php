@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Marks;
 
+use Tiptap\HTMLOutput\Contracts\Mark;
+
 class Italic extends Mark
 {
     protected $name = 'italic';
-    protected $tagName = 'em';
+
+    public function renderHTML()
+    {
+        return 'em';
+    }
 }

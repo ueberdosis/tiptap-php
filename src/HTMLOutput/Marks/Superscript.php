@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Marks;
 
+use Tiptap\HTMLOutput\Contracts\Mark;
+
 class Superscript extends Mark
 {
     protected $name = 'superscript';
-    protected $tagName = 'sup';
+
+    public function renderHTML()
+    {
+        return 'sup';
+    }
 }

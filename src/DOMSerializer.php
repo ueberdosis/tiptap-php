@@ -133,7 +133,7 @@ class DOMSerializer
 
     private function renderHTML($renderClass): DOMSerializerPointer
     {
-        $renderHTML = $renderClass->tag();
+        $renderHTML = $renderClass->renderHTML();
 
         // 'strong'
         if (is_string($renderHTML)) {

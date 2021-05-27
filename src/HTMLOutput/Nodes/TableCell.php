@@ -2,18 +2,21 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class TableCell extends Node
 {
     protected $name = 'table_cell';
-    protected $tagName = 'td';
 
-    public function tag()
+    protected function getAttrs()
     {
         $attrs = [];
+
         if (isset($this->node->attrs)) {
             if (isset($this->node->attrs->colspan)) {
                 $attrs['colspan'] = $this->node->attrs->colspan;
             }
+
             if (isset($this->node->attrs->colwidth)) {
                 if ($widths = $this->node->attrs->colwidth) {
                     if (count($widths) === $attrs['colspan']) {
@@ -21,14 +24,20 @@ class TableCell extends Node
                     }
                 }
             }
+
             if (isset($this->node->attrs->rowspan)) {
                 $attrs['rowspan'] = $this->node->attrs->rowspan;
             }
         }
 
+        return $attrs;
+    }
+
+    public function renderHTML()
+    {
         return [
-            'tag' => $this->tagName,
-            'attrs' => $attrs,
+            'tag' => 'td',
+            'attrs' => $this->getAttrs(),
         ];
     }
 }

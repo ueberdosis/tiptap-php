@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Nodes;
 
+use Tiptap\HTMLOutput\Contracts\Node;
+
 class ListItem extends Node
 {
     protected $name = 'list_item';
-    protected $tagName = 'li';
+
+    public function renderHTML()
+    {
+        return 'li';
+    }
 }

@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Marks;
 
+use Tiptap\HTMLOutput\Contracts\Mark;
+
 class Strike extends Mark
 {
     protected $name = 'strike';
-    protected $tagName = 'strike';
+
+    public function renderHTML()
+    {
+        return 'strike';
+    }
 }

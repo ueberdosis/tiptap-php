@@ -2,8 +2,14 @@
 
 namespace Tiptap\HTMLOutput\Marks;
 
+use Tiptap\HTMLOutput\Contracts\Mark;
+
 class Underline extends Mark
 {
     protected $name = 'underline';
-    protected $tagName = 'u';
+
+    public function renderHTML()
+    {
+        return 'u';
+    }
 }

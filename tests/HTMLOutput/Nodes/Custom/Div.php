@@ -2,7 +2,7 @@
 
 namespace Tiptap\Tests\HTMLOutput\Nodes\Custom;
 
-use Tiptap\HTMLOutput\Nodes\Node;
+use Tiptap\HTMLOutput\Contracts\Node;
 
 class Div extends Node
 {
@@ -11,7 +11,7 @@ class Div extends Node
         return $this->node->type === 'div';
     }
 
-    public function tag()
+    public function renderHTML()
     {
         return 'div';
     }

@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class TableCell extends Node
 {
-    public $name = 'table_cell';
+    public static $name = 'table_cell';
 
-    protected function getAttrs($node)
+    protected static function getAttrs($node)
     {
         $attrs = [];
 
@@ -33,11 +33,11 @@ class TableCell extends Node
         return $attrs;
     }
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return [
             'tag' => 'td',
-            'attrs' => $this->getAttrs($node),
+            'attrs' => self::getAttrs($node),
         ];
     }
 }

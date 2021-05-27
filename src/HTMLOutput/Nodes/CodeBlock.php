@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class CodeBlock extends Node
 {
-    public $name = 'code_block';
+    public static $name = 'code_block';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return ['pre', 'code'];
     }

@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class HorizontalRule extends Node
 {
-    public $name = 'horizontal_rule';
+    public static $name = 'horizontal_rule';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return 'hr';
     }

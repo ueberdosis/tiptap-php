@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class TableRow extends Node
 {
-    public $name = 'table_row';
+    public static $name = 'table_row';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return 'tr';
     }

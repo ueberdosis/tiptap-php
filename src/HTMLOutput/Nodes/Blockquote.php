@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class Blockquote extends Node
 {
-    public $name = 'blockquote';
+    public static $name = 'blockquote';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return 'blockquote';
     }

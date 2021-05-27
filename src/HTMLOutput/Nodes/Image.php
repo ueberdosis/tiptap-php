@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class Image extends Node
 {
-    public $name = 'image';
+    public static $name = 'image';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return [
             'tag' => 'img',

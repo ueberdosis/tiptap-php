@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Strike extends Mark
 {
-    public $name = 'strike';
+    public static $name = 'strike';
 
-    public function renderHTML($mark)
+    public static function renderHTML($mark)
     {
         return 'strike';
     }

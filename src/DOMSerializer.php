@@ -52,11 +52,11 @@ class DOMSerializer
         if (isset($node->marks)) {
             foreach ($node->marks as $mark) {
                 foreach ($this->marks as $class) {
-                    $renderClass = new $class;
+                    $renderClass = $class;
 
                     if ($this->isType($mark, $renderClass)) {
                         $current = $this->renderHTML(
-                            $renderClass->renderHTML($mark)
+                            $renderClass::renderHTML($mark)
                         );
 
                         if ($this->markShouldOpen($mark, $prevNode)) {
@@ -72,11 +72,11 @@ class DOMSerializer
 
         // Loop through all nodes
         foreach ($this->nodes as $class) {
-            $renderClass = new $class;
+            $renderClass = $class;
 
             if ($this->isType($node, $renderClass)) {
                 $current = $this->renderHTML(
-                    $renderClass->renderHTML($node)
+                    $renderClass::renderHTML($node)
                 );
 
                 if ($pointer) {
@@ -111,7 +111,7 @@ class DOMSerializer
             return $pointer;
         }
 
-        if ($text = $renderClass->text($node)) {
+        if ($text = $renderClass::text($node)) {
             $text = $this->dom->createTextNode($text);
 
             if (! $pointer) {
@@ -140,7 +140,7 @@ class DOMSerializer
 
     private function isType($markOrNode, $renderClass): bool
     {
-        return isset($markOrNode->type) && $markOrNode->type === $renderClass->name;
+        return isset($markOrNode->type) && $markOrNode->type === $renderClass::$name;
     }
 
     private function renderHTML($DOMOutputSpec): DOMSerializerPointer

@@ -4,9 +4,9 @@ namespace Tiptap\HTMLOutput\Contracts;
 
 class Mark
 {
-    protected $name;
+    protected static $name;
 
-    public function renderHTML($mark)
+    public static function renderHTML($mark)
     {
         return null;
     }

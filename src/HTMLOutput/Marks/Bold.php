@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Bold extends Mark
 {
-    public $name = 'bold';
+    public static $name = 'bold';
 
-    public function renderHTML($mark)
+    public static function renderHTML($mark)
     {
         return 'strong';
     }

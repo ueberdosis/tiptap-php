@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class Paragraph extends Node
 {
-    public $name = 'paragraph';
+    public static $name = 'paragraph';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return 'p';
     }

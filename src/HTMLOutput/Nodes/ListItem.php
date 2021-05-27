@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class ListItem extends Node
 {
-    public $name = 'list_item';
+    public static $name = 'list_item';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return 'li';
     }

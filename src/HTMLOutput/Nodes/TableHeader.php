@@ -4,13 +4,13 @@ namespace Tiptap\HTMLOutput\Nodes;
 
 class TableHeader extends TableCell
 {
-    public $name = 'table_header';
+    public static $name = 'table_header';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return [
             'tag' => 'th',
-            'attrs' => $this->getAttrs($node),
+            'attrs' => self::getAttrs($node),
         ];
     }
 }

@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Underline extends Mark
 {
-    public $name = 'underline';
+    public static $name = 'underline';
 
-    public function renderHTML($mark)
+    public static function renderHTML($mark)
     {
         return 'u';
     }

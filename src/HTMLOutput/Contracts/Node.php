@@ -4,14 +4,14 @@ namespace Tiptap\HTMLOutput\Contracts;
 
 class Node
 {
-    protected $name;
+    protected static $name;
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return null;
     }
 
-    public function text($node)
+    public static function text($node)
     {
         return null;
     }

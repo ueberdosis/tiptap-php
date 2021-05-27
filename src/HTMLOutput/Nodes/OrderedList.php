@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class OrderedList extends Node
 {
-    public $name = 'ordered_list';
+    public static $name = 'ordered_list';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         $attrs = [];
 

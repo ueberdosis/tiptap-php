@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Code extends Mark
 {
-    public $name = 'code';
+    public static $name = 'code';
 
-    public function renderHTML($mark)
+    public static function renderHTML($mark)
     {
         return 'code';
     }

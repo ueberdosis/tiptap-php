@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class BulletList extends Node
 {
-    public $name = 'bullet_list';
+    public static $name = 'bullet_list';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return 'ul';
     }

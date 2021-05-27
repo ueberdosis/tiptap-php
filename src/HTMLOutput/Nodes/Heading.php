@@ -6,9 +6,9 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class Heading extends Node
 {
-    public $name = 'heading';
+    public static $name = 'heading';
 
-    public function renderHTML($node)
+    public static function renderHTML($node)
     {
         return "h{$node->attrs->level}";
     }

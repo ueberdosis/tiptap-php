@@ -45,7 +45,7 @@ class DOMSerializer
 
     private function renderNode($node, $prevNode = null, $nextNode = null): ?DOMSerializerPointer
     {
-        // The element that’s returned
+        // The pointer that’s returned
         $pointer = null;
 
         // Loop through all marks
@@ -58,7 +58,6 @@ class DOMSerializer
                         $current = $this->renderHTML($renderClass);
 
                         if ($this->markShouldOpen($mark, $prevNode)) {
-                            // echo "append {$current->element->tagName} to {$pointer->element->tagName}.\n";
                             $pointer = $pointer ? new DOMSerializerPointer(
                                 $pointer->content,
                                 $pointer->content->appendChild($current->element)
@@ -76,22 +75,9 @@ class DOMSerializer
             if ($renderClass->matching()) {
                 $current = $this->renderHTML($renderClass);
 
-                // var_dump("{$current->element->tagName}, {$current->content->tagName}");
-
-                // if ($current->content->tagName === 'tbody') {
-                //     var_dump($pointer);
-                //     die();
-                // }s
-
                 if ($pointer) {
-                    // echo "append {$current->element->tagName} to {$pointer->element->tagName}.\n";
                     $pointer->content->appendChild($current->element);
                 } else {
-                    // echo "set element to {$current->element->tagName}.\n";
-                    // if ($current->element->tagName === 'table') {
-                    //     echo "ERROR: should set element to {$current->content->tagName}\n.";
-                    // }
-
                     $pointer = $current;
                 }
 
@@ -109,8 +95,6 @@ class DOMSerializer
 
                 if ($current->element) {
                     if ($pointer) {
-                        // $tagName = $current->element->tagName ?? 'unknown';
-                        // echo "this: append {$tagName} to {$pointer->element->tagName}.\n";
                         $pointer->content->appendChild($current->element);
                     } else {
                         $pointer = $current;
@@ -123,36 +107,25 @@ class DOMSerializer
             return $pointer;
         }
 
-        // if ($text = $renderClass->text()) {
-        //     $text = $this->dom->createTextNode($text);
-        //     // echo "append text to {$child->tagName}.\n";
-        //     // TODO: $child!? Should be $pointer->content
-        //     $child->appendChild($text);
-        // }
-
-        if (isset($node->text)) {
-            // echo "add text {$node->text}\n";
-            $text = $this->dom->createTextNode($node->text);
-
-            // if ($node->text === 'Example ') {
-            //     var_dump('HIER', $pointer->content->tagName);
-            //     die();
-            // }
+        if ($text = $renderClass->text()) {
+            $text = $this->dom->createTextNode($text);
 
             if (! $pointer) {
                 return new DOMSerializerPointer($text);
             }
 
-            // if ($child) {
-            //     // echo "append text to {$child->tagName}.\n";
-            //     // TODO: $child!? Should be $pointer->content
-            //     $child->appendChild($text);
-            // }
-
-            // echo "append text to {$pointer->content->tagName}.\n";
             return new DOMSerializerPointer($pointer->element, $pointer->content->appendChild($text));
+        }
 
-            // return $pointer;
+        if (isset($node->text)) {
+            $text = $node->text;
+            $text = $this->dom->createTextNode($text);
+
+            if (! $pointer) {
+                return new DOMSerializerPointer($text);
+            }
+
+            return new DOMSerializerPointer($pointer->element, $pointer->content->appendChild($text));
         }
 
         return $pointer;
@@ -178,7 +151,6 @@ class DOMSerializer
             foreach ($renderHTML['attrs'] ?? [] as $name => $value) {
                 $attribute = $this->dom->createAttribute($name);
                 $attribute->value = $value;
-                // echo "append `${name}` attribute to {$pointer->element->tagName}.\n";
                 $pointer->content->appendChild($attribute);
             }
 
@@ -192,7 +164,6 @@ class DOMSerializer
 
             foreach ($renderHTML as $tag) {
                 $temporaryElement = $this->dom->createElement($tag);
-                // echo "append {$temporaryElement->tagName} to {$lastElement->tagName}.\n";
                 $lastElement = $lastElement->appendChild($temporaryElement);
             }
 
@@ -201,24 +172,24 @@ class DOMSerializer
 
         // TODO:
         // [['tag' => 'table', 'attrs' => ['width' => '100%']], ['tag' => 'tbody']]
+        // if (…) {
+        //     …
+        // }
 
-        // TODO: Improve error output
-        var_dump($renderHTML);
-
-        throw new \Exception("Failed to use renderHTML output.");
+        throw new \Exception('Failed to use renderHTML output.');
     }
 
-    private function markShouldOpen($mark, $prevNode)
+    private function markShouldOpen($mark, $prevNode): bool
     {
         return $this->nodeHasMark($prevNode, $mark);
     }
 
-    // private function markShouldClose($mark, $nextNode)
+    // private function markShouldClose($mark, $nextNode): bool
     // {
     //     return $this->nodeHasMark($nextNode, $mark);
     // }
 
-    private function nodeHasMark($node, $mark)
+    private function nodeHasMark($node, $mark): bool
     {
         if (! $node) {
             return true;
@@ -238,8 +209,9 @@ class DOMSerializer
         return true;
     }
 
-    public function render($value)
+    public function render(array $value): string
     {
+        // transform document to object
         $this->document = json_decode(json_encode($value));
 
         $content = is_array($this->document->content) ? $this->document->content : [];

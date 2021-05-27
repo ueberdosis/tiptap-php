@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class TableCell extends Node
 {
-    protected $name = 'table_cell';
+    public $name = 'table_cell';
 
     protected function getAttrs()
     {

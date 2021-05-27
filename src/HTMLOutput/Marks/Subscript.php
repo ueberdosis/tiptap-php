@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Subscript extends Mark
 {
-    protected $name = 'subscript';
+    public $name = 'subscript';
 
     public function renderHTML()
     {

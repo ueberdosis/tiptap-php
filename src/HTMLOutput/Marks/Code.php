@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Code extends Mark
 {
-    protected $name = 'code';
+    public $name = 'code';
 
     public function renderHTML()
     {

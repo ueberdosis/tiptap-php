@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Link extends Mark
 {
-    protected $name = 'link';
+    public $name = 'link';
 
     public function renderHTML()
     {

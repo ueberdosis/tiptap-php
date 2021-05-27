@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class Heading extends Node
 {
-    protected $name = 'heading';
+    public $name = 'heading';
 
     public function renderHTML()
     {

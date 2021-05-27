@@ -4,7 +4,7 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class TableCell extends Node
 {
-    protected $name = 'table_cell';
+    public $name = 'table_cell';
 
     public function parseHTML()
     {

@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class HardBreak extends Node
 {
-    protected $name = 'hard_break';
+    public $name = 'hard_break';
 
     public function renderHTML()
     {

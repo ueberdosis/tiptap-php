@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Node;
 
 class Table extends Node
 {
-    protected $name = 'table';
+    public $name = 'table';
 
     public function renderHTML()
     {

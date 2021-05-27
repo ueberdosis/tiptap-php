@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Italic extends Mark
 {
-    protected $name = 'italic';
+    public $name = 'italic';
 
     public function renderHTML()
     {

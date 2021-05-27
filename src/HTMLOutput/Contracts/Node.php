@@ -5,21 +5,12 @@ namespace Tiptap\HTMLOutput\Contracts;
 class Node
 {
     protected $node;
+
     protected $name;
-    protected $tagName = null;
 
     public function __construct($node)
     {
         $this->node = $node;
-    }
-
-    public function matching()
-    {
-        if (isset($this->node->type)) {
-            return $this->node->type === $this->name;
-        }
-
-        return false;
     }
 
     public function selfClosing()
@@ -29,7 +20,7 @@ class Node
 
     public function renderHTML()
     {
-        return $this->tagName;
+        return null;
     }
 
     public function text()

@@ -6,7 +6,7 @@ use Tiptap\HTMLOutput\Contracts\Mark;
 
 class Superscript extends Mark
 {
-    protected $name = 'superscript';
+    public $name = 'superscript';
 
     public function renderHTML()
     {

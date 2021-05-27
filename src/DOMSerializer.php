@@ -54,7 +54,7 @@ class DOMSerializer
                 foreach ($this->marks as $class) {
                     $renderClass = new $class($mark);
 
-                    if ($renderClass->matching()) {
+                    if ($this->isType($renderClass, $mark)) {
                         $current = $this->renderHTML($renderClass);
 
                         if ($this->markShouldOpen($mark, $prevNode)) {
@@ -72,7 +72,7 @@ class DOMSerializer
         foreach ($this->nodes as $class) {
             $renderClass = new $class($node);
 
-            if ($renderClass->matching()) {
+            if ($this->isType($renderClass, $node)) {
                 $current = $this->renderHTML($renderClass);
 
                 if ($pointer) {
@@ -129,6 +129,11 @@ class DOMSerializer
         }
 
         return $pointer;
+    }
+
+    private function isType($renderClass, $markOrNode)
+    {
+        return isset($markOrNode->type) && $markOrNode->type === $renderClass->name;
     }
 
     private function renderHTML($renderClass): DOMSerializerPointer

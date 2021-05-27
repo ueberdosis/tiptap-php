@@ -8,19 +8,19 @@ class Link extends Mark
 {
     public $name = 'link';
 
-    public function renderHTML()
+    public function renderHTML($mark)
     {
         $attrs = [];
 
-        if (isset($this->mark->attrs->target)) {
-            $attrs['target'] = $this->mark->attrs->target;
+        if (isset($mark->attrs->target)) {
+            $attrs['target'] = $mark->attrs->target;
         }
 
-        if (isset($this->mark->attrs->rel)) {
-            $attrs['rel'] = $this->mark->attrs->rel;
+        if (isset($mark->attrs->rel)) {
+            $attrs['rel'] = $mark->attrs->rel;
         }
 
-        $attrs['href'] = $this->mark->attrs->href;
+        $attrs['href'] = $mark->attrs->href;
 
         return [
             'tag' => 'a',

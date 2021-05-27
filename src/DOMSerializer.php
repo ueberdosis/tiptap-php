@@ -52,10 +52,12 @@ class DOMSerializer
         if (isset($node->marks)) {
             foreach ($node->marks as $mark) {
                 foreach ($this->marks as $class) {
-                    $renderClass = new $class($mark);
+                    $renderClass = new $class;
 
-                    if ($this->isType($renderClass, $mark)) {
-                        $current = $this->renderHTML($renderClass);
+                    if ($this->isType($mark, $renderClass)) {
+                        $current = $this->renderHTML(
+                            $renderClass->renderHTML($mark)
+                        );
 
                         if ($this->markShouldOpen($mark, $prevNode)) {
                             $pointer = $pointer ? new DOMSerializerPointer(
@@ -70,10 +72,12 @@ class DOMSerializer
 
         // Loop through all nodes
         foreach ($this->nodes as $class) {
-            $renderClass = new $class($node);
+            $renderClass = new $class;
 
-            if ($this->isType($renderClass, $node)) {
-                $current = $this->renderHTML($renderClass);
+            if ($this->isType($node, $renderClass)) {
+                $current = $this->renderHTML(
+                    $renderClass->renderHTML($node)
+                );
 
                 if ($pointer) {
                     $pointer->content->appendChild($current->element);
@@ -107,14 +111,17 @@ class DOMSerializer
             return $pointer;
         }
 
-        if ($text = $renderClass->text()) {
+        if ($text = $renderClass->text($node)) {
             $text = $this->dom->createTextNode($text);
 
             if (! $pointer) {
                 return new DOMSerializerPointer($text);
             }
 
-            return new DOMSerializerPointer($pointer->element, $pointer->content->appendChild($text));
+            return new DOMSerializerPointer(
+                $pointer->element,
+                $pointer->content->appendChild($text)
+            );
         }
 
         if (isset($node->text)) {
@@ -131,29 +138,27 @@ class DOMSerializer
         return $pointer;
     }
 
-    private function isType($renderClass, $markOrNode)
+    private function isType($markOrNode, $renderClass): bool
     {
         return isset($markOrNode->type) && $markOrNode->type === $renderClass->name;
     }
 
-    private function renderHTML($renderClass): DOMSerializerPointer
+    private function renderHTML($DOMOutputSpec): DOMSerializerPointer
     {
-        $renderHTML = $renderClass->renderHTML();
-
         // 'strong'
-        if (is_string($renderHTML)) {
+        if (is_string($DOMOutputSpec)) {
             return new DOMSerializerPointer($this->dom->createElement(
-                $renderHTML
+                $DOMOutputSpec
             ));
         }
 
         // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        if (isset($renderHTML['tag'])) {
+        if (isset($DOMOutputSpec['tag'])) {
             $pointer = new DOMSerializerPointer($this->dom->createElement(
-                $renderHTML['tag']
+                $DOMOutputSpec['tag']
             ));
 
-            foreach ($renderHTML['attrs'] ?? [] as $name => $value) {
+            foreach ($DOMOutputSpec['attrs'] ?? [] as $name => $value) {
                 $attribute = $this->dom->createAttribute($name);
                 $attribute->value = $value;
                 $pointer->content->appendChild($attribute);
@@ -163,11 +168,11 @@ class DOMSerializer
         }
 
         // ['table', 'tbody']
-        if (is_array($renderHTML)) {
-            $pointer = $this->dom->createElement(array_shift($renderHTML));
+        if (is_array($DOMOutputSpec)) {
+            $pointer = $this->dom->createElement(array_shift($DOMOutputSpec));
             $lastElement = $pointer;
 
-            foreach ($renderHTML as $tag) {
+            foreach ($DOMOutputSpec as $tag) {
                 $temporaryElement = $this->dom->createElement($tag);
                 $lastElement = $lastElement->appendChild($temporaryElement);
             }

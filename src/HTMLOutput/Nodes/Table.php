@@ -8,7 +8,7 @@ class Table extends Node
 {
     public $name = 'table';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return ['table', 'tbody'];
     }

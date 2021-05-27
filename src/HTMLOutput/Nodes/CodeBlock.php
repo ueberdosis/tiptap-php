@@ -8,7 +8,7 @@ class CodeBlock extends Node
 {
     public $name = 'code_block';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return ['pre', 'code'];
     }

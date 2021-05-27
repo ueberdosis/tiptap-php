@@ -8,8 +8,8 @@ class Heading extends Node
 {
     public $name = 'heading';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
-        return "h{$this->node->attrs->level}";
+        return "h{$node->attrs->level}";
     }
 }

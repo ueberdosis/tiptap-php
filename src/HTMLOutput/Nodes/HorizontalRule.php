@@ -8,7 +8,7 @@ class HorizontalRule extends Node
 {
     public $name = 'horizontal_rule';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return 'hr';
     }

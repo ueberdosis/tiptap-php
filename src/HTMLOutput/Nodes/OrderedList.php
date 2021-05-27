@@ -8,12 +8,12 @@ class OrderedList extends Node
 {
     public $name = 'ordered_list';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         $attrs = [];
 
-        if (isset($this->node->attrs->order)) {
-            $attrs['start'] = $this->node->attrs->order;
+        if (isset($node->attrs->order)) {
+            $attrs['start'] = $node->attrs->order;
         }
 
         return [

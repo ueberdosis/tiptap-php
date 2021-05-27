@@ -8,7 +8,7 @@ class Italic extends Mark
 {
     public $name = 'italic';
 
-    public function renderHTML()
+    public function renderHTML($mark)
     {
         return 'em';
     }

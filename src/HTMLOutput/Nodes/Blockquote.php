@@ -8,7 +8,7 @@ class Blockquote extends Node
 {
     public $name = 'blockquote';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return 'blockquote';
     }

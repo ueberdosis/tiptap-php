@@ -8,7 +8,7 @@ class Superscript extends Mark
 {
     public $name = 'superscript';
 
-    public function renderHTML()
+    public function renderHTML($mark)
     {
         return 'sup';
     }

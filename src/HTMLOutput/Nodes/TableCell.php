@@ -8,36 +8,36 @@ class TableCell extends Node
 {
     public $name = 'table_cell';
 
-    protected function getAttrs()
+    protected function getAttrs($node)
     {
         $attrs = [];
 
-        if (isset($this->node->attrs)) {
-            if (isset($this->node->attrs->colspan)) {
-                $attrs['colspan'] = $this->node->attrs->colspan;
+        if (isset($node->attrs)) {
+            if (isset($node->attrs->colspan)) {
+                $attrs['colspan'] = $node->attrs->colspan;
             }
 
-            if (isset($this->node->attrs->colwidth)) {
-                if ($widths = $this->node->attrs->colwidth) {
+            if (isset($node->attrs->colwidth)) {
+                if ($widths = $node->attrs->colwidth) {
                     if (count($widths) === $attrs['colspan']) {
                         $attrs['data-colwidth'] = implode(',', $widths);
                     }
                 }
             }
 
-            if (isset($this->node->attrs->rowspan)) {
-                $attrs['rowspan'] = $this->node->attrs->rowspan;
+            if (isset($node->attrs->rowspan)) {
+                $attrs['rowspan'] = $node->attrs->rowspan;
             }
         }
 
         return $attrs;
     }
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return [
             'tag' => 'td',
-            'attrs' => $this->getAttrs(),
+            'attrs' => $this->getAttrs($node),
         ];
     }
 }

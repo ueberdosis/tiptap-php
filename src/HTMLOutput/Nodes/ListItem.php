@@ -8,7 +8,7 @@ class ListItem extends Node
 {
     public $name = 'list_item';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return 'li';
     }

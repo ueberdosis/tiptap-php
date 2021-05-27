@@ -8,7 +8,7 @@ class BulletList extends Node
 {
     public $name = 'bullet_list';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return 'ul';
     }

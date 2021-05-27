@@ -8,7 +8,7 @@ class HardBreak extends Node
 {
     public $name = 'hard_break';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return 'br';
     }

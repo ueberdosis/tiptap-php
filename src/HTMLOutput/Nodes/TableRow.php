@@ -8,7 +8,7 @@ class TableRow extends Node
 {
     public $name = 'table_row';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return 'tr';
     }

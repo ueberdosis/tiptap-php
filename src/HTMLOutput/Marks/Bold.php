@@ -8,7 +8,7 @@ class Bold extends Mark
 {
     public $name = 'bold';
 
-    public function renderHTML()
+    public function renderHTML($mark)
     {
         return 'strong';
     }

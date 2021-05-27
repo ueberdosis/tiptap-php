@@ -8,7 +8,7 @@ class Strike extends Mark
 {
     public $name = 'strike';
 
-    public function renderHTML()
+    public function renderHTML($mark)
     {
         return 'strike';
     }

@@ -8,11 +8,11 @@ class Image extends Node
 {
     public $name = 'image';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return [
             'tag' => 'img',
-            'attrs' => $this->node->attrs,
+            'attrs' => $node->attrs,
         ];
     }
 }

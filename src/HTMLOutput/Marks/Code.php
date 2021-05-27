@@ -8,7 +8,7 @@ class Code extends Mark
 {
     public $name = 'code';
 
-    public function renderHTML()
+    public function renderHTML($mark)
     {
         return 'code';
     }

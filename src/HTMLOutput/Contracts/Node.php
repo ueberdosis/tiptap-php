@@ -4,26 +4,14 @@ namespace Tiptap\HTMLOutput\Contracts;
 
 class Node
 {
-    protected $node;
-
     protected $name;
 
-    public function __construct($node)
-    {
-        $this->node = $node;
-    }
-
-    public function selfClosing()
-    {
-        return false;
-    }
-
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return null;
     }
 
-    public function text()
+    public function text($node)
     {
         return null;
     }

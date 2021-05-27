@@ -6,11 +6,11 @@ class TableHeader extends TableCell
 {
     public $name = 'table_header';
 
-    public function renderHTML()
+    public function renderHTML($node)
     {
         return [
             'tag' => 'th',
-            'attrs' => $this->getAttrs(),
+            'attrs' => $this->getAttrs($node),
         ];
     }
 }

@@ -46,10 +46,7 @@ class DOMSerializer
     private function renderNode($node, $prevNode = null, $nextNode = null): ?DOMSerializerPointer
     {
         // The element that’s returned
-        $element = null;
-
-        // A temporary child element
-        $child = null;
+        $pointer = null;
 
         // Loop through all marks
         if (isset($node->marks)) {
@@ -58,14 +55,14 @@ class DOMSerializer
                     $renderClass = new $class($mark);
 
                     if ($renderClass->matching()) {
-                        $pointer = $this->renderHTML($renderClass);
+                        $current = $this->renderHTML($renderClass);
 
                         if ($this->markShouldOpen($mark, $prevNode)) {
-                            // echo "append {$pointer->element->tagName} to {$element->element->tagName}.\n";
-                            $element = $element ? new DOMSerializerPointer(
-                                $element->content,
-                                $element->content->appendChild($pointer->element)
-                            ) : $pointer;
+                            // echo "append {$current->element->tagName} to {$pointer->element->tagName}.\n";
+                            $pointer = $pointer ? new DOMSerializerPointer(
+                                $pointer->content,
+                                $pointer->content->appendChild($current->element)
+                            ) : $current;
                         }
                     }
                 }
@@ -77,25 +74,25 @@ class DOMSerializer
             $renderClass = new $class($node);
 
             if ($renderClass->matching()) {
-                $pointer = $this->renderHTML($renderClass);
+                $current = $this->renderHTML($renderClass);
 
-                // var_dump("{$pointer->element->tagName}, {$pointer->content->tagName}");
+                // var_dump("{$current->element->tagName}, {$current->content->tagName}");
 
-                // if ($pointer->content->tagName === 'tbody') {
-                //     var_dump($element);
+                // if ($current->content->tagName === 'tbody') {
+                //     var_dump($pointer);
                 //     die();
                 // }s
 
-                if ($element) {
-                    // echo "append {$pointer->element->tagName} to {$element->element->tagName}.\n";
-                    $element->content->appendChild($pointer->element);
+                if ($pointer) {
+                    // echo "append {$current->element->tagName} to {$pointer->element->tagName}.\n";
+                    $pointer->content->appendChild($current->element);
                 } else {
-                    // echo "set element to {$pointer->element->tagName}.\n";
-                    // if ($pointer->element->tagName === 'table') {
-                    //     echo "ERROR: should set element to {$pointer->content->tagName}\n.";
+                    // echo "set element to {$current->element->tagName}.\n";
+                    // if ($current->element->tagName === 'table') {
+                    //     echo "ERROR: should set element to {$current->content->tagName}\n.";
                     // }
 
-                    $element = $pointer;
+                    $pointer = $current;
                 }
 
                 break;
@@ -108,52 +105,57 @@ class DOMSerializer
                 $prevNestedNode = $node->content[$index - 1] ?? null;
                 $nextNestedNode = $node->content[$index + 1] ?? null;
 
-                $pointer = $this->renderNode($nestedNode, $prevNestedNode, $nextNestedNode);
+                $current = $this->renderNode($nestedNode, $prevNestedNode, $nextNestedNode);
 
-                if ($pointer->element) {
-                    if ($element) {
-                        // $tagName = $pointer->element->tagName ?? 'unknown';
-                        // echo "this: append {$tagName} to {$element->element->tagName}.\n";
-                        $element->content->appendChild($pointer->element);
+                if ($current->element) {
+                    if ($pointer) {
+                        // $tagName = $current->element->tagName ?? 'unknown';
+                        // echo "this: append {$tagName} to {$pointer->element->tagName}.\n";
+                        $pointer->content->appendChild($current->element);
                     } else {
-                        $element = $pointer;
+                        $pointer = $current;
                     }
                 }
 
                 $prevNode = $nestedNode;
             }
 
-            return $element;
+            return $pointer;
         }
 
         // if ($text = $renderClass->text()) {
         //     $text = $this->dom->createTextNode($text);
         //     // echo "append text to {$child->tagName}.\n";
-        //     // TODO: $child!? Should be $element->content
+        //     // TODO: $child!? Should be $pointer->content
         //     $child->appendChild($text);
         // }
 
         if (isset($node->text)) {
-            // echo "add text\n";
+            // echo "add text {$node->text}\n";
             $text = $this->dom->createTextNode($node->text);
 
-            if (! $element) {
+            // if ($node->text === 'Example ') {
+            //     var_dump('HIER', $pointer->content->tagName);
+            //     die();
+            // }
+
+            if (! $pointer) {
                 return new DOMSerializerPointer($text);
             }
 
             // if ($child) {
             //     // echo "append text to {$child->tagName}.\n";
-            //     // TODO: $child!? Should be $element->content
+            //     // TODO: $child!? Should be $pointer->content
             //     $child->appendChild($text);
             // }
 
-            // echo "append text to {$element->content->tagName}.\n";
-            $element->content->appendChild($text);
+            // echo "append text to {$pointer->content->tagName}.\n";
+            return new DOMSerializerPointer($pointer->element, $pointer->content->appendChild($text));
 
-            return $element;
+            // return $pointer;
         }
 
-        return $element;
+        return $pointer;
     }
 
     private function renderHTML($renderClass): DOMSerializerPointer
@@ -169,24 +171,24 @@ class DOMSerializer
 
         // ['tag' => 'a', 'attrs' => ['href' => '#']]
         if (isset($renderHTML['tag'])) {
-            $element = new DOMSerializerPointer($this->dom->createElement(
+            $pointer = new DOMSerializerPointer($this->dom->createElement(
                 $renderHTML['tag']
             ));
 
             foreach ($renderHTML['attrs'] ?? [] as $name => $value) {
                 $attribute = $this->dom->createAttribute($name);
                 $attribute->value = $value;
-                // echo "append `${name}` attribute to {$element->element->tagName}.\n";
-                $element->content->appendChild($attribute);
+                // echo "append `${name}` attribute to {$pointer->element->tagName}.\n";
+                $pointer->content->appendChild($attribute);
             }
 
-            return $element;
+            return $pointer;
         }
 
         // ['table', 'tbody']
         if (is_array($renderHTML)) {
-            $element = $this->dom->createElement(array_shift($renderHTML));
-            $lastElement = $element;
+            $pointer = $this->dom->createElement(array_shift($renderHTML));
+            $lastElement = $pointer;
 
             foreach ($renderHTML as $tag) {
                 $temporaryElement = $this->dom->createElement($tag);
@@ -194,7 +196,7 @@ class DOMSerializer
                 $lastElement = $lastElement->appendChild($temporaryElement);
             }
 
-            return new DOMSerializerPointer($element, $lastElement);
+            return new DOMSerializerPointer($pointer, $lastElement);
         }
 
         // TODO:
@@ -246,10 +248,10 @@ class DOMSerializer
             $prevNode = $content[$index - 1] ?? null;
             $nextNode = $content[$index + 1] ?? null;
 
-            $pointer = $this->renderNode($node, $prevNode, $nextNode);
+            $current = $this->renderNode($node, $prevNode, $nextNode);
 
-            if ($pointer && $pointer->element) {
-                $this->dom->appendChild($pointer->element);
+            if ($current && $current->element) {
+                $this->dom->appendChild($current->element);
             }
         }
 

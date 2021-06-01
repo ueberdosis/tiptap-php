@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Subscript extends Mark
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'sub';
+        return $DOMNode->nodeName === 'sub';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'subscript',

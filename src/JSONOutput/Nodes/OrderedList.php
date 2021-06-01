@@ -4,19 +4,19 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class OrderedList extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'ol';
+        return $DOMNode->nodeName === 'ol';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'ordered_list',
             'attrs' => [
                 'order' =>
-                    $this->DOMNode->getAttribute('start') ?
-                    (int) $this->DOMNode->getAttribute('start') :
+                    $DOMNode->getAttribute('start') ?
+                    (int) $DOMNode->getAttribute('start') :
                     1,
             ],
         ];

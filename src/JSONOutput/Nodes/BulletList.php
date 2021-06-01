@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class BulletList extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'ul';
+        return $DOMNode->nodeName === 'ul';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'bullet_list',

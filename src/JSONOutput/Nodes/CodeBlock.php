@@ -4,21 +4,18 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class CodeBlock extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
         return
-            $this->DOMNode->nodeName === 'code' &&
-            $this->DOMNode->parentNode->nodeName === 'pre';
+            $DOMNode->nodeName === 'code' &&
+            $DOMNode->parentNode->nodeName === 'pre';
     }
 
-    private function getLanguage()
+    public function data($DOMNode)
     {
-        return preg_replace("/^language-/", "", $this->DOMNode->getAttribute('class'));
-    }
+        $language = preg_replace("/^language-/", "", $DOMNode->getAttribute('class'));
 
-    public function data()
-    {
-        if ($language = $this->getLanguage()) {
+        if ($language) {
             return [
                 'type' => 'code_block',
                 'attrs' => [

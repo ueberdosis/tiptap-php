@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class CodeBlockWrapper extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'pre';
+        return $DOMNode->nodeName === 'pre';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return null;
     }

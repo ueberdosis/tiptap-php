@@ -8,15 +8,15 @@ class ListItem extends Node
         'type' => 'paragraph',
     ];
 
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'li';
+        return $DOMNode->nodeName === 'li';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
-        if ($this->DOMNode->childNodes->length === 1
-                && $this->DOMNode->childNodes[0]->nodeName == "p") {
+        if ($DOMNode->childNodes->length === 1
+                && $DOMNode->childNodes[0]->nodeName == "p") {
             $this->wrapper = null;
         }
 

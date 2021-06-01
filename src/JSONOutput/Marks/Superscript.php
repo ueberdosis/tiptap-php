@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Superscript extends Mark
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'sup';
+        return $DOMNode->nodeName === 'sup';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'superscript',

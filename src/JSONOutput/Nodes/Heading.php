@@ -11,17 +11,17 @@ class Heading extends Node
         return $match[1] ?? null;
     }
 
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return (boolean) $this->getLevel($this->DOMNode->nodeName);
+        return (boolean) $this->getLevel($DOMNode->nodeName);
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'heading',
             'attrs' => [
-                'level' => $this->getLevel($this->DOMNode->nodeName),
+                'level' => $this->getLevel($DOMNode->nodeName),
             ],
         ];
     }

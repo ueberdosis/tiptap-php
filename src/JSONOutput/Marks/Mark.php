@@ -6,19 +6,12 @@ class Mark
 {
     public $type = 'mark';
 
-    protected $DOMNode;
-
-    public function __construct($DOMNode)
-    {
-        $this->DOMNode = $DOMNode;
-    }
-
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
         return false;
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [];
     }

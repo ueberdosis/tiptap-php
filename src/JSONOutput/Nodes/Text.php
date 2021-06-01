@@ -4,14 +4,14 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class Text extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === '#text';
+        return $DOMNode->nodeName === '#text';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
-        $text = ltrim($this->DOMNode->nodeValue, "\n");
+        $text = ltrim($DOMNode->nodeValue, "\n");
 
         if ($text === '') {
             return null;

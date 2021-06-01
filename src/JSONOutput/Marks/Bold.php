@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Bold extends Mark
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'strong' || $this->DOMNode->nodeName === 'b';
+        return $DOMNode->nodeName === 'strong' || $DOMNode->nodeName === 'b';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'bold',

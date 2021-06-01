@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class TableWrapper extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'table';
+        return $DOMNode->nodeName === 'table';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return null;
     }

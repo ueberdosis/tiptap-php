@@ -6,8 +6,8 @@ class TableHeader extends TableCell
 {
     public $name = 'table_header';
 
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'th';
+        return $DOMNode->nodeName === 'th';
     }
 }

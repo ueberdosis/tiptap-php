@@ -4,17 +4,17 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class User extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'user-mention';
+        return $DOMNode->nodeName === 'user-mention';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'user',
             'attrs' => [
-                'id' => $this->DOMNode->getAttribute('data-id'),
+                'id' => $DOMNode->getAttribute('data-id'),
             ],
         ];
     }

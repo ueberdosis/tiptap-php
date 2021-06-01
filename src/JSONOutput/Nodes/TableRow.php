@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class TableRow extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'tr';
+        return $DOMNode->nodeName === 'tr';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'table_row',

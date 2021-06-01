@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class HorizontalRule extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'hr';
+        return $DOMNode->nodeName === 'hr';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'horizontal_rule',

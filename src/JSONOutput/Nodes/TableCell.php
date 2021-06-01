@@ -6,22 +6,22 @@ class TableCell extends Node
 {
     public $name = 'table_cell';
 
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'td';
+        return $DOMNode->nodeName === 'td';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         $data = [
             'type' => $this->name,
         ];
 
         $attrs = [];
-        if ($colspan = $this->DOMNode->getAttribute('colspan')) {
+        if ($colspan = $DOMNode->getAttribute('colspan')) {
             $attrs['colspan'] = intval($colspan);
         }
-        if ($colwidth = $this->DOMNode->getAttribute('data-colwidth')) {
+        if ($colwidth = $DOMNode->getAttribute('data-colwidth')) {
             $widths = array_map(function ($w) {
                 return intval($w);
             }, explode(',', $colwidth));
@@ -29,7 +29,7 @@ class TableCell extends Node
                 $attrs['colwidth'] = $widths;
             }
         }
-        if ($rowspan = $this->DOMNode->getAttribute('rowspan')) {
+        if ($rowspan = $DOMNode->getAttribute('rowspan')) {
             $attrs['rowspan'] = intval($rowspan);
         }
 

@@ -4,14 +4,14 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Strike extends Mark
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'strike'
-            || $this->DOMNode->nodeName === 's'
-            || $this->DOMNode->nodeName === 'del';
+        return $DOMNode->nodeName === 'strike'
+            || $DOMNode->nodeName === 's'
+            || $DOMNode->nodeName === 'del';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'strike',

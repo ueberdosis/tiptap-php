@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Link extends Mark
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
-        return $this->DOMNode->nodeName === 'a';
+        return $DOMNode->nodeName === 'a';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         $data = [
             'type' => 'link',
@@ -17,15 +17,15 @@ class Link extends Mark
 
         $attrs = [];
 
-        if ($target = $this->DOMNode->getAttribute('target')) {
+        if ($target = $DOMNode->getAttribute('target')) {
             $attrs['target'] = $target;
         }
 
-        if ($rel = $this->DOMNode->getAttribute('rel')) {
+        if ($rel = $DOMNode->getAttribute('rel')) {
             $attrs['rel'] = $rel;
         }
 
-        $attrs['href'] = $this->DOMNode->getAttribute('href');
+        $attrs['href'] = $DOMNode->getAttribute('href');
 
         $data['attrs'] = $attrs;
 

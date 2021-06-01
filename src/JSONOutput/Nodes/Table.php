@@ -4,14 +4,14 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class Table extends Node
 {
-    public function parseHTML()
+    public function parseHTML($DOMNode)
     {
         return
-        $this->DOMNode->nodeName === 'tbody' &&
-        $this->DOMNode->parentNode->nodeName === 'table';
+        $DOMNode->nodeName === 'tbody' &&
+        $DOMNode->parentNode->nodeName === 'table';
     }
 
-    public function data()
+    public function data($DOMNode)
     {
         return [
             'type' => 'table',

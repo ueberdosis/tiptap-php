@@ -1,11 +1,11 @@
 {
-    "name": "ueberdosis/tiptap",
+    "name": "ueberdosis/tiptap-php",
     "description": "A PHP package to work with tiptap output",
     "keywords": [
         "ueberdosis",
         "tiptap"
     ],
-    "homepage": "https://github.com/ueberdosis/tiptap",
+    "homepage": "https://github.com/ueberdosis/tiptap-php",
     "license": "MIT",
     "authors": [
         {

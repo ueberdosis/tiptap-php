@@ -1,8 +1,8 @@
 # tiptap for PHP
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ueberdosis/tiptap.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap/run-tests?label=tests)](https://github.com/ueberdosis/tiptap/actions?query=workflow%3ATests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ueberdosis/tiptap/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/ueberdosis/tiptap.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap-php/run-tests?label=tests)](https://github.com/ueberdosis/tiptap-php/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap-php/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ueberdosis/tiptap-php/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
 
 A PHP package to work with tiptap output.
 
@@ -10,7 +10,7 @@ A PHP package to work with tiptap output.
 You can install the package via composer:
 
 ```bash
-composer require ueberdosis/tiptap
+composer require ueberdosis/tiptap-php
 ```
 
 ## Usage

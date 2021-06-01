@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class Image extends Node
 {
-    public function parseHTML($DOMNode)
+    public static function parseHTML($DOMNode)
     {
         return $DOMNode->nodeName === 'img';
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
         return [
             'type' => 'image',

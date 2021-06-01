@@ -4,16 +4,19 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class Node
 {
-    public $wrapper = null;
+    public static function wrapper($DOMNode)
+    {
+        return null;
+    }
 
-    public $type = 'node';
+    public static $type;
 
-    public function parseHTML($DOMNode)
+    public static function parseHTML($DOMNode)
     {
         return false;
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
         return [];
     }

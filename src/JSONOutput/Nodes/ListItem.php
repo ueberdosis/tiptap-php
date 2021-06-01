@@ -4,22 +4,27 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class ListItem extends Node
 {
-    public $wrapper = [
-        'type' => 'paragraph',
-    ];
+    public static function wrapper($DOMNode)
+    {
+        if (
+            $DOMNode->childNodes->length === 1
+            && $DOMNode->childNodes[0]->nodeName == "p"
+        ) {
+            return null;
+        }
 
-    public function parseHTML($DOMNode)
+        return [
+            'type' => 'paragraph',
+        ];
+    }
+
+    public static function parseHTML($DOMNode)
     {
         return $DOMNode->nodeName === 'li';
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
-        if ($DOMNode->childNodes->length === 1
-                && $DOMNode->childNodes[0]->nodeName == "p") {
-            $this->wrapper = null;
-        }
-
         return [
             'type' => 'list_item',
         ];

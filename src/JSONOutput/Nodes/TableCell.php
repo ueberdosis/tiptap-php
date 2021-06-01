@@ -4,23 +4,25 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class TableCell extends Node
 {
-    public $name = 'table_cell';
+    public static $name = 'table_cell';
 
-    public function parseHTML($DOMNode)
+    public static function parseHTML($DOMNode)
     {
         return $DOMNode->nodeName === 'td';
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
         $data = [
-            'type' => $this->name,
+            'type' => self::$name,
         ];
 
         $attrs = [];
+
         if ($colspan = $DOMNode->getAttribute('colspan')) {
             $attrs['colspan'] = intval($colspan);
         }
+
         if ($colwidth = $DOMNode->getAttribute('data-colwidth')) {
             $widths = array_map(function ($w) {
                 return intval($w);
@@ -29,6 +31,7 @@ class TableCell extends Node
                 $attrs['colwidth'] = $widths;
             }
         }
+
         if ($rowspan = $DOMNode->getAttribute('rowspan')) {
             $attrs['rowspan'] = intval($rowspan);
         }

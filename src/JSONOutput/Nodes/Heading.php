@@ -4,24 +4,24 @@ namespace Tiptap\JSONOutput\Nodes;
 
 class Heading extends Node
 {
-    private function getLevel($value)
+    private static function getLevel($value)
     {
         preg_match("/^h([1-6])$/", $value, $match);
 
         return $match[1] ?? null;
     }
 
-    public function parseHTML($DOMNode)
+    public static function parseHTML($DOMNode)
     {
-        return (boolean) $this->getLevel($DOMNode->nodeName);
+        return (boolean) self::getLevel($DOMNode->nodeName);
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
         return [
             'type' => 'heading',
             'attrs' => [
-                'level' => $this->getLevel($DOMNode->nodeName),
+                'level' => self::getLevel($DOMNode->nodeName),
             ],
         ];
     }

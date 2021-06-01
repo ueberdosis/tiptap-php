@@ -4,12 +4,12 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Link extends Mark
 {
-    public function parseHTML($DOMNode)
+    public static function parseHTML($DOMNode)
     {
         return $DOMNode->nodeName === 'a';
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
         $data = [
             'type' => 'link',

@@ -92,7 +92,7 @@ class DOMParser
 
         foreach ($node->childNodes as $child) {
             if ($class = $this->getMatchingNode($child)) {
-                $item = $class->data($child);
+                $item = $class::data($child);
 
                 if ($item === null) {
                     if ($child->hasChildNodes()) {
@@ -114,9 +114,9 @@ class DOMParser
                     ]);
                 }
 
-                if ($class->wrapper) {
+                if ($wrapper = $class::wrapper($child)) {
                     $item['content'] = [
-                        array_merge($class->wrapper, [
+                        array_merge($wrapper, [
                             'content' => @$item['content'] ?: [],
                         ]),
                     ];
@@ -124,7 +124,7 @@ class DOMParser
 
                 array_push($nodes, $item);
             } elseif ($class = $this->getMatchingMark($child)) {
-                array_push($this->storedMarks, $class->data($child));
+                array_push($this->storedMarks, $class::data($child));
 
                 if ($child->hasChildNodes()) {
                     $nodes = array_merge($nodes, $this->renderChildren($child));
@@ -152,10 +152,8 @@ class DOMParser
     private function getMatchingClass($node, $classes)
     {
         foreach ($classes as $class) {
-            $instance = new $class;
-
-            if ($instance->parseHTML($node)) {
-                return $instance;
+            if ($class::parseHTML($node)) {
+                return $class;
             }
         }
 

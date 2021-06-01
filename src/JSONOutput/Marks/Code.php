@@ -4,7 +4,7 @@ namespace Tiptap\JSONOutput\Marks;
 
 class Code extends Mark
 {
-    public function parseHTML($DOMNode)
+    public static function parseHTML($DOMNode)
     {
         if ($DOMNode->parentNode->nodeName === 'pre') {
             return false;
@@ -13,7 +13,7 @@ class Code extends Mark
         return $DOMNode->nodeName === 'code';
     }
 
-    public function data($DOMNode)
+    public static function data($DOMNode)
     {
         return [
             'type' => 'code',

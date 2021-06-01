@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\Tests\HTMLOutput\Nodes\Custom;
+namespace Tiptap\Tests\Nodes\Custom;
 
 use Tiptap\HTMLOutput\Contracts\Node;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\Tests\HTMLOutput\Nodes;
+namespace Tiptap\Tests\Nodes;
 
 use Tiptap\Tests\HTMLOutput\TestCase;
 

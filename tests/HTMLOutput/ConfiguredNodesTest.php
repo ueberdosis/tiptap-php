@@ -52,7 +52,7 @@ class ConfiguredNodesTest extends TestCase
         // $html = '<p>Example Text</p>';
 
         // $this->assertEquals($html, (new Renderer)->withNodes([
-        //     \Tiptap\HTMLOutput\Nodes\Paragraph::class,
+        //     \Tiptap\Nodes\Paragraph::class,
         // ])->render($json));
     }
 
@@ -102,8 +102,8 @@ class ConfiguredNodesTest extends TestCase
         // $html = '<div>Example Text</div>';
 
         // $this->assertEquals($html, (new Renderer)->replaceNode(
-        //     \Tiptap\HTMLOutput\Nodes\Paragraph::class,
-        //     \Tiptap\Tests\HTMLOutput\Nodes\Custom\Paragraph::class
+        //     \Tiptap\Nodes\Paragraph::class,
+        //     \Tiptap\Tests\Nodes\Custom\Paragraph::class
         // )->render($json));
     }
 }

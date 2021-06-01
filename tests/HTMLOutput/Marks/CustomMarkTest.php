@@ -1,9 +1,9 @@
 <?php
 
-namespace Tiptap\Tests\HTMLOutput\Marks;
+namespace Tiptap\Tests\Marks;
 
-use Tiptap\HTMLOutput\Marks\Bold;
-use Tiptap\Tests\HTMLOutput\Marks\Custom\CustomMark;
+use Tiptap\Marks\Bold;
+use Tiptap\Tests\Marks\Custom\CustomMark;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class CustomBold extends Bold

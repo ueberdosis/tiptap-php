@@ -52,7 +52,7 @@ class ConfiguredMarksTest extends TestCase
         // $html = '<strong>Example Text</strong>';
 
         // $this->assertEquals($html, (new Renderer)->withMarks([
-        //     \Tiptap\HTMLOutput\Marks\Bold::class,
+        //     \Tiptap\Marks\Bold::class,
         // ])->render($json));
     }
 
@@ -102,8 +102,8 @@ class ConfiguredMarksTest extends TestCase
         // $html = '<b>Example Text</b>';
 
         // $this->assertEquals($html, (new Renderer)->replaceMark(
-        //     \Tiptap\HTMLOutput\Marks\Bold::class,
-        //     \Tiptap\Tests\HTMLOutput\Marks\Custom\Bold::class
+        //     \Tiptap\Marks\Bold::class,
+        //     \Tiptap\Tests\Marks\Custom\Bold::class
         // )->render($json));
     }
 }

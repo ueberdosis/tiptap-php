@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\Tests\HTMLOutput\Marks\Custom;
+namespace Tiptap\Tests\Marks\Custom;
 
 use Tiptap\HTMLOutput\Contracts\Mark;
 

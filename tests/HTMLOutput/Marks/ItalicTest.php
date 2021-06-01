@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\Tests\HTMLOutput\Marks;
+namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
 use Tiptap\Tests\HTMLOutput\TestCase;

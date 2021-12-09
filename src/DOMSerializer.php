@@ -190,24 +190,23 @@ class DOMSerializer
         //     return $pointer;
         // }
 
-        // // ['table', 'tbody']
-        // if (is_array($DOMOutputSpec)) {
-        //     $pointer = $this->dom->createElement(array_shift($DOMOutputSpec));
-        //     $lastElement = $pointer;
+        // ['table', 'tbody']
+        if (is_array($DOMOutputSpec)) {
+            $html = [];
 
-        //     foreach ($DOMOutputSpec as $tag) {
-        //         $temporaryElement = $this->dom->createElement($tag);
-        //         $lastElement = $lastElement->appendChild($temporaryElement);
-        //     }
+            foreach ($DOMOutputSpec as $tag) {
+                $html[] = "<{$tag}>";
+            }
 
-        //     return new DOMSerializerPointer($pointer, $lastElement);
-        // }
+            return join($html);
+        }
 
         // TODO:
         // [['tag' => 'table', 'attrs' => ['width' => '100%']], ['tag' => 'tbody']]
         // if (…) {
         //     …
         // }
+
 
         throw new \Exception('Failed to use renderHTML output.');
 
@@ -241,6 +240,19 @@ class DOMSerializer
         if (is_string($DOMOutputSpec)) {
             return "</{$DOMOutputSpec}>";
         }
+
+        // ['table', 'tbody']
+        if (is_array($DOMOutputSpec)) {
+            $html = [];
+
+            foreach (array_reverse($DOMOutputSpec) as $tag) {
+                $html[] = "</{$tag}>";
+            }
+
+            return join($html);
+        }
+
+        throw new \Exception('Failed to use renderHTML output.');
 
         // $tags = (array) $tags;
         // $tags = array_reverse($tags);

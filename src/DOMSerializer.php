@@ -69,19 +69,17 @@ class DOMSerializer
     {
         $html = [];
 
-        // if (isset($node->marks)) {
-        //     foreach ($node->marks as $mark) {
-        //         foreach ($this->marks as $class) {
-        //             $renderClass = $class;
+        if (isset($node->marks)) {
+            foreach ($node->marks as $mark) {
+                foreach ($this->marks as $class) {
+                    $renderClass = $class;
 
-        //             if ($this->isType($mark, $renderClass) && $this->markShouldOpen($mark, $prevNode)) {
-        //                 $html[] = $this->renderOpeningTag(
-        //                     $renderClass::renderHTML($mark)
-        //                 );
-        //             }
-        //         }
-        //     }
-        // }
+                    if ($this->isType($mark, $renderClass) && $this->markShouldOpen($mark, $prevNode)) {
+                        $html[] = $this->renderOpeningTag($mark, $renderClass);
+                    }
+                }
+            }
+        }
 
         foreach ($this->nodes as $class) {
             $renderClass = $class;
@@ -118,17 +116,17 @@ class DOMSerializer
             }
         }
 
-        // if (isset($node->marks)) {
-        //     foreach (array_reverse($node->marks) as $mark) {
-        //         foreach ($this->marks as $class) {
-        //             $renderClass = new $class($mark);
+        if (isset($node->marks)) {
+            foreach (array_reverse($node->marks) as $mark) {
+                foreach ($this->marks as $class) {
+                    $renderClass = new $class($mark);
 
-        //             if ($renderClass->matching() && $this->markShouldClose($mark, $nextNode)) {
-        //                 $html[] = $this->renderClosingTag($renderClass->tag());
-        //             }
-        //         }
-        //     }
-        // }
+                    if ($this->isType($mark, $renderClass) && $this->markShouldClose($mark, $nextNode)) {
+                        $html[] = $this->renderClosingTag($mark, $renderClass);
+                    }
+                }
+            }
+        }
 
         return join($html);
     }

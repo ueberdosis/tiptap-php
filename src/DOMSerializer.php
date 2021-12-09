@@ -2,6 +2,8 @@
 
 namespace Tiptap;
 
+use DOMDocument;
+
 class DOMSerializer
 {
     protected $document;
@@ -100,9 +102,10 @@ class DOMSerializer
             }
         } elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
-        } elseif ($text = $renderClass->text()) {
-            $html[] = $text;
         }
+        //  elseif ($text = $renderClass->text()) {
+        //     $html[] = $text;
+        // }
 
         foreach ($this->nodes as $class) {
             $renderClass = $class;
@@ -175,20 +178,18 @@ class DOMSerializer
             return "<{$DOMOutputSpec}>";
         }
 
-        // // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        // if (isset($DOMOutputSpec['tag'])) {
-        //     $pointer = new DOMSerializerPointer($this->dom->createElement(
-        //         $DOMOutputSpec['tag']
-        //     ));
+        // ['tag' => 'a', 'attrs' => ['href' => '#']]
+        if (isset($DOMOutputSpec['tag'])) {
+            $attributes = [];
 
-        //     foreach ($DOMOutputSpec['attrs'] ?? [] as $name => $value) {
-        //         $attribute = $this->dom->createAttribute($name);
-        //         $attribute->value = $value;
-        //         $pointer->content->appendChild($attribute);
-        //     }
+            foreach ($DOMOutputSpec['attrs'] ?? [] as $name => $value) {
+                $attributes[] = " {$name}=\"{$value}\"";
+            }
 
-        //     return $pointer;
-        // }
+            $attributes = join($attributes);
+
+            return "<{$DOMOutputSpec['tag']}{$attributes}>";
+        }
 
         // ['table', 'tbody']
         if (is_array($DOMOutputSpec)) {
@@ -238,7 +239,21 @@ class DOMSerializer
 
         // 'strong'
         if (is_string($DOMOutputSpec)) {
+            // self-closing tag
+            $dom = new DOMDocument('1.0', 'utf-8');
+            $element = $dom->createElement($DOMOutputSpec);
+            $dom->appendChild($element);
+            $rendered = $dom->saveHTML();
+            if (substr_count($rendered, $DOMOutputSpec) === 1) {
+                return '';
+            }
+
             return "</{$DOMOutputSpec}>";
+        }
+
+        // ['tag' => 'a', 'attrs' => ['href' => '#']]
+        if (isset($DOMOutputSpec['tag'])) {
+            return "</{$DOMOutputSpec['tag']}>";
         }
 
         // ['table', 'tbody']

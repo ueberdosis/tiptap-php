@@ -56,7 +56,7 @@ class InputTest extends TestCase
             ],
         ];
 
-        $html = '&Auml;ffchen';
+        $html = 'Äffchen';
 
         $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
     }
@@ -74,7 +74,7 @@ class InputTest extends TestCase
             ],
         ];
 
-        $html = '"Example Text"';
+        $html = '&quot;Example Text&quot;';
 
         $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
     }

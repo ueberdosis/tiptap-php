@@ -2,12 +2,8 @@
 
 namespace Tiptap;
 
-use DOMDocument;
-
 class DOMSerializer
 {
-    protected $dom;
-
     protected $document;
 
     protected $nodes = [
@@ -38,104 +34,103 @@ class DOMSerializer
         Marks\Superscript::class,
     ];
 
-    public function __construct()
+    // public function withMarks($marks = null)
+    // {
+    //     if (is_array($marks)) {
+    //         $this->marks = $marks;
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function withNodes($nodes = null)
+    // {
+    //     if (is_array($nodes)) {
+    //         $this->nodes = $nodes;
+    //     }
+
+    //     return $this;
+    // }
+
+    public function document($value)
     {
-        $this->dom = new DOMDocument('1.0', 'utf-8');
-    }
-
-    private function renderNode($node, $prevNode = null, $nextNode = null): ?DOMSerializerPointer
-    {
-        // The pointer that’s returned
-        $pointer = null;
-
-        // Loop through all marks
-        if (isset($node->marks)) {
-            foreach ($node->marks as $mark) {
-                foreach ($this->marks as $class) {
-                    $renderClass = $class;
-
-                    if ($this->isType($mark, $renderClass)) {
-                        $current = $this->renderHTML(
-                            $renderClass::renderHTML($mark)
-                        );
-
-                        if ($this->markShouldOpen($mark, $prevNode)) {
-                            $pointer = $pointer ? new DOMSerializerPointer(
-                                $pointer->content,
-                                $pointer->content->appendChild($current->element)
-                            ) : $current;
-                        }
-                    }
-                }
-            }
+        if (is_string($value)) {
+            $value = json_decode($value);
+        } elseif (is_array($value)) {
+            $value = json_decode(json_encode($value));
         }
 
-        // Loop through all nodes
+        $this->document = $value;
+
+        return $this;
+    }
+
+    private function renderNode($node, $prevNode = null, $nextNode = null): string
+    {
+        $html = [];
+
+        // if (isset($node->marks)) {
+        //     foreach ($node->marks as $mark) {
+        //         foreach ($this->marks as $class) {
+        //             $renderClass = $class;
+
+        //             if ($this->isType($mark, $renderClass) && $this->markShouldOpen($mark, $prevNode)) {
+        //                 $html[] = $this->renderOpeningTag(
+        //                     $renderClass::renderHTML($mark)
+        //                 );
+        //             }
+        //         }
+        //     }
+        // }
+
         foreach ($this->nodes as $class) {
             $renderClass = $class;
 
             if ($this->isType($node, $renderClass)) {
-                $current = $this->renderHTML(
-                    $renderClass::renderHTML($node)
-                );
-
-                if ($pointer) {
-                    $pointer->content->appendChild($current->element);
-                } else {
-                    $pointer = $current;
-                }
-
+                $html[] = $this->renderOpeningTag($node, $renderClass);
                 break;
             }
         }
 
-        // Render the content
         if (isset($node->content)) {
             foreach ($node->content as $index => $nestedNode) {
                 $prevNestedNode = $node->content[$index - 1] ?? null;
                 $nextNestedNode = $node->content[$index + 1] ?? null;
 
-                $current = $this->renderNode($nestedNode, $prevNestedNode, $nextNestedNode);
-
-                if ($current->element) {
-                    if ($pointer) {
-                        $pointer->content->appendChild($current->element);
-                    } else {
-                        $pointer = $current;
-                    }
-                }
-
+                $html[] = $this->renderNode($nestedNode, $prevNestedNode, $nextNestedNode);
                 $prevNode = $nestedNode;
             }
-
-            return $pointer;
+        } elseif (isset($node->text)) {
+            $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
+        } elseif ($text = $renderClass->text()) {
+            $html[] = $text;
         }
 
-        if ($text = $renderClass::text($node)) {
-            $text = $this->dom->createTextNode($text);
+        foreach ($this->nodes as $class) {
+            $renderClass = $class;
 
-            if (! $pointer) {
-                return new DOMSerializerPointer($text);
+            // if ($renderClass->selfClosing()) {
+            //     continue;
+            // }
+
+            if ($this->isType($node, $renderClass)) {
+                $html[] = $this->renderClosingTag($node, $renderClass);
             }
-
-            return new DOMSerializerPointer(
-                $pointer->element,
-                $pointer->content->appendChild($text)
-            );
         }
 
-        if (isset($node->text)) {
-            $text = $node->text;
-            $text = $this->dom->createTextNode($text);
+        // if (isset($node->marks)) {
+        //     foreach (array_reverse($node->marks) as $mark) {
+        //         foreach ($this->marks as $class) {
+        //             $renderClass = new $class($mark);
 
-            if (! $pointer) {
-                return new DOMSerializerPointer($text);
-            }
+        //             if ($renderClass->matching() && $this->markShouldClose($mark, $nextNode)) {
+        //                 $html[] = $this->renderClosingTag($renderClass->tag());
+        //             }
+        //         }
+        //     }
+        // }
 
-            return new DOMSerializerPointer($pointer->element, $pointer->content->appendChild($text));
-        }
-
-        return $pointer;
+        return join($html);
     }
 
     private function isType($markOrNode, $renderClass): bool
@@ -143,69 +138,23 @@ class DOMSerializer
         return isset($markOrNode->type) && $markOrNode->type === $renderClass::$name;
     }
 
-    private function renderHTML($DOMOutputSpec): DOMSerializerPointer
-    {
-        // 'strong'
-        if (is_string($DOMOutputSpec)) {
-            return new DOMSerializerPointer($this->dom->createElement(
-                $DOMOutputSpec
-            ));
-        }
-
-        // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        if (isset($DOMOutputSpec['tag'])) {
-            $pointer = new DOMSerializerPointer($this->dom->createElement(
-                $DOMOutputSpec['tag']
-            ));
-
-            foreach ($DOMOutputSpec['attrs'] ?? [] as $name => $value) {
-                $attribute = $this->dom->createAttribute($name);
-                $attribute->value = $value;
-                $pointer->content->appendChild($attribute);
-            }
-
-            return $pointer;
-        }
-
-        // ['table', 'tbody']
-        if (is_array($DOMOutputSpec)) {
-            $pointer = $this->dom->createElement(array_shift($DOMOutputSpec));
-            $lastElement = $pointer;
-
-            foreach ($DOMOutputSpec as $tag) {
-                $temporaryElement = $this->dom->createElement($tag);
-                $lastElement = $lastElement->appendChild($temporaryElement);
-            }
-
-            return new DOMSerializerPointer($pointer, $lastElement);
-        }
-
-        // TODO:
-        // [['tag' => 'table', 'attrs' => ['width' => '100%']], ['tag' => 'tbody']]
-        // if (…) {
-        //     …
-        // }
-
-        throw new \Exception('Failed to use renderHTML output.');
-    }
-
-    private function markShouldOpen($mark, $prevNode): bool
+    private function markShouldOpen($mark, $prevNode)
     {
         return $this->nodeHasMark($prevNode, $mark);
     }
 
-    // private function markShouldClose($mark, $nextNode): bool
-    // {
-    //     return $this->nodeHasMark($nextNode, $mark);
-    // }
-
-    private function nodeHasMark($node, $mark): bool
+    private function markShouldClose($mark, $nextNode)
     {
-        if (! $node) {
+        return $this->nodeHasMark($nextNode, $mark);
+    }
+
+    private function nodeHasMark($node, $mark)
+    {
+        if (!$node) {
             return true;
         }
 
-        if (! property_exists($node, 'marks')) {
+        if (!property_exists($node, 'marks')) {
             return true;
         }
 
@@ -219,8 +168,102 @@ class DOMSerializer
         return true;
     }
 
-    public function render(array $value): string
+    private function renderOpeningTag($node, $renderClass)
     {
+        $DOMOutputSpec = $renderClass::renderHTML($node);
+
+        // 'strong'
+        if (is_string($DOMOutputSpec)) {
+            return "<{$DOMOutputSpec}>";
+        }
+
+        // // ['tag' => 'a', 'attrs' => ['href' => '#']]
+        // if (isset($DOMOutputSpec['tag'])) {
+        //     $pointer = new DOMSerializerPointer($this->dom->createElement(
+        //         $DOMOutputSpec['tag']
+        //     ));
+
+        //     foreach ($DOMOutputSpec['attrs'] ?? [] as $name => $value) {
+        //         $attribute = $this->dom->createAttribute($name);
+        //         $attribute->value = $value;
+        //         $pointer->content->appendChild($attribute);
+        //     }
+
+        //     return $pointer;
+        // }
+
+        // // ['table', 'tbody']
+        // if (is_array($DOMOutputSpec)) {
+        //     $pointer = $this->dom->createElement(array_shift($DOMOutputSpec));
+        //     $lastElement = $pointer;
+
+        //     foreach ($DOMOutputSpec as $tag) {
+        //         $temporaryElement = $this->dom->createElement($tag);
+        //         $lastElement = $lastElement->appendChild($temporaryElement);
+        //     }
+
+        //     return new DOMSerializerPointer($pointer, $lastElement);
+        // }
+
+        // TODO:
+        // [['tag' => 'table', 'attrs' => ['width' => '100%']], ['tag' => 'tbody']]
+        // if (…) {
+        //     …
+        // }
+
+        throw new \Exception('Failed to use renderHTML output.');
+
+        // $tags = (array) $tags;
+
+        // if (!$tags || !count($tags)) {
+        //     return null;
+        // }
+
+        // return join('', array_map(function ($item) {
+        //     if (is_string($item)) {
+        //         return "<{$item}>";
+        //     }
+
+        //     $attrs = '';
+        //     if (isset($item['attrs'])) {
+        //         foreach ($item['attrs'] as $attribute => $value) {
+        //             $attrs .= " {$attribute}=\"{$value}\"";
+        //         }
+        //     }
+
+        //     return "<{$item['tag']}{$attrs}>";
+        // }, $tags));
+    }
+
+    private function renderClosingTag($node, $renderClass)
+    {
+        $DOMOutputSpec = $renderClass::renderHTML($node);
+
+        // 'strong'
+        if (is_string($DOMOutputSpec)) {
+            return "</{$DOMOutputSpec}>";
+        }
+
+        // $tags = (array) $tags;
+        // $tags = array_reverse($tags);
+
+        // if (!$tags || !count($tags)) {
+        //     return null;
+        // }
+
+        // return join('', array_map(function ($item) {
+        //     if (is_string($item)) {
+        //         return "</{$item}>";
+        //     }
+
+        //     return "</{$item['tag']}>";
+        // }, $tags));
+    }
+
+    public function render(array $value)
+    {
+        $html = [];
+
         // transform document to object
         $this->document = json_decode(json_encode($value));
 
@@ -230,15 +273,63 @@ class DOMSerializer
             $prevNode = $content[$index - 1] ?? null;
             $nextNode = $content[$index + 1] ?? null;
 
-            $current = $this->renderNode($node, $prevNode, $nextNode);
-
-            if ($current && $current->element) {
-                $this->dom->appendChild($current->element);
-            }
+            $html[] = $this->renderNode($node, $prevNode, $nextNode);
         }
 
-        return trim(
-            $this->dom->saveHTML()
-        );
+        return join($html);
     }
+
+    // public function addNode($node)
+    // {
+    //     $this->nodes[] = $node;
+
+    //     return $this;
+    // }
+
+    // public function addNodes($nodes)
+    // {
+    //     foreach ($nodes as $node) {
+    //         $this->addNode($node);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function addMark($mark)
+    // {
+    //     $this->marks[] = $mark;
+
+    //     return $this;
+    // }
+
+    // public function addMarks($marks)
+    // {
+    //     foreach ($marks as $mark) {
+    //         $this->addMark($mark);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function replaceNode($search_node, $replace_node)
+    // {
+    //     foreach ($this->nodes as $key => $node_class) {
+    //         if ($node_class == $search_node) {
+    //             $this->nodes[$key] = $replace_node;
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function replaceMark($search_mark, $replace_mark)
+    // {
+    //     foreach ($this->marks as $key => $mark_class) {
+    //         if ($mark_class == $search_mark) {
+    //             $this->marks[$key] = $replace_mark;
+    //         }
+    //     }
+
+    //     return $this;
+    // }
 }

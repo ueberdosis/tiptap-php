@@ -36,37 +36,6 @@ class DOMSerializer
         Marks\Superscript::class,
     ];
 
-    // public function withMarks($marks = null)
-    // {
-    //     if (is_array($marks)) {
-    //         $this->marks = $marks;
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function withNodes($nodes = null)
-    // {
-    //     if (is_array($nodes)) {
-    //         $this->nodes = $nodes;
-    //     }
-
-    //     return $this;
-    // }
-
-    public function document($value)
-    {
-        if (is_string($value)) {
-            $value = json_decode($value);
-        } elseif (is_array($value)) {
-            $value = json_decode(json_encode($value));
-        }
-
-        $this->document = $value;
-
-        return $this;
-    }
-
     private function renderNode($node, $prevNode = null, $nextNode = null): string
     {
         $html = [];
@@ -103,16 +72,9 @@ class DOMSerializer
         } elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
         }
-        //  elseif ($text = $renderClass->text()) {
-        //     $html[] = $text;
-        // }
 
         foreach ($this->nodes as $class) {
             $renderClass = $class;
-
-            // if ($renderClass->selfClosing()) {
-            //     continue;
-            // }
 
             if ($this->isType($node, $renderClass)) {
                 $html[] = $this->renderClosingTag($node, $renderClass);
@@ -210,27 +172,6 @@ class DOMSerializer
 
 
         throw new \Exception('Failed to use renderHTML output.');
-
-        // $tags = (array) $tags;
-
-        // if (!$tags || !count($tags)) {
-        //     return null;
-        // }
-
-        // return join('', array_map(function ($item) {
-        //     if (is_string($item)) {
-        //         return "<{$item}>";
-        //     }
-
-        //     $attrs = '';
-        //     if (isset($item['attrs'])) {
-        //         foreach ($item['attrs'] as $attribute => $value) {
-        //             $attrs .= " {$attribute}=\"{$value}\"";
-        //         }
-        //     }
-
-        //     return "<{$item['tag']}{$attrs}>";
-        // }, $tags));
     }
 
     private function isSelfClosing($tag)
@@ -281,21 +222,6 @@ class DOMSerializer
         }
 
         throw new \Exception('Failed to use renderHTML output.');
-
-        // $tags = (array) $tags;
-        // $tags = array_reverse($tags);
-
-        // if (!$tags || !count($tags)) {
-        //     return null;
-        // }
-
-        // return join('', array_map(function ($item) {
-        //     if (is_string($item)) {
-        //         return "</{$item}>";
-        //     }
-
-        //     return "</{$item['tag']}>";
-        // }, $tags));
     }
 
     public function render(array $value)
@@ -366,6 +292,24 @@ class DOMSerializer
     //         if ($mark_class == $search_mark) {
     //             $this->marks[$key] = $replace_mark;
     //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function withMarks($marks = null)
+    // {
+    //     if (is_array($marks)) {
+    //         $this->marks = $marks;
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function withNodes($nodes = null)
+    // {
+    //     if (is_array($nodes)) {
+    //         $this->nodes = $nodes;
     //     }
 
     //     return $this;

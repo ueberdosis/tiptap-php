@@ -233,6 +233,16 @@ class DOMSerializer
         // }, $tags));
     }
 
+    private function isSelfClosing($tag)
+    {
+        $dom = new DOMDocument('1.0', 'utf-8');
+        $element = $dom->createElement($tag, 'test');
+        $dom->appendChild($element);
+        $rendered = $dom->saveHTML();
+
+        return substr_count($rendered, $tag) === 1;
+    }
+
     private function renderClosingTag($node, $renderClass)
     {
         $DOMOutputSpec = $renderClass::renderHTML($node);
@@ -240,12 +250,8 @@ class DOMSerializer
         // 'strong'
         if (is_string($DOMOutputSpec)) {
             // self-closing tag
-            $dom = new DOMDocument('1.0', 'utf-8');
-            $element = $dom->createElement($DOMOutputSpec);
-            $dom->appendChild($element);
-            $rendered = $dom->saveHTML();
-            if (substr_count($rendered, $DOMOutputSpec) === 1) {
-                return '';
+            if ($this->isSelfClosing($DOMOutputSpec)) {
+                return null;
             }
 
             return "</{$DOMOutputSpec}>";
@@ -253,6 +259,10 @@ class DOMSerializer
 
         // ['tag' => 'a', 'attrs' => ['href' => '#']]
         if (isset($DOMOutputSpec['tag'])) {
+            if ($this->isSelfClosing($DOMOutputSpec['tag'])) {
+                return null;
+            }
+
             return "</{$DOMOutputSpec['tag']}>";
         }
 
@@ -261,6 +271,9 @@ class DOMSerializer
             $html = [];
 
             foreach (array_reverse($DOMOutputSpec) as $tag) {
+                if ($this->isSelfClosing($tag)) {
+                    return null;
+                }
                 $html[] = "</{$tag}>";
             }
 

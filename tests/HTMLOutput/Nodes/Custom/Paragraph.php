@@ -2,11 +2,14 @@
 
 namespace Tiptap\Tests\Nodes\Custom;
 
-use Tiptap\HTMLOutput\Contracts\Node;
+use Tiptap\Contracts\Node;
 
 class Paragraph extends Node
 {
-    protected $nodeType = 'paragraph';
-    public function renderHTML() {
-return 'div';
+    public static $name = 'paragraph';
+
+    public static function renderHTML($DOMNode)
+    {
+        return 'div';
+    }
 }

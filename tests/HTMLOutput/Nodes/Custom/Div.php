@@ -2,16 +2,22 @@
 
 namespace Tiptap\Tests\Nodes\Custom;
 
-use Tiptap\HTMLOutput\Contracts\Node;
+use Tiptap\Contracts\Node;
 
 class Div extends Node
 {
-    public function matching()
+    public static $name = 'div';
+
+    public static function parseHTML()
     {
-        return $this->node->type === 'div';
+        return [
+            [
+                'tag' => 'div',
+            ],
+        ];
     }
 
-    public function renderHTML()
+    public static function renderHTML($DOMNode)
     {
         return 'div';
     }

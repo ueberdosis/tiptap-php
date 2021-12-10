@@ -2,11 +2,14 @@
 
 namespace Tiptap\Tests\Marks\Custom;
 
-use Tiptap\HTMLOutput\Contracts\Mark;
+use Tiptap\Contracts\Mark;
 
 class Bold extends Mark
 {
-    protected $markType = 'bold';
-    public function renderHTML() {
-return 'b';
+    public static $name = 'bold';
+
+    public static function renderHTML($DOMNode)
+    {
+        return 'b';
+    }
 }

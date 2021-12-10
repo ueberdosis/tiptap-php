@@ -18,11 +18,6 @@ class Node
         return null;
     }
 
-    public static function text($node)
-    {
-        return null;
-    }
-
     public static function wrapper($DOMNode)
     {
         return null;

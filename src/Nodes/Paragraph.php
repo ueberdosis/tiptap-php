@@ -8,11 +8,6 @@ class Paragraph extends Node
 {
     public static $name = 'paragraph';
 
-    public static function renderHTML($node)
-    {
-        return 'p';
-    }
-
     public static function parseHTML($DOMNode)
     {
         return [
@@ -20,6 +15,11 @@ class Paragraph extends Node
                 'tag' => 'p',
             ],
         ];
+    }
+
+    public static function renderHTML($node)
+    {
+        return 'p';
     }
 
     public static function data($DOMNode)

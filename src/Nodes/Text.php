@@ -11,7 +11,7 @@ class Text extends Node
         return [
             [
                 'tag' => '#text',
-            ]
+            ],
         ];
     }
 

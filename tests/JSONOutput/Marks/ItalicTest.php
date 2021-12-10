@@ -8,9 +8,9 @@ use Tiptap\Tests\JSONOutput\TestCase;
 class ItalicTest extends TestCase
 {
     /** @test */
-    public function i_and_em_get_rendered_correctly()
+    public function i_gets_rendered_correctly()
     {
-        $html = '<p><i>Example text using i</i> and <em>some example text using em</em></p>';
+        $html = '<p><i>Example</i> Text</p>';
 
         $json = [
             'type' => 'doc',
@@ -20,7 +20,7 @@ class ItalicTest extends TestCase
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'Example text using i',
+                            'text' => 'Example',
                             'marks' => [
                                 [
                                     'type' => 'italic',
@@ -29,16 +29,94 @@ class ItalicTest extends TestCase
                         ],
                         [
                             'type' => 'text',
-                            'text' => ' and ',
+                            'text' => ' Text',
                         ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+    }
+
+    /** @test */
+    public function em_gets_rendered_correctly()
+    {
+        $html = '<p><em>Example</em> Text</p>';
+
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'some example text using em',
+                            'text' => 'Example',
                             'marks' => [
                                 [
                                     'type' => 'italic',
                                 ],
                             ],
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => ' Text',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+    }
+
+    /** @test */
+    public function i_with_font_style_normal_is_ignored()
+    {
+        $html = '<p><i style="font-style: normal;">Example</i> Text</p>';
+
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Example Text',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+    }
+
+    /** @test */
+    public function span_with_font_style_italic_is_parsed()
+    {
+        $html = '<p><span style="font-style: italic;">Example</span> Text</p>';
+
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Example',
+                            'marks' => [
+                                [
+                                    'type' => 'italic',
+                                ],
+                            ],
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => ' Text',
                         ],
                     ],
                 ],

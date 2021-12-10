@@ -8,14 +8,24 @@ class Subscript extends Mark
 {
     public static $name = 'subscript';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'sub',
+            ],
+            [
+                'style' => 'vertical-align',
+                'getAttrs' => function ($value) {
+                    return $value === 'sub' ? null : false;
+                },
+            ],
+        ];
+    }
+
     public static function renderHTML($mark)
     {
         return 'sub';
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'sub';
     }
 
     public static function data($DOMNode)

@@ -8,6 +8,15 @@ class TableCell extends Node
 {
     public static $name = 'table_cell';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'td',
+            ],
+        ];
+    }
+
     protected static function getAttrs($node)
     {
         $attrs = [];
@@ -39,11 +48,6 @@ class TableCell extends Node
             'tag' => 'td',
             'attrs' => self::getAttrs($node),
         ];
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'td';
     }
 
     public static function data($DOMNode)

@@ -8,11 +8,6 @@ class Code extends Mark
 {
     public static $name = 'code';
 
-    public static function renderHTML($mark)
-    {
-        return 'code';
-    }
-
     public static function parseHTML($DOMNode)
     {
         if ($DOMNode->parentNode->nodeName === 'pre') {
@@ -20,6 +15,11 @@ class Code extends Mark
         }
 
         return $DOMNode->nodeName === 'code';
+    }
+
+    public static function renderHTML($mark)
+    {
+        return 'code';
     }
 
     public static function data($DOMNode)

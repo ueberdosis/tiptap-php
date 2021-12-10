@@ -6,17 +6,21 @@ class TableHeader extends TableCell
 {
     public static $name = 'table_header';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'th',
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         return [
             'tag' => 'th',
             'attrs' => self::getAttrs($node),
         ];
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'th';
     }
 
     // TODO: Duplicate with TableCell, but self:: shouldn’t reference TableCell

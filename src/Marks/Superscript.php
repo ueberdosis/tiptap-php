@@ -15,7 +15,17 @@ class Superscript extends Mark
 
     public static function parseHTML($DOMNode)
     {
-        return $DOMNode->nodeName === 'sup';
+        return [
+            [
+                'tag' => 'sup',
+            ],
+            [
+                'style' => 'vertical-align',
+                'getAttrs' => function ($value) {
+                    return $value === 'super' ? null : false;
+                },
+            ],
+        ];
     }
 
     public static function data($DOMNode)

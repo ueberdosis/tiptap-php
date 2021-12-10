@@ -9,11 +9,6 @@ class Bold extends Mark
 {
     public static $name = 'bold';
 
-    public static function renderHTML($mark)
-    {
-        return ['strong'];
-    }
-
     public static function parseHTML($DOMNode)
     {
         return [
@@ -35,6 +30,11 @@ class Bold extends Mark
                 }
             ],
         ];
+    }
+
+    public static function renderHTML($mark)
+    {
+        return ['strong'];
     }
 
     public static function data($DOMNode)

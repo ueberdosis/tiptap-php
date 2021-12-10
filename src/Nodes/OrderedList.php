@@ -8,6 +8,15 @@ class OrderedList extends Node
 {
     public static $name = 'ordered_list';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'ol',
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         $attrs = [];
@@ -20,11 +29,6 @@ class OrderedList extends Node
             'tag' => 'ol',
             'attrs' => $attrs,
         ];
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'ol';
     }
 
     public static function data($DOMNode)

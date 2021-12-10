@@ -6,20 +6,26 @@ use Tiptap\Contracts\Node;
 
 class Mention extends Node
 {
-    // TODO: renderHTML?
+    public static $name = 'mention';
 
     public static function parseHTML($DOMNode)
     {
-        return $DOMNode->nodeName === 'user-mention';
+        return [
+            [
+                'tag' => 'span[data-type="' . self::$name . '"]',
+                'getAttrs' => function ($DOMNode) {
+                    return [
+                        'id' => $DOMNode->getAttribute('data-id'),
+                    ];
+                },
+            ],
+        ];
     }
 
     public static function data($DOMNode)
     {
         return [
             'type' => 'user',
-            'attrs' => [
-                'id' => $DOMNode->getAttribute('data-id'),
-            ],
         ];
     }
 }

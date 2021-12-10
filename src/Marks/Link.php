@@ -8,6 +8,15 @@ class Link extends Mark
 {
     public static $name = 'link';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'a[href]',
+            ],
+        ];
+    }
+
     public static function renderHTML($mark)
     {
         $attrs = [];
@@ -26,11 +35,6 @@ class Link extends Mark
             'tag' => 'a',
             'attrs' => $attrs,
         ];
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'a';
     }
 
     public static function data($DOMNode)

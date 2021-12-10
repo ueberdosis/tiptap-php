@@ -102,9 +102,16 @@ class DOMParser
                         }
 
                         $attributes = $parseRule['attrs'] ?? [];
-                        // TODO: Missing support for getAttrs
-
                         if (count($attributes)) {
+                            if (!isset($item['attrs'])) {
+                                $item['attrs'] = [];
+                            }
+
+                            $item['attrs'] = array_merge($item['attrs'], $attributes);
+                        }
+
+                        if (isset($parseRule['getAttrs'])) {
+                            $attributes = $parseRule['getAttrs']($child);
                             if (!isset($item['attrs'])) {
                                 $item['attrs'] = [];
                             }
@@ -230,11 +237,14 @@ class DOMParser
 
     private function checkParseRule($parseRule, $DOMNode)
     {
-        // ['tag' => 'strong']
+        // ['tag' => 'span[type="mention"]']
         if (isset($parseRule['tag'])) {
-            if (preg_match('/([a-z-]*)\[([a-z]+)\]$/', $parseRule['tag'], $matches)) {
+            if (preg_match('/([a-z-]*)\[([a-z-]+)(="([a-z]*)")?\]$/', $parseRule['tag'], $matches)) {
                 $tag = $matches[1];
                 $attribute = $matches[2];
+                if (isset($matches[4])) {
+                    $value = $matches[4];
+                }
             } else {
                 $tag = $parseRule['tag'];
             }
@@ -244,6 +254,10 @@ class DOMParser
             }
 
             if (isset($attribute) && !$DOMNode->hasAttribute($attribute)) {
+                if (isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
+                    return false;
+                }
+
                 return false;
             }
         }
@@ -257,8 +271,8 @@ class DOMParser
 
         // ['getAttrs' => function($DOMNode) { … }]
         if (isset($parseRule['getAttrs'])) {
-            if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, 'font-weight')) {
-                $parameter = Utils::getInlineStyle($DOMNode, 'font-weight');
+            if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
+                $parameter = Utils::getInlineStyle($DOMNode, $parseRule['style']);
             } else {
                 $parameter = $DOMNode;
             }

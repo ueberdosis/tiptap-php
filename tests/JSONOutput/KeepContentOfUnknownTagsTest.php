@@ -19,11 +19,7 @@ class KeepContentOfUnknownTagsTest extends TestCase
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' => "Example ",
-                        ],
-                        [
-                            'type' => 'text',
-                            'text' => "Text",
+                            'text' => "Example Text",
                         ],
                     ],
                 ],

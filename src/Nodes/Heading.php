@@ -29,9 +29,24 @@ class Heading extends Node
     {
         return [
             'type' => 'heading',
+            // 'attrs' => self::getAttributes($DOMNode),
             'attrs' => [
                 'level' => self::getLevel($DOMNode->nodeName),
             ],
         ];
     }
+
+    // public static function addAttributes()
+    // {
+    //     return [
+    //         'level' => [
+    //             'default' => 1,
+    //         ],
+    //     ];
+    // }
+
+    // public static function getAttributes($DOMNode)
+    // {
+    //     dd(self::addAttributes());
+    // }
 }

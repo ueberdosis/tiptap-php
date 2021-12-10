@@ -2,8 +2,8 @@
 
 namespace Tiptap;
 
-use DOMDocument;
 use DOMElement;
+use DOMDocument;
 
 class DOMParser
 {
@@ -136,7 +136,34 @@ class DOMParser
             }
         }
 
-        return $nodes;
+
+        // If similar nodes, just with different text follow each other,
+        // we can merge them into a single node.
+        $mergedNodes = [];
+
+        array_reduce($nodes, function ($carry, $node) use (&$mergedNodes) {
+            // Ignore multidimensional arrays
+            if (
+                count($node) !== count($node, COUNT_RECURSIVE)
+                || count($carry) !== count($carry, COUNT_RECURSIVE)
+            ) {
+                $mergedNodes[] = $node;
+                return $node;
+            }
+
+            // Check if text is the only difference
+            $differentKeys = array_keys(array_diff($carry, $node));
+            if ($differentKeys != ['text']) {
+                $mergedNodes[] = $node;
+                return $node;
+            }
+
+            // Merge it!
+            $mergedNodes[count($mergedNodes) - 1]['text'] .= $node['text'];
+            return $mergedNodes[count($mergedNodes) - 1];
+        }, []);
+
+        return $mergedNodes;
     }
 
     private function getMatchingNode($item)
@@ -152,8 +179,51 @@ class DOMParser
     private function getMatchingClass($node, $classes)
     {
         foreach ($classes as $class) {
-            if ($class::parseHTML($node)) {
+            if ($this->checkParseRules($class::parseHTML($node), $node)) {
                 return $class;
+            }
+        }
+
+        return false;
+    }
+
+    private function checkParseRules($parseRules, $DOMNode)
+    {
+        // TODO: Temporary
+        if (is_bool($parseRules)) {
+            return $parseRules;
+        }
+
+        if (is_array($parseRules)) {
+            foreach ($parseRules as $parseRule) {
+                // ['tag' => 'strong']
+                if (isset($parseRule['tag'])) {
+                    if ($parseRule['tag'] !== $DOMNode->nodeName) {
+                        continue;
+                    }
+                }
+
+                // ['style' => 'font-weight']
+                if (isset($parseRule['style'])) {
+                    if (!Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
+                        continue;
+                    }
+                }
+
+                // ['getAttrs' => function($DOMNode) { … }]
+                if (isset($parseRule['getAttrs'])) {
+                    if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, 'font-weight')) {
+                        $parameter = Utils::getInlineStyle($DOMNode, 'font-weight');
+                    } else {
+                        $parameter = $DOMNode;
+                    }
+
+                    if ($parseRule['getAttrs']($parameter) === false) {
+                        continue;
+                    }
+                }
+
+                return true;
             }
         }
 

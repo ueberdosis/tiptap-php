@@ -8,9 +8,9 @@ use Tiptap\Tests\JSONOutput\TestCase;
 class BoldTest extends TestCase
 {
     /** @test */
-    public function b_and_strong_get_rendered_correctly()
+    public function b_gets_rendered_correctly()
     {
-        $html = '<p><strong>Example text using strong</strong> and <b>some example text using b</b></p>';
+        $html = '<p><b>Example</b> Text</p>';
 
         $json = [
             'type' => 'doc',
@@ -20,7 +20,7 @@ class BoldTest extends TestCase
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'Example text using strong',
+                            'text' => 'Example',
                             'marks' => [
                                 [
                                     'type' => 'bold',
@@ -29,16 +29,94 @@ class BoldTest extends TestCase
                         ],
                         [
                             'type' => 'text',
-                            'text' => ' and ',
+                            'text' => ' Text',
                         ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+    }
+
+    /** @test */
+    public function strong_gets_rendered_correctly()
+    {
+        $html = '<p><strong>Example</strong> Text</p>';
+
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'some example text using b',
+                            'text' => 'Example',
                             'marks' => [
                                 [
                                     'type' => 'bold',
                                 ],
                             ],
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => ' Text',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+    }
+
+    /** @test */
+    public function b_with_font_weight_normal_is_ignored()
+    {
+        $html = '<p><b style="font-weight: normal;">Example</b> Text</p>';
+
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Example Text',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+    }
+
+    /** @test */
+    public function span_with_font_weight_bold_is_parsed()
+    {
+        $html = '<p><span style="font-weight: bold;">Example</span> Text</p>';
+
+        $json = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Example',
+                            'marks' => [
+                                [
+                                    'type' => 'bold',
+                                ],
+                            ],
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => ' Text',
                         ],
                     ],
                 ],

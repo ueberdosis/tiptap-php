@@ -37,6 +37,12 @@ $html = (new Tiptap\Editor)->setContent([
 ])->getHTML();
 ```
 
+### Sanitize content
+```php
+$document = (new Tiptap\Editor)->sanitize('<p>Example Text<script>alert("HACKED!")</script></p>');
+// Output: '<p>Example Text</p>'
+```
+
 ## Testing
 ```bash
 composer test

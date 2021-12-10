@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\Editor\Tests;
+namespace Tiptap\Tests\Editor;
 
 use PHPUnit\Framework\TestCase;
 use Tiptap\Editor;

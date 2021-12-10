@@ -38,7 +38,6 @@ class DOMParser
         Nodes\TableCell::class,
         Nodes\TableHeader::class,
         Nodes\TableRow::class,
-        Nodes\TableWrapper::class,
         Nodes\Text::class,
     ];
 

@@ -1,8 +1,9 @@
 <?php
 
-namespace Tiptap\Tests\JSONOutput;
+namespace Tiptap\Tests\Editor;
 
 use Tiptap\Editor;
+use PHPUnit\Framework\TestCase;
 
 class GetJSONTest extends TestCase
 {

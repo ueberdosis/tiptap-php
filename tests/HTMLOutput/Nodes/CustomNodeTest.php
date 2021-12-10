@@ -56,7 +56,7 @@ class CustomNodeTest extends TestCase
         //     'type' => 'doc',
         //     'content' => [
         //         [
-        //             'type' => 'user',
+        //             'type' => 'mention',
         //             'attrs' => [
         //                 'id' => 123,
         //             ],

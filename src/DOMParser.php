@@ -269,7 +269,21 @@ class DOMParser
     private function parseAttributes($class, $DOMNode)
     {
         // TODO: I want to remove ::data
-        $item = $class::data($DOMNode);
+        $item = [
+            'type' => $class::$name,
+        ];
+
+        if ($class::$name === 'text') {
+            $text = ltrim($DOMNode->nodeValue, "\n");
+
+            if ($text === '') {
+                return null;
+            }
+
+            $item = array_merge($item, [
+                'text' => $text,
+            ]);
+        }
 
         if (!is_array($class::parseHTML($DOMNode))) {
             return $item;

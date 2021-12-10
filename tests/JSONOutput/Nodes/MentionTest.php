@@ -23,7 +23,7 @@ class MentionTest extends TestCase
                             'text' => 'Hey ',
                         ],
                         [
-                            'type' => 'user',
+                            'type' => 'mention',
                             'attrs' => [
                                 'id' => 123,
                             ],

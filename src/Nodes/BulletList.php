@@ -8,7 +8,7 @@ class BulletList extends Node
 {
     public static $name = 'bulletList';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

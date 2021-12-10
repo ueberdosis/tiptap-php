@@ -8,7 +8,7 @@ class Underline extends Mark
 {
     public static $name = 'underline';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

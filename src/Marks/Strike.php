@@ -8,7 +8,7 @@ class Strike extends Mark
 {
     public static $name = 'strike';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

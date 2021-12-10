@@ -8,7 +8,7 @@ class OrderedList extends Node
 {
     public static $name = 'orderedList';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

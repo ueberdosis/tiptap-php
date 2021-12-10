@@ -9,7 +9,7 @@ class Italic extends Mark
 {
     public static $name = 'italic';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

@@ -8,7 +8,7 @@ class Image extends Node
 {
     public static $name = 'image';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

@@ -8,7 +8,7 @@ class Blockquote extends Node
 {
     public static $name = 'blockquote';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

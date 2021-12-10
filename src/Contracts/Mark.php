@@ -11,7 +11,7 @@ class Mark
         return null;
     }
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [];
     }

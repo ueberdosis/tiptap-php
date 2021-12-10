@@ -8,7 +8,7 @@ class TableRow extends Node
 {
     public static $name = 'tableRow';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

@@ -8,7 +8,7 @@ class Subscript extends Mark
 {
     public static $name = 'subscript';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

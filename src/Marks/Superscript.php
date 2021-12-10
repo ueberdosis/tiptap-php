@@ -13,7 +13,7 @@ class Superscript extends Mark
         return 'sup';
     }
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

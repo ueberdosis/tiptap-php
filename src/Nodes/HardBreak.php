@@ -8,7 +8,7 @@ class HardBreak extends Node
 {
     public static $name = 'hardBreak';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

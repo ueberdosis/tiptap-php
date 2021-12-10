@@ -8,7 +8,7 @@ class ListItem extends Node
 {
     public static $name = 'listItem';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

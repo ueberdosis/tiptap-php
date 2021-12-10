@@ -8,7 +8,7 @@ class Heading extends Node
 {
     public static $name = 'heading';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         $levels = [1, 2, 3, 4, 5, 6];
 

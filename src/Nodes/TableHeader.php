@@ -6,7 +6,7 @@ class TableHeader extends TableCell
 {
     public static $name = 'tableHeader';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

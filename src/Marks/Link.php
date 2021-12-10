@@ -8,7 +8,7 @@ class Link extends Mark
 {
     public static $name = 'link';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

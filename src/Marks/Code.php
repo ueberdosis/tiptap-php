@@ -8,7 +8,7 @@ class Code extends Mark
 {
     public static $name = 'code';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

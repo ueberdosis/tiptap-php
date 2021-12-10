@@ -8,7 +8,7 @@ class Mention extends Node
 {
     public static $name = 'mention';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

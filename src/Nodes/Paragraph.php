@@ -8,7 +8,7 @@ class Paragraph extends Node
 {
     public static $name = 'paragraph';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

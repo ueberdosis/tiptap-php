@@ -8,11 +8,13 @@ class Table extends Node
 {
     public static $name = 'table';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
-        return
-            $DOMNode->nodeName === 'tbody' &&
-            $DOMNode->parentNode->nodeName === 'table';
+        return [
+            [
+                'tag' => 'table',
+            ],
+        ];
     }
 
     public static function renderHTML($node)

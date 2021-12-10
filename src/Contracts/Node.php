@@ -8,7 +8,7 @@ class Node
 
     public static $marks = '_';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [];
     }

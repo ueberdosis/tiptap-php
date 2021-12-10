@@ -10,7 +10,7 @@ class CodeBlock extends Node
 
     public static $marks = '';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

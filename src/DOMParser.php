@@ -285,11 +285,13 @@ class DOMParser
             ]);
         }
 
-        if (!is_array($class::parseHTML($DOMNode))) {
+        $parseRules = $class::parseHTML();
+
+        if (!is_array($parseRules)) {
             return $item;
         }
 
-        foreach ($class::parseHTML($DOMNode) as $parseRule) {
+        foreach ($parseRules as $parseRule) {
             if (!$this->checkParseRule($parseRule, $DOMNode)) {
                 continue;
             }

@@ -8,7 +8,7 @@ class HorizontalRule extends Node
 {
     public static $name = 'horizontalRule';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

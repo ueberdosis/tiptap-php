@@ -8,7 +8,7 @@ class TableCell extends Node
 {
     public static $name = 'tableCell';
 
-    public static function parseHTML($DOMNode)
+    public static function parseHTML()
     {
         return [
             [

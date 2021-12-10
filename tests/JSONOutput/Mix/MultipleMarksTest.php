@@ -12,7 +12,7 @@ class MultipleMarksTest extends TestCase
     {
         $html = '<p><strong><em>Example Text</em></strong></p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -35,6 +35,6 @@ class MultipleMarksTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

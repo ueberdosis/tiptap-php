@@ -10,7 +10,7 @@ class OrderedListTest extends TestCase
     /** @test */
     public function ordered_list_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -32,13 +32,13 @@ class OrderedListTest extends TestCase
 
         $html = '<ol><li>first list item</li></ol>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function ordered_list_has_offset()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -63,6 +63,6 @@ class OrderedListTest extends TestCase
 
         $html = '<ol start="3"><li>first list item</li></ol>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

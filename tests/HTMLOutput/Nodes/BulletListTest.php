@@ -10,7 +10,7 @@ class BulletListTest extends TestCase
     /** @test */
     public function bullet_list_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -32,6 +32,6 @@ class BulletListTest extends TestCase
 
         $html = '<ul><li>first list item</li></ul>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

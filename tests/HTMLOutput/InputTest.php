@@ -9,7 +9,7 @@ class InputTest extends TestCase
     /** @test */
     public function array_gets_rendered_to_html()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -21,14 +21,14 @@ class InputTest extends TestCase
 
         $html = 'Example Text';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
 
     /** @test */
     public function json_gets_rendered_to_html()
     {
-        $json = json_encode([
+        $document = json_encode([
             'type' => 'doc',
             'content' => [
                 [
@@ -40,13 +40,13 @@ class InputTest extends TestCase
 
         $html = 'Example Text';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function encoding_is_correct()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -58,13 +58,13 @@ class InputTest extends TestCase
 
         $html = 'Äffchen';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function quotes_are_not_escaped()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -76,6 +76,6 @@ class InputTest extends TestCase
 
         $html = '&quot;Example Text&quot;';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

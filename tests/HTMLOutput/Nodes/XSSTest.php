@@ -10,7 +10,7 @@ class XSSTest extends TestCase
     /** @test */
     public function text_should_not_get_rendered_as_html()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -23,7 +23,7 @@ class XSSTest extends TestCase
         // assert that the input has been sanitized
         $this->assertEquals(
             '&lt;script&gt;alert(1)&lt;/script&gt;',
-            (new Editor)->setContent($json)->getHTML()
+            (new Editor)->setContent($document)->getHTML()
         );
     }
 }

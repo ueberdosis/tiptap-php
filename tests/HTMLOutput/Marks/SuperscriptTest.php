@@ -10,7 +10,7 @@ class SuperscriptTest extends TestCase
     /** @test */
     public function superscript_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class SuperscriptTest extends TestCase
 
         $html = '<sup>Example Text</sup>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

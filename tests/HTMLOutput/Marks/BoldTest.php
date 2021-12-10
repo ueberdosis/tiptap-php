@@ -10,7 +10,7 @@ class BoldTest extends TestCase
     /** @test */
     public function bold_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class BoldTest extends TestCase
 
         $html = '<strong>Example Text</strong>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

@@ -12,7 +12,7 @@ class NestedMarksTest extends TestCase
     {
         $html = '<strong>only bold <em>bold and italic</em> only bold</strong>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -48,6 +48,6 @@ class NestedMarksTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

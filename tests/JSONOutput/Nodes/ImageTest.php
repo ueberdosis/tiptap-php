@@ -12,7 +12,7 @@ class ImageTest extends TestCase
     {
         $html = '<img src="https://example.com/eggs.png" alt="The Finished Dish" title="Eggs in a dish" />';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -26,7 +26,7 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -34,7 +34,7 @@ class ImageTest extends TestCase
     {
         $html = '<img src="https://example.com/eggs.png" alt="The Finished Dish" />';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -48,7 +48,7 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -56,7 +56,7 @@ class ImageTest extends TestCase
     {
         $html = '<img src="https://example.com/eggs.png" title="Eggs in a dish" />';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -70,6 +70,6 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

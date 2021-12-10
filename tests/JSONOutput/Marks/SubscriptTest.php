@@ -12,7 +12,7 @@ class SubscriptTest extends TestCase
     {
         $html = '<p><sub>Example Text</sub></p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -32,6 +32,6 @@ class SubscriptTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

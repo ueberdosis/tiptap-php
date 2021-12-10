@@ -12,7 +12,7 @@ class CustomMarkTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p><span data-foo="bla bla" bar="nanana">Example text inside custom mark</span> and some more text.</p>';
 
-        // $json = [
+        // $document = [
         //     'type'    => 'doc',
         //     'content' => [
         //         [
@@ -42,6 +42,6 @@ class CustomMarkTest extends TestCase
 
         // $renderer = (new Renderer())->addMark(Custom::class);
 
-        // $this->assertEquals($json, $renderer->render($html));
+        // $this->assertEquals($document, $renderer->render($html));
     }
 }

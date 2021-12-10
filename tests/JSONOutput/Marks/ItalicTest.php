@@ -12,7 +12,7 @@ class ItalicTest extends TestCase
     {
         $html = '<p><i>Example</i> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -36,7 +36,7 @@ class ItalicTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -44,7 +44,7 @@ class ItalicTest extends TestCase
     {
         $html = '<p><em>Example</em> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -68,7 +68,7 @@ class ItalicTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -76,7 +76,7 @@ class ItalicTest extends TestCase
     {
         $html = '<p><i style="font-style: normal;">Example</i> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -91,7 +91,7 @@ class ItalicTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -99,7 +99,7 @@ class ItalicTest extends TestCase
     {
         $html = '<p><span style="font-style: italic;">Example</span> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -123,6 +123,6 @@ class ItalicTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

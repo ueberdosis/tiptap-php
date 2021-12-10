@@ -12,7 +12,7 @@ class BoldTest extends TestCase
     {
         $html = '<p><b>Example</b> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -36,7 +36,7 @@ class BoldTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -44,7 +44,7 @@ class BoldTest extends TestCase
     {
         $html = '<p><strong>Example</strong> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -68,7 +68,7 @@ class BoldTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -76,7 +76,7 @@ class BoldTest extends TestCase
     {
         $html = '<p><b style="font-weight: normal;">Example</b> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -91,7 +91,7 @@ class BoldTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -99,7 +99,7 @@ class BoldTest extends TestCase
     {
         $html = '<p><span style="font-weight: bold;">Example</span> Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -123,6 +123,6 @@ class BoldTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

@@ -10,7 +10,7 @@ class ConfiguredNodesTest extends TestCase
     public function paragraph_is_enabled_by_default()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -27,14 +27,14 @@ class ConfiguredNodesTest extends TestCase
 
         // $html = '<p>Example Text</p>';
 
-        // $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        // $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function paragraph_is_enabled_explicitly()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -53,14 +53,14 @@ class ConfiguredNodesTest extends TestCase
 
         // $this->assertEquals($html, (new Renderer)->withNodes([
         //     \Tiptap\Nodes\Paragraph::class,
-        // ])->render($json));
+        // ])->render($document));
     }
 
     /** @test */
     public function all_marks_are_disabled()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -77,14 +77,14 @@ class ConfiguredNodesTest extends TestCase
 
         // $html = 'Example Text';
 
-        // $this->assertEquals($html, (new Renderer)->withNodes([])->render($json));
+        // $this->assertEquals($html, (new Renderer)->withNodes([])->render($document));
     }
 
     /** @test */
     public function paragraph_is_replaced_with_a_custom_integration()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -104,6 +104,6 @@ class ConfiguredNodesTest extends TestCase
         // $this->assertEquals($html, (new Renderer)->replaceNode(
         //     \Tiptap\Nodes\Paragraph::class,
         //     \Tiptap\Tests\Nodes\Custom\Paragraph::class
-        // )->render($json));
+        // )->render($document));
     }
 }

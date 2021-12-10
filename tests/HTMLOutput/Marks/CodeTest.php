@@ -10,7 +10,7 @@ class CodeTest extends TestCase
     /** @test */
     public function code_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class CodeTest extends TestCase
 
         $html = '<code>Example Text</code>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

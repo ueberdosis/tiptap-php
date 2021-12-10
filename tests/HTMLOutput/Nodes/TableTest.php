@@ -10,7 +10,7 @@ class TableTest extends TestCase
     /** @test */
     public function simple_table_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -42,13 +42,13 @@ class TableTest extends TestCase
 
         $html = '<table><tbody><tr><th><p>text in header cell</p></th></tr></tbody></table>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function table_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -197,6 +197,6 @@ class TableTest extends TestCase
             '<tr>' . '<td><p>foo</p></td>' . '<td><p>bar</p></td>' . '</tr>' .
             '</tbody></table>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

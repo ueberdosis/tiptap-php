@@ -12,7 +12,7 @@ class CustomNodeTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p>A custom node <span data-foo="bla bla" bar="nanana"></span> and some normal text.</p>';
 
-        // $json = [
+        // $document = [
         //     'type'    => 'doc',
         //     'content' => [
         //         [
@@ -40,6 +40,6 @@ class CustomNodeTest extends TestCase
 
         // $renderer = (new Renderer())->addNode(Custom::class);
 
-        // $this->assertEquals($json, $renderer->render($html));
+        // $this->assertEquals($document, $renderer->render($html));
     }
 }

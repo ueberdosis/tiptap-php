@@ -12,7 +12,7 @@ class CodeBlockTest extends TestCase
     {
         $html = '<pre><code>Example Text</code></pre>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,7 +27,7 @@ class CodeBlockTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class CodeBlockTest extends TestCase
     {
         $html = '<pre><code class="language-css">body { display: none }</code></pre>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -53,6 +53,6 @@ class CodeBlockTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

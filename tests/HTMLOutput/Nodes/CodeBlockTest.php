@@ -10,7 +10,7 @@ class CodeBlockTest extends TestCase
     /** @test */
     public function code_block_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class CodeBlockTest extends TestCase
 
         $html = '<pre><code>Example Text</code></pre>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

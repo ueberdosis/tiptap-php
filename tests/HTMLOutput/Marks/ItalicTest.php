@@ -10,7 +10,7 @@ class ItalicTest extends TestCase
     /** @test */
     public function italic_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class ItalicTest extends TestCase
 
         $html = '<em>Example Text</em>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

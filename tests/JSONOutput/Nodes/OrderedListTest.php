@@ -12,7 +12,7 @@ class OrderedListTest extends TestCase
     {
         $html = '<ol><li><p>Example</p></li><li><p>Text</p></li></ol>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -54,7 +54,7 @@ class OrderedListTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -62,7 +62,7 @@ class OrderedListTest extends TestCase
     {
         $html = '<ol start="3"><li><p>Example</p></li><li><p>Text</p></li></ol>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -104,6 +104,6 @@ class OrderedListTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

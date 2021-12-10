@@ -17,7 +17,7 @@ class CustomMarkTest extends TestCase
     public function custom_mark_gets_rendered_correctly()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -37,14 +37,14 @@ class CustomMarkTest extends TestCase
         // $renderer = new Renderer();
         // $renderer->addMark(CustomMark::class);
 
-        // $this->assertEquals($html, $renderer->render($json));
+        // $this->assertEquals($html, $renderer->render($document));
     }
 
     /** @test */
     public function multiple_custom_marks_get_rendered_correctly()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -64,14 +64,14 @@ class CustomMarkTest extends TestCase
         // $renderer = new Renderer();
         // $renderer->addMarks([CustomMark::class]);
 
-        // $this->assertEquals($html, $renderer->render($json));
+        // $this->assertEquals($html, $renderer->render($document));
     }
 
     /** @test */
     public function example_for_overwriting_marks()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -92,6 +92,6 @@ class CustomMarkTest extends TestCase
 
         // $renderer->replaceMark(Bold::class, CustomBold::class);
 
-        // $this->assertEquals($html, $renderer->render($json));
+        // $this->assertEquals($html, $renderer->render($document));
     }
 }

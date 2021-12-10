@@ -12,7 +12,7 @@ class ParagraphTest extends TestCase
     {
         $html = '<p>Example Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,7 +27,7 @@ class ParagraphTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
 
@@ -36,7 +36,7 @@ class ParagraphTest extends TestCase
     {
         $html = '<p>Example</p><p>Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -60,6 +60,6 @@ class ParagraphTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

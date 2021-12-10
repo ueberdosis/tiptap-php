@@ -10,7 +10,7 @@ class SubscriptTest extends TestCase
     /** @test */
     public function subscript_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class SubscriptTest extends TestCase
 
         $html = '<sub>Example Text</sub>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

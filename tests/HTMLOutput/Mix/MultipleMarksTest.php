@@ -10,7 +10,7 @@ class MultipleMarksTest extends TestCase
     /** @test */
     public function multiple_marks_get_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -35,6 +35,6 @@ class MultipleMarksTest extends TestCase
 
         $html = '<p><strong><em>Example Text</em></strong></p>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

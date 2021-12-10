@@ -10,7 +10,7 @@ class HeadingTest extends TestCase
     /** @test */
     public function heading_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -30,6 +30,6 @@ class HeadingTest extends TestCase
 
         $html = '<h2>Example Headline</h2>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

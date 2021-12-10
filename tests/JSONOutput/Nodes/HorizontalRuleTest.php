@@ -12,7 +12,7 @@ class HorizontalRuleTest extends TestCase
     {
         $html = '<p>Horizontal</p><hr /><p>Rule</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -39,6 +39,6 @@ class HorizontalRuleTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

@@ -9,25 +9,24 @@ class ConfiguredMarksTest extends TestCase
     /** @test */
     public function bold_is_enabled_by_default()
     {
-        $this->markTestSkipped('This test has not been implemented yet.');
-        // $html = '<strong>Example Text</strong>';
+        $html = '<strong>Example Text</strong>';
 
-        // $json = [
-        //     'type' => 'doc',
-        //     'content' => [
-        //         [
-        //             'type' => 'text',
-        //             'text' => 'Example Text',
-        //             'marks' => [
-        //                 [
-        //                     'type' => 'bold',
-        //                 ],
-        //             ],
-        //         ],
-        //     ],
-        // ];
+        $document = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'text',
+                    'text' => 'Example Text',
+                    'marks' => [
+                        [
+                            'type' => 'bold',
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        // $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -36,7 +35,7 @@ class ConfiguredMarksTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<strong>Example Text</strong>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -51,7 +50,7 @@ class ConfiguredMarksTest extends TestCase
         //     ],
         // ];
 
-        // $this->assertEquals($json, (new Renderer)->withMarks([
+        // $this->assertEquals($document, (new Renderer)->withMarks([
         //     \Tiptap\JSONOutput\Marks\Bold::class,
         // ])->render($html));
     }
@@ -62,7 +61,7 @@ class ConfiguredMarksTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p><strong>Example Text</strong></p>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -77,7 +76,7 @@ class ConfiguredMarksTest extends TestCase
         //     ],
         // ];
 
-        // $this->assertEquals($json, (new Renderer)->withMarks([])->render($html));
+        // $this->assertEquals($document, (new Renderer)->withMarks([])->render($html));
     }
 
     /** @test */
@@ -86,7 +85,7 @@ class ConfiguredMarksTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p><b>Example Text</b></p>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -106,7 +105,7 @@ class ConfiguredMarksTest extends TestCase
         //     ],
         // ];
 
-        // $this->assertEquals($json, (new Renderer)->replaceMark(
+        // $this->assertEquals($document, (new Renderer)->replaceMark(
         //     \Tiptap\JSONOutput\Marks\Bold::class,
         //     \Tiptap\Tests\JSONOutput\Marks\Custom\Bold::class
         // )->render($html));

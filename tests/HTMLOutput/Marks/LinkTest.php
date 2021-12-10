@@ -10,7 +10,7 @@ class LinkTest extends TestCase
     /** @test */
     public function link_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -30,13 +30,13 @@ class LinkTest extends TestCase
 
         $html = '<a href="https://scrumpy.io">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function link_mark_has_support_for_rel()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -57,13 +57,13 @@ class LinkTest extends TestCase
 
         $html = '<a rel="noopener" href="https://scrumpy.io">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function link_mark_has_support_for_target()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -84,13 +84,13 @@ class LinkTest extends TestCase
 
         $html = '<a target="_blank" href="https://scrumpy.io">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function link_with_marks_generates_clean_output()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -125,13 +125,13 @@ class LinkTest extends TestCase
 
         $html = '<a href="https://example.com">Example <strong>Link</strong></a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */
     public function link_with_marks_inside_node_generates_clean_output()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -171,6 +171,6 @@ class LinkTest extends TestCase
 
         $html = '<p><a href="https://example.com">Example <strong>Link</strong></a></p>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

@@ -35,6 +35,11 @@ class Editor
         return $this->document;
     }
 
+    public function getJSON()
+    {
+        return json_encode($this->document);
+    }
+
     public function getHTML()
     {
         return (new DOMSerializer)->render($this->document);

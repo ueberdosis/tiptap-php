@@ -11,7 +11,7 @@ class EmptyTextNodesTest extends TestCase
     {
         $html = "<em><br />\n</em>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -25,6 +25,6 @@ class EmptyTextNodesTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

@@ -12,7 +12,7 @@ class BulletListTest extends TestCase
     {
         $html = '<ul><li><p>Example</p></li><li><p>Text</p></li></ul>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -51,7 +51,7 @@ class BulletListTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -59,7 +59,7 @@ class BulletListTest extends TestCase
     {
         $html = '<ul><li>Example</li><li>Text <em>Test</em></li></ul>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -107,7 +107,7 @@ class BulletListTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -115,7 +115,7 @@ class BulletListTest extends TestCase
     {
         $html = "<ul><li> </li></ul>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -135,6 +135,6 @@ class BulletListTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

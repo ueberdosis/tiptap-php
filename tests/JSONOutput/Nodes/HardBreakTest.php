@@ -12,7 +12,7 @@ class HardBreakTest extends TestCase
     {
         $html = '<p>Hard <br />Break</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -34,7 +34,7 @@ class HardBreakTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
 
@@ -43,7 +43,7 @@ class HardBreakTest extends TestCase
     {
         $html = '<p>Example</p><p>Text</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -67,6 +67,6 @@ class HardBreakTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

@@ -12,7 +12,7 @@ class BlockquoteTest extends TestCase
     {
         $html = '<blockquote><p>Paragraph</p></blockquote>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -32,6 +32,6 @@ class BlockquoteTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

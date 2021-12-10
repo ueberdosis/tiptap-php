@@ -11,7 +11,7 @@ class KeepContentOfUnknownTagsTest extends TestCase
     {
         $html = "<p>Example <x-unknown-tag>Text</x-unknown-tag></p>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -26,7 +26,7 @@ class KeepContentOfUnknownTagsTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -34,7 +34,7 @@ class KeepContentOfUnknownTagsTest extends TestCase
     {
         $html = "<p>Example <x-unknown-tag><b>Text</b></x-unknown-tag></p>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -58,6 +58,6 @@ class KeepContentOfUnknownTagsTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

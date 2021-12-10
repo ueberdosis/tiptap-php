@@ -10,7 +10,7 @@ class ImageTest extends TestCase
     /** @test */
     public function image_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -26,6 +26,6 @@ class ImageTest extends TestCase
 
         $html = '<img alt="an image" src="image/source" title="The image title">';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

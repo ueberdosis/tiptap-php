@@ -10,7 +10,7 @@ class UnderlineTest extends TestCase
     /** @test */
     public function underline_mark_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class UnderlineTest extends TestCase
 
         $html = '<u>Example Text</u>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

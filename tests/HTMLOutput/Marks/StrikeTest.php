@@ -10,7 +10,7 @@ class StrikeTest extends TestCase
     /** @test */
     public function strike_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class StrikeTest extends TestCase
 
         $html = '<strike>Example Text</strike>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

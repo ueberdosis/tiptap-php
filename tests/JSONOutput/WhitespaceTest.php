@@ -11,7 +11,7 @@ class WhitespaceTest extends TestCase
     {
         $html = "<p>\nExample\n Text</p>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -26,7 +26,7 @@ class WhitespaceTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class WhitespaceTest extends TestCase
                 "    Line of Code 2\n" .
                 "Line of Code</code></pre>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -64,6 +64,6 @@ class WhitespaceTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

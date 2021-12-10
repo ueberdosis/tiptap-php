@@ -12,7 +12,7 @@ class CodeTest extends TestCase
     {
         $html = '<p><code>Example Text</code></p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -32,6 +32,6 @@ class CodeTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

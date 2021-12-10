@@ -10,7 +10,7 @@ class CustomNodeTest extends TestCase
     public function custom_node_gets_rendered_correctly()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -24,14 +24,14 @@ class CustomNodeTest extends TestCase
         // $renderer = new Renderer;
         // $renderer->addNode(Custom\Div::class);
 
-        // $this->assertEquals($html, $renderer->render($json));
+        // $this->assertEquals($html, $renderer->render($document));
     }
 
     /** @test */
     public function multiple_custom_nodes_get_rendered_correctly()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -45,14 +45,14 @@ class CustomNodeTest extends TestCase
         // $renderer = new Renderer;
         // $renderer->addNodes([Custom\Div::class]);
 
-        // $this->assertEquals($html, $renderer->render($json));
+        // $this->assertEquals($html, $renderer->render($document));
     }
 
     /** @test */
     public function custom_node_renders_with_correct_text()
     {
         $this->markTestSkipped('This test has not been implemented yet.');
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -69,6 +69,6 @@ class CustomNodeTest extends TestCase
         // $renderer = new Renderer;
         // $renderer->addNode(Custom\User::class);
 
-        // $this->assertEquals($html, $renderer->render($json));
+        // $this->assertEquals($html, $renderer->render($document));
     }
 }

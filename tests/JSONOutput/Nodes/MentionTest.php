@@ -12,7 +12,7 @@ class MentionTest extends TestCase
     {
         $html = '<p>Hey <span data-type="mention" data-id="123"></span>, was geht?</p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -37,6 +37,6 @@ class MentionTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

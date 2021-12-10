@@ -12,7 +12,7 @@ class ConfiguredNodesTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p>Example Text</p>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -27,7 +27,7 @@ class ConfiguredNodesTest extends TestCase
         //     ],
         // ];
 
-        // $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        // $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -36,7 +36,7 @@ class ConfiguredNodesTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p>Example Text</p>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -51,7 +51,7 @@ class ConfiguredNodesTest extends TestCase
         //     ],
         // ];
 
-        // $this->assertEquals($json, (new Renderer)->withNodes([
+        // $this->assertEquals($document, (new Renderer)->withNodes([
         //     \Tiptap\JSONOutput\Nodes\Text::class,
         //     \Tiptap\JSONOutput\Nodes\Paragraph::class,
         // ])->render($html));
@@ -63,12 +63,12 @@ class ConfiguredNodesTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<p>Example Text</p>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [],
         // ];
 
-        // $this->assertEquals($json, (new Renderer)->withNodes([])->render($html));
+        // $this->assertEquals($document, (new Renderer)->withNodes([])->render($html));
     }
 
     /** @test */
@@ -77,7 +77,7 @@ class ConfiguredNodesTest extends TestCase
         $this->markTestSkipped('This test has not been implemented yet.');
         // $html = '<div>Example Text</div>';
 
-        // $json = [
+        // $document = [
         //     'type' => 'doc',
         //     'content' => [
         //         [
@@ -92,7 +92,7 @@ class ConfiguredNodesTest extends TestCase
         //     ],
         // ];
 
-        // $this->assertEquals($json, (new Renderer)->replaceNode(
+        // $this->assertEquals($document, (new Renderer)->replaceNode(
         //     \Tiptap\JSONOutput\Nodes\Paragraph::class,
         //     \Tiptap\Tests\JSONOutput\Nodes\Custom\Paragraph::class
         // )->render($html));

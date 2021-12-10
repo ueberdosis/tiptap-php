@@ -12,7 +12,7 @@ class LinkTest extends TestCase
     {
         $html = '<a href="https://scrumpy.io">Example Link</a>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -30,7 +30,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -38,7 +38,7 @@ class LinkTest extends TestCase
     {
         $html = '<a href="https://scrumpy.io" rel="noopener">Example Link</a>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -57,7 +57,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class LinkTest extends TestCase
     {
         $html = '<a href="https://scrumpy.io" target="_blank">Example Link</a>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -84,6 +84,6 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

@@ -12,7 +12,7 @@ class HeadingTest extends TestCase
     {
         $html = '<h1>Example Text</h1>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -30,7 +30,7 @@ class HeadingTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -38,7 +38,7 @@ class HeadingTest extends TestCase
     {
         $html = '<h2>Example Text</h2>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -56,6 +56,6 @@ class HeadingTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

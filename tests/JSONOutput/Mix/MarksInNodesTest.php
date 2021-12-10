@@ -12,7 +12,7 @@ class MarksInNodesTest extends TestCase
     {
         $html = "<p>Example <strong><em>Text</em></strong>.</p>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -43,7 +43,7 @@ class MarksInNodesTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -56,7 +56,7 @@ class MarksInNodesTest extends TestCase
             </p>
         ';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -141,7 +141,7 @@ class MarksInNodesTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -162,7 +162,7 @@ class MarksInNodesTest extends TestCase
             <p>Some Text.</p>
         ';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' =>
             [
@@ -302,6 +302,6 @@ class MarksInNodesTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

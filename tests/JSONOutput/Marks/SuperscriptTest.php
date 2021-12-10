@@ -12,7 +12,7 @@ class SuperscriptTest extends TestCase
     {
         $html = '<p><sup>Example Text</sup></p>';
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -32,6 +32,6 @@ class SuperscriptTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

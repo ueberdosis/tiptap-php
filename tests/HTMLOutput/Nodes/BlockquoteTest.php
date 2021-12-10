@@ -10,7 +10,7 @@ class BlockquoteTest extends TestCase
     /** @test */
     public function blockquote_node_gets_rendered_correctly()
     {
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -27,6 +27,6 @@ class BlockquoteTest extends TestCase
 
         $html = '<blockquote>Example Quote</blockquote>';
 
-        $this->assertEquals($html, (new Editor)->setContent($json)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 }

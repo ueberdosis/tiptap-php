@@ -11,7 +11,7 @@ class EmojiTest extends TestCase
     {
         $html = "<p>🔥</p>";
 
-        $json = [
+        $document = [
             'type' => 'doc',
             'content' => [
                 [
@@ -26,6 +26,6 @@ class EmojiTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($json, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
     }
 }

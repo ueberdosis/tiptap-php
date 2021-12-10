@@ -10,9 +10,11 @@ class CodeBlock extends Node
 
     public static function parseHTML($DOMNode)
     {
-        return
-            $DOMNode->nodeName === 'code' &&
-            $DOMNode->parentNode->nodeName === 'pre';
+        return [
+            [
+                'tag' => 'pre',
+            ],
+        ];
     }
 
     public static function renderHTML($node)
@@ -22,7 +24,7 @@ class CodeBlock extends Node
 
     public static function data($DOMNode)
     {
-        $language = preg_replace("/^language-/", "", $DOMNode->getAttribute('class'));
+        $language = preg_replace("/^language-/", "", $DOMNode->childNodes[0]->getAttribute('class'));
 
         if ($language) {
             return [

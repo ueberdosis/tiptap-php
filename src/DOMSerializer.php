@@ -36,7 +36,7 @@ class DOMSerializer
         Marks\Superscript::class,
     ];
 
-    private function renderNode($node, $prevNode = null, $nextNode = null): string
+    private function renderNode($node, $previousNode = null, $nextNode = null): string
     {
         $html = [];
 
@@ -45,50 +45,60 @@ class DOMSerializer
                 foreach ($this->marks as $class) {
                     $renderClass = $class;
 
-                    if ($this->isType($mark, $renderClass) && $this->markShouldOpen($mark, $prevNode)) {
-                        $html[] = $this->renderOpeningTag($mark, $renderClass);
+                    if (!$this->isMarkOrNode($mark, $renderClass)) {
+                        continue;
                     }
+
+                    if (!$this->markShouldOpen($mark, $previousNode)) {
+                        continue;
+                    }
+
+                    $html[] = $this->renderOpeningTag($renderClass::renderHTML($mark));
                 }
             }
         }
 
-        foreach ($this->nodes as $class) {
-            $renderClass = $class;
-
-            if ($this->isType($node, $renderClass)) {
-                $html[] = $this->renderOpeningTag($node, $renderClass);
-                break;
+        foreach ($this->nodes as $extension) {
+            if (!$this->isMarkOrNode($node, $extension)) {
+                continue;
             }
+
+            $html[] = $this->renderOpeningTag($extension::renderHTML($node));
+            break;
         }
 
         if (isset($node->content)) {
             foreach ($node->content as $index => $nestedNode) {
-                $prevNestedNode = $node->content[$index - 1] ?? null;
+                $previousNestedNode = $node->content[$index - 1] ?? null;
                 $nextNestedNode = $node->content[$index + 1] ?? null;
 
-                $html[] = $this->renderNode($nestedNode, $prevNestedNode, $nextNestedNode);
-                $prevNode = $nestedNode;
+                $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode);
+                $previousNode = $nestedNode;
             }
         } elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
         }
 
-        foreach ($this->nodes as $class) {
-            $renderClass = $class;
-
-            if ($this->isType($node, $renderClass)) {
-                $html[] = $this->renderClosingTag($node, $renderClass);
+        foreach ($this->nodes as $extension) {
+            if (!$this->isMarkOrNode($node, $extension)) {
+                continue;
             }
+
+            $html[] = $this->renderClosingTag($extension::renderHTML($node));
         }
 
         if (isset($node->marks)) {
             foreach (array_reverse($node->marks) as $mark) {
-                foreach ($this->marks as $class) {
-                    $renderClass = new $class($mark);
-
-                    if ($this->isType($mark, $renderClass) && $this->markShouldClose($mark, $nextNode)) {
-                        $html[] = $this->renderClosingTag($mark, $renderClass);
+                foreach ($this->marks as $extension) {
+                    if (!$this->isMarkOrNode($mark, $extension)) {
+                        continue;
                     }
+
+                    if (!$this->markShouldClose($mark, $nextNode)) {
+                        continue;
+                    }
+
+                    $html[] = $this->renderClosingTag($extension::renderHTML($mark));
                 }
             }
         }
@@ -96,14 +106,14 @@ class DOMSerializer
         return join($html);
     }
 
-    private function isType($markOrNode, $renderClass): bool
+    private function isMarkOrNode($markOrNode, $renderClass): bool
     {
         return isset($markOrNode->type) && $markOrNode->type === $renderClass::$name;
     }
 
-    private function markShouldOpen($mark, $prevNode)
+    private function markShouldOpen($mark, $previousNode)
     {
-        return $this->nodeHasMark($prevNode, $mark);
+        return $this->nodeHasMark($previousNode, $mark);
     }
 
     private function markShouldClose($mark, $nextNode)
@@ -121,7 +131,7 @@ class DOMSerializer
             return true;
         }
 
-        // Other node has same mark
+        // The other node has same mark
         foreach ($node->marks as $otherMark) {
             if ($mark == $otherMark) {
                 return false;
@@ -131,33 +141,32 @@ class DOMSerializer
         return true;
     }
 
-    private function renderOpeningTag($node, $renderClass)
+    private function renderOpeningTag($renderHTML)
     {
-        $DOMOutputSpec = $renderClass::renderHTML($node);
-
         // 'strong'
-        if (is_string($DOMOutputSpec)) {
-            return "<{$DOMOutputSpec}>";
+        if (is_string($renderHTML)) {
+            return "<{$renderHTML}>";
         }
 
         // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        if (isset($DOMOutputSpec['tag'])) {
+        if (isset($renderHTML['tag'])) {
             $attributes = [];
 
-            foreach ($DOMOutputSpec['attrs'] ?? [] as $name => $value) {
+            foreach ($renderHTML['attrs'] ?? [] as $name => $value) {
                 $attributes[] = " {$name}=\"{$value}\"";
             }
 
             $attributes = join($attributes);
 
-            return "<{$DOMOutputSpec['tag']}{$attributes}>";
+            // <a href="#">
+            return "<{$renderHTML['tag']}{$attributes}>";
         }
 
         // ['table', 'tbody']
-        if (is_array($DOMOutputSpec)) {
+        if (is_array($renderHTML)) {
             $html = [];
 
-            foreach ($DOMOutputSpec as $tag) {
+            foreach ($renderHTML as $tag) {
                 $html[] = "<{$tag}>";
             }
 
@@ -170,8 +179,7 @@ class DOMSerializer
         //     …
         // }
 
-
-        throw new \Exception('Failed to use renderHTML output.');
+        throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
     private function isSelfClosing($tag)
@@ -184,34 +192,32 @@ class DOMSerializer
         return substr_count($rendered, $tag) === 1;
     }
 
-    private function renderClosingTag($node, $renderClass)
+    private function renderClosingTag($renderHTML)
     {
-        $DOMOutputSpec = $renderClass::renderHTML($node);
-
         // 'strong'
-        if (is_string($DOMOutputSpec)) {
+        if (is_string($renderHTML)) {
             // self-closing tag
-            if ($this->isSelfClosing($DOMOutputSpec)) {
+            if ($this->isSelfClosing($renderHTML)) {
                 return null;
             }
 
-            return "</{$DOMOutputSpec}>";
+            return "</{$renderHTML}>";
         }
 
         // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        if (isset($DOMOutputSpec['tag'])) {
-            if ($this->isSelfClosing($DOMOutputSpec['tag'])) {
+        if (isset($renderHTML['tag'])) {
+            if ($this->isSelfClosing($renderHTML['tag'])) {
                 return null;
             }
 
-            return "</{$DOMOutputSpec['tag']}>";
+            return "</{$renderHTML['tag']}>";
         }
 
         // ['table', 'tbody']
-        if (is_array($DOMOutputSpec)) {
+        if (is_array($renderHTML)) {
             $html = [];
 
-            foreach (array_reverse($DOMOutputSpec) as $tag) {
+            foreach (array_reverse($renderHTML) as $tag) {
                 if ($this->isSelfClosing($tag)) {
                     return null;
                 }
@@ -221,7 +227,7 @@ class DOMSerializer
             return join($html);
         }
 
-        throw new \Exception('Failed to use renderHTML output.');
+        throw new \Exception('[renderClosingTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
     public function render(array $value)
@@ -234,10 +240,10 @@ class DOMSerializer
         $content = is_array($this->document->content) ? $this->document->content : [];
 
         foreach ($content as $index => $node) {
-            $prevNode = $content[$index - 1] ?? null;
+            $previousNode = $content[$index - 1] ?? null;
             $nextNode = $content[$index + 1] ?? null;
 
-            $html[] = $this->renderNode($node, $prevNode, $nextNode);
+            $html[] = $this->renderNode($node, $previousNode, $nextNode);
         }
 
         return join($html);

@@ -8,7 +8,7 @@ use Tiptap\Tests\JSONOutput\TestCase;
 class CodeBlockTest extends TestCase
 {
     /** @test */
-    public function code_block_gets_rendered_correctly()
+    public function codeBlock_gets_rendered_correctly()
     {
         $html = '<pre><code>Example Text</code></pre>';
 
@@ -16,7 +16,7 @@ class CodeBlockTest extends TestCase
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'code_block',
+                    'type' => 'codeBlock',
                     'content' => [
                         [
                             'type' => 'text',
@@ -31,7 +31,7 @@ class CodeBlockTest extends TestCase
     }
 
     /** @test */
-    public function code_block_with_language_gets_rendered_correctly()
+    public function codeBlock_with_language_gets_rendered_correctly()
     {
         $html = '<pre><code class="language-css">body { display: none }</code></pre>';
 
@@ -39,7 +39,7 @@ class CodeBlockTest extends TestCase
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'code_block',
+                    'type' => 'codeBlock',
                     'attrs' => [
                         'language' => 'css',
                     ],

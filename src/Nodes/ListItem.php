@@ -6,7 +6,7 @@ use Tiptap\Contracts\Node;
 
 class ListItem extends Node
 {
-    public static $name = 'list_item';
+    public static $name = 'listItem';
 
     public static function parseHTML($DOMNode)
     {
@@ -39,7 +39,7 @@ class ListItem extends Node
     public static function data($DOMNode)
     {
         return [
-            'type' => 'list_item',
+            'type' => 'listItem',
         ];
     }
 }

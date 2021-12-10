@@ -6,7 +6,7 @@ use Tiptap\Contracts\Node;
 
 class HardBreak extends Node
 {
-    public static $name = 'hard_break';
+    public static $name = 'hardBreak';
 
     public static function parseHTML($DOMNode)
     {
@@ -25,7 +25,7 @@ class HardBreak extends Node
     public static function data($DOMNode)
     {
         return [
-            'type' => 'hard_break',
+            'type' => 'hardBreak',
         ];
     }
 }

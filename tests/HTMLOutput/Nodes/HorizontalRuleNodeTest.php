@@ -23,7 +23,7 @@ class HorizontalRuleNodeTest extends TestCase
                     ],
                 ],
                 [
-                    'type' => 'horizontal_rule',
+                    'type' => 'horizontalRule',
                 ],
                 [
                     'type' => 'paragraph',

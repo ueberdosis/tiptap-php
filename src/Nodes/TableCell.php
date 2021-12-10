@@ -6,7 +6,7 @@ use Tiptap\Contracts\Node;
 
 class TableCell extends Node
 {
-    public static $name = 'table_cell';
+    public static $name = 'tableCell';
 
     public static function parseHTML($DOMNode)
     {

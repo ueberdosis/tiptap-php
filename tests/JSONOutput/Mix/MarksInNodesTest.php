@@ -179,13 +179,13 @@ class MarksInNodesTest extends TestCase
                     ],
                 ],
                 [
-                    'type' => 'ordered_list',
+                    'type' => 'orderedList',
                     'attrs' => [
                         'order' => 1,
                     ],
                     'content' => [
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'paragraph',
@@ -199,7 +199,7 @@ class MarksInNodesTest extends TestCase
                             ],
                         ],
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'paragraph',
@@ -213,7 +213,7 @@ class MarksInNodesTest extends TestCase
                             ],
                         ],
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'paragraph',
@@ -229,10 +229,10 @@ class MarksInNodesTest extends TestCase
                     ],
                 ],
                 [
-                    'type' => 'bullet_list',
+                    'type' => 'bulletList',
                     'content' => [
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'paragraph',
@@ -246,7 +246,7 @@ class MarksInNodesTest extends TestCase
                             ],
                         ],
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'paragraph',
@@ -275,7 +275,7 @@ class MarksInNodesTest extends TestCase
                             ],
                         ],
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'paragraph',

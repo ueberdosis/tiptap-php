@@ -9,25 +9,24 @@ class ConfiguredMarksTest extends TestCase
     /** @test */
     public function bold_is_enabled_by_default()
     {
-        $this->markTestSkipped('This test has not been implemented yet.');
-        // $document = [
-        //     'type' => 'doc',
-        //     'content' => [
-        //         [
-        //             'type' => 'text',
-        //             'text' => 'Example Text',
-        //             'marks' => [
-        //                 [
-        //                     'type' => 'bold',
-        //                 ],
-        //             ],
-        //         ],
-        //     ],
-        // ];
+        $document = [
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'text',
+                    'text' => 'Example Text',
+                    'marks' => [
+                        [
+                            'type' => 'bold',
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        // $html = '<strong>Example Text</strong>';
+        $html = '<strong>Example Text</strong>';
 
-        // $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
 
     /** @test */

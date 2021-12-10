@@ -1,10 +1,10 @@
-# tiptap for PHP
+# Tiptap for PHP
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap-php/run-tests?label=tests)](https://github.com/ueberdosis/tiptap-php/actions?query=workflow%3ATests+branch%3Amaster)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap-php/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ueberdosis/tiptap-php/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
 
-A PHP package to work with tiptap output.
+A PHP package to work with Tiptap output.
 
 ## Installation
 You can install the package via composer:
@@ -14,12 +14,12 @@ composer require ueberdosis/tiptap-php
 ```
 
 ## Usage
-### Convert tiptap HTML to JSON
+### Convert Tiptap HTML to JSON
 ```php
-$json = (new Tiptap\Editor)->setContent('<p>Example Text</p>')->getDocument();
+$document = (new Tiptap\Editor)->setContent('<p>Example Text</p>')->getDocument();
 ```
 
-### Convert tiptap JSON to HTML
+### Convert Tiptap JSON to HTML
 ```php
 $html = (new Tiptap\Editor)->setContent([
     'type' => 'doc',

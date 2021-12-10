@@ -21,7 +21,7 @@ class HardBreakNodeTest extends TestCase
                             'text' => 'some text',
                         ],
                         [
-                            'type' => 'hard_break',
+                            'type' => 'hardBreak',
                         ],
                         [
                             'type' => 'text',

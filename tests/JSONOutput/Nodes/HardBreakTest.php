@@ -23,7 +23,7 @@ class HardBreakTest extends TestCase
                             'text' => 'Hard ',
                         ],
                         [
-                            'type' => 'hard_break',
+                            'type' => 'hardBreak',
                         ],
                         [
                             'type' => 'text',

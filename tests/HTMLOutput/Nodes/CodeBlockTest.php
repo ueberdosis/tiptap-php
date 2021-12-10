@@ -8,13 +8,13 @@ use Tiptap\Tests\HTMLOutput\TestCase;
 class CodeBlockTest extends TestCase
 {
     /** @test */
-    public function code_block_node_gets_rendered_correctly()
+    public function codeBlock_node_gets_rendered_correctly()
     {
         $document = [
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'code_block',
+                    'type' => 'codeBlock',
                     'content' => [
                         [
                             'type' => 'text',

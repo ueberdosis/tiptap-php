@@ -8,16 +8,16 @@ use Tiptap\Tests\HTMLOutput\TestCase;
 class BulletListTest extends TestCase
 {
     /** @test */
-    public function bullet_list_node_gets_rendered_correctly()
+    public function bulletList_node_gets_rendered_correctly()
     {
         $document = [
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'bullet_list',
+                    'type' => 'bulletList',
                     'content' => [
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'text',

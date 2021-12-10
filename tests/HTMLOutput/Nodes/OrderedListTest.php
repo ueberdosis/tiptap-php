@@ -8,16 +8,16 @@ use Tiptap\Tests\HTMLOutput\TestCase;
 class OrderedListTest extends TestCase
 {
     /** @test */
-    public function ordered_list_node_gets_rendered_correctly()
+    public function orderedList_node_gets_rendered_correctly()
     {
         $document = [
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'ordered_list',
+                    'type' => 'orderedList',
                     'content' => [
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'text',
@@ -36,19 +36,19 @@ class OrderedListTest extends TestCase
     }
 
     /** @test */
-    public function ordered_list_has_offset()
+    public function orderedList_has_offset()
     {
         $document = [
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'ordered_list',
+                    'type' => 'orderedList',
                     'attrs' => [
                         'order' => 3,
                     ],
                     'content' => [
                         [
-                            'type' => 'list_item',
+                            'type' => 'listItem',
                             'content' => [
                                 [
                                     'type' => 'text',

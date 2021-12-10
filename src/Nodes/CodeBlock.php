@@ -6,7 +6,7 @@ use Tiptap\Contracts\Node;
 
 class CodeBlock extends Node
 {
-    public static $name = 'code_block';
+    public static $name = 'codeBlock';
 
     public static function parseHTML($DOMNode)
     {
@@ -26,7 +26,7 @@ class CodeBlock extends Node
 
         if ($language) {
             return [
-                'type' => 'code_block',
+                'type' => 'codeBlock',
                 'attrs' => [
                     'language' => $language,
                 ],
@@ -34,7 +34,7 @@ class CodeBlock extends Node
         }
 
         return [
-            'type' => 'code_block',
+            'type' => 'codeBlock',
         ];
     }
 }

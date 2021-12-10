@@ -15,7 +15,7 @@ class EmptyTextNodesTest extends TestCase
             'type' => 'doc',
             'content' => [
                 [
-                    'type' => 'hard_break',
+                    'type' => 'hardBreak',
                     'marks' => [
                         [
                             'type' => 'italic',

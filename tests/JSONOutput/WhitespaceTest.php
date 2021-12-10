@@ -30,7 +30,7 @@ class WhitespaceTest extends TestCase
     }
 
     /** @test */
-    public function whitespace_in_code_blocks_is_ignored()
+    public function whitespace_in_codeBlocks_is_ignored()
     {
         $html = "<p>\n" .
                 "    Example Text\n" .
@@ -53,7 +53,7 @@ class WhitespaceTest extends TestCase
                     ],
                 ],
                 [
-                    'type' => 'code_block',
+                    'type' => 'codeBlock',
                     'content' => [
                         [
                             'type' => 'text',

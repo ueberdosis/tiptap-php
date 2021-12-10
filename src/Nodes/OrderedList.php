@@ -6,7 +6,7 @@ use Tiptap\Contracts\Node;
 
 class OrderedList extends Node
 {
-    public static $name = 'ordered_list';
+    public static $name = 'orderedList';
 
     public static function parseHTML($DOMNode)
     {
@@ -34,7 +34,7 @@ class OrderedList extends Node
     public static function data($DOMNode)
     {
         return [
-            'type' => 'ordered_list',
+            'type' => 'orderedList',
             'attrs' => [
                 'order' =>
                     $DOMNode->getAttribute('start') ?

@@ -24,7 +24,7 @@ class Heading extends Node
 
     public static function renderHTML($node)
     {
-        return "h{$node->attrs->level}";
+        return ["h{$node->attrs->level}"];
     }
 
     // public static function addAttributes()

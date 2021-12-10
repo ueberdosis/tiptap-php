@@ -35,6 +35,6 @@ class Italic extends Mark
 
     public static function renderHTML($mark)
     {
-        return 'em';
+        return ['em'];
     }
 }

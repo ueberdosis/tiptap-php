@@ -8,11 +8,6 @@ class Superscript extends Mark
 {
     public static $name = 'superscript';
 
-    public static function renderHTML($mark)
-    {
-        return 'sup';
-    }
-
     public static function parseHTML()
     {
         return [
@@ -26,5 +21,10 @@ class Superscript extends Mark
                 },
             ],
         ];
+    }
+
+    public static function renderHTML($mark)
+    {
+        return ['sup'];
     }
 }

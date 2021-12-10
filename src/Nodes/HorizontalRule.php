@@ -19,6 +19,6 @@ class HorizontalRule extends Node
 
     public static function renderHTML($node)
     {
-        return 'hr';
+        return ['hr'];
     }
 }

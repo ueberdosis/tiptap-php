@@ -90,35 +90,7 @@ class DOMParser
 
         foreach ($node->childNodes as $child) {
             if ($class = $this->getMatchingNode($child)) {
-                // TODO: I want to remove ::data
-                $item = $class::data($child);
-
-                if (is_array($class::parseHTML($child))) {
-                    foreach ($class::parseHTML($child) as $parseRule) {
-                        if (!$this->checkParseRule($parseRule, $child)) {
-                            continue;
-                        }
-
-                        $attributes = $parseRule['attrs'] ?? [];
-                        if (count($attributes)) {
-                            if (!isset($item['attrs'])) {
-                                $item['attrs'] = [];
-                            }
-
-                            $item['attrs'] = array_merge($item['attrs'], $attributes);
-                        }
-
-                        if (isset($parseRule['getAttrs'])) {
-                            $attributes = $parseRule['getAttrs']($child);
-                            if (!isset($item['attrs'])) {
-                                $item['attrs'] = [];
-                            }
-
-                            $item['attrs'] = array_merge($item['attrs'], $attributes);
-                        }
-                    }
-                }
-
+                $item = $this->parseAttributes($class, $child);
 
                 if ($item === null) {
                     if ($child->hasChildNodes()) {
@@ -150,8 +122,7 @@ class DOMParser
 
                 array_push($nodes, $item);
             } elseif ($class = $this->getMatchingMark($child)) {
-                // TODO: I want to remove ::data
-                array_push($this->storedMarks, $class::data($child));
+                array_push($this->storedMarks, $this->parseAttributes($class, $child));
 
                 if ($child->hasChildNodes()) {
                     $nodes = array_merge($nodes, $this->renderChildren($child));
@@ -293,5 +264,52 @@ class DOMParser
         }
 
         return true;
+    }
+
+    private function parseAttributes($class, $DOMNode)
+    {
+        // TODO: I want to remove ::data
+        $item = $class::data($DOMNode);
+
+        if (!is_array($class::parseHTML($DOMNode))) {
+            return $item;
+        }
+
+        foreach ($class::parseHTML($DOMNode) as $parseRule) {
+            if (!$this->checkParseRule($parseRule, $DOMNode)) {
+                continue;
+            }
+
+            $attributes = $parseRule['attrs'] ?? [];
+            if (count($attributes)) {
+                if (!isset($item['attrs'])) {
+                    $item['attrs'] = [];
+                }
+
+                $item['attrs'] = array_merge($item['attrs'], $attributes);
+            }
+
+            if (isset($parseRule['getAttrs'])) {
+                if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
+                    $parameter = Utils::getInlineStyle($DOMNode, $parseRule['style']);
+                } else {
+                    $parameter = $DOMNode;
+                }
+
+                $attributes = $parseRule['getAttrs']($parameter);
+
+                if (!is_array($attributes)) {
+                    continue;
+                }
+
+                if (!isset($item['attrs'])) {
+                    $item['attrs'] = [];
+                }
+
+                $item['attrs'] = array_merge($item['attrs'], $attributes);
+            }
+        }
+
+        return $item;
     }
 }

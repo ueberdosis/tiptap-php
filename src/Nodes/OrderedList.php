@@ -13,6 +13,15 @@ class OrderedList extends Node
         return [
             [
                 'tag' => 'ol',
+                'getAttrs' => function ($DOMNode) {
+                    if (!$DOMNode->getAttribute('start')) {
+                        return null;
+                    }
+
+                    return [
+                        'order' => (int) $DOMNode->getAttribute('start'),
+                    ];
+                }
             ],
         ];
     }
@@ -35,12 +44,6 @@ class OrderedList extends Node
     {
         return [
             'type' => 'orderedList',
-            'attrs' => [
-                'order' =>
-                    $DOMNode->getAttribute('start') ?
-                    (int) $DOMNode->getAttribute('start') :
-                    1,
-            ],
         ];
     }
 }

@@ -17,9 +17,6 @@ class OrderedListTest extends TestCase
             'content' => [
                 [
                     'type' => 'orderedList',
-                    'attrs' => [
-                        'order' => 1,
-                    ],
                     'content' => [
                         [
                             'type' => 'listItem',

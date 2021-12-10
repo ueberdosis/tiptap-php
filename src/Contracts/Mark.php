@@ -13,7 +13,7 @@ class Mark
 
     public static function parseHTML($DOMNode)
     {
-        return false;
+        return [];
     }
 
     public static function data($DOMNode)

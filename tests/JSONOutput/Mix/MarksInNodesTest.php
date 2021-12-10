@@ -180,9 +180,6 @@ class MarksInNodesTest extends TestCase
                 ],
                 [
                     'type' => 'orderedList',
-                    'attrs' => [
-                        'order' => 1,
-                    ],
                     'content' => [
                         [
                             'type' => 'listItem',

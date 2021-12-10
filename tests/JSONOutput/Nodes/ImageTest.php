@@ -42,7 +42,6 @@ class ImageTest extends TestCase
                     'attrs' => [
                         'alt' => 'The Finished Dish',
                         'src' => 'https://example.com/eggs.png',
-                        'title' => null,
                     ],
                 ],
             ],
@@ -62,7 +61,6 @@ class ImageTest extends TestCase
                 [
                     'type' => 'image',
                     'attrs' => [
-                        'alt' => null,
                         'src' => 'https://example.com/eggs.png',
                         'title' => 'Eggs in a dish',
                     ],

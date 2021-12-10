@@ -11,6 +11,32 @@ class TableHeader extends TableCell
         return [
             [
                 'tag' => 'th',
+                'getAttrs' => function ($DOMNode) {
+                    $attrs = [];
+
+                    if ($colspan = $DOMNode->getAttribute('colspan')) {
+                        $attrs['colspan'] = intval($colspan);
+                    }
+
+                    if ($colwidth = $DOMNode->getAttribute('data-colwidth')) {
+                        $widths = array_map(function ($w) {
+                            return intval($w);
+                        }, explode(',', $colwidth));
+                        if (count($widths) === $attrs['colspan']) {
+                            $attrs['colwidth'] = $widths;
+                        }
+                    }
+
+                    if ($rowspan = $DOMNode->getAttribute('rowspan')) {
+                        $attrs['rowspan'] = intval($rowspan);
+                    }
+
+                    if (!count($attrs)) {
+                        return null;
+                    }
+
+                    return $attrs;
+                }
             ],
         ];
     }
@@ -26,33 +52,8 @@ class TableHeader extends TableCell
     // TODO: Duplicate with TableCell, but self:: shouldn’t reference TableCell
     public static function data($DOMNode)
     {
-        $data = [
+        return [
             'type' => self::$name,
         ];
-
-        $attrs = [];
-
-        if ($colspan = $DOMNode->getAttribute('colspan')) {
-            $attrs['colspan'] = intval($colspan);
-        }
-
-        if ($colwidth = $DOMNode->getAttribute('data-colwidth')) {
-            $widths = array_map(function ($w) {
-                return intval($w);
-            }, explode(',', $colwidth));
-            if (count($widths) === $attrs['colspan']) {
-                $attrs['colwidth'] = $widths;
-            }
-        }
-
-        if ($rowspan = $DOMNode->getAttribute('rowspan')) {
-            $attrs['rowspan'] = intval($rowspan);
-        }
-
-        if (! empty($attrs)) {
-            $data['attrs'] = $attrs;
-        }
-
-        return $data;
     }
 }

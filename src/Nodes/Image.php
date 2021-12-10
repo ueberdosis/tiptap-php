@@ -12,7 +12,21 @@ class Image extends Node
     {
         return [
             [
-                'tag' => 'img[src]'
+                'tag' => 'img[src]',
+                'getAttrs' => function ($DOMNode) {
+                    $attrs = [];
+                    if ($alt = $DOMNode->getAttribute('alt')) {
+                        $attrs['alt'] = $alt;
+                    }
+
+                    if ($title = $DOMNode->getAttribute('title')) {
+                        $attrs['title'] = $title;
+                    }
+
+                    $attrs['src'] = $DOMNode->getAttribute('src');
+
+                    return $attrs;
+                },
             ],
         ];
     }
@@ -29,11 +43,6 @@ class Image extends Node
     {
         return [
             'type' => 'image',
-            'attrs' => [
-                'alt' => $DOMNode->hasAttribute('alt') ? $DOMNode->getAttribute('alt') : null,
-                'src' => $DOMNode->hasAttribute('src') ? $DOMNode->getAttribute('src') : null,
-                'title' => $DOMNode->hasAttribute('title') ? $DOMNode->getAttribute('title') : null,
-            ],
         ];
     }
 }

@@ -13,6 +13,20 @@ class Link extends Mark
         return [
             [
                 'tag' => 'a[href]',
+                'getAttrs' => function ($DOMNode) {
+                    $attrs = [];
+                    if ($target = $DOMNode->getAttribute('target')) {
+                        $attrs['target'] = $target;
+                    }
+
+                    if ($rel = $DOMNode->getAttribute('rel')) {
+                        $attrs['rel'] = $rel;
+                    }
+
+                    $attrs['href'] = $DOMNode->getAttribute('href');
+
+                    return $attrs;
+                },
             ],
         ];
     }
@@ -39,24 +53,8 @@ class Link extends Mark
 
     public static function data($DOMNode)
     {
-        $data = [
+        return [
             'type' => 'link',
         ];
-
-        $attrs = [];
-
-        if ($target = $DOMNode->getAttribute('target')) {
-            $attrs['target'] = $target;
-        }
-
-        if ($rel = $DOMNode->getAttribute('rel')) {
-            $attrs['rel'] = $rel;
-        }
-
-        $attrs['href'] = $DOMNode->getAttribute('href');
-
-        $data['attrs'] = $attrs;
-
-        return $data;
     }
 }

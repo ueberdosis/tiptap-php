@@ -8,7 +8,11 @@ class Text extends Node
 {
     public static function parseHTML($DOMNode)
     {
-        return $DOMNode->nodeName === '#text';
+        return [
+            [
+                'tag' => '#text',
+            ]
+        ];
     }
 
     public static function data($DOMNode)

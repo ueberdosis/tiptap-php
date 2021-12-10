@@ -8,14 +8,18 @@ class BulletList extends Node
 {
     public static $name = 'bullet_list';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'ul',
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         return 'ul';
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'ul';
     }
 
     public static function data($DOMNode)

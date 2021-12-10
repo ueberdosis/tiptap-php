@@ -8,14 +8,18 @@ class HardBreak extends Node
 {
     public static $name = 'hard_break';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'br',
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         return 'br';
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'br';
     }
 
     public static function data($DOMNode)

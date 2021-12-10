@@ -92,7 +92,28 @@ class DOMParser
 
         foreach ($node->childNodes as $child) {
             if ($class = $this->getMatchingNode($child)) {
+                // TODO: I want to remove ::data
                 $item = $class::data($child);
+
+                if (is_array($class::parseHTML($child))) {
+                    foreach ($class::parseHTML($child) as $parseRule) {
+                        if (!$this->checkParseRule($parseRule, $child)) {
+                            continue;
+                        }
+
+                        $attributes = $parseRule['attrs'] ?? [];
+                        // TODO: Missing support for getAttrs
+
+                        if (count($attributes)) {
+                            if (!isset($item['attrs'])) {
+                                $item['attrs'] = [];
+                            }
+
+                            $item['attrs'] = array_merge($item['attrs'], $attributes);
+                        }
+                    }
+                }
+
 
                 if ($item === null) {
                     if ($child->hasChildNodes()) {
@@ -196,31 +217,8 @@ class DOMParser
 
         if (is_array($parseRules)) {
             foreach ($parseRules as $parseRule) {
-                // ['tag' => 'strong']
-                if (isset($parseRule['tag'])) {
-                    if ($parseRule['tag'] !== $DOMNode->nodeName) {
-                        continue;
-                    }
-                }
-
-                // ['style' => 'font-weight']
-                if (isset($parseRule['style'])) {
-                    if (!Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
-                        continue;
-                    }
-                }
-
-                // ['getAttrs' => function($DOMNode) { … }]
-                if (isset($parseRule['getAttrs'])) {
-                    if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, 'font-weight')) {
-                        $parameter = Utils::getInlineStyle($DOMNode, 'font-weight');
-                    } else {
-                        $parameter = $DOMNode;
-                    }
-
-                    if ($parseRule['getAttrs']($parameter) === false) {
-                        continue;
-                    }
+                if (!$this->checkParseRule($parseRule, $DOMNode)) {
+                    continue;
                 }
 
                 return true;
@@ -228,5 +226,59 @@ class DOMParser
         }
 
         return false;
+    }
+
+    private function checkParseRule($parseRule, $DOMNode)
+    {
+        // ['tag' => 'strong']
+        if (isset($parseRule['tag'])) {
+            if (preg_match('/([a-z-]*)\[([a-z]+)\]$/', $parseRule['tag'], $matches)) {
+                $tag = $matches[1];
+                $attribute = $matches[2];
+            } else {
+                $tag = $parseRule['tag'];
+            }
+
+            if ($tag !== $DOMNode->nodeName) {
+                return false;
+            }
+
+            if (isset($attribute) && !$DOMNode->hasAttribute($attribute)) {
+                return false;
+            }
+        }
+
+        // ['style' => 'font-weight']
+        if (isset($parseRule['style'])) {
+            if (!Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
+                return false;
+            }
+        }
+
+        // ['getAttrs' => function($DOMNode) { … }]
+        if (isset($parseRule['getAttrs'])) {
+            if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, 'font-weight')) {
+                $parameter = Utils::getInlineStyle($DOMNode, 'font-weight');
+            } else {
+                $parameter = $DOMNode;
+            }
+
+            if ($parseRule['getAttrs']($parameter) === false) {
+                return false;
+            }
+        }
+
+        if (
+            !is_array($parseRule)
+            || !count($parseRule)
+            || (
+                !isset($parseRule['tag'])
+                && !isset($parseRule['style'])
+                && !isset($parseRule['getAttrs'])
+            )) {
+            return false;
+        }
+
+        return true;
     }
 }

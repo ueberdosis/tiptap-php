@@ -8,14 +8,18 @@ class Blockquote extends Node
 {
     public static $name = 'blockquote';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'blockquote'
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         return 'blockquote';
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'blockquote';
     }
 
     public static function data($DOMNode)

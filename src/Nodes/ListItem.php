@@ -8,6 +8,15 @@ class ListItem extends Node
 {
     public static $name = 'list_item';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'li',
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         return 'li';
@@ -25,11 +34,6 @@ class ListItem extends Node
         return [
             'type' => 'paragraph',
         ];
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'li';
     }
 
     public static function data($DOMNode)

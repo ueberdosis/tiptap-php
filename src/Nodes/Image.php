@@ -8,17 +8,21 @@ class Image extends Node
 {
     public static $name = 'image';
 
+    public static function parseHTML($DOMNode)
+    {
+        return [
+            [
+                'tag' => 'img[src]'
+            ],
+        ];
+    }
+
     public static function renderHTML($node)
     {
         return [
             'tag' => 'img',
             'attrs' => $node->attrs,
         ];
-    }
-
-    public static function parseHTML($DOMNode)
-    {
-        return $DOMNode->nodeName === 'img';
     }
 
     public static function data($DOMNode)

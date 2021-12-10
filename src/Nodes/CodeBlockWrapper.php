@@ -8,7 +8,11 @@ class CodeBlockWrapper extends Node
 {
     public static function parseHTML($DOMNode)
     {
-        return $DOMNode->nodeName === 'pre';
+        return [
+            [
+                'tag' => 'pre',
+            ],
+        ];
     }
 
     public static function data($DOMNode)

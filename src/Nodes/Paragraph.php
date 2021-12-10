@@ -15,7 +15,11 @@ class Paragraph extends Node
 
     public static function parseHTML($DOMNode)
     {
-        return $DOMNode->nodeName === 'p';
+        return [
+            [
+                'tag' => 'p',
+            ],
+        ];
     }
 
     public static function data($DOMNode)

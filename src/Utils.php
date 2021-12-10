@@ -10,6 +10,10 @@ class Utils
     {
         $results = [];
 
+        if (!method_exists($DOMNode, 'getAttribute')) {
+            return [];
+        }
+
         $style = $DOMNode->getAttribute('style');
 
         preg_match_all(

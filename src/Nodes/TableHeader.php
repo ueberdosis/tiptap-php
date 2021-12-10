@@ -48,12 +48,4 @@ class TableHeader extends TableCell
             'attrs' => self::getAttrs($node),
         ];
     }
-
-    // TODO: Duplicate with TableCell, but self:: shouldn’t reference TableCell
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => self::$name,
-        ];
-    }
 }

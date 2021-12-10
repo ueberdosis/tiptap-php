@@ -27,13 +27,6 @@ class Heading extends Node
         return "h{$node->attrs->level}";
     }
 
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'heading',
-        ];
-    }
-
     // public static function addAttributes()
     // {
     //     return [

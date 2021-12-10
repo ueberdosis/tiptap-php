@@ -21,11 +21,4 @@ class Blockquote extends Node
     {
         return 'blockquote';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'blockquote',
-        ];
-    }
 }

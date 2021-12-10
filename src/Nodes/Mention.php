@@ -21,11 +21,4 @@ class Mention extends Node
             ],
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'mention',
-        ];
-    }
 }

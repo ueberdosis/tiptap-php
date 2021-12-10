@@ -21,11 +21,4 @@ class HardBreak extends Node
     {
         return 'br';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'hardBreak',
-        ];
-    }
 }

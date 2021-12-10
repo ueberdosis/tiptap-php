@@ -35,11 +35,4 @@ class ListItem extends Node
             'type' => 'paragraph',
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'listItem',
-        ];
-    }
 }

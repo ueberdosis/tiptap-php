@@ -27,9 +27,4 @@ class Node
     {
         return null;
     }
-
-    public static function data($DOMNode)
-    {
-        return [];
-    }
 }

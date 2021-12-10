@@ -21,11 +21,4 @@ class Code extends Mark
     {
         return 'code';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'code',
-        ];
-    }
 }

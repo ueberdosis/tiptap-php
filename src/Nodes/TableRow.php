@@ -21,11 +21,4 @@ class TableRow extends Node
     {
         return 'tr';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'tableRow',
-        ];
-    }
 }

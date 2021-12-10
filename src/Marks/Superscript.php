@@ -27,11 +27,4 @@ class Superscript extends Mark
             ],
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'superscript',
-        ];
-    }
 }

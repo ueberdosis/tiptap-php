@@ -33,11 +33,4 @@ class Strike extends Mark
     {
         return 'strike';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'strike',
-        ];
-    }
 }

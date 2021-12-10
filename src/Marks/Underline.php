@@ -27,11 +27,4 @@ class Underline extends Mark
     {
         return 'u';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'underline',
-        ];
-    }
 }

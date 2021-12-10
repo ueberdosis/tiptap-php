@@ -34,11 +34,4 @@ class CodeBlock extends Node
     {
         return ['pre', 'code'];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'codeBlock',
-        ];
-    }
 }

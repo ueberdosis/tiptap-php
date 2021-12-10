@@ -16,22 +16,4 @@ class Text extends Node
             ],
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'text',
-        ];
-
-        // $text = ltrim($DOMNode->nodeValue, "\n");
-
-        // if ($text === '') {
-        //     return null;
-        // }
-
-        // return [
-        //     'type' => 'text',
-        //     'text' => $text,
-        // ];
-    }
 }

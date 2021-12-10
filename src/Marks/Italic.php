@@ -37,11 +37,4 @@ class Italic extends Mark
     {
         return 'em';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'italic',
-        ];
-    }
 }

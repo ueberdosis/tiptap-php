@@ -39,11 +39,4 @@ class OrderedList extends Node
             'attrs' => $attrs,
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'orderedList',
-        ];
-    }
 }

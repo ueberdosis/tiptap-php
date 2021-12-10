@@ -15,9 +15,4 @@ class Mark
     {
         return [];
     }
-
-    public static function data($DOMNode)
-    {
-        return [];
-    }
 }

@@ -36,11 +36,4 @@ class Bold extends Mark
     {
         return ['strong'];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'bold',
-        ];
-    }
 }

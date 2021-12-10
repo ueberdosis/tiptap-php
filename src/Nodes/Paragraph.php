@@ -21,11 +21,4 @@ class Paragraph extends Node
     {
         return 'p';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'paragraph',
-        ];
-    }
 }

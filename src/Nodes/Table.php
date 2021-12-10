@@ -19,11 +19,4 @@ class Table extends Node
     {
         return ['table', 'tbody'];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'table',
-        ];
-    }
 }

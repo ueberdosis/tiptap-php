@@ -27,11 +27,4 @@ class Subscript extends Mark
     {
         return 'sub';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'subscript',
-        ];
-    }
 }

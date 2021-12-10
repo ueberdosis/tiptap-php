@@ -38,11 +38,4 @@ class Image extends Node
             'attrs' => $node->attrs,
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'image',
-        ];
-    }
 }

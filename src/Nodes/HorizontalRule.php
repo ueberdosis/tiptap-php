@@ -21,11 +21,4 @@ class HorizontalRule extends Node
     {
         return 'hr';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'horizontalRule',
-        ];
-    }
 }

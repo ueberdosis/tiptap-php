@@ -21,11 +21,4 @@ class BulletList extends Node
     {
         return 'ul';
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'bulletList',
-        ];
-    }
 }

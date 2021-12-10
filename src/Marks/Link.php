@@ -50,11 +50,4 @@ class Link extends Mark
             'attrs' => $attrs,
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => 'link',
-        ];
-    }
 }

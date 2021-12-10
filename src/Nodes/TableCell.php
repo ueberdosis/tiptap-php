@@ -76,11 +76,4 @@ class TableCell extends Node
             'attrs' => self::getAttrs($node),
         ];
     }
-
-    public static function data($DOMNode)
-    {
-        return [
-            'type' => self::$name,
-        ];
-    }
 }

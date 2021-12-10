@@ -150,6 +150,7 @@ class DOMParser
 
                 array_push($nodes, $item);
             } elseif ($class = $this->getMatchingMark($child)) {
+                // TODO: I want to remove ::data
                 array_push($this->storedMarks, $class::data($child));
 
                 if ($child->hasChildNodes()) {

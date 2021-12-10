@@ -8,6 +8,8 @@ class CodeBlock extends Node
 {
     public static $name = 'codeBlock';
 
+    public static $marks = '';
+
     public static function parseHTML($DOMNode)
     {
         return [

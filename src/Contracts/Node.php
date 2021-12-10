@@ -4,7 +4,9 @@ namespace Tiptap\Contracts;
 
 class Node
 {
-    protected static $name;
+    public static $name;
+
+    public static $marks = '_';
 
     public static function renderHTML($node)
     {

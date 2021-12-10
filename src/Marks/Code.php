@@ -10,11 +10,11 @@ class Code extends Mark
 
     public static function parseHTML($DOMNode)
     {
-        if ($DOMNode->parentNode->nodeName === 'pre') {
-            return false;
-        }
-
-        return $DOMNode->nodeName === 'code';
+        return [
+            [
+                'tag' => 'code',
+            ],
+        ];
     }
 
     public static function renderHTML($mark)

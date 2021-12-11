@@ -3,7 +3,6 @@
 namespace Tiptap;
 
 use Exception;
-use Tiptap\Schema;
 
 class Editor
 {
@@ -92,6 +91,7 @@ class Editor
         if (is_string($value)) {
             try {
                 json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+
                 return 'JSON';
             } catch (Exception $exception) {
                 return 'HTML';

@@ -34,12 +34,12 @@ class TableCell extends Node
                         $attrs['rowspan'] = intval($rowspan);
                     }
 
-                    if (!count($attrs)) {
+                    if (! count($attrs)) {
                         return null;
                     }
 
                     return $attrs;
-                }
+                },
             ],
         ];
     }

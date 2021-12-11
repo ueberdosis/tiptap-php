@@ -18,14 +18,14 @@ class CodeBlock extends Node
                 'getAttrs' => function ($DOMNode) {
                     $language = preg_replace("/^language-/", "", $DOMNode->childNodes[0]->getAttribute('class'));
 
-                    if (!$language) {
+                    if (! $language) {
                         return null;
                     }
 
                     return [
                         'language' => $language,
                     ];
-                }
+                },
             ],
         ];
     }

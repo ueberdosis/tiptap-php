@@ -12,7 +12,7 @@ class Blockquote extends Node
     {
         return [
             [
-                'tag' => 'blockquote'
+                'tag' => 'blockquote',
             ],
         ];
     }

@@ -14,14 +14,14 @@ class OrderedList extends Node
             [
                 'tag' => 'ol',
                 'getAttrs' => function ($DOMNode) {
-                    if (!$DOMNode->getAttribute('start')) {
+                    if (! $DOMNode->getAttribute('start')) {
                         return null;
                     }
 
                     return [
                         'order' => (int) $DOMNode->getAttribute('start'),
                     ];
-                }
+                },
             ],
         ];
     }

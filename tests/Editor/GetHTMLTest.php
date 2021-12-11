@@ -2,8 +2,8 @@
 
 namespace Tiptap\Tests\Editor;
 
-use Tiptap\Editor;
 use PHPUnit\Framework\TestCase;
+use Tiptap\Editor;
 
 class GetHTMLTest extends TestCase
 {

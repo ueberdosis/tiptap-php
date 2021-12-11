@@ -2,8 +2,8 @@
 
 namespace Tiptap;
 
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 use Tiptap\Utils\InlineStyle;
 
 class DOMParser
@@ -124,6 +124,7 @@ class DOMParser
                 || count($carry) !== count($carry, COUNT_RECURSIVE)
             ) {
                 $mergedNodes[] = $node;
+
                 return $node;
             }
 
@@ -131,11 +132,13 @@ class DOMParser
             $differentKeys = array_keys(array_diff($carry, $node));
             if ($differentKeys != ['text']) {
                 $mergedNodes[] = $node;
+
                 return $node;
             }
 
             // Merge it!
             $mergedNodes[count($mergedNodes) - 1]['text'] .= $node['text'];
+
             return $mergedNodes[count($mergedNodes) - 1];
         }, []);
 
@@ -172,7 +175,7 @@ class DOMParser
 
         if (is_array($parseRules)) {
             foreach ($parseRules as $parseRule) {
-                if (!$this->checkParseRule($parseRule, $DOMNode)) {
+                if (! $this->checkParseRule($parseRule, $DOMNode)) {
                     continue;
                 }
 
@@ -201,7 +204,7 @@ class DOMParser
                 return false;
             }
 
-            if (isset($attribute) && !$DOMNode->hasAttribute($attribute)) {
+            if (isset($attribute) && ! $DOMNode->hasAttribute($attribute)) {
                 if (isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
                     return false;
                 }
@@ -212,7 +215,7 @@ class DOMParser
 
         // ['style' => 'font-weight']
         if (isset($parseRule['style'])) {
-            if (!InlineStyle::hasAttribute($DOMNode, $parseRule['style'])) {
+            if (! InlineStyle::hasAttribute($DOMNode, $parseRule['style'])) {
                 return false;
             }
         }
@@ -231,12 +234,12 @@ class DOMParser
         }
 
         if (
-            !is_array($parseRule)
-            || !count($parseRule)
+            ! is_array($parseRule)
+            || ! count($parseRule)
             || (
-                !isset($parseRule['tag'])
-                && !isset($parseRule['style'])
-                && !isset($parseRule['getAttrs'])
+                ! isset($parseRule['tag'])
+                && ! isset($parseRule['style'])
+                && ! isset($parseRule['getAttrs'])
             )) {
             return false;
         }
@@ -265,18 +268,18 @@ class DOMParser
 
         $parseRules = $class::parseHTML();
 
-        if (!is_array($parseRules)) {
+        if (! is_array($parseRules)) {
             return $item;
         }
 
         foreach ($parseRules as $parseRule) {
-            if (!$this->checkParseRule($parseRule, $DOMNode)) {
+            if (! $this->checkParseRule($parseRule, $DOMNode)) {
                 continue;
             }
 
             $attributes = $parseRule['attrs'] ?? [];
             if (count($attributes)) {
-                if (!isset($item['attrs'])) {
+                if (! isset($item['attrs'])) {
                     $item['attrs'] = [];
                 }
 
@@ -292,11 +295,11 @@ class DOMParser
 
                 $attributes = $parseRule['getAttrs']($parameter);
 
-                if (!is_array($attributes)) {
+                if (! is_array($attributes)) {
                     continue;
                 }
 
-                if (!isset($item['attrs'])) {
+                if (! isset($item['attrs'])) {
                     $item['attrs'] = [];
                 }
 

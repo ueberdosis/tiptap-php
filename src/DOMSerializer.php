@@ -24,11 +24,11 @@ class DOMSerializer
                 foreach ($this->schema->marks as $class) {
                     $renderClass = $class;
 
-                    if (!$this->isMarkOrNode($mark, $renderClass)) {
+                    if (! $this->isMarkOrNode($mark, $renderClass)) {
                         continue;
                     }
 
-                    if (!$this->markShouldOpen($mark, $previousNode)) {
+                    if (! $this->markShouldOpen($mark, $previousNode)) {
                         continue;
                     }
 
@@ -38,11 +38,12 @@ class DOMSerializer
         }
 
         foreach ($this->schema->nodes as $extension) {
-            if (!$this->isMarkOrNode($node, $extension)) {
+            if (! $this->isMarkOrNode($node, $extension)) {
                 continue;
             }
 
             $html[] = $this->renderOpeningTag($extension::renderHTML($node));
+
             break;
         }
 
@@ -59,7 +60,7 @@ class DOMSerializer
         }
 
         foreach ($this->schema->nodes as $extension) {
-            if (!$this->isMarkOrNode($node, $extension)) {
+            if (! $this->isMarkOrNode($node, $extension)) {
                 continue;
             }
 
@@ -69,11 +70,11 @@ class DOMSerializer
         if (isset($node->marks)) {
             foreach (array_reverse($node->marks) as $mark) {
                 foreach ($this->schema->marks as $extension) {
-                    if (!$this->isMarkOrNode($mark, $extension)) {
+                    if (! $this->isMarkOrNode($mark, $extension)) {
                         continue;
                     }
 
-                    if (!$this->markShouldClose($mark, $nextNode)) {
+                    if (! $this->markShouldClose($mark, $nextNode)) {
                         continue;
                     }
 
@@ -102,11 +103,11 @@ class DOMSerializer
 
     private function nodeHasMark($node, $mark)
     {
-        if (!$node) {
+        if (! $node) {
             return true;
         }
 
-        if (!property_exists($node, 'marks')) {
+        if (! property_exists($node, 'marks')) {
             return true;
         }
 

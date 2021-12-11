@@ -31,12 +31,12 @@ class TableHeader extends TableCell
                         $attrs['rowspan'] = intval($rowspan);
                     }
 
-                    if (!count($attrs)) {
+                    if (! count($attrs)) {
                         return null;
                     }
 
                     return $attrs;
-                }
+                },
             ],
         ];
     }

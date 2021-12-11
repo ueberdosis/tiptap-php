@@ -17,13 +17,13 @@ class Schema
 
     public static function apply($document)
     {
-        if (!is_array($document['content'])) {
+        if (! is_array($document['content'])) {
             return $document;
         }
 
         $document['content'] = array_map(function ($node) {
             foreach (self::$extensions as $extension) {
-                if (!isset($node['type']) || $node['type'] !== $extension::$name) {
+                if (! isset($node['type']) || $node['type'] !== $extension::$name) {
                     continue;
                 }
 

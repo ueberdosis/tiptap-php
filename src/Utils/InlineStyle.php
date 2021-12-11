@@ -10,7 +10,7 @@ class InlineStyle
     {
         $results = [];
 
-        if (!method_exists($DOMNode, 'getAttribute')) {
+        if (! method_exists($DOMNode, 'getAttribute')) {
             return [];
         }
 

@@ -10,39 +10,9 @@ class DOMParser
 {
     protected $document;
 
-    protected $storedMarks = [];
-
-    // protected $marks = [
-    //     Marks\Bold::class,
-    //     Marks\Code::class,
-    //     Marks\Italic::class,
-    //     Marks\Link::class,
-    //     Marks\Strike::class,
-    //     Marks\Subscript::class,
-    //     Marks\Superscript::class,
-    //     Marks\Underline::class,
-    // ];
-
-    // protected $nodes = [
-    //     Nodes\Blockquote::class,
-    //     Nodes\BulletList::class,
-    //     Nodes\CodeBlock::class,
-    //     Nodes\HardBreak::class,
-    //     Nodes\Heading::class,
-    //     Nodes\HorizontalRule::class,
-    //     Nodes\Image::class,
-    //     Nodes\ListItem::class,
-    //     Nodes\Mention::class,
-    //     Nodes\OrderedList::class,
-    //     Nodes\Paragraph::class,
-    //     Nodes\Table::class,
-    //     Nodes\TableCell::class,
-    //     Nodes\TableHeader::class,
-    //     Nodes\TableRow::class,
-    //     Nodes\Text::class,
-    // ];
-
     protected $schema;
+
+    protected $storedMarks = [];
 
     public function __construct($schema)
     {

@@ -2,7 +2,7 @@
 
 namespace Tiptap\Marks;
 
-use Tiptap\Utils;
+use Tiptap\Utils\InlineStyle;
 use Tiptap\Contracts\Mark;
 
 class Bold extends Mark
@@ -18,7 +18,7 @@ class Bold extends Mark
             [
                 'tag' => 'b',
                 'getAttrs' => function ($DOMNode) {
-                    return !Utils::hasInlineStyle($DOMNode, [
+                    return !InlineStyle::hasAttribute($DOMNode, [
                         'font-weight' => 'normal',
                     ]) ? null : false;
                 }

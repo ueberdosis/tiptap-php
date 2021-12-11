@@ -1,12 +1,12 @@
 <?php
 
-namespace Tiptap;
+namespace Tiptap\Utils;
 
 use Exception;
 
-class Utils
+class InlineStyle
 {
-    public static function parseInlineStyles($DOMNode)
+    public static function get($DOMNode)
     {
         $results = [];
 
@@ -30,9 +30,9 @@ class Utils
         return $results;
     }
 
-    public static function hasInlineStyle($DOMNode, $value)
+    public static function hasAttribute($DOMNode, $value)
     {
-        $styles = self::parseInlineStyles($DOMNode);
+        $styles = self::get($DOMNode);
 
         if (is_string($value)) {
             return in_array($value, array_keys($styles));
@@ -45,8 +45,8 @@ class Utils
         throw new Exception('Can’t compare inline styles to ' . json_encode($value));
     }
 
-    public static function getInlineStyle($DOMNode, $attribute)
+    public static function getAttribute($DOMNode, $attribute)
     {
-        return self::parseInlineStyles($DOMNode)[$attribute] ?? null;
+        return self::get($DOMNode)[$attribute] ?? null;
     }
 }

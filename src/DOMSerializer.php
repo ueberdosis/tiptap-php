@@ -8,33 +8,12 @@ class DOMSerializer
 {
     protected $document;
 
-    protected $nodes = [
-        Nodes\Blockquote::class,
-        Nodes\BulletList::class,
-        Nodes\CodeBlock::class,
-        Nodes\HardBreak::class,
-        Nodes\Heading::class,
-        Nodes\HorizontalRule::class,
-        Nodes\Image::class,
-        Nodes\ListItem::class,
-        Nodes\OrderedList::class,
-        Nodes\Paragraph::class,
-        Nodes\Table::class,
-        Nodes\TableCell::class,
-        Nodes\TableHeader::class,
-        Nodes\TableRow::class,
-    ];
+    protected $schema;
 
-    protected $marks = [
-        Marks\Bold::class,
-        Marks\Code::class,
-        Marks\Italic::class,
-        Marks\Link::class,
-        Marks\Subscript::class,
-        Marks\Underline::class,
-        Marks\Strike::class,
-        Marks\Superscript::class,
-    ];
+    public function __construct($schema)
+    {
+        $this->schema = $schema;
+    }
 
     private function renderNode($node, $previousNode = null, $nextNode = null): string
     {
@@ -42,7 +21,7 @@ class DOMSerializer
 
         if (isset($node->marks)) {
             foreach ($node->marks as $mark) {
-                foreach ($this->marks as $class) {
+                foreach ($this->schema->marks as $class) {
                     $renderClass = $class;
 
                     if (!$this->isMarkOrNode($mark, $renderClass)) {
@@ -58,7 +37,7 @@ class DOMSerializer
             }
         }
 
-        foreach ($this->nodes as $extension) {
+        foreach ($this->schema->nodes as $extension) {
             if (!$this->isMarkOrNode($node, $extension)) {
                 continue;
             }
@@ -79,7 +58,7 @@ class DOMSerializer
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
         }
 
-        foreach ($this->nodes as $extension) {
+        foreach ($this->schema->nodes as $extension) {
             if (!$this->isMarkOrNode($node, $extension)) {
                 continue;
             }
@@ -89,7 +68,7 @@ class DOMSerializer
 
         if (isset($node->marks)) {
             foreach (array_reverse($node->marks) as $mark) {
-                foreach ($this->marks as $extension) {
+                foreach ($this->schema->marks as $extension) {
                     if (!$this->isMarkOrNode($mark, $extension)) {
                         continue;
                     }
@@ -143,6 +122,11 @@ class DOMSerializer
 
     private function renderOpeningTag($renderHTML)
     {
+        // null
+        if (is_null($renderHTML)) {
+            return '';
+        }
+
         // 'strong'
         if (is_string($renderHTML)) {
             return "<{$renderHTML}>";
@@ -194,6 +178,11 @@ class DOMSerializer
 
     private function renderClosingTag($renderHTML)
     {
+        // null
+        if (is_null($renderHTML)) {
+            return '';
+        }
+
         // 'strong'
         if (is_string($renderHTML)) {
             // self-closing tag
@@ -251,7 +240,7 @@ class DOMSerializer
 
     // public function addNode($node)
     // {
-    //     $this->nodes[] = $node;
+    //     $this->schema->nodes[] = $node;
 
     //     return $this;
     // }
@@ -267,7 +256,7 @@ class DOMSerializer
 
     // public function addMark($mark)
     // {
-    //     $this->marks[] = $mark;
+    //     $this->schema->marks[] = $mark;
 
     //     return $this;
     // }
@@ -283,9 +272,9 @@ class DOMSerializer
 
     // public function replaceNode($search_node, $replace_node)
     // {
-    //     foreach ($this->nodes as $key => $node_class) {
+    //     foreach ($this->schema->nodes as $key => $node_class) {
     //         if ($node_class == $search_node) {
-    //             $this->nodes[$key] = $replace_node;
+    //             $this->schema->nodes[$key] = $replace_node;
     //         }
     //     }
 
@@ -294,9 +283,9 @@ class DOMSerializer
 
     // public function replaceMark($search_mark, $replace_mark)
     // {
-    //     foreach ($this->marks as $key => $mark_class) {
+    //     foreach ($this->schema->marks as $key => $mark_class) {
     //         if ($mark_class == $search_mark) {
-    //             $this->marks[$key] = $replace_mark;
+    //             $this->schema->marks[$key] = $replace_mark;
     //         }
     //     }
 
@@ -306,7 +295,7 @@ class DOMSerializer
     // public function withMarks($marks = null)
     // {
     //     if (is_array($marks)) {
-    //         $this->marks = $marks;
+    //         $this->schema->marks = $marks;
     //     }
 
     //     return $this;
@@ -315,7 +304,7 @@ class DOMSerializer
     // public function withNodes($nodes = null)
     // {
     //     if (is_array($nodes)) {
-    //         $this->nodes = $nodes;
+    //         $this->schema->nodes = $nodes;
     //     }
 
     //     return $this;

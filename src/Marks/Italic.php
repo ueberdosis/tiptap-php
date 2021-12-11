@@ -2,7 +2,7 @@
 
 namespace Tiptap\Marks;
 
-use Tiptap\Utils;
+use Tiptap\Utils\InlineStyle;
 use Tiptap\Contracts\Mark;
 
 class Italic extends Mark
@@ -18,7 +18,7 @@ class Italic extends Mark
             [
                 'tag' => 'i',
                 'getAttrs' => function ($DOMNode) {
-                    return !Utils::hasInlineStyle($DOMNode, [
+                    return !InlineStyle::hasAttribute($DOMNode, [
                         'font-style' => 'normal',
                     ]) ? null : false;
                 }

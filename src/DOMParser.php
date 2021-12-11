@@ -4,6 +4,7 @@ namespace Tiptap;
 
 use DOMElement;
 use DOMDocument;
+use Tiptap\Utils\InlineStyle;
 
 class DOMParser
 {
@@ -11,35 +12,42 @@ class DOMParser
 
     protected $storedMarks = [];
 
-    protected $marks = [
-        Marks\Bold::class,
-        Marks\Code::class,
-        Marks\Italic::class,
-        Marks\Link::class,
-        Marks\Strike::class,
-        Marks\Subscript::class,
-        Marks\Superscript::class,
-        Marks\Underline::class,
-    ];
+    // protected $marks = [
+    //     Marks\Bold::class,
+    //     Marks\Code::class,
+    //     Marks\Italic::class,
+    //     Marks\Link::class,
+    //     Marks\Strike::class,
+    //     Marks\Subscript::class,
+    //     Marks\Superscript::class,
+    //     Marks\Underline::class,
+    // ];
 
-    protected $nodes = [
-        Nodes\Blockquote::class,
-        Nodes\BulletList::class,
-        Nodes\CodeBlock::class,
-        Nodes\HardBreak::class,
-        Nodes\Heading::class,
-        Nodes\HorizontalRule::class,
-        Nodes\Image::class,
-        Nodes\ListItem::class,
-        Nodes\Mention::class,
-        Nodes\OrderedList::class,
-        Nodes\Paragraph::class,
-        Nodes\Table::class,
-        Nodes\TableCell::class,
-        Nodes\TableHeader::class,
-        Nodes\TableRow::class,
-        Nodes\Text::class,
-    ];
+    // protected $nodes = [
+    //     Nodes\Blockquote::class,
+    //     Nodes\BulletList::class,
+    //     Nodes\CodeBlock::class,
+    //     Nodes\HardBreak::class,
+    //     Nodes\Heading::class,
+    //     Nodes\HorizontalRule::class,
+    //     Nodes\Image::class,
+    //     Nodes\ListItem::class,
+    //     Nodes\Mention::class,
+    //     Nodes\OrderedList::class,
+    //     Nodes\Paragraph::class,
+    //     Nodes\Table::class,
+    //     Nodes\TableCell::class,
+    //     Nodes\TableHeader::class,
+    //     Nodes\TableRow::class,
+    //     Nodes\Text::class,
+    // ];
+
+    protected $schema;
+
+    public function __construct($schema)
+    {
+        $this->schema = $schema;
+    }
 
     public function render(string $value): array
     {
@@ -166,12 +174,12 @@ class DOMParser
 
     private function getMatchingNode($item)
     {
-        return $this->getMatchingClass($item, $this->nodes);
+        return $this->getMatchingClass($item, $this->schema->nodes);
     }
 
     private function getMatchingMark($item)
     {
-        return $this->getMatchingClass($item, $this->marks);
+        return $this->getMatchingClass($item, $this->schema->marks);
     }
 
     private function getMatchingClass($node, $classes)
@@ -234,15 +242,15 @@ class DOMParser
 
         // ['style' => 'font-weight']
         if (isset($parseRule['style'])) {
-            if (!Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
+            if (!InlineStyle::hasAttribute($DOMNode, $parseRule['style'])) {
                 return false;
             }
         }
 
         // ['getAttrs' => function($DOMNode) { … }]
         if (isset($parseRule['getAttrs'])) {
-            if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
-                $parameter = Utils::getInlineStyle($DOMNode, $parseRule['style']);
+            if (isset($parseRule['style']) && InlineStyle::hasAttribute($DOMNode, $parseRule['style'])) {
+                $parameter = InlineStyle::getAttribute($DOMNode, $parseRule['style']);
             } else {
                 $parameter = $DOMNode;
             }
@@ -306,8 +314,8 @@ class DOMParser
             }
 
             if (isset($parseRule['getAttrs'])) {
-                if (isset($parseRule['style']) && Utils::hasInlineStyle($DOMNode, $parseRule['style'])) {
-                    $parameter = Utils::getInlineStyle($DOMNode, $parseRule['style']);
+                if (isset($parseRule['style']) && InlineStyle::hasAttribute($DOMNode, $parseRule['style'])) {
+                    $parameter = InlineStyle::getAttribute($DOMNode, $parseRule['style']);
                 } else {
                     $parameter = $DOMNode;
                 }

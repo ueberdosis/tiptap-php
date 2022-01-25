@@ -31,36 +31,44 @@ composer require ueberdosis/tiptap-php
 ## Usage
 ### Convert Tiptap HTML to JSON
 ```php
-$document = (new Tiptap\Editor)->setContent('<p>Example Text</p>')->getDocument();
+(new Tiptap\Editor)
+    ->setContent('<p>Example Text</p>')
+    ->getDocument();
 
-// Output: ['type' => 'doc', 'content' => …]
+// Returns:
+// ['type' => 'doc', 'content' => …]
 ```
 
 ### Convert Tiptap JSON to HTML
 ```php
-$html = (new Tiptap\Editor)->setContent([
-    'type' => 'doc',
-    'content' => [
-        [
-            'type' => 'paragraph',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Text',
-                ],
+(new Tiptap\Editor)
+    ->setContent([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
+                    ],
+                ]
             ]
-        ]
-    ],
-])->getHTML();
+        ],
+    ])
+    ->getHTML();
 
-// Output: <h1>Example Text</h1>
+// Returns:
+// <h1>Example Text</h1>
 ```
 
 ### Sanitize content
 ```php
-$document = (new Tiptap\Editor)->sanitize('<p>Example Text<script>alert("HACKED!")</script></p>');
+(new Tiptap\Editor)
+    ->sanitize('<p>Example Text<script>alert("HACKED!")</script></p>');
 
-// Output: '<p>Example Text</p>'
+// Returns:
+// '<p>Example Text</p>'
 ```
 
 ### Extensions
@@ -76,7 +84,7 @@ new Tiptap\Editor([
 ```
 
 #### Custom extensions
-You can even build custom extensions, like you’re used to from the JavaScript package.
+You can even build custom extensions, like you’re used to from the JavaScript package. 🤯
 
 ```php
 <?php

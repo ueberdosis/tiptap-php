@@ -62,7 +62,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $html = '<a rel="noopener" href="https://tiptap.dev">Example Link</a>';
+        $html = '<a href="https://tiptap.dev" rel="noopener">Example Link</a>';
 
         $this->assertEquals($html, (new Editor([
             'extensions' => [
@@ -94,7 +94,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $html = '<a target="_blank" href="https://tiptap.dev">Example Link</a>';
+        $html = '<a href="https://tiptap.dev" target="_blank">Example Link</a>';
 
         $this->assertEquals($html, (new Editor([
             'extensions' => [

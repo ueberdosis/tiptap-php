@@ -28,18 +28,6 @@ class Link extends Mark
 
     public function renderHTML($mark)
     {
-        $attrs = [];
-
-        if (isset($mark->attrs->target)) {
-            $attrs['target'] = $mark->attrs->target;
-        }
-
-        if (isset($mark->attrs->rel)) {
-            $attrs['rel'] = $mark->attrs->rel;
-        }
-
-        $attrs['href'] = $mark->attrs->href;
-
-        return ['a', $attrs];
+        return ['a', (array) $mark->attrs, 0];
     }
 }

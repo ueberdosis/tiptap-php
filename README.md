@@ -7,8 +7,8 @@
 A PHP package to work with Tiptap output. You can transform Tiptap-compatible JSON to HTML, and the other way around. Or you can use it sanitize your content.
 
 ## Tasks
-- [ ] Publish the package then
-- [ ] Get tests passing
+- [x] Publish the package then
+- [x] Get tests passing
 - [ ] Migrate to Pest PHP
 - [ ] Check if all Tiptap core packages are supported
 - [ ] Add support for configureable HTML attributes

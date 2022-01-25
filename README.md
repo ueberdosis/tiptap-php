@@ -11,8 +11,8 @@ A PHP package to work with Tiptap output. You can transform Tiptap-compatible JS
 ## Tasks
 - [x] Publish the package then
 - [x] Get tests passing
-- [ ] Migrate to Pest PHP
-- [ ] Check if all Tiptap core packages are supported
+- [x] Set up to Pest PHP
+- [x] Check if all StarterKit packages are supported
 - [ ] Add support for configureable HTML attributes
 - [x] Make the renderHTML syntax more like the JS API
   - [x] `['code', ['pre']]` instead of `['core', 'pre']`

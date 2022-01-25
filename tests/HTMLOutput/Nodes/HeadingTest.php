@@ -105,3 +105,33 @@ test('depending on the configuration heading levels are transformed', function (
         ],
     ]))->setContent($document)->getHTML())->toEqual($html);
 });
+
+test('configured HTMLAttributes are rendered to HTML', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'heading',
+                'attrs' => [
+                    'level' => 1,
+                ],
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Headline',
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $html = '<h1 class="custom-heading-class">Example Headline</h1>';
+
+    expect((new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Heading(['HTMLAttributes' => [
+                'class' => 'custom-heading-class',
+            ]]),
+        ],
+    ]))->setContent($document)->getHTML())->toEqual($html);
+});

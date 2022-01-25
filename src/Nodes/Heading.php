@@ -12,6 +12,7 @@ class Heading extends Node
     {
         return [
             'levels' => [1, 2, 3, 4, 5, 6],
+            'HTMLAttributes' => [],
         ];
     }
 
@@ -35,6 +36,6 @@ class Heading extends Node
             $node->attrs->level :
             $this->options['levels'][0];
 
-        return ["h{$level}"];
+        return ["h{$level}", $this->options['HTMLAttributes'], 0];
     }
 }

@@ -32,6 +32,6 @@ class CodeBlock extends Node
 
     public function renderHTML($node)
     {
-        return ['pre', ['code']];
+        return ['pre', ['code', 0]];
     }
 }

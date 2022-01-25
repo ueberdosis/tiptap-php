@@ -134,30 +134,41 @@ class DOMSerializer
 
         // ['tag' => 'a', 'attrs' => ['href' => '#']]
         if (isset($renderHTML['tag'])) {
-            $attributes = [];
-
-            foreach ($renderHTML['attrs'] ?? [] as $name => $value) {
-                $attributes[] = " {$name}=\"{$value}\"";
-            }
-
-            $attributes = join($attributes);
+            $attributes = $this->renderHTMLFromAttributes($renderHTML['attrs']);
 
             // <a href="#">
             return "<{$renderHTML['tag']}{$attributes}>";
         }
 
         // ['table', ['tbody']]
+        // ['table', ['class' => 'foobar'], ['tbody', 0]]
         if (is_array($renderHTML)) {
             $html = [];
 
-            foreach ($renderHTML as $tag) {
+            foreach ($renderHTML as $index => $tag) {
                 // 'table'
                 if (is_string($tag)) {
+                    // next item: ['class' => 'foobar']
+                    if ($nextTag = $renderHTML[$index+1] ?? null) {
+                        if (is_array($nextTag) && !in_array(0, $nextTag)) {
+                            $attributes = $this->renderHTMLFromAttributes($nextTag);
+
+                            // <a href="#">
+                            $html[] = "<{$tag}{$attributes}>";
+                            continue;
+                        }
+                    }
+
                     $html[] = "<{$tag}>";
                 }
-                // ['tbody']
-                elseif (is_array($tag)) {
+                // ['tbody', 0]
+                // TODO: Make recursive
+                elseif (is_array($tag) && in_array(0, $tag)) {
                     $html[] = $this->renderOpeningTag($tag);
+                }
+                // ['class' => 'foobar']
+                elseif (is_array($tag)) {
+                    continue;
                 }
             }
 
@@ -171,6 +182,17 @@ class DOMSerializer
         // }
 
         throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
+    }
+
+    private function renderHTMLFromAttributes($attrs)
+    {
+        $attributes = [];
+
+        foreach ($attrs ?? [] as $name => $value) {
+            $attributes[] = " {$name}=\"{$value}\"";
+        }
+
+        return join($attributes);
     }
 
     private function isSelfClosing($tag)
@@ -221,8 +243,8 @@ class DOMSerializer
                     }
                     $html[] = "</{$tag}>";
                 }
-                // ['tbody']
-                elseif (is_array($tag)) {
+                // ['tbody', 0]
+                elseif (is_array($tag) && in_array(0, $tag)) {
                     $html[] = $this->renderClosingTag($tag);
                 }
             }

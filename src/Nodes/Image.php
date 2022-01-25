@@ -13,21 +13,16 @@ class Image extends Node
         return [
             [
                 'tag' => 'img[src]',
-                'getAttrs' => function ($DOMNode) {
-                    $attrs = [];
-                    if ($alt = $DOMNode->getAttribute('alt')) {
-                        $attrs['alt'] = $alt;
-                    }
-
-                    if ($title = $DOMNode->getAttribute('title')) {
-                        $attrs['title'] = $title;
-                    }
-
-                    $attrs['src'] = $DOMNode->getAttribute('src');
-
-                    return $attrs;
-                },
             ],
+        ];
+    }
+
+    public static function addAttributes()
+    {
+        return [
+            'alt' => [],
+            'title' => [],
+            'src' => [],
         ];
     }
 

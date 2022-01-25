@@ -13,11 +13,15 @@ class Mention extends Node
         return [
             [
                 'tag' => 'span[data-type="' . self::$name . '"]',
-                'getAttrs' => function ($DOMNode) {
-                    return [
-                        'id' => $DOMNode->getAttribute('data-id'),
-                    ];
-                },
+            ],
+        ];
+    }
+
+    public static function addAttributes()
+    {
+        return [
+            'id' => [
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-id') ?: null,
             ],
         ];
     }

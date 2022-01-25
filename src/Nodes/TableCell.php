@@ -13,32 +13,37 @@ class TableCell extends Node
         return [
             [
                 'tag' => 'td',
-                'getAttrs' => function ($DOMNode) {
-                    $attrs = [];
+            ],
+        ];
+    }
 
-                    if ($colspan = $DOMNode->getAttribute('colspan')) {
-                        $attrs['colspan'] = intval($colspan);
-                    }
+    public static function addAttributes()
+    {
+        return [
+            'rowspan' => [
+                'parseHTML' => fn ($DOMNode) => intval($DOMNode->getAttribute('rowspan')) ?: null,
+            ],
+            'colspan' => [
+                'parseHTML' => fn ($DOMNode) => intval($DOMNode->getAttribute('colspan')) ?: null,
+            ],
+            'colwidth' => [
+                'parseHTML' => function ($DOMNode) {
+                    $colwidth = $DOMNode->getAttribute('data-colwidth');
 
-                    if ($colwidth = $DOMNode->getAttribute('data-colwidth')) {
-                        $widths = array_map(function ($w) {
-                            return intval($w);
-                        }, explode(',', $colwidth));
-
-                        if (count($widths) === $attrs['colspan']) {
-                            $attrs['colwidth'] = $widths;
-                        }
-                    }
-
-                    if ($rowspan = $DOMNode->getAttribute('rowspan')) {
-                        $attrs['rowspan'] = intval($rowspan);
-                    }
-
-                    if (! count($attrs)) {
+                    if (!$colwidth) {
                         return null;
                     }
 
-                    return $attrs;
+                    $widths = array_map(function ($w) {
+                        return intval($w);
+                    }, explode(',', $colwidth));
+
+                    // TODO: Should be in the renderHTML function
+                    // if (count($widths) === $attrs['colspan']) {
+                    //     return $widths;
+                    // }
+
+                    return $widths;
                 },
             ],
         ];

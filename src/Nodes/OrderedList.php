@@ -13,15 +13,15 @@ class OrderedList extends Node
         return [
             [
                 'tag' => 'ol',
-                'getAttrs' => function ($DOMNode) {
-                    if (! $DOMNode->getAttribute('start')) {
-                        return null;
-                    }
+            ],
+        ];
+    }
 
-                    return [
-                        'order' => (int) $DOMNode->getAttribute('start'),
-                    ];
-                },
+    public static function addAttributes()
+    {
+        return [
+            'order' => [
+                'parseHTML' => fn ($DOMNode) => (int) $DOMNode->getAttribute('start') ?: null,
             ],
         ];
     }

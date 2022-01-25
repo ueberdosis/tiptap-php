@@ -13,21 +13,16 @@ class Link extends Mark
         return [
             [
                 'tag' => 'a[href]',
-                'getAttrs' => function ($DOMNode) {
-                    $attrs = [];
-                    if ($target = $DOMNode->getAttribute('target')) {
-                        $attrs['target'] = $target;
-                    }
-
-                    if ($rel = $DOMNode->getAttribute('rel')) {
-                        $attrs['rel'] = $rel;
-                    }
-
-                    $attrs['href'] = $DOMNode->getAttribute('href');
-
-                    return $attrs;
-                },
             ],
+        ];
+    }
+
+    public static function addAttributes()
+    {
+        return [
+            'href' => [],
+            'target' => [],
+            'rel' => [],
         ];
     }
 

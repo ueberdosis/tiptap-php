@@ -10,7 +10,7 @@ class LinkTest extends TestCase
     /** @test */
     public function link_gets_rendered_correctly()
     {
-        $html = '<a href="https://scrumpy.io">Example Link</a>';
+        $html = '<a href="https://tiptap.dev">Example Link</a>';
 
         $document = [
             'type' => 'doc',
@@ -22,7 +22,7 @@ class LinkTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                             ],
                         ],
                     ],
@@ -36,7 +36,7 @@ class LinkTest extends TestCase
     /** @test */
     public function link_mark_has_support_for_rel()
     {
-        $html = '<a href="https://scrumpy.io" rel="noopener">Example Link</a>';
+        $html = '<a href="https://tiptap.dev" rel="noopener">Example Link</a>';
 
         $document = [
             'type' => 'doc',
@@ -48,7 +48,7 @@ class LinkTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                                 'rel' => 'noopener',
                             ],
                         ],
@@ -63,7 +63,7 @@ class LinkTest extends TestCase
     /** @test */
     public function link_mark_has_support_for_target()
     {
-        $html = '<a href="https://scrumpy.io" target="_blank">Example Link</a>';
+        $html = '<a href="https://tiptap.dev" target="_blank">Example Link</a>';
 
         $document = [
             'type' => 'doc',
@@ -75,7 +75,7 @@ class LinkTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                                 'target' => '_blank',
                             ],
                         ],

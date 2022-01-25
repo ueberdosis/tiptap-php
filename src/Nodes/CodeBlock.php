@@ -15,18 +15,18 @@ class CodeBlock extends Node
         return [
             [
                 'tag' => 'pre',
-                'getAttrs' => function ($DOMNode) {
-                    $language = preg_replace("/^language-/", "", $DOMNode->childNodes[0]->getAttribute('class'));
-
-                    if (! $language) {
-                        return null;
-                    }
-
-                    return [
-                        'language' => $language,
-                    ];
-                },
             ],
+        ];
+    }
+
+    public static function addAttributes()
+    {
+        return [
+            'language' => [
+                'parseHTML' => function ($DOMNode) {
+                    return preg_replace("/^language-/", "", $DOMNode->childNodes[0]->getAttribute('class')) ?: null;
+                }
+            ]
         ];
     }
 

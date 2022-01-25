@@ -94,7 +94,7 @@ class WrongFormatTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                             ],
                         ],
                     ],
@@ -106,7 +106,7 @@ class WrongFormatTest extends TestCase
             ],
         ];
 
-        $html = '<a href="https://scrumpy.io">Example Link</a>';
+        $html = '<a href="https://tiptap.dev">Example Link</a>';
 
         $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }

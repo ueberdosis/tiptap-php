@@ -52,7 +52,7 @@ class MarksInNodesTest extends TestCase
         $html = '
             <h1>Headline 1</h1>
             <p>
-                Some text. <strong>Bold Text</strong>. <em>Italic Text</em>. <strong><em>Bold and italic Text</em></strong>. Here is a <a href="https://scrumpy.io">Link</a>.
+                Some text. <strong>Bold Text</strong>. <em>Italic Text</em>. <strong><em>Bold and italic Text</em></strong>. Here is a <a href="https://tiptap.dev">Link</a>.
             </p>
         ';
 
@@ -127,7 +127,7 @@ class MarksInNodesTest extends TestCase
                                 [
                                     'type' => 'link',
                                     'attrs' => [
-                                        'href' => 'https://scrumpy.io',
+                                        'href' => 'https://tiptap.dev',
                                     ],
                                 ],
                             ],
@@ -156,7 +156,7 @@ class MarksInNodesTest extends TestCase
             </ol>
             <ul>
                 <li>unordered list item</li>
-                <li>unordered list item with <a href="https://scrumpy.io"><strong>link</strong></a></li>
+                <li>unordered list item with <a href="https://tiptap.dev"><strong>link</strong></a></li>
                 <li>unordered list item</li>
             </ul>
             <p>Some Text.</p>
@@ -259,7 +259,7 @@ class MarksInNodesTest extends TestCase
                                                 [
                                                     'type' => 'link',
                                                     'attrs' => [
-                                                        'href' => 'https://scrumpy.io',
+                                                        'href' => 'https://tiptap.dev',
                                                     ],
                                                 ],
                                                 [

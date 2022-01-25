@@ -20,7 +20,7 @@ class LinkTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                             ],
                         ],
                     ],
@@ -28,7 +28,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $html = '<a href="https://scrumpy.io">Example Link</a>';
+        $html = '<a href="https://tiptap.dev">Example Link</a>';
 
         $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
@@ -46,7 +46,7 @@ class LinkTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                                 'rel' => 'noopener',
                             ],
                         ],
@@ -55,7 +55,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $html = '<a rel="noopener" href="https://scrumpy.io">Example Link</a>';
+        $html = '<a rel="noopener" href="https://tiptap.dev">Example Link</a>';
 
         $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }
@@ -73,7 +73,7 @@ class LinkTest extends TestCase
                         [
                             'type' => 'link',
                             'attrs' => [
-                                'href' => 'https://scrumpy.io',
+                                'href' => 'https://tiptap.dev',
                                 'target' => '_blank',
                             ],
                         ],
@@ -82,7 +82,7 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $html = '<a target="_blank" href="https://scrumpy.io">Example Link</a>';
+        $html = '<a target="_blank" href="https://tiptap.dev">Example Link</a>';
 
         $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
     }

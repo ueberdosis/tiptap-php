@@ -20,17 +20,14 @@ class Image extends Node
     public static function addAttributes()
     {
         return [
+            'src' => [],
             'alt' => [],
             'title' => [],
-            'src' => [],
         ];
     }
 
     public function renderHTML($node)
     {
-        return [
-            'tag' => 'img',
-            'attrs' => $node->attrs,
-        ];
+        return ['img', (array) $node->attrs, 0];
     }
 }

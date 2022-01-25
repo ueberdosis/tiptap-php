@@ -34,9 +34,6 @@ class OrderedList extends Node
             $attrs['start'] = $node->attrs->order;
         }
 
-        return [
-            'tag' => 'ol',
-            'attrs' => $attrs,
-        ];
+        return ['ol', $attrs];
     }
 }

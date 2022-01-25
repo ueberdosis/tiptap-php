@@ -76,9 +76,6 @@ class TableCell extends Node
 
     public function renderHTML($node)
     {
-        return [
-            'tag' => 'td',
-            'attrs' => self::getAttrs($node),
-        ];
+        return ['td', self::getAttrs($node), 0];
     }
 }

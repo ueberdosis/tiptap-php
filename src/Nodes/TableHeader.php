@@ -17,9 +17,6 @@ class TableHeader extends TableCell
 
     public function renderHTML($node)
     {
-        return [
-            'tag' => 'th',
-            'attrs' => self::getAttrs($node),
-        ];
+        return ['th', self::getAttrs($node), 0];
     }
 }

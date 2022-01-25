@@ -40,9 +40,6 @@ class Link extends Mark
 
         $attrs['href'] = $mark->attrs->href;
 
-        return [
-            'tag' => 'a',
-            'attrs' => $attrs,
-        ];
+        return ['a', $attrs];
     }
 }

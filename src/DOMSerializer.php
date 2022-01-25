@@ -132,15 +132,7 @@ class DOMSerializer
             return "<{$renderHTML}>";
         }
 
-        // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        if (isset($renderHTML['tag'])) {
-            $attributes = $this->renderHTMLFromAttributes($renderHTML['attrs']);
-
-            // <a href="#">
-            return "<{$renderHTML['tag']}{$attributes}>";
-        }
-
-        // ['table', ['tbody']]
+        // ['table', ['tbody', 0]]
         // ['table', ['class' => 'foobar'], ['tbody', 0]]
         if (is_array($renderHTML)) {
             $html = [];
@@ -174,12 +166,6 @@ class DOMSerializer
 
             return join($html);
         }
-
-        // TODO:
-        // [['tag' => 'table', 'attrs' => ['width' => '100%']], ['tag' => 'tbody']]
-        // if (…) {
-        //     …
-        // }
 
         throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
@@ -220,15 +206,6 @@ class DOMSerializer
             }
 
             return "</{$renderHTML}>";
-        }
-
-        // ['tag' => 'a', 'attrs' => ['href' => '#']]
-        if (isset($renderHTML['tag'])) {
-            if ($this->isSelfClosing($renderHTML['tag'])) {
-                return null;
-            }
-
-            return "</{$renderHTML['tag']}>";
         }
 
         // ['table', ['tbody']]
@@ -273,76 +250,4 @@ class DOMSerializer
 
         return join($html);
     }
-
-    // public function addNode($node)
-    // {
-    //     $this->schema->nodes[] = $node;
-
-    //     return $this;
-    // }
-
-    // public function addNodes($nodes)
-    // {
-    //     foreach ($nodes as $node) {
-    //         $this->addNode($node);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function addMark($mark)
-    // {
-    //     $this->schema->marks[] = $mark;
-
-    //     return $this;
-    // }
-
-    // public function addMarks($marks)
-    // {
-    //     foreach ($marks as $mark) {
-    //         $this->addMark($mark);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function replaceNode($search_node, $replace_node)
-    // {
-    //     foreach ($this->schema->nodes as $key => $node_class) {
-    //         if ($node_class == $search_node) {
-    //             $this->schema->nodes[$key] = $replace_node;
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function replaceMark($search_mark, $replace_mark)
-    // {
-    //     foreach ($this->schema->marks as $key => $mark_class) {
-    //         if ($mark_class == $search_mark) {
-    //             $this->schema->marks[$key] = $replace_mark;
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function withMarks($marks = null)
-    // {
-    //     if (is_array($marks)) {
-    //         $this->schema->marks = $marks;
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function withNodes($nodes = null)
-    // {
-    //     if (is_array($nodes)) {
-    //         $this->schema->nodes = $nodes;
-    //     }
-
-    //     return $this;
-    // }
 }

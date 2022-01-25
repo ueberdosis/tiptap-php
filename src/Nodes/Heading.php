@@ -8,10 +8,12 @@ class Heading extends Node
 {
     public static $name = 'heading';
 
+    public static $options = [
+        'levels' => [1, 2, 3, 4, 5, 6],
+    ];
+
     public static function parseHTML()
     {
-        $levels = [1, 2, 3, 4, 5, 6];
-
         return array_map(function ($level) {
             return [
                 'tag' => "h{$level}",
@@ -19,25 +21,17 @@ class Heading extends Node
                     'level' => $level,
                 ],
             ];
-        }, $levels);
+        }, self::$options['levels']);
     }
 
     public static function renderHTML($node)
     {
-        return ["h{$node->attrs->level}"];
+        $hasLevel = in_array($node->attrs->level, self::$options['levels']);
+
+        $level = $hasLevel ?
+            $node->attrs->level :
+            self::$options['levels'][0];
+
+        return ["h{$level}"];
     }
-
-    // public static function addAttributes()
-    // {
-    //     return [
-    //         'level' => [
-    //             'default' => 1,
-    //         ],
-    //     ];
-    // }
-
-    // public static function getAttributes($DOMNode)
-    // {
-    //     dd(self::addAttributes());
-    // }
 }

@@ -1,32 +1,24 @@
 <?php
 
-namespace Tiptap\Tests\Editor;
-
-use PHPUnit\Framework\TestCase;
 use Tiptap\Editor;
 
-class GetHTMLTest extends TestCase
-{
-    /** @test */
-    public function get_html_outputs_html()
-    {
-        $input = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Text',
-                        ],
+test('getHTML() outputs HTML', function () {
+    $input = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $output = (new Editor)->setContent($input)->getHTML();
+    $output = (new Editor)->setContent($input)->getHTML();
 
-        $this->assertEquals('<p>Example Text</p>', $output);
-    }
-}
+    expect('<p>Example Text</p>')->toEqual($output);
+});

@@ -1,96 +1,86 @@
 <?php
 
-namespace Tiptap\Tests\Editor;
-
-use PHPUnit\Framework\TestCase;
 use Tiptap\Editor;
 
-class SetContentTest extends TestCase
-{
-    /** @test */
-    public function json_strings_are_detected()
-    {
-        $output = (new Editor)->setContent('{
-            "type": "doc",
-            "content": [
-                {
-                    "type": "paragraph",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": "Example Text"
-                        }
-                    ]
-                }
-            ]
-        }')->getDocument();
+test('json_strings_are_detected()', function () {
+    $output = (new Editor)->setContent('{
+        "type": "doc",
+        "content": [
+            {
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "Example Text"
+                    }
+                ]
+            }
+        ]
+    }')->getDocument();
 
-        $this->assertEquals([
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Text',
-                        ],
+    expect([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
                     ],
                 ],
             ],
-        ], $output);
-    }
+        ],
+    ])->toEqual($output);
+});
 
-    /** @test */
-    public function arrays_are_detected()
-    {
-        $input = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Text',
-                        ],
+
+test('arrays_are_detected()', function () {
+    $input = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $output = (new Editor)->setContent($input)->getDocument();
+    $output = (new Editor)->setContent($input)->getDocument();
 
-        $this->assertEquals($input, $output);
-    }
+    expect($input)->toEqual($output);
+});
 
-    /** @test */
-    public function html_is_detected()
-    {
-        $output = (new Editor)->setContent('<p>Example <strong>Text</strong></p>')->getDocument();
 
-        $this->assertEquals([
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example ',
-                        ],
-                        [
-                            'type' => 'text',
-                            'text' => 'Text',
-                            'marks' => [
-                                [
-                                    'type' => 'bold',
-                                ],
+test('html_is_detected()', function () {
+    $output = (new Editor)->setContent('<p>Example <strong>Text</strong></p>')->getDocument();
+
+    expect([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example ',
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'Text',
+                        'marks' => [
+                            [
+                                'type' => 'bold',
                             ],
                         ],
                     ],
                 ],
             ],
-        ], $output);
-    }
-}
+        ],
+    ])->toEqual($output);
+});

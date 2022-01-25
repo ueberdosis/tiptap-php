@@ -141,12 +141,13 @@ class DOMSerializer
                 // 'table'
                 if (is_string($tag)) {
                     // next item: ['class' => 'foobar']
-                    if ($nextTag = $renderHTML[$index+1] ?? null) {
-                        if (is_array($nextTag) && !in_array(0, $nextTag)) {
+                    if ($nextTag = $renderHTML[$index + 1] ?? null) {
+                        if (is_array($nextTag) && ! in_array(0, $nextTag)) {
                             $attributes = $this->renderHTMLFromAttributes($nextTag);
 
                             // <a href="#">
                             $html[] = "<{$tag}{$attributes}>";
+
                             continue;
                         }
                     }

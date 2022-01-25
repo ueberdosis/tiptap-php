@@ -30,7 +30,7 @@ class TableCell extends Node
                 'parseHTML' => function ($DOMNode) {
                     $colwidth = $DOMNode->getAttribute('data-colwidth');
 
-                    if (!$colwidth) {
+                    if (! $colwidth) {
                         return null;
                     }
 

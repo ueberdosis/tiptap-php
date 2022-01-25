@@ -12,7 +12,7 @@ A PHP package to work with Tiptap output. You can transform Tiptap-compatible JS
 - [ ] Migrate to Pest PHP
 - [ ] Check if all Tiptap core packages are supported
 - [ ] Add support for configureable HTML attributes
-- [ ] Integrate the addAttributes API for Nodes/Marks
+- [x] Integrate the addAttributes API for Nodes/Marks
 
 ## Installation
 You can install the package via composer:

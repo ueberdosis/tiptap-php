@@ -3,8 +3,8 @@
 namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
-use Tiptap\Marks\Link;
 use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Link;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class LinkTest extends TestCase

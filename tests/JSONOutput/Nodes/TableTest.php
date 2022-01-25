@@ -5,9 +5,9 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Nodes\Paragraph;
 use Tiptap\Nodes\Table;
-use Tiptap\Nodes\TableRow;
 use Tiptap\Nodes\TableCell;
 use Tiptap\Nodes\TableHeader;
+use Tiptap\Nodes\TableRow;
 use Tiptap\Nodes\Text;
 use Tiptap\Tests\JSONOutput\TestCase;
 

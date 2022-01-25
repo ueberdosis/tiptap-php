@@ -5,7 +5,6 @@ namespace Tiptap\Tests\HTMLOutput;
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
-use Tiptap\Nodes\CodeBlock;
 
 class WrongFormatTest extends TestCase
 {

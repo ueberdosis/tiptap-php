@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap\Contracts;
+namespace Tiptap\Core;
 
 class Node
 {

@@ -2,7 +2,7 @@
 
 namespace Tiptap\Tests\Marks\Custom;
 
-use Tiptap\Contracts\Mark;
+use Tiptap\Core\Mark;
 
 class Bold extends Mark
 {

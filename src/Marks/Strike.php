@@ -2,7 +2,7 @@
 
 namespace Tiptap\Marks;
 
-use Tiptap\Contracts\Mark;
+use Tiptap\Core\Mark;
 
 class Strike extends Mark
 {

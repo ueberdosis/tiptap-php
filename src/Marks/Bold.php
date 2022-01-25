@@ -2,7 +2,7 @@
 
 namespace Tiptap\Marks;
 
-use Tiptap\Contracts\Mark;
+use Tiptap\Core\Mark;
 use Tiptap\Utils\InlineStyle;
 
 class Bold extends Mark

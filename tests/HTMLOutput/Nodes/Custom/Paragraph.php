@@ -2,7 +2,7 @@
 
 namespace Tiptap\Tests\Nodes\Custom;
 
-use Tiptap\Contracts\Node;
+use Tiptap\Core\Node;
 
 class Paragraph extends Node
 {

@@ -63,13 +63,13 @@ class Schema
     {
         if ($name === 'nodes') {
             return array_filter(self::$extensions, function ($extension) {
-                return is_subclass_of($extension, \Tiptap\Contracts\Node::class);
+                return is_subclass_of($extension, \Tiptap\Core\Node::class);
             });
         }
 
         if ($name === 'marks') {
             return array_filter(self::$extensions, function ($extension) {
-                return is_subclass_of($extension, \Tiptap\Contracts\Mark::class);
+                return is_subclass_of($extension, \Tiptap\Core\Mark::class);
             });
         }
 

@@ -2,7 +2,7 @@
 
 namespace Tiptap\Tests\Marks\Custom;
 
-use Tiptap\HTMLOutput\Contracts\Mark;
+use Tiptap\HTMLOutput\Core\Mark;
 
 class CustomMark extends Mark
 {

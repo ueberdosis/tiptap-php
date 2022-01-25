@@ -2,7 +2,7 @@
 
 namespace Tiptap\Nodes;
 
-use Tiptap\Contracts\Node;
+use Tiptap\Core\Node;
 
 class TableRow extends Node
 {

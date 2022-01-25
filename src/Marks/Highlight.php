@@ -28,7 +28,7 @@ class Highlight extends Mark
                     }
 
                     return InlineStyle::getAttribute($DOMNode, 'background-color') ?: null;
-                }
+                },
             ],
         ];
     }

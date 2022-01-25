@@ -202,6 +202,12 @@ class CustomNode extends Node
 composer test
 ```
 
+You can install nodemon (`npm install -g nodemon`) to keep the test suite running and watch for file changes:
+
+```bash
+composer test-watch
+```
+
 ## Contributing
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 

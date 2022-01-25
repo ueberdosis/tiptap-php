@@ -30,6 +30,7 @@ class Editor
             Nodes\Text::class,
             Marks\Bold::class,
             Marks\Code::class,
+            Marks\Highlight::class,
             Marks\Italic::class,
             Marks\Link::class,
             Marks\Strike::class,

@@ -308,30 +308,30 @@ class DOMParser
 
                 $item['attrs'] = array_merge($item['attrs'], $attributes);
             }
+        }
 
-            /**
-             * public static function addAttributes()
-             * {
-             *     return [
-             *         'href' => [
-             *             'parseHTML' => function ($DOMNode) {
-             *                 $attrs['href'] = $DOMNode->getAttribute('href');
-             *             }
-             *         ],
-             *     ];
-             * }
-             */
-            if (method_exists($class, 'addAttributes')) {
-                foreach ($class::addAttributes() as $attribute => $configuration) {
-                    if (isset($configuration['parseHTML'])) {
-                        $value = $configuration['parseHTML']($DOMNode);
-                    } else {
-                        $value = $DOMNode->getAttribute($attribute) ?: null;
-                    }
+        /**
+         * public static function addAttributes()
+         * {
+         *     return [
+         *         'href' => [
+         *             'parseHTML' => function ($DOMNode) {
+         *                 $attrs['href'] = $DOMNode->getAttribute('href');
+         *             }
+         *         ],
+         *     ];
+         * }
+         */
+        if (method_exists($class, 'addAttributes')) {
+            foreach ($class::addAttributes() as $attribute => $configuration) {
+                if (isset($configuration['parseHTML'])) {
+                    $value = $configuration['parseHTML']($DOMNode);
+                } else {
+                    $value = $DOMNode->getAttribute($attribute) ?: null;
+                }
 
-                    if ($value !== null) {
-                        $item['attrs'][$attribute] = $value;
-                    }
+                if ($value !== null) {
+                    $item['attrs'][$attribute] = $value;
                 }
             }
         }

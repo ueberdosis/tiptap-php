@@ -2,8 +2,8 @@
 
 use Tiptap\Editor;
 
-test('b gets rendered correctly', function () {
-    $html = '<p><b>Example</b> Text</p>';
+test('mark gets rendered correctly', function () {
+    $html = '<p><mark>Example</mark> Text</p>';
 
     $document = [
         'type' => 'doc',
@@ -16,7 +16,7 @@ test('b gets rendered correctly', function () {
                         'text' => 'Example',
                         'marks' => [
                             [
-                                'type' => 'bold',
+                                'type' => 'highlight',
                             ],
                         ],
                     ],
@@ -32,8 +32,8 @@ test('b gets rendered correctly', function () {
     expect($document)->toEqual((new Editor)->setContent($html)->getDocument());
 });
 
-test('strong gets rendered correctly', function () {
-    $html = '<p><strong>Example</strong> Text</p>';
+test('color is parsed from data attribute', function () {
+    $html = '<p><mark data-color="red">Example</mark> Text</p>';
 
     $document = [
         'type' => 'doc',
@@ -46,7 +46,10 @@ test('strong gets rendered correctly', function () {
                         'text' => 'Example',
                         'marks' => [
                             [
-                                'type' => 'bold',
+                                'type' => 'highlight',
+                                'attrs' => [
+                                    'color' => 'red',
+                                ],
                             ],
                         ],
                     ],
@@ -62,29 +65,8 @@ test('strong gets rendered correctly', function () {
     expect($document)->toEqual((new Editor)->setContent($html)->getDocument());
 });
 
-test('b with font weight normal is ignored', function () {
-    $html = '<p><b style="font-weight: normal;">Example</b> Text</p>';
-
-    $document = [
-        'type' => 'doc',
-        'content' => [
-            [
-                'type' => 'paragraph',
-                'content' => [
-                    [
-                        'type' => 'text',
-                        'text' => 'Example Text',
-                    ],
-                ],
-            ],
-        ],
-    ];
-
-    expect($document)->toEqual((new Editor)->setContent($html)->getDocument());
-});
-
-test('span with font weight bold is parsed', function () {
-    $html = '<p><span style="font-weight: bold;">Example</span> Text</p>';
+test('color is parsed from the background color inline style', function () {
+    $html = '<p><mark style="background-color: #ffcc00">Example</mark> Text</p>';
 
     $document = [
         'type' => 'doc',
@@ -97,7 +79,10 @@ test('span with font weight bold is parsed', function () {
                         'text' => 'Example',
                         'marks' => [
                             [
-                                'type' => 'bold',
+                                'type' => 'highlight',
+                                'attrs' => [
+                                    'color' => '#ffcc00',
+                                ],
                             ],
                         ],
                     ],

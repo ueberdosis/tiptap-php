@@ -73,7 +73,7 @@ test('depending on the configuration heading levels are allowed', function () {
 
     expect((new Editor([
         'extensions' => [
-            new \Tiptap\Nodes\Heading(['levels' => [1, 2, 3]])
+            new \Tiptap\Nodes\Heading(['levels' => [1, 2, 3]]),
         ],
     ]))->setContent($document)->getHTML())->toEqual($html);
 });
@@ -101,7 +101,7 @@ test('depending on the configuration heading levels are transformed', function (
 
     expect((new Editor([
         'extensions' => [
-            new \Tiptap\Nodes\Heading(['levels' => [1, 2, 3]])
+            new \Tiptap\Nodes\Heading(['levels' => [1, 2, 3]]),
         ],
     ]))->setContent($document)->getHTML())->toEqual($html);
 });

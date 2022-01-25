@@ -14,7 +14,7 @@ class Editor
 
     public function __construct(array $configuration = [])
     {
-        if (!isset($configuration['extensions'])) {
+        if (! isset($configuration['extensions'])) {
             $configuration['extensions'] = [
                 new Nodes\Blockquote(),
                 new Nodes\BulletList(),

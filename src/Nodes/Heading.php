@@ -8,11 +8,14 @@ class Heading extends Node
 {
     public static $name = 'heading';
 
-    public static $options = [
-        'levels' => [1, 2, 3, 4, 5, 6],
-    ];
+    public function addOptions()
+    {
+        return [
+            'levels' => [1, 2, 3, 4, 5, 6],
+        ];
+    }
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return array_map(function ($level) {
             return [
@@ -21,16 +24,16 @@ class Heading extends Node
                     'level' => $level,
                 ],
             ];
-        }, self::$options['levels']);
+        }, $this->options['levels']);
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
-        $hasLevel = in_array($node->attrs->level, self::$options['levels']);
+        $hasLevel = in_array($node->attrs->level, $this->options['levels']);
 
         $level = $hasLevel ?
             $node->attrs->level :
-            self::$options['levels'][0];
+            $this->options['levels'][0];
 
         return ["h{$level}"];
     }

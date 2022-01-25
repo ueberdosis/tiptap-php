@@ -8,7 +8,7 @@ class Bold extends Mark
 {
     public static $name = 'bold';
 
-    public static function renderHTML($DOMNode)
+    public function renderHTML($DOMNode)
     {
         return 'b';
     }

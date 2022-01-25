@@ -8,7 +8,7 @@ class OrderedList extends Node
 {
     public static $name = 'orderedList';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -26,7 +26,7 @@ class OrderedList extends Node
         ];
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
         $attrs = [];
 

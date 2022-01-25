@@ -6,12 +6,12 @@ class Mark
 {
     public static $name;
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return null;
     }
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [];
     }

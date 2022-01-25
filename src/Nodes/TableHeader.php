@@ -6,7 +6,7 @@ class TableHeader extends TableCell
 {
     public static $name = 'tableHeader';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -15,7 +15,7 @@ class TableHeader extends TableCell
         ];
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
         return [
             'tag' => 'th',

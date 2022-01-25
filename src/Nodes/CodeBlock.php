@@ -10,7 +10,7 @@ class CodeBlock extends Node
 
     public static $marks = '';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -30,7 +30,7 @@ class CodeBlock extends Node
         ];
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
         return ['pre', 'code'];
     }

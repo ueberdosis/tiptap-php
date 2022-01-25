@@ -32,7 +32,7 @@ class DOMSerializer
                         continue;
                     }
 
-                    $html[] = $this->renderOpeningTag($renderClass::renderHTML($mark));
+                    $html[] = $this->renderOpeningTag($renderClass->renderHTML($mark));
                 }
             }
         }
@@ -42,7 +42,7 @@ class DOMSerializer
                 continue;
             }
 
-            $html[] = $this->renderOpeningTag($extension::renderHTML($node));
+            $html[] = $this->renderOpeningTag($extension->renderHTML($node));
 
             break;
         }
@@ -63,7 +63,7 @@ class DOMSerializer
                 continue;
             }
 
-            $html[] = $this->renderClosingTag($extension::renderHTML($node));
+            $html[] = $this->renderClosingTag($extension->renderHTML($node));
         }
 
         if (isset($node->marks)) {
@@ -77,7 +77,7 @@ class DOMSerializer
                         continue;
                     }
 
-                    $html[] = $this->renderClosingTag($extension::renderHTML($mark));
+                    $html[] = $this->renderClosingTag($extension->renderHTML($mark));
                 }
             }
         }

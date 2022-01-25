@@ -161,7 +161,7 @@ class DOMParser
     private function getMatchingClass($node, $classes)
     {
         foreach ($classes as $class) {
-            if ($this->checkParseRules($class::parseHTML($node), $node)) {
+            if ($this->checkParseRules($class->parseHTML($node), $node)) {
                 return $class;
             }
         }
@@ -269,7 +269,7 @@ class DOMParser
             ]);
         }
 
-        $parseRules = $class::parseHTML();
+        $parseRules = $class->parseHTML();
 
         if (! is_array($parseRules)) {
             return $item;

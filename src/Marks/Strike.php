@@ -8,7 +8,7 @@ class Strike extends Mark
 {
     public static $name = 'strike';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -29,7 +29,7 @@ class Strike extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return ['strike'];
     }

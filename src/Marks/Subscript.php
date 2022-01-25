@@ -8,7 +8,7 @@ class Subscript extends Mark
 {
     public static $name = 'subscript';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -23,7 +23,7 @@ class Subscript extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return ['sub'];
     }

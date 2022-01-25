@@ -8,7 +8,7 @@ class Code extends Mark
 {
     public static $name = 'code';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -17,7 +17,7 @@ class Code extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return ['code'];
     }

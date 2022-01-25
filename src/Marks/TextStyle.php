@@ -8,7 +8,7 @@ class TextStyle extends Mark
 {
     public static $name = 'textStyle';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -20,7 +20,7 @@ class TextStyle extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return ['span'];
     }

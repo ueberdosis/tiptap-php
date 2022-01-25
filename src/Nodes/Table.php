@@ -8,7 +8,7 @@ class Table extends Node
 {
     public static $name = 'table';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -17,7 +17,7 @@ class Table extends Node
         ];
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
         return ['table', 'tbody'];
     }

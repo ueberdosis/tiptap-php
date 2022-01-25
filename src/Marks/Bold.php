@@ -9,7 +9,7 @@ class Bold extends Mark
 {
     public static $name = 'bold';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -32,7 +32,7 @@ class Bold extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return ['strong'];
     }

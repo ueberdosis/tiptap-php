@@ -9,7 +9,7 @@ class Highlight extends Mark
 {
     public static $name = 'highlight';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -33,7 +33,7 @@ class Highlight extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         return ['mark'];
     }

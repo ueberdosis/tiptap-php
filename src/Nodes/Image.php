@@ -8,7 +8,7 @@ class Image extends Node
 {
     public static $name = 'image';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -26,7 +26,7 @@ class Image extends Node
         ];
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
         return [
             'tag' => 'img',

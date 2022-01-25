@@ -8,12 +8,22 @@ class Node
 
     public static $marks = '_';
 
-    public static function parseHTML()
+    public function addOptions()
     {
         return [];
     }
 
-    public static function renderHTML($node)
+    public function __construct(array $options = [])
+    {
+        $this->options = array_merge($this->addOptions(), $options);
+    }
+
+    public function parseHTML()
+    {
+        return [];
+    }
+
+    public function renderHTML($node)
     {
         return null;
     }

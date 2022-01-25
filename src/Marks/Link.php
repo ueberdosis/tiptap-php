@@ -8,7 +8,7 @@ class Link extends Mark
 {
     public static $name = 'link';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -26,7 +26,7 @@ class Link extends Mark
         ];
     }
 
-    public static function renderHTML($mark)
+    public function renderHTML($mark)
     {
         $attrs = [];
 

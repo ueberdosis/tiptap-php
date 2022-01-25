@@ -10,39 +10,41 @@ class Editor
 
     public $schema;
 
-    public $configuration = [
-        'extensions' => [
-            Nodes\Blockquote::class,
-            Nodes\BulletList::class,
-            Nodes\CodeBlock::class,
-            Nodes\HardBreak::class,
-            Nodes\Heading::class,
-            Nodes\HorizontalRule::class,
-            Nodes\Image::class,
-            Nodes\ListItem::class,
-            Nodes\Mention::class,
-            Nodes\OrderedList::class,
-            Nodes\Paragraph::class,
-            Nodes\Table::class,
-            Nodes\TableCell::class,
-            Nodes\TableHeader::class,
-            Nodes\TableRow::class,
-            Nodes\Text::class,
-            Marks\Bold::class,
-            Marks\Code::class,
-            Marks\Highlight::class,
-            Marks\Italic::class,
-            Marks\Link::class,
-            Marks\Strike::class,
-            Marks\Subscript::class,
-            Marks\Superscript::class,
-            Marks\TextStyle::class,
-            Marks\Underline::class,
-        ],
-    ];
+    public $configuration = [];
 
     public function __construct(array $configuration = [])
     {
+        if (!isset($configuration['extensions'])) {
+            $configuration['extensions'] = [
+                new Nodes\Blockquote(),
+                new Nodes\BulletList(),
+                new Nodes\CodeBlock(),
+                new Nodes\HardBreak(),
+                new Nodes\Heading(),
+                new Nodes\HorizontalRule(),
+                new Nodes\Image(),
+                new Nodes\ListItem(),
+                new Nodes\Mention(),
+                new Nodes\OrderedList(),
+                new Nodes\Paragraph(),
+                new Nodes\Table(),
+                new Nodes\TableCell(),
+                new Nodes\TableHeader(),
+                new Nodes\TableRow(),
+                new Nodes\Text(),
+                new Marks\Bold(),
+                new Marks\Code(),
+                new Marks\Highlight(),
+                new Marks\Italic(),
+                new Marks\Link(),
+                new Marks\Strike(),
+                new Marks\Subscript(),
+                new Marks\Superscript(),
+                new Marks\TextStyle(),
+                new Marks\Underline(),
+            ];
+        }
+
         $this->configuration = array_merge_recursive($this->configuration, $configuration);
         $this->schema = Schema::from($this->configuration['extensions']);
     }

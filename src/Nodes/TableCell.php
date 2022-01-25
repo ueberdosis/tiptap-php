@@ -8,7 +8,7 @@ class TableCell extends Node
 {
     public static $name = 'tableCell';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -74,7 +74,7 @@ class TableCell extends Node
         return $attrs;
     }
 
-    public static function renderHTML($node)
+    public function renderHTML($node)
     {
         return [
             'tag' => 'td',

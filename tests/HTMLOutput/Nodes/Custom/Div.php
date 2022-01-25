@@ -8,7 +8,7 @@ class Div extends Node
 {
     public static $name = 'div';
 
-    public static function parseHTML()
+    public function parseHTML()
     {
         return [
             [
@@ -17,7 +17,7 @@ class Div extends Node
         ];
     }
 
-    public static function renderHTML($DOMNode)
+    public function renderHTML($DOMNode)
     {
         return 'div';
     }

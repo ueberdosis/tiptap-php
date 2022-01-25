@@ -3,6 +3,7 @@
 namespace Tiptap;
 
 use Exception;
+use Tiptap\Extensions\StarterKit;
 
 class Editor
 {
@@ -16,32 +17,7 @@ class Editor
     {
         if (! isset($configuration['extensions'])) {
             $configuration['extensions'] = [
-                new Nodes\Blockquote(),
-                new Nodes\BulletList(),
-                new Nodes\CodeBlock(),
-                new Nodes\HardBreak(),
-                new Nodes\Heading(),
-                new Nodes\HorizontalRule(),
-                new Nodes\Image(),
-                new Nodes\ListItem(),
-                new Nodes\Mention(),
-                new Nodes\OrderedList(),
-                new Nodes\Paragraph(),
-                new Nodes\Table(),
-                new Nodes\TableCell(),
-                new Nodes\TableHeader(),
-                new Nodes\TableRow(),
-                new Nodes\Text(),
-                new Marks\Bold(),
-                new Marks\Code(),
-                new Marks\Highlight(),
-                new Marks\Italic(),
-                new Marks\Link(),
-                new Marks\Strike(),
-                new Marks\Subscript(),
-                new Marks\Superscript(),
-                new Marks\TextStyle(),
-                new Marks\Underline(),
+                new StarterKit,
             ];
         }
 

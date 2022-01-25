@@ -10,9 +10,23 @@ class Schema
 
     public static function from(array $extensions = [])
     {
-        static::$extensions = $extensions;
+        static::$extensions = self::loadExtensions($extensions);
 
         return new self;
+    }
+
+    private static function loadExtensions($extensions = [])
+    {
+        foreach ($extensions as $extension) {
+            if (method_exists($extension, 'addExtensions') && count($extension->addExtensions())) {
+                $extensions = array_merge(
+                    $extensions,
+                    self::loadExtensions($extension->addExtensions()),
+                );
+            }
+        }
+
+        return $extensions;
     }
 
     public static function apply($document)

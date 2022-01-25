@@ -25,6 +25,6 @@ class Subscript extends Mark
 
     public function renderHTML($mark)
     {
-        return ['sub'];
+        return ['sub', 0];
     }
 }

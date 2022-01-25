@@ -19,6 +19,6 @@ class Blockquote extends Node
 
     public function renderHTML($node)
     {
-        return ['blockquote'];
+        return ['blockquote', 0];
     }
 }

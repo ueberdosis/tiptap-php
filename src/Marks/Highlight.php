@@ -35,6 +35,6 @@ class Highlight extends Mark
 
     public function renderHTML($mark)
     {
-        return ['mark'];
+        return ['mark', 0];
     }
 }

@@ -19,6 +19,6 @@ class BulletList extends Node
 
     public function renderHTML($node)
     {
-        return ['ul'];
+        return ['ul', 0];
     }
 }

@@ -25,6 +25,6 @@ class Underline extends Mark
 
     public function renderHTML($mark)
     {
-        return 'u';
+        return ['u', 0];
     }
 }

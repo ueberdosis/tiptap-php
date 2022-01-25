@@ -22,6 +22,6 @@ class TextStyle extends Mark
 
     public function renderHTML($mark)
     {
-        return ['span'];
+        return ['span', 0];
     }
 }

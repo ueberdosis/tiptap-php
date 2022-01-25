@@ -19,7 +19,7 @@ class ListItem extends Node
 
     public function renderHTML($node)
     {
-        return ['li'];
+        return ['li', 0];
     }
 
     public static function wrapper($DOMNode)

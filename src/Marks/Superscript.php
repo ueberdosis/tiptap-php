@@ -25,6 +25,6 @@ class Superscript extends Mark
 
     public function renderHTML($mark)
     {
-        return ['sup'];
+        return ['sup', 0];
     }
 }

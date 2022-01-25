@@ -19,6 +19,6 @@ class HardBreak extends Node
 
     public function renderHTML($node)
     {
-        return ['br'];
+        return ['br', 0];
     }
 }

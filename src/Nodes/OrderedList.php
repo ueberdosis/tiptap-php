@@ -28,12 +28,13 @@ class OrderedList extends Node
 
     public function renderHTML($node)
     {
+        // TODO: Move to `addAttributes`
         $attrs = [];
 
         if (isset($node->attrs->order)) {
             $attrs['start'] = $node->attrs->order;
         }
 
-        return ['ol', $attrs];
+        return ['ol', $attrs, 0];
     }
 }

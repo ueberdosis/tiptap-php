@@ -31,6 +31,6 @@ class Strike extends Mark
 
     public function renderHTML($mark)
     {
-        return ['strike'];
+        return ['strike', 0];
     }
 }

@@ -19,6 +19,6 @@ class TableRow extends Node
 
     public function renderHTML($node)
     {
-        return ['tr'];
+        return ['tr', 0];
     }
 }

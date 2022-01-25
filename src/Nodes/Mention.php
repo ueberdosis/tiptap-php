@@ -25,4 +25,6 @@ class Mention extends Node
             ],
         ];
     }
+
+    // TODO: Render HTML
 }

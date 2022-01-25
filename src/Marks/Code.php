@@ -19,6 +19,6 @@ class Code extends Mark
 
     public function renderHTML($mark)
     {
-        return ['code'];
+        return ['code', 0];
     }
 }

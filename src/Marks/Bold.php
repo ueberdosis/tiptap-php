@@ -34,6 +34,6 @@ class Bold extends Mark
 
     public function renderHTML($mark)
     {
-        return ['strong'];
+        return ['strong', 0];
     }
 }

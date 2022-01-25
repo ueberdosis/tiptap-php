@@ -19,6 +19,6 @@ class Paragraph extends Node
 
     public function renderHTML($node)
     {
-        return ['p'];
+        return ['p', 0];
     }
 }

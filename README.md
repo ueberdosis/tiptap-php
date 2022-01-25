@@ -18,7 +18,6 @@ A PHP package to work with [Tiptap](https://tiptap.dev/) output. You can transfo
   - [x] `['code', ['pre']]` instead of `['core', 'pre']`
   - [x] support for attributes `['code', ['class' => 'foo'], ['pre']]`
   - [ ] Merge classes and inline styles properly
-- [ ] Get rid of the `wrapper()` method
 - [x] Integrate the addAttributes API for Nodes/Marks
 
 ## Installation

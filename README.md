@@ -29,7 +29,11 @@ composer require ueberdosis/tiptap-php
 ```
 
 ## Usage
+The PHP package mimics large parts of the JavaScript package. If you know your way around Tiptap, the PHP syntax will feel familiar to you.
+
 ### Convert Tiptap HTML to JSON
+Let’s start by converting a HTML snippet to a PHP array with a Tiptap-compatible structure:
+
 ```php
 (new Tiptap\Editor)
     ->setContent('<p>Example Text</p>')
@@ -39,7 +43,20 @@ composer require ueberdosis/tiptap-php
 // ['type' => 'doc', 'content' => …]
 ```
 
+The JavaScript package returns a JSON string, you can do this in PHP, too.
+
+```php
+(new Tiptap\Editor)
+    ->setContent('<p>Example Text</p>')
+    ->getDocument();
+
+// Returns:
+// {"type": "doc", "content": …}
+```
+
 ### Convert Tiptap JSON to HTML
+The other way works aswell. Just pass a JSON string or an PHP array to generate the HTML.
+
 ```php
 (new Tiptap\Editor)
     ->setContent([
@@ -62,7 +79,15 @@ composer require ueberdosis/tiptap-php
 // <h1>Example Text</h1>
 ```
 
+This doesn’t fully adhere to the ProseMirror schema. Some things are supported too, for example aren’t marks allowed in a `CodeBlock`.
+
+If you need better schema support, create an issue with the feature you’re missing.
+
 ### Sanitize content
+A great use case for the PHP package is to clean (or “sanitize”) the content. You can do that with the `sanitize()` method. Works with JSON strings, PHP arrays and HTML.
+
+It’ll return the same format you’re using as the input format.
+
 ```php
 (new Tiptap\Editor)
     ->sanitize('<p>Example Text<script>alert("HACKED!")</script></p>');
@@ -72,7 +97,7 @@ composer require ueberdosis/tiptap-php
 ```
 
 ### Extensions
-By default, the `StarterKit` is loaded, but you can pass a custom array of extensions aswell.
+By default, the [`StarterKit`](https://tiptap.dev/api/extensions/starter-kit) is loaded, but you can pass a custom array of extensions aswell.
 
 ```php
 new Tiptap\Editor([
@@ -84,7 +109,9 @@ new Tiptap\Editor([
 ```
 
 #### Custom extensions
-You can even build custom extensions, like you’re used to from the JavaScript package. 🤯
+You can even build custom extensions. If you’re used to the JavaScript API, you’ll be surprised how much of that works in PHP, too. 🤯 Find a simple example below.
+
+Make sure to dig through the extensions in this repository to learn more about the PHP extension API.
 
 ```php
 <?php

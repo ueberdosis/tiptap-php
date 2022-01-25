@@ -117,6 +117,9 @@ class DOMParser
         // we can merge them into a single node.
         $mergedNodes = [];
 
+        /**
+         * @psalm-suppress UnusedFunctionCall
+         */
         array_reduce($nodes, function ($carry, $node) use (&$mergedNodes) {
             // Ignore multidimensional arrays
             if (

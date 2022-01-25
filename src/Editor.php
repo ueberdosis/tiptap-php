@@ -90,6 +90,9 @@ class Editor
     {
         if (is_string($value)) {
             try {
+                /**
+                 * @psalm-suppress UnusedFunctionCall
+                 */
                 json_decode($value, true, 512, JSON_THROW_ON_ERROR);
 
                 return 'JSON';

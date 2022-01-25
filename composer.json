@@ -35,10 +35,11 @@
     },
     "scripts": {
         "psalm": "vendor/bin/psalm",
+        "psalm-watch": "nodemon --exec './vendor/bin/psalm || exit 1' --ext php",
         "test": "vendor/bin/phpunit",
+        "test-watch": "nodemon --exec './vendor/bin/phpunit || exit 1' --ext php",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
-        "test-watch": "nodemon --exec './vendor/bin/phpunit || exit 1' --ext php"
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     },
     "config": {
         "sort-packages": true

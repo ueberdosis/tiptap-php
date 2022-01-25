@@ -53,7 +53,6 @@ class DOMSerializer
                 $nextNestedNode = $node->content[$index + 1] ?? null;
 
                 $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode);
-                $previousNode = $nestedNode;
             }
         } elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');

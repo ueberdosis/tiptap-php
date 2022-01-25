@@ -171,10 +171,10 @@ class DOMParser
 
     private function checkParseRules($parseRules, $DOMNode)
     {
-        // TODO: Temporary
-        if (is_bool($parseRules)) {
-            return $parseRules;
-        }
+        // TODO: Can we throw this away?
+        // if (is_bool($parseRules)) {
+        //     return $parseRules;
+        // }
 
         if (is_array($parseRules)) {
             foreach ($parseRules as $parseRule) {

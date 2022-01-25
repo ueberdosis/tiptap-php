@@ -36,6 +36,7 @@ class Editor
             Marks\Strike::class,
             Marks\Subscript::class,
             Marks\Superscript::class,
+            Marks\TextStyle::class,
             Marks\Underline::class,
         ],
     ];

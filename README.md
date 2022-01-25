@@ -69,7 +69,8 @@ By default, the `StarterKit` is loaded, but you can pass a custom array of exten
 ```php
 new Tiptap\Editor([
     'extensions' => [
-        new Tiptap\Nodes\Heading(),
+        new Tiptap\Nodes\StarterKit,
+        new Tiptap\Nodes\Link,
     ],
 ])
 ```

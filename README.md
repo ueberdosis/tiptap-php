@@ -1,7 +1,7 @@
 # Tiptap for PHP
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap-php/run-tests?label=tests)](https://github.com/ueberdosis/tiptap-php/actions?query=workflow%3ATests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ueberdosis/tiptap-php/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ueberdosis/tiptap-php/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://github.com/ueberdosis/tiptap-php/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ueberdosis/tiptap-php/actions/workflows/run-tests.yml)
+[![GitHub Code Style Action Status](https://github.com/ueberdosis/tiptap-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/ueberdosis/tiptap-php/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
 
 A PHP package to work with Tiptap output. You can transform Tiptap-compatible JSON to HTML, and the other way around. Or you can use it sanitize your content.

@@ -3,10 +3,10 @@
 namespace Tiptap\Tests\Nodes;
 
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
-use Tiptap\Nodes\Text;
 use Tiptap\Nodes\Image;
 use Tiptap\Nodes\Paragraph;
+use Tiptap\Nodes\Text;
+use Tiptap\Tests\HTMLOutput\TestCase;
 
 class ImageTest extends TestCase
 {

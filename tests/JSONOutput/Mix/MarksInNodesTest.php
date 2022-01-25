@@ -3,10 +3,8 @@
 namespace Tiptap\Tests\JSONOutput\Mix;
 
 use Tiptap\Editor;
-use Tiptap\Marks\Link;
-use Tiptap\Nodes\Text;
-use Tiptap\Nodes\Paragraph;
 use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Link;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class MarksInNodesTest extends TestCase

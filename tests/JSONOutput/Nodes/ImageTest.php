@@ -3,9 +3,7 @@
 namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
-use Tiptap\Nodes\Text;
 use Tiptap\Nodes\Image;
-use Tiptap\Nodes\Paragraph;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class ImageTest extends TestCase

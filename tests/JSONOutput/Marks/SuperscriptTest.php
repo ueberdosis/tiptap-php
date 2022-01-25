@@ -3,8 +3,8 @@
 namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
-use Tiptap\Marks\Superscript;
 use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Superscript;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class SuperscriptTest extends TestCase

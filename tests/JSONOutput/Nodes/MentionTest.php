@@ -3,9 +3,9 @@
 namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
-use Tiptap\Nodes\Text;
 use Tiptap\Nodes\Mention;
 use Tiptap\Nodes\Paragraph;
+use Tiptap\Nodes\Text;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class MentionTest extends TestCase

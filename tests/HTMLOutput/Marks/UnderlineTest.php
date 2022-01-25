@@ -3,8 +3,8 @@
 namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
-use Tiptap\Marks\Underline;
 use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Underline;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class UnderlineTest extends TestCase
@@ -33,7 +33,7 @@ class UnderlineTest extends TestCase
             'extensions' => [
                 new StarterKit,
                 new Underline,
-            ]
+            ],
         ]))->setContent($document)->getHTML());
     }
 }

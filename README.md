@@ -3,6 +3,9 @@
 [![GitHub Tests Action Status](https://github.com/ueberdosis/tiptap-php/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ueberdosis/tiptap-php/actions/workflows/run-tests.yml)
 [![GitHub Code Style Action Status](https://github.com/ueberdosis/tiptap-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/ueberdosis/tiptap-php/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/ueberdosis/tiptap-php.svg?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
+[![License](https://img.shields.io/packagist/l/ueberdosis/tiptap-php?style=flat-square)](https://packagist.org/packages/ueberdosis/tiptap-php)
+[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true)](https://discord.gg/WtJ49jGshW)
+[![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/ueberdosis)
 
 A PHP package to work with Tiptap output. You can transform Tiptap-compatible JSON to HTML, and the other way around. Or you can use it sanitize your content.
 

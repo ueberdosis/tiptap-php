@@ -48,7 +48,7 @@ The JavaScript package returns a JSON string, you can do this in PHP, too.
 ```php
 (new Tiptap\Editor)
     ->setContent('<p>Example Text</p>')
-    ->getDocument();
+    ->getJSON();
 
 // Returns:
 // {"type": "doc", "content": …}

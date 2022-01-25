@@ -25,8 +25,8 @@ class CodeBlock extends Node
             'language' => [
                 'parseHTML' => function ($DOMNode) {
                     return preg_replace("/^language-/", "", $DOMNode->childNodes[0]->getAttribute('class')) ?: null;
-                }
-            ]
+                },
+            ],
         ];
     }
 

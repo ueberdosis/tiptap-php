@@ -6,7 +6,7 @@
 [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true)](https://discord.gg/WtJ49jGshW)
 [![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/ueberdosis)
 
-A PHP package to work with Tiptap output. You can transform Tiptap-compatible JSON to HTML, and the other way around. Or you can use it sanitize your content.
+A PHP package to work with [Tiptap](https://tiptap.dev/) output. You can transform Tiptap-compatible JSON to HTML, and the other way around. Or you can use it sanitize your content.
 
 ## Tasks
 - [x] Publish the package then
@@ -108,6 +108,44 @@ new Tiptap\Editor([
 ])
 ```
 
+### Configure extensions
+Some extensions can be configured. Just pass an array to the constructor, that’s it. We’re aiming to support the same configuration as the JavaScript package.
+
+```php
+new Tiptap\Editor([
+    'extensions' => [
+        // …
+        new Tiptap\Nodes\Heading([
+            'levels' => [1, 2, 3],
+        ]),
+    ],
+])
+```
+
+### Extend existing extensions
+If you need to change minor details of the supported extensions, you can just extend an extension.
+
+```php
+<?php
+
+class CustomBold extends \Tiptap\Marks\Bold
+{
+    public function renderHTML($mark)
+    {
+        // Render <b> instead of <strong>
+        return ['b', 0]
+    }
+}
+
+new Tiptap\Editor([
+    'extensions' => [
+        new Paragraph,
+        new Text,
+        new CustomBold,
+    ],
+])
+```
+
 #### Custom extensions
 You can even build custom extensions. If you’re used to the JavaScript API, you’ll be surprised how much of that works in PHP, too. 🤯 Find a simple example below.
 
@@ -115,8 +153,6 @@ Make sure to dig through the extensions in this repository to learn more about t
 
 ```php
 <?php
-
-namespace App\Tiptap\Nodes;
 
 use Tiptap\Core\Node;
 

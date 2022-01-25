@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Superscript;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class SuperscriptTest extends TestCase
@@ -27,6 +29,11 @@ class SuperscriptTest extends TestCase
 
         $html = '<sup>Example Text</sup>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Superscript,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 }

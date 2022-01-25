@@ -3,6 +3,12 @@
 namespace Tiptap\Tests\Nodes;
 
 use Tiptap\Editor;
+use Tiptap\Nodes\Text;
+use Tiptap\Nodes\Table;
+use Tiptap\Nodes\TableRow;
+use Tiptap\Nodes\Paragraph;
+use Tiptap\Nodes\TableCell;
+use Tiptap\Nodes\TableHeader;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class TableTest extends TestCase
@@ -42,7 +48,16 @@ class TableTest extends TestCase
 
         $html = '<table><tbody><tr><th><p>text in header cell</p></th></tr></tbody></table>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new Table,
+                new TableRow,
+                new TableCell,
+                new TableHeader,
+                new Paragraph,
+                new Text,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -197,6 +212,15 @@ class TableTest extends TestCase
             '<tr>' . '<td><p>foo</p></td>' . '<td><p>bar</p></td>' . '</tr>' .
             '</tbody></table>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new Table,
+                new TableRow,
+                new TableCell,
+                new TableHeader,
+                new Paragraph,
+                new Text,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 }

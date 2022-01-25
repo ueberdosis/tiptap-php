@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Marks\Underline;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class UnderlineTest extends TestCase
@@ -32,6 +34,11 @@ class UnderlineTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Underline,
+            ]
+        ]))->setContent($html)->getDocument());
     }
 }

@@ -29,7 +29,13 @@ test('span gets rendered correctly', function () {
         ],
     ];
 
-    expect((new Editor)->setContent($html)->getDocument())->toEqual($document);
+    expect((new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Marks\TextStyle,
+            new \Tiptap\Nodes\Text,
+        ],
+    ]))->setContent($html)->getDocument())->toEqual($document);
 });
 
 test('span without inline style is ignored', function () {
@@ -50,5 +56,11 @@ test('span without inline style is ignored', function () {
         ],
     ];
 
-    expect((new Editor)->setContent($html)->getDocument())->toEqual($document);
+    expect((new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Marks\TextStyle,
+            new \Tiptap\Nodes\Text,
+        ],
+    ]))->setContent($html)->getDocument())->toEqual($document);
 });

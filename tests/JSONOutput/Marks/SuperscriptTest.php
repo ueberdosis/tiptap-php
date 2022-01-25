@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Marks\Superscript;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class SuperscriptTest extends TestCase
@@ -32,6 +34,11 @@ class SuperscriptTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Superscript,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 }

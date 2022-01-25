@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Marks\Underline;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class UnderlineTest extends TestCase
@@ -27,6 +29,11 @@ class UnderlineTest extends TestCase
 
         $html = '<u>Example Text</u>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Underline,
+            ]
+        ]))->setContent($document)->getHTML());
     }
 }

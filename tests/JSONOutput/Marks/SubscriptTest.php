@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Marks\Subscript;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class SubscriptTest extends TestCase
@@ -32,6 +34,11 @@ class SubscriptTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Subscript,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 }

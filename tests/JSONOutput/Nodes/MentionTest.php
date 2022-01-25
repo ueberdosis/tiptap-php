@@ -3,6 +3,9 @@
 namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
+use Tiptap\Nodes\Text;
+use Tiptap\Nodes\Mention;
+use Tiptap\Nodes\Paragraph;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class MentionTest extends TestCase
@@ -37,6 +40,12 @@ class MentionTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new Mention,
+                new Paragraph,
+                new Text,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 }

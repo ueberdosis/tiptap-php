@@ -3,6 +3,9 @@
 namespace Tiptap\Tests\HTMLOutput;
 
 use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Link;
+use Tiptap\Nodes\CodeBlock;
 
 class WrongFormatTest extends TestCase
 {
@@ -14,7 +17,11 @@ class WrongFormatTest extends TestCase
             'content' => 'test',
         ];
 
-        $this->assertEmpty((new Editor)->setContent($document)->getHTML());
+        $this->assertEmpty((new Editor([
+            'extensions' => [
+                new StarterKit,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -25,7 +32,11 @@ class WrongFormatTest extends TestCase
             'content' => [],
         ];
 
-        $this->assertEmpty((new Editor)->setContent($document)->getHTML());
+        $this->assertEmpty((new Editor([
+            'extensions' => [
+                new StarterKit,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -38,7 +49,11 @@ class WrongFormatTest extends TestCase
             ],
         ];
 
-        $this->assertEmpty((new Editor)->setContent($document)->getHTML());
+        $this->assertEmpty((new Editor([
+            'extensions' => [
+                new StarterKit,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -70,7 +85,11 @@ class WrongFormatTest extends TestCase
 
         $html = '<pre><code>Example Text</code></pre>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -108,6 +127,11 @@ class WrongFormatTest extends TestCase
 
         $html = '<a href="https://tiptap.dev">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 }

@@ -29,7 +29,13 @@ test('mark gets rendered correctly', function () {
         ],
     ];
 
-    expect($document)->toEqual((new Editor)->setContent($html)->getDocument());
+    expect($document)->toEqual((new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Nodes\Text,
+            new \Tiptap\Marks\Highlight,
+        ],
+    ]))->setContent($html)->getDocument());
 });
 
 test('color is parsed from data attribute', function () {
@@ -62,7 +68,13 @@ test('color is parsed from data attribute', function () {
         ],
     ];
 
-    expect($document)->toEqual((new Editor)->setContent($html)->getDocument());
+    expect($document)->toEqual((new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Nodes\Text,
+            new \Tiptap\Marks\Highlight,
+        ],
+    ]))->setContent($html)->getDocument());
 });
 
 test('color is parsed from the background color inline style', function () {
@@ -95,5 +107,11 @@ test('color is parsed from the background color inline style', function () {
         ],
     ];
 
-    expect($document)->toEqual((new Editor)->setContent($html)->getDocument());
+    expect($document)->toEqual((new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Nodes\Text,
+            new \Tiptap\Marks\Highlight,
+        ],
+    ]))->setContent($html)->getDocument());
 });

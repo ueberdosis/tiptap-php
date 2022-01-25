@@ -3,6 +3,12 @@
 namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
+use Tiptap\Nodes\Paragraph;
+use Tiptap\Nodes\Table;
+use Tiptap\Nodes\TableRow;
+use Tiptap\Nodes\TableCell;
+use Tiptap\Nodes\TableHeader;
+use Tiptap\Nodes\Text;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class TableTest extends TestCase
@@ -159,6 +165,15 @@ class TableTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new Table,
+                new TableRow,
+                new TableCell,
+                new TableHeader,
+                new Paragraph,
+                new Text,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 }

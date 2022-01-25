@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Marks\Link;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class LinkTest extends TestCase
@@ -30,7 +32,12 @@ class LinkTest extends TestCase
 
         $html = '<a href="https://tiptap.dev">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -57,7 +64,12 @@ class LinkTest extends TestCase
 
         $html = '<a rel="noopener" href="https://tiptap.dev">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -84,7 +96,12 @@ class LinkTest extends TestCase
 
         $html = '<a target="_blank" href="https://tiptap.dev">Example Link</a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -125,7 +142,12 @@ class LinkTest extends TestCase
 
         $html = '<a href="https://example.com">Example <strong>Link</strong></a>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 
     /** @test */
@@ -171,6 +193,11 @@ class LinkTest extends TestCase
 
         $html = '<p><a href="https://example.com">Example <strong>Link</strong></a></p>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 }

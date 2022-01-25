@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Subscript;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
 class SubscriptTest extends TestCase
@@ -27,6 +29,11 @@ class SubscriptTest extends TestCase
 
         $html = '<sub>Example Text</sub>';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
+        $this->assertEquals($html, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Subscript,
+            ],
+        ]))->setContent($document)->getHTML());
     }
 }

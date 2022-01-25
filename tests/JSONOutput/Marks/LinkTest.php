@@ -3,6 +3,8 @@
 namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Link;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class LinkTest extends TestCase
@@ -30,7 +32,12 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -57,7 +64,12 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -84,6 +96,11 @@ class LinkTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new Link,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 }

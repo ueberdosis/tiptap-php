@@ -3,6 +3,9 @@
 namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
+use Tiptap\Nodes\Text;
+use Tiptap\Nodes\Image;
+use Tiptap\Nodes\Paragraph;
 use Tiptap\Tests\JSONOutput\TestCase;
 
 class ImageTest extends TestCase
@@ -26,7 +29,11 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new Image,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -47,7 +54,11 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new Image,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 
     /** @test */
@@ -68,6 +79,10 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
+        $this->assertEquals($document, (new Editor([
+            'extensions' => [
+                new Image,
+            ],
+        ]))->setContent($html)->getDocument());
     }
 }

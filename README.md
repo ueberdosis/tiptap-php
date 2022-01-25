@@ -12,6 +12,10 @@ A PHP package to work with Tiptap output. You can transform Tiptap-compatible JS
 - [ ] Migrate to Pest PHP
 - [ ] Check if all Tiptap core packages are supported
 - [ ] Add support for configureable HTML attributes
+- [ ] Make the renderHTML syntax more like the JS API
+  - [x] `['code', ['pre']]` instead of `['core', 'pre']`
+  - [ ] support for attributes `['code', ['class' => 'foo'], ['pre']]`
+- [ ] Get rid of the `wrapper()` method
 - [x] Integrate the addAttributes API for Nodes/Marks
 
 ## Installation

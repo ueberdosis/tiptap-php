@@ -146,12 +146,19 @@ class DOMSerializer
             return "<{$renderHTML['tag']}{$attributes}>";
         }
 
-        // ['table', 'tbody']
+        // ['table', ['tbody']]
         if (is_array($renderHTML)) {
             $html = [];
 
             foreach ($renderHTML as $tag) {
-                $html[] = "<{$tag}>";
+                // 'table'
+                if (is_string($tag)) {
+                    $html[] = "<{$tag}>";
+                }
+                // ['tbody']
+                elseif (is_array($tag)) {
+                    $html[] = $this->renderOpeningTag($tag);
+                }
             }
 
             return join($html);
@@ -202,15 +209,22 @@ class DOMSerializer
             return "</{$renderHTML['tag']}>";
         }
 
-        // ['table', 'tbody']
+        // ['table', ['tbody']]
         if (is_array($renderHTML)) {
             $html = [];
 
             foreach (array_reverse($renderHTML) as $tag) {
-                if ($this->isSelfClosing($tag)) {
-                    return null;
+                // 'table
+                if (is_string($tag)) {
+                    if ($this->isSelfClosing($tag)) {
+                        return null;
+                    }
+                    $html[] = "</{$tag}>";
                 }
-                $html[] = "</{$tag}>";
+                // ['tbody']
+                elseif (is_array($tag)) {
+                    $html[] = $this->renderClosingTag($tag);
+                }
             }
 
             return join($html);

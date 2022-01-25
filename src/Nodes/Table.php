@@ -19,6 +19,6 @@ class Table extends Node
 
     public function renderHTML($node)
     {
-        return ['table', 'tbody'];
+        return ['table', ['tbody']];
     }
 }

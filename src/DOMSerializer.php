@@ -3,6 +3,7 @@
 namespace Tiptap;
 
 use DOMDocument;
+use stdClass;
 
 class DOMSerializer
 {
@@ -32,7 +33,7 @@ class DOMSerializer
                         continue;
                     }
 
-                    $html[] = $this->renderOpeningTag($renderClass->renderHTML($mark));
+                    $html[] = $this->renderOpeningTag($renderClass, $mark);
                 }
             }
         }
@@ -42,7 +43,7 @@ class DOMSerializer
                 continue;
             }
 
-            $html[] = $this->renderOpeningTag($extension->renderHTML($node));
+            $html[] = $this->renderOpeningTag($extension, $node);
 
             break;
         }
@@ -120,16 +121,45 @@ class DOMSerializer
         return true;
     }
 
-    private function renderOpeningTag($renderHTML)
+    private function renderOpeningTag($extension, $nodeOrMark, $renderHTML = false)
     {
+        /**
+         * public static function addAttributes()
+         * {
+         *     return [
+         *        'color' => [
+         *            'renderHTML' => function ($attributes) {
+         *                return [
+         *                    'style' => "color: {$attributes['color']}",
+         *                ];
+         *            }
+         *        ],
+         *    ];
+         * }
+         */
+        $HTMLAttributes = [];
+
+        if (method_exists($extension, 'addAttributes')) {
+            foreach ($extension::addAttributes() as $attribute => $configuration) {
+                if (isset($configuration['renderHTML'])) {
+                    $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
+                } else {
+                    $value = [$attribute => $nodeOrMark->attrs->{$attribute} ?? null] ?? null;
+                }
+
+                if ($value !== null) {
+                    $HTMLAttributes = array_merge($HTMLAttributes, $value);
+                }
+            }
+        }
+
+        if ($renderHTML === false) {
+            $renderHTML = $extension->renderHTML($nodeOrMark, $HTMLAttributes);
+        }
+
         // null
         if (is_null($renderHTML)) {
             return '';
-        }
-
-        // 'strong'
-        if (is_string($renderHTML)) {
-            return "<{$renderHTML}>";
         }
 
         // ['table', ['tbody', 0]]
@@ -137,30 +167,30 @@ class DOMSerializer
         if (is_array($renderHTML)) {
             $html = [];
 
-            foreach ($renderHTML as $index => $tag) {
+            foreach ($renderHTML as $index => $renderInstruction) {
                 // 'table'
-                if (is_string($tag)) {
+                if (is_string($renderInstruction)) {
                     // next item: ['class' => 'foobar']
                     if ($nextTag = $renderHTML[$index + 1] ?? null) {
                         if (is_array($nextTag) && ! in_array(0, $nextTag)) {
                             $attributes = $this->renderHTMLFromAttributes($nextTag);
 
                             // <a href="#">
-                            $html[] = "<{$tag}{$attributes}>";
+                            $html[] = "<{$renderInstruction}{$attributes}>";
 
                             continue;
                         }
                     }
 
-                    $html[] = "<{$tag}>";
+                    $html[] = "<{$renderInstruction}>";
                 }
                 // ['tbody', 0]
-                // TODO: Make recursive
-                elseif (is_array($tag) && in_array(0, $tag)) {
-                    $html[] = $this->renderOpeningTag($tag);
+                // TODO: Make in_array recursive
+                elseif (is_array($renderInstruction) && in_array(0, $renderInstruction)) {
+                    $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $renderInstruction);
                 }
                 // ['class' => 'foobar']
-                elseif (is_array($tag)) {
+                elseif (is_array($renderInstruction)) {
                     continue;
                 }
             }
@@ -199,31 +229,21 @@ class DOMSerializer
             return '';
         }
 
-        // 'strong'
-        if (is_string($renderHTML)) {
-            // self-closing tag
-            if ($this->isSelfClosing($renderHTML)) {
-                return null;
-            }
-
-            return "</{$renderHTML}>";
-        }
-
         // ['table', ['tbody']]
         if (is_array($renderHTML)) {
             $html = [];
 
-            foreach (array_reverse($renderHTML) as $tag) {
+            foreach (array_reverse($renderHTML) as $renderInstruction) {
                 // 'table
-                if (is_string($tag)) {
-                    if ($this->isSelfClosing($tag)) {
+                if (is_string($renderInstruction)) {
+                    if ($this->isSelfClosing($renderInstruction)) {
                         return null;
                     }
-                    $html[] = "</{$tag}>";
+                    $html[] = "</{$renderInstruction}>";
                 }
                 // ['tbody', 0]
-                elseif (is_array($tag) && in_array(0, $tag)) {
-                    $html[] = $this->renderClosingTag($tag);
+                elseif (is_array($renderInstruction) && in_array(0, $renderInstruction)) {
+                    $html[] = $this->renderClosingTag($renderInstruction);
                 }
             }
 

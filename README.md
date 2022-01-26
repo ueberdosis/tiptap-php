@@ -13,7 +13,7 @@ A PHP package to work with [Tiptap](https://tiptap.dev/) output. You can transfo
 - [x] Get tests passing
 - [x] Set up to Pest PHP
 - [x] Check if all StarterKit packages are supported
-- [ ] Add support for configureable HTML attributes
+- [x] Add support for configureable HTML attributes
 - [x] Make the renderHTML syntax more like the JS API
   - [x] `['code', ['pre']]` instead of `['core', 'pre']`
   - [x] support for attributes `['code', ['class' => 'foo'], ['pre']]`

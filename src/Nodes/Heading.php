@@ -28,7 +28,7 @@ class Heading extends Node
         }, $this->options['levels']);
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
         $hasLevel = in_array($node->attrs->level, $this->options['levels']);
 
@@ -36,6 +36,6 @@ class Heading extends Node
             $node->attrs->level :
             $this->options['levels'][0];
 
-        return ["h{$level}", $this->options['HTMLAttributes'], 0];
+        return ["h{$level}", array_merge($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

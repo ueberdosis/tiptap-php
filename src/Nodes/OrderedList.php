@@ -3,10 +3,18 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class OrderedList extends Node
 {
     public static $name = 'orderedList';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -22,11 +30,12 @@ class OrderedList extends Node
         return [
             'order' => [
                 'parseHTML' => fn ($DOMNode) => (int) $DOMNode->getAttribute('start') ?: null,
+                'renderHTML' => fn ($attributes) => ($attributes->order ?? null) ? ['start' => $attributes->order] : null,
             ],
         ];
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
         // TODO: Move to `addAttributes`
         $attrs = [];
@@ -35,6 +44,6 @@ class OrderedList extends Node
             $attrs['start'] = $node->attrs->order;
         }
 
-        return ['ol', $attrs, 0];
+        return ['ol', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

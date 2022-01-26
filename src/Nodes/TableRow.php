@@ -3,10 +3,18 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class TableRow extends Node
 {
     public static $name = 'tableRow';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -17,8 +25,8 @@ class TableRow extends Node
         ];
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
-        return ['tr', 0];
+        return ['tr', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

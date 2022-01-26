@@ -8,6 +8,13 @@ class TableCell extends Node
 {
     public static $name = 'tableCell';
 
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
+
     public function parseHTML()
     {
         return [
@@ -74,8 +81,13 @@ class TableCell extends Node
         return $attrs;
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
-        return ['td', self::getAttrs($node), 0];
+        // TODO: Add HTML Attributes
+        return [
+            'td',
+            self::getAttrs($node),
+            0
+        ];
     }
 }

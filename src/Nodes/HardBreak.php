@@ -3,10 +3,18 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class HardBreak extends Node
 {
     public static $name = 'hardBreak';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -17,8 +25,8 @@ class HardBreak extends Node
         ];
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
-        return ['br', 0];
+        return ['br', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes)];
     }
 }

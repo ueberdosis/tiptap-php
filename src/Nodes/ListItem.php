@@ -3,10 +3,18 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class ListItem extends Node
 {
     public static $name = 'listItem';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -17,9 +25,9 @@ class ListItem extends Node
         ];
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
-        return ['li', 0];
+        return ['li', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 
     public static function wrapper($DOMNode)

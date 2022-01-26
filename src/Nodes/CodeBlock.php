@@ -3,12 +3,20 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class CodeBlock extends Node
 {
     public static $name = 'codeBlock';
 
     public static $marks = '';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -30,8 +38,9 @@ class CodeBlock extends Node
         ];
     }
 
-    public function renderHTML($node)
+    public function renderHTML($node, $HTMLAttributes = [])
     {
-        return ['pre', ['code', 0]];
+        // TODO: Add language class
+        return ['pre', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), ['code', 0]];
     }
 }

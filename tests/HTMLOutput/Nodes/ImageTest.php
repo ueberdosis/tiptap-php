@@ -27,7 +27,7 @@ class ImageTest extends TestCase
             ],
         ];
 
-        $html = '<img alt="an image" src="image/source" title="The image title">';
+        $html = '<img src="image/source" alt="an image" title="The image title">';
 
         $this->assertEquals($html, (new Editor([
             'extensions' => [

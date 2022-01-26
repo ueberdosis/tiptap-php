@@ -156,7 +156,7 @@ test('custom attributes are rendered too', function () {
         ],
     ];
 
-    $html = '<h1 class="custom-heading-class" style="color: red">Example Headline</h1>';
+    $html = '<h1 class="custom-heading-class" style="color: red;">Example Headline</h1>';
 
     class CustomHeading extends \Tiptap\Nodes\Heading
     {
@@ -183,6 +183,61 @@ test('custom attributes are rendered too', function () {
             new CustomHeading([
                 'HTMLAttributes' => [
                     'class' => 'custom-heading-class',
+                ]
+            ]),
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual($html);
+});
+
+test('inline styles are merged properly', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'heading',
+                'attrs' => [
+                    'level' => 1,
+                    'color' => 'red',
+                ],
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Headline',
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $html = '<h1 style="color: white; background-color: red;">Example Headline</h1>';
+
+    class AnotherCustomHeading extends \Tiptap\Nodes\Heading
+    {
+        public static function addAttributes()
+        {
+            return [
+                'color' => [
+                    'renderHTML' => function ($attributes) {
+                        if (!isset($attributes->color)) {
+                            return null;
+                        }
+
+                        return [
+                            'style' => "background-color: {$attributes->color}",
+                        ];
+                    }
+                ],
+            ];
+        }
+    }
+
+    $result = (new Editor([
+        'extensions' => [
+            new AnotherCustomHeading([
+                'HTMLAttributes' => [
+                    'style' => 'color: white; ',
                 ]
             ]),
         ],

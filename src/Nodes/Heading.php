@@ -3,6 +3,7 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class Heading extends Node
 {
@@ -36,6 +37,10 @@ class Heading extends Node
             $node->attrs->level :
             $this->options['levels'][0];
 
-        return ["h{$level}", array_merge($this->options['HTMLAttributes'], $HTMLAttributes), 0];
+        return [
+            "h{$level}",
+            HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
+            0
+        ];
     }
 }

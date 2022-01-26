@@ -8,6 +8,13 @@ class Mention extends Node
 {
     public static $name = 'mention';
 
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
+
     public function parseHTML()
     {
         return [

@@ -17,7 +17,7 @@ A PHP package to work with [Tiptap](https://tiptap.dev/) output. You can transfo
 - [x] Make the renderHTML syntax more like the JS API
   - [x] `['code', ['pre']]` instead of `['core', 'pre']`
   - [x] support for attributes `['code', ['class' => 'foo'], ['pre']]`
-  - [ ] Merge classes and inline styles properly
+  - [x] Merge classes and inline styles properly
 - [x] Integrate the addAttributes API for Nodes/Marks
 
 ## Installation

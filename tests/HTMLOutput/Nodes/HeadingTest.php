@@ -165,14 +165,14 @@ test('custom attributes are rendered too', function () {
             return [
                 'color' => [
                     'renderHTML' => function ($attributes) {
-                        if (!isset($attributes->color)) {
+                        if (! isset($attributes->color)) {
                             return null;
                         }
 
                         return [
                             'style' => "color: {$attributes->color}",
                         ];
-                    }
+                    },
                 ],
             ];
         }
@@ -183,7 +183,7 @@ test('custom attributes are rendered too', function () {
             new CustomHeading([
                 'HTMLAttributes' => [
                     'class' => 'custom-heading-class',
-                ]
+                ],
             ]),
         ],
     ]))->setContent($document)->getHTML();

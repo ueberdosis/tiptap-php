@@ -40,7 +40,7 @@ class Heading extends Node
         return [
             "h{$level}",
             HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
-            0
+            0,
         ];
     }
 }

@@ -87,7 +87,7 @@ class TableCell extends Node
         return [
             'td',
             self::getAttrs($node),
-            0
+            0,
         ];
     }
 }

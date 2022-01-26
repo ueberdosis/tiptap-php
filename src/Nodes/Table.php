@@ -30,7 +30,7 @@ class Table extends Node
         return [
             'table',
             HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
-            ['tbody', 0]
+            ['tbody', 0],
         ];
     }
 }

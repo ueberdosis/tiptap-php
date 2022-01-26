@@ -10,6 +10,7 @@ class HTML
             // class="foo bar"
             if ($key === 'class') {
                 $attributes['class'] = trim($attributes['class'] ?? '' . ' ' . $value);
+
                 continue;
             }
 
@@ -17,6 +18,7 @@ class HTML
             if ($key === 'style') {
                 $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value, ';') . '; ';
                 $attributes['style'] = ltrim(trim($style), '; ');
+
                 continue;
             }
 

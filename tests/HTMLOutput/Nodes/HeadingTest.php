@@ -220,14 +220,14 @@ test('inline styles are merged properly', function () {
             return [
                 'color' => [
                     'renderHTML' => function ($attributes) {
-                        if (!isset($attributes->color)) {
+                        if (! isset($attributes->color)) {
                             return null;
                         }
 
                         return [
                             'style' => "background-color: {$attributes->color}",
                         ];
-                    }
+                    },
                 ],
             ];
         }
@@ -238,7 +238,7 @@ test('inline styles are merged properly', function () {
             new AnotherCustomHeading([
                 'HTMLAttributes' => [
                     'style' => 'color: white; ',
-                ]
+                ],
             ]),
         ],
     ]))->setContent($document)->getHTML();

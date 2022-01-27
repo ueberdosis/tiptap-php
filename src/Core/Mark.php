@@ -12,7 +12,7 @@ abstract class Mark
         $this->options = array_merge($this->addOptions(), $options);
     }
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'HTMLAttributes' => [],

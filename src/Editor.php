@@ -87,4 +87,36 @@ class Editor
 
         throw new Exception('Unknown format passed to setContent().');
     }
+
+    public function descendants($closure)
+    {
+        // Transform the document to an object
+        $node = json_decode(json_encode($this->document));
+
+        $this->loopThroughNodes($node, $closure);
+
+        // Transform the object to a document
+        $this->setContent(json_decode(json_encode($node), true));
+
+        return $this;
+    }
+
+    private function loopThroughNodes(&$node, $closure)
+    {
+        if ($node->type === 'text') {
+            return;
+        }
+
+        $closure($node);
+
+        if (!isset($node->content)) {
+            return;
+        }
+
+        $content = is_array($node->content) ? $node->content : [];
+
+        foreach ($content as $child) {
+            $this->loopThroughNodes($child, $closure);
+        }
+    }
 }

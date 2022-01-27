@@ -8,18 +8,6 @@
 
 A PHP package to work with [Tiptap](https://tiptap.dev/) output. You can transform Tiptap-compatible JSON to HTML, and the other way around. Or you can use it sanitize your content.
 
-## Tasks
-- [x] Publish the package then
-- [x] Get tests passing
-- [x] Set up to Pest PHP
-- [x] Check if all StarterKit packages are supported
-- [x] Add support for configureable HTML attributes
-- [x] Make the renderHTML syntax more like the JS API
-  - [x] `['code', ['pre']]` instead of `['core', 'pre']`
-  - [x] support for attributes `['code', ['class' => 'foo'], ['pre']]`
-  - [x] Merge classes and inline styles properly
-- [x] Integrate the addAttributes API for Nodes/Marks
-
 ## Installation
 You can install the package via composer:
 
@@ -95,6 +83,21 @@ It’ll return the same format you’re using as the input format.
 // '<p>Example Text</p>'
 ```
 
+### Modifying the content
+With the `descendants()` method you can loop through all nodes recursively as you are used to from the JavaScript package. But in PHP, you can even modify the node to update attributes and all that.
+
+> Warning: You need to add `&` to the parameter. Thats keeping a reference to the original item and allows to modify the original one, instead of just a copy.
+
+```php
+$editor->descendants(function (&$node) {
+    if ($node->type !== 'heading') {
+        return;
+    }
+
+    $node->attrs->level = 1;
+});
+```
+
 ### Extensions
 By default, the [`StarterKit`](https://tiptap.dev/api/extensions/starter-kit) is loaded, but you can pass a custom array of extensions aswell.
 
@@ -129,7 +132,7 @@ new Tiptap\Editor([
         // …
         new Tiptap\Nodes\Heading([
             'HTMLAttributes' => [
-                'class' => 'my-custom-class'
+                'class' => 'my-custom-class',
             ],
         ]),
     ],

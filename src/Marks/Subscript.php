@@ -3,10 +3,18 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 
 class Subscript extends Mark
 {
     public static $name = 'subscript';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -23,8 +31,8 @@ class Subscript extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['sub', 0];
+        return ['sub', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

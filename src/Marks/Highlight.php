@@ -3,11 +3,19 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 use Tiptap\Utils\InlineStyle;
 
 class Highlight extends Mark
 {
     public static $name = 'highlight';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -29,12 +37,26 @@ class Highlight extends Mark
 
                     return InlineStyle::getAttribute($DOMNode, 'background-color') ?: null;
                 },
+                'renderHTML' => function ($attributes) {
+                    if (!$attributes->color) {
+                        return null;
+                    }
+
+                    return [
+                        'data-color' => $attributes->color,
+                        'style' => "background-color: {$attributes->color}",
+                    ];
+                }
             ],
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['mark', 0];
+        return [
+            'mark',
+            HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
+            0
+        ];
     }
 }

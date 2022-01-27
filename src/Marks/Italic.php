@@ -4,10 +4,18 @@ namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
 use Tiptap\Utils\InlineStyle;
+use Tiptap\Utils\HTML;
 
 class Italic extends Mark
 {
     public static $name = 'italic';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -33,8 +41,8 @@ class Italic extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['em', 0];
+        return ['em', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

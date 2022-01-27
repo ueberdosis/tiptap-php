@@ -3,10 +3,18 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 
 class Code extends Mark
 {
     public static $name = 'code';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -17,8 +25,8 @@ class Code extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['code', 0];
+        return ['code', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

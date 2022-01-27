@@ -153,6 +153,9 @@ class DOMSerializer
             }
         }
 
+        // Remove empty attributes
+        $HTMLAttributes = array_filter($HTMLAttributes, fn ($HTMLAttribute) => $HTMLAttribute !== null);
+
         if ($renderHTML === false) {
             $renderHTML = $extension->renderHTML($nodeOrMark, $HTMLAttributes);
         }
@@ -172,7 +175,7 @@ class DOMSerializer
                 if (is_string($renderInstruction)) {
                     // next item: ['class' => 'foobar']
                     if ($nextTag = $renderHTML[$index + 1] ?? null) {
-                        if (is_array($nextTag) && ! in_array(0, $nextTag)) {
+                        if (is_array($nextTag) && ! in_array(0, $nextTag, true)) {
                             $attributes = $this->renderHTMLFromAttributes($nextTag);
 
                             // <a href="#">
@@ -186,7 +189,7 @@ class DOMSerializer
                 }
                 // ['tbody', 0]
                 // TODO: Make in_array recursive
-                elseif (is_array($renderInstruction) && in_array(0, $renderInstruction)) {
+                elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
                     $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $renderInstruction);
                 }
                 // ['class' => 'foobar']

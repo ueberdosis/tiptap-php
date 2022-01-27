@@ -3,10 +3,18 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 
 class TextStyle extends Mark
 {
     public static $name = 'textStyle';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -20,8 +28,8 @@ class TextStyle extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['span', 0];
+        return ['span', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

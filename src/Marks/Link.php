@@ -3,10 +3,18 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 
 class Link extends Mark
 {
     public static $name = 'link';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -26,8 +34,12 @@ class Link extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['a', (array) $mark->attrs, 0];
+        return [
+            'a',
+            HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
+            0
+        ];
     }
 }

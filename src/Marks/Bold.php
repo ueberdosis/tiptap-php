@@ -3,11 +3,19 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 use Tiptap\Utils\InlineStyle;
 
 class Bold extends Mark
 {
     public static $name = 'bold';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -32,8 +40,12 @@ class Bold extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['strong', 0];
+        return [
+            'strong',
+            HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
+            0
+        ];
     }
 }

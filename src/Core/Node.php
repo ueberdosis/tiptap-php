@@ -8,14 +8,14 @@ class Node
 
     public static $marks = '_';
 
-    public function addOptions()
-    {
-        return [];
-    }
-
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->addOptions(), $options);
+    }
+
+    public function addOptions()
+    {
+        return [];
     }
 
     public function parseHTML()

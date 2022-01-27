@@ -3,10 +3,18 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
+use Tiptap\Utils\HTML;
 
 class Underline extends Mark
 {
     public static $name = 'underline';
+
+    public function addOptions()
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
 
     public function parseHTML()
     {
@@ -23,8 +31,8 @@ class Underline extends Mark
         ];
     }
 
-    public function renderHTML($mark)
+    public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['u', 0];
+        return ['u', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

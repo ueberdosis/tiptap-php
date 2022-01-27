@@ -30,7 +30,7 @@ class Strike extends Mark
         ];
     }
 
-    public function renderHTML($mark, $HTMLAttributes = []): array
+    public function renderHTML($mark, array $HTMLAttributes = []): array
     {
         return ['strike', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

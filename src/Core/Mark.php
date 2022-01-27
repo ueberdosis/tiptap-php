@@ -19,6 +19,6 @@ abstract class Mark
         ];
     }
 
-    abstract public function renderHTML($mark): array;
+    abstract public function renderHTML($mark, array $HTMLAttributes = []): array;
     abstract public function parseHTML(): array;
 }

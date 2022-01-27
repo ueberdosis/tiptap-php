@@ -37,7 +37,7 @@ class Link extends Mark
         ];
     }
 
-    public function renderHTML($mark, $HTMLAttributes = []): array
+    public function renderHTML($mark, array $HTMLAttributes = []): array
     {
         return [
             'a',

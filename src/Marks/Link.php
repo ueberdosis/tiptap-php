@@ -39,7 +39,7 @@ class Link extends Mark
         return [
             'a',
             HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
-            0
+            0,
         ];
     }
 }

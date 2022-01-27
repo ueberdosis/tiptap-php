@@ -109,7 +109,7 @@ class Editor
 
         $closure($node);
 
-        if (!isset($node->content)) {
+        if (! isset($node->content)) {
             return;
         }
 

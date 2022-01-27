@@ -38,7 +38,7 @@ class Highlight extends Mark
                     return InlineStyle::getAttribute($DOMNode, 'background-color') ?: null;
                 },
                 'renderHTML' => function ($attributes) {
-                    if (!$attributes->color) {
+                    if (! $attributes->color) {
                         return null;
                     }
 
@@ -46,7 +46,7 @@ class Highlight extends Mark
                         'data-color' => $attributes->color,
                         'style' => "background-color: {$attributes->color}",
                     ];
-                }
+                },
             ],
         ];
     }
@@ -56,7 +56,7 @@ class Highlight extends Mark
         return [
             'mark',
             HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
-            0
+            0,
         ];
     }
 }

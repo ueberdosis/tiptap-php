@@ -45,7 +45,7 @@ class Bold extends Mark
         return [
             'strong',
             HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
-            0
+            0,
         ];
     }
 }

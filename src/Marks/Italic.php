@@ -3,8 +3,8 @@
 namespace Tiptap\Marks;
 
 use Tiptap\Core\Mark;
-use Tiptap\Utils\InlineStyle;
 use Tiptap\Utils\HTML;
+use Tiptap\Utils\InlineStyle;
 
 class Italic extends Mark
 {

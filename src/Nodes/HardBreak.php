@@ -18,7 +18,7 @@ class HardBreak extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = []): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         return ['br', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes)];
     }

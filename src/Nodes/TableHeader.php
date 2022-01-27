@@ -15,7 +15,7 @@ class TableHeader extends TableCell
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = []): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         // TODO: Add HTMLAttributes
         return ['th', self::getAttrs($node), 0];

@@ -18,7 +18,7 @@ class Blockquote extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = []): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         return ['blockquote', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

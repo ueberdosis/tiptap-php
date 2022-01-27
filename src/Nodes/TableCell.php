@@ -74,7 +74,7 @@ class TableCell extends Node
         return $attrs;
     }
 
-    public function renderHTML($node, $HTMLAttributes = []): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         // TODO: Add HTML Attributes
         return [

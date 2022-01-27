@@ -29,7 +29,7 @@ class Heading extends Node
         }, $this->options['levels']);
     }
 
-    public function renderHTML($node, $HTMLAttributes = []): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         $hasLevel = in_array($node->attrs->level, $this->options['levels']);
 

@@ -18,7 +18,7 @@ class HorizontalRule extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = []): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         return ['hr', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes)];
     }

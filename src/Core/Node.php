@@ -25,7 +25,7 @@ abstract class Node
         return [];
     }
 
-    public function renderHTML($node): ?array
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         return null;
     }

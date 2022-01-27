@@ -42,7 +42,7 @@ Let’s start by converting a HTML snippet to a PHP array with a Tiptap-compatib
 // ['type' => 'doc', 'content' => …]
 ```
 
-The JavaScript package returns a JSON string, you can do this in PHP, too.
+The JavaScript package returns a JSON string. You can do this in PHP, too.
 
 ```php
 (new Tiptap\Editor)
@@ -121,6 +121,21 @@ new Tiptap\Editor([
 ])
 ```
 
+You can pass custom HTML attributes through the configuration, too.
+
+```php
+new Tiptap\Editor([
+    'extensions' => [
+        // …
+        new Tiptap\Nodes\Heading([
+            'HTMLAttributes' => [
+                'class' => 'my-custom-class'
+            ],
+        ]),
+    ],
+])
+```
+
 ### Extend existing extensions
 If you need to change minor details of the supported extensions, you can just extend an extension.
 
@@ -131,7 +146,7 @@ class CustomBold extends \Tiptap\Marks\Bold
 {
     public function renderHTML($mark)
     {
-        // Render <b> instead of <strong>
+        // Renders <b> instead of <strong>
         return ['b', 0]
     }
 }
@@ -146,7 +161,7 @@ new Tiptap\Editor([
 ```
 
 #### Custom extensions
-You can even build custom extensions. If you’re used to the JavaScript API, you’ll be surprised how much of that works in PHP, too. 🤯 Find a simple example below.
+You can even build custom extensions. If you are used to the JavaScript API, you will be surprised how much of that works in PHP, too. 🤯 Find a simple example below.
 
 Make sure to dig through the extensions in this repository to learn more about the PHP extension API.
 

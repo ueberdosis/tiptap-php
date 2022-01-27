@@ -9,14 +9,7 @@ class Table extends Node
 {
     public static $name = 'table';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -25,7 +18,7 @@ class Table extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         return [
             'table',

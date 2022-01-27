@@ -9,7 +9,7 @@ class Heading extends Node
 {
     public static $name = 'heading';
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'levels' => [1, 2, 3, 4, 5, 6],
@@ -17,7 +17,7 @@ class Heading extends Node
         ];
     }
 
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return array_map(function ($level) {
             return [
@@ -29,7 +29,7 @@ class Heading extends Node
         }, $this->options['levels']);
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         $hasLevel = in_array($node->attrs->level, $this->options['levels']);
 

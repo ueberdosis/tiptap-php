@@ -9,14 +9,7 @@ class Underline extends Mark
 {
     public static $name = 'underline';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -31,7 +24,7 @@ class Underline extends Mark
         ];
     }
 
-    public function renderHTML($mark, $HTMLAttributes = [])
+    public function renderHTML($mark, $HTMLAttributes = []): array
     {
         return ['u', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

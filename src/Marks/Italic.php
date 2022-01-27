@@ -10,14 +10,7 @@ class Italic extends Mark
 {
     public static $name = 'italic';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -41,7 +34,7 @@ class Italic extends Mark
         ];
     }
 
-    public function renderHTML($mark, $HTMLAttributes = [])
+    public function renderHTML($mark, $HTMLAttributes = []): array
     {
         return ['em', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

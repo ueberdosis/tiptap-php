@@ -2,7 +2,7 @@
 
 namespace Tiptap\Core;
 
-class Extension
+abstract class Extension
 {
     public static $name;
 

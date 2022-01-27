@@ -8,7 +8,7 @@ class Text extends Node
 {
     public static $name = 'text';
 
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [

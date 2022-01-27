@@ -2,9 +2,10 @@
 
 namespace Tiptap\Core;
 
-class Mark
+abstract class Mark
 {
     public static $name;
+    public array $options = [];
 
     public function __construct(array $options = [])
     {
@@ -13,16 +14,11 @@ class Mark
 
     public function addOptions()
     {
-        return [];
+        return [
+            'HTMLAttributes' => [],
+        ];
     }
 
-    public function renderHTML($mark)
-    {
-        return null;
-    }
-
-    public function parseHTML()
-    {
-        return [];
-    }
+    abstract public function renderHTML($mark): array;
+    abstract public function parseHTML(): array;
 }

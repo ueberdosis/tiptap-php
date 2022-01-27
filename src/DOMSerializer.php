@@ -192,7 +192,7 @@ class DOMSerializer
                 // 'table'
                 if (is_string($renderInstruction)) {
                     // next item: ['class' => 'foobar']
-                    if ($nextTag = $renderHTML[$index + 1] ?? null) {
+                    if ($nextTag = $renderHTML[(int)$index + 1] ?? null) {
                         if (is_array($nextTag) && ! in_array(0, $nextTag, true)) {
                             $attributes = HTML::renderAttributes($nextTag);
 

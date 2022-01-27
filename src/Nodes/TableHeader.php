@@ -6,14 +6,7 @@ class TableHeader extends TableCell
 {
     public static $name = 'tableHeader';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -22,7 +15,7 @@ class TableHeader extends TableCell
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         // TODO: Add HTMLAttributes
         return ['th', self::getAttrs($node), 0];

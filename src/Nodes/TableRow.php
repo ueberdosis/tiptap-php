@@ -9,14 +9,7 @@ class TableRow extends Node
 {
     public static $name = 'tableRow';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -25,7 +18,7 @@ class TableRow extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         return ['tr', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

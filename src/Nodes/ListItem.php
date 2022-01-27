@@ -9,14 +9,7 @@ class ListItem extends Node
 {
     public static $name = 'listItem';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -25,12 +18,12 @@ class ListItem extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         return ['li', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 
-    public static function wrapper($DOMNode)
+    public static function wrapper($DOMNode): ?array
     {
         if (
             $DOMNode->childNodes->length === 1

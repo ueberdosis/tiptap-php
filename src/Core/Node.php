@@ -2,33 +2,35 @@
 
 namespace Tiptap\Core;
 
-class Node
+abstract class Node
 {
     public static $name;
-
     public static $marks = '_';
+    public array $options = [];
 
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->addOptions(), $options);
     }
 
-    public function addOptions()
+     public function addOptions(): array
+     {
+         return [
+             'HTMLAttributes' => [],
+         ];
+     }
+
+    public function parseHTML(): array
     {
         return [];
     }
 
-    public function parseHTML()
-    {
-        return [];
-    }
-
-    public function renderHTML($node)
+    public function renderHTML($node): ?array
     {
         return null;
     }
 
-    public static function wrapper($DOMNode)
+    public static function wrapper($DOMNode): ?array
     {
         return null;
     }

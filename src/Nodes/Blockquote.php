@@ -9,14 +9,7 @@ class Blockquote extends Node
 {
     public static $name = 'blockquote';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -25,7 +18,7 @@ class Blockquote extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         return ['blockquote', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

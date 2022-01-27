@@ -11,7 +11,7 @@ class CodeBlock extends Node
 
     public static $marks = '';
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'languageClassPrefix' => 'language-',
@@ -19,7 +19,7 @@ class CodeBlock extends Node
         ];
     }
 
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -44,7 +44,7 @@ class CodeBlock extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         return [
             'pre',

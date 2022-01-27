@@ -8,14 +8,7 @@ class TableCell extends Node
 {
     public static $name = 'tableCell';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -81,7 +74,7 @@ class TableCell extends Node
         return $attrs;
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         // TODO: Add HTML Attributes
         return [

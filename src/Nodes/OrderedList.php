@@ -9,14 +9,7 @@ class OrderedList extends Node
 {
     public static $name = 'orderedList';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -35,7 +28,7 @@ class OrderedList extends Node
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         // TODO: Move to `addAttributes`
         $attrs = [];

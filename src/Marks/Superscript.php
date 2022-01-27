@@ -9,14 +9,7 @@ class Superscript extends Mark
 {
     public static $name = 'superscript';
 
-    public function addOptions()
-    {
-        return [
-            'HTMLAttributes' => [],
-        ];
-    }
-
-    public function parseHTML()
+    public function parseHTML(): array
     {
         return [
             [
@@ -31,7 +24,7 @@ class Superscript extends Mark
         ];
     }
 
-    public function renderHTML($mark, $HTMLAttributes = [])
+    public function renderHTML($mark, $HTMLAttributes = []): array
     {
         return ['sup', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }

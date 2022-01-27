@@ -12,7 +12,7 @@ class Minify
     {
         $this->_html = str_replace("\r\n", "\n", trim($html));
 
-        $this->_replacementHash = 'MINIFYHTML' . md5($_SERVER['REQUEST_TIME']);
+        $this->_replacementHash = 'MINIFYHTML' . md5((string)$_SERVER['REQUEST_TIME']);
 
         // replace PREs with placeholders
         $this->_html = preg_replace_callback('/\\s*<pre(\\b[^>]*?>[\\s\\S]*?<\\/pre>)\\s*/iu', [$this, '_removePreCB'], $this->_html);

@@ -29,7 +29,7 @@ class Highlight extends Mark
 
     public function addAttributes()
     {
-        if (!$this->options['multicolor']) {
+        if (! $this->options['multicolor']) {
             return [];
         }
 

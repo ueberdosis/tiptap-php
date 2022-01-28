@@ -125,5 +125,5 @@ test('node content contains empty array empty mark gets rendered correctly', fun
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<a href="https://tiptap.dev">Example Link</a>');
+    expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
 });

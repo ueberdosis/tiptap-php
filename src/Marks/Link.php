@@ -12,7 +12,10 @@ class Link extends Mark
     public function addOptions()
     {
         return [
-            'HTMLAttributes' => [],
+            'HTMLAttributes' => [
+                'target' => '_blank',
+                'rel' => 'noopener noreferrer nofollow',
+            ],
         ];
     }
 

@@ -30,7 +30,7 @@ test('link mark gets rendered correctly', function () {
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<a href="https://tiptap.dev">Example Link</a>');
+    expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
 });
 
 test('link mark has support for rel', function () {
@@ -60,7 +60,7 @@ test('link mark has support for rel', function () {
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<a href="https://tiptap.dev" rel="noopener">Example Link</a>');
+    expect($result)->toEqual('<a target="_blank" rel="noopener" href="https://tiptap.dev">Example Link</a>');
 });
 
 test('link mark has support for target', function () {
@@ -75,7 +75,7 @@ test('link mark has support for target', function () {
                         'type' => 'link',
                         'attrs' => [
                             'href' => 'https://tiptap.dev',
-                            'target' => '_blank',
+                            'target' => '_self',
                         ],
                     ],
                 ],
@@ -90,7 +90,7 @@ test('link mark has support for target', function () {
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<a href="https://tiptap.dev" target="_blank">Example Link</a>');
+    expect($result)->toEqual('<a target="_self" rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
 });
 
 test('link with marks generates clean output', function () {
@@ -134,7 +134,7 @@ test('link with marks generates clean output', function () {
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<a href="https://example.com">Example <strong>Link</strong></a>');
+    expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow" href="https://example.com">Example <strong>Link</strong></a>');
 });
 
 test('link with marks inside node generates clean output', function () {
@@ -183,5 +183,5 @@ test('link with marks inside node generates clean output', function () {
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<p><a href="https://example.com">Example <strong>Link</strong></a></p>');
+    expect($result)->toEqual('<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://example.com">Example <strong>Link</strong></a></p>');
 });

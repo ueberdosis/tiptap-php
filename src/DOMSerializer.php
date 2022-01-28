@@ -141,6 +141,10 @@ class DOMSerializer
 
         if (method_exists($extension, 'addAttributes')) {
             foreach ($extension->addAttributes() as $attribute => $configuration) {
+                if (isset($configuration['rendered']) && $configuration['rendered'] === false) {
+                    continue;
+                }
+
                 if (isset($configuration['renderHTML'])) {
                     $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
                 } else {
@@ -208,7 +212,7 @@ class DOMSerializer
     {
         $attributes = [];
 
-        foreach ($attrs ?? [] as $name => $value) {
+        foreach (array_filter($attrs) ?? [] as $name => $value) {
             $attributes[] = " {$name}=\"{$value}\"";
         }
 

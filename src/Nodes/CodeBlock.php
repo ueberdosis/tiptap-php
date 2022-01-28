@@ -14,6 +14,7 @@ class CodeBlock extends Node
     public function addOptions()
     {
         return [
+            'languageClassPrefix' => 'language-',
             'HTMLAttributes' => [],
         ];
     }
@@ -32,15 +33,31 @@ class CodeBlock extends Node
         return [
             'language' => [
                 'parseHTML' => function ($DOMNode) {
-                    return preg_replace("/^language-/", "", $DOMNode->childNodes[0]->getAttribute('class')) ?: null;
+                    return preg_replace(
+                        "/^" . $this->options['languageClassPrefix']. "/",
+                        "",
+                        $DOMNode->childNodes[0]->getAttribute('class')
+                    ) ?: null;
                 },
+                'rendered' => false,
             ],
         ];
     }
 
     public function renderHTML($node, $HTMLAttributes = [])
     {
-        // TODO: Add language class
-        return ['pre', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), ['code', 0]];
+        return [
+            'pre',
+            HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
+            [
+                'code',
+                [
+                    'class' => $node->attrs->language ?? null
+                        ? $this->options['languageClassPrefix'] . $node->attrs->language
+                        : null,
+                ],
+                0,
+            ]
+        ];
     }
 }

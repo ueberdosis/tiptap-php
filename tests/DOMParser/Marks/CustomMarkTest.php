@@ -16,7 +16,7 @@ class CustomMark extends \Tiptap\Core\Mark
         ];
     }
 
-    public static function addAttributes()
+    public function addAttributes()
     {
         return [
             'foo' => [

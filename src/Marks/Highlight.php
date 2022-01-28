@@ -13,6 +13,7 @@ class Highlight extends Mark
     public function addOptions()
     {
         return [
+            'multicolor' => false,
             'HTMLAttributes' => [],
         ];
     }
@@ -26,8 +27,12 @@ class Highlight extends Mark
         ];
     }
 
-    public static function addAttributes()
+    public function addAttributes()
     {
+        if (!$this->options['multicolor']) {
+            return [];
+        }
+
         return [
             'color' => [
                 'parseHTML' => function ($DOMNode) {

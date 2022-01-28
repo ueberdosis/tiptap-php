@@ -24,7 +24,7 @@ class TableCell extends Node
         ];
     }
 
-    public static function addAttributes()
+    public function addAttributes()
     {
         return [
             'rowspan' => [

@@ -124,7 +124,7 @@ class DOMSerializer
     private function renderOpeningTag($extension, $nodeOrMark, $renderHTML = false)
     {
         /**
-         * public static function addAttributes()
+         * public function addAttributes()
          * {
          *     return [
          *        'color' => [
@@ -140,7 +140,7 @@ class DOMSerializer
         $HTMLAttributes = [];
 
         if (method_exists($extension, 'addAttributes')) {
-            foreach ($extension::addAttributes() as $attribute => $configuration) {
+            foreach ($extension->addAttributes() as $attribute => $configuration) {
                 if (isset($configuration['renderHTML'])) {
                     $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
                 } else {

@@ -25,7 +25,7 @@ class Image extends Node
         ];
     }
 
-    public static function addAttributes()
+    public function addAttributes()
     {
         return [
             'src' => [],

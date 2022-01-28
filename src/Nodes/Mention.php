@@ -24,7 +24,7 @@ class Mention extends Node
         ];
     }
 
-    public static function addAttributes()
+    public function addAttributes()
     {
         return [
             'id' => [

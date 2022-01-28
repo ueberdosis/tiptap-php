@@ -160,7 +160,7 @@ test('custom attributes are rendered too', function () {
 
     class CustomHeading extends \Tiptap\Nodes\Heading
     {
-        public static function addAttributes()
+        public function addAttributes()
         {
             return [
                 'color' => [
@@ -215,7 +215,7 @@ test('inline styles are merged properly', function () {
 
     class AnotherCustomHeading extends \Tiptap\Nodes\Heading
     {
-        public static function addAttributes()
+        public function addAttributes()
         {
             return [
                 'color' => [

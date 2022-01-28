@@ -311,7 +311,7 @@ class DOMParser
         }
 
         /**
-         * public static function addAttributes()
+         * public function addAttributes()
          * {
          *     return [
          *         'href' => [
@@ -323,7 +323,7 @@ class DOMParser
          * }
          */
         if (method_exists($class, 'addAttributes')) {
-            foreach ($class::addAttributes() as $attribute => $configuration) {
+            foreach ($class->addAttributes() as $attribute => $configuration) {
                 if (isset($configuration['parseHTML'])) {
                     $value = $configuration['parseHTML']($DOMNode);
                 } else {

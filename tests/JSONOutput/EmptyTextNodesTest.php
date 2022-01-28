@@ -4,7 +4,7 @@ namespace Tiptap\Tests\JSONOutput;
 
 use Tiptap\Editor;
 
-class EmptyTextNodesTest extends TestCase
+class EmptyTextNodesTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function output_must_not_have_empty_text_nodes()

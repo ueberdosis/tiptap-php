@@ -5,7 +5,7 @@ namespace Tiptap\Tests\HTMLOutput\Mix;
 use Tiptap\Editor;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
-class ExampleJsonTest extends TestCase
+class ExampleJsonTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function example_json_gets_rendered_correctly()

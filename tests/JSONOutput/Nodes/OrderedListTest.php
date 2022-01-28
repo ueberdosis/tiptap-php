@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class OrderedListTest extends TestCase
+class OrderedListTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function orderedList_gets_rendered_correctly()

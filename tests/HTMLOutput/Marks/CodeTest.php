@@ -1,32 +1,26 @@
 <?php
 
-namespace Tiptap\Tests\Marks;
-
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class CodeTest extends TestCase
-{
-    /** @test */
-    public function code_mark_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Text',
-                    'marks' => [
-                        [
-                            'type' => 'code',
-                        ],
+test('code_mark_gets_rendered_correctly()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Text',
+                'marks' => [
+                    [
+                        'type' => 'code',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<code>Example Text</code>';
+    $output = (new Editor)->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
-}
+    $html = '<code>Example Text</code>';
+
+    expect($output)->toEqual($html);
+});

@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class HardBreakTest extends TestCase
+class HardBreakTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function break_gets_rendered_correctly()

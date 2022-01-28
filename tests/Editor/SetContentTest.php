@@ -2,7 +2,7 @@
 
 use Tiptap\Editor;
 
-test('json_strings_are_detected()', function () {
+test('json strings are detected', function () {
     $output = (new Editor)->setContent('{
         "type": "doc",
         "content": [
@@ -18,7 +18,7 @@ test('json_strings_are_detected()', function () {
         ]
     }')->getDocument();
 
-    expect([
+    $json = [
         'type' => 'doc',
         'content' => [
             [
@@ -31,11 +31,13 @@ test('json_strings_are_detected()', function () {
                 ],
             ],
         ],
-    ])->toEqual($output);
+    ];
+
+    expect($output)->toEqual($json);
 });
 
 
-test('arrays_are_detected()', function () {
+test('arrays are detected', function () {
     $input = [
         'type' => 'doc',
         'content' => [
@@ -51,16 +53,20 @@ test('arrays_are_detected()', function () {
         ],
     ];
 
-    $output = (new Editor)->setContent($input)->getDocument();
+    $output = (new Editor)
+        ->setContent($input)
+        ->getDocument();
 
-    expect($input)->toEqual($output);
+    expect($output)->toEqual($input);
 });
 
 
-test('html_is_detected()', function () {
-    $output = (new Editor)->setContent('<p>Example <strong>Text</strong></p>')->getDocument();
+test('html is detected', function () {
+    $output = (new Editor)
+        ->setContent('<p>Example <strong>Text</strong></p>')
+        ->getDocument();
 
-    expect([
+    $json = [
         'type' => 'doc',
         'content' => [
             [
@@ -82,5 +88,7 @@ test('html_is_detected()', function () {
                 ],
             ],
         ],
-    ])->toEqual($output);
+    ];
+
+    expect($output)->toEqual($json);
 });

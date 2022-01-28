@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Marks;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class CodeTest extends TestCase
+class CodeTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function code_gets_rendered_correctly()

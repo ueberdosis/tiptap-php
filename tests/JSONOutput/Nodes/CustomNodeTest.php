@@ -4,7 +4,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class CustomNodeTest extends TestCase
+class CustomNodeTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function b_and_strong_get_rendered_correctly()

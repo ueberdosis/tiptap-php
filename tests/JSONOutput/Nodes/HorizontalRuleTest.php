@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class HorizontalRuleTest extends TestCase
+class HorizontalRuleTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function hr_gets_rendered_correctly()

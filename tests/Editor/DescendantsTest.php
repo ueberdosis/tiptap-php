@@ -100,6 +100,7 @@ test('updating node attributes in descendants() works', function () {
 
     $editor = (new Editor)->setContent($document);
 
+    // Set the level for all headings to 1
     $html = $editor->descendants(function (&$node) {
         if ($node->type !== 'heading') {
             return;

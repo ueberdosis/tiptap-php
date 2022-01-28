@@ -1,32 +1,26 @@
 <?php
 
-namespace Tiptap\Tests\Marks;
-
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class BoldTest extends TestCase
-{
-    /** @test */
-    public function bold_mark_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Text',
-                    'marks' => [
-                        [
-                            'type' => 'bold',
-                        ],
+test('bold mark gets rendered correctly', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Text',
+                'marks' => [
+                    [
+                        'type' => 'bold',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<strong>Example Text</strong>';
+    $output = (new Editor)->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
-}
+    $html = '<strong>Example Text</strong>';
+
+    expect($output)->toEqual($html);
+});

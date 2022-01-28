@@ -7,7 +7,7 @@ use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Underline;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class UnderlineTest extends TestCase
+class UnderlineTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function underline_gets_rendered_correctly()

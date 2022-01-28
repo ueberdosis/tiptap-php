@@ -6,7 +6,7 @@ use Tiptap\Editor;
 use Tiptap\Nodes\Image;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class ImageTest extends TestCase
+class ImageTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function image_gets_rendered_correctly()

@@ -7,7 +7,7 @@ use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Subscript;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class SubscriptTest extends TestCase
+class SubscriptTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function subscript_gets_rendered_correctly()

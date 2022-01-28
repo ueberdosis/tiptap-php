@@ -8,7 +8,7 @@ use Tiptap\Nodes\Paragraph;
 use Tiptap\Nodes\Text;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class MentionTest extends TestCase
+class MentionTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function user_mention_gets_rendered_correctly()

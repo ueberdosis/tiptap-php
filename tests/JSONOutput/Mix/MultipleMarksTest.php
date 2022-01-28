@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Mix;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class MultipleMarksTest extends TestCase
+class MultipleMarksTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function multiple_marks_get_rendered_correctly()

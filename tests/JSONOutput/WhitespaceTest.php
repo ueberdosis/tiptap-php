@@ -4,7 +4,7 @@ namespace Tiptap\Tests\JSONOutput;
 
 use Tiptap\Editor;
 
-class WhitespaceTest extends TestCase
+class WhitespaceTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function whitespace_at_the_beginning_is_stripped()

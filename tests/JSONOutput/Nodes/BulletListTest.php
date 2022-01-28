@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class BulletListTest extends TestCase
+class BulletListTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function bulletList_gets_rendered_correctly()

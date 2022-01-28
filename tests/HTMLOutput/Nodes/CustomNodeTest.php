@@ -4,7 +4,7 @@ namespace Tiptap\Tests\Nodes;
 
 use Tiptap\Tests\HTMLOutput\TestCase;
 
-class CustomNodeTest extends TestCase
+class CustomNodeTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function custom_node_gets_rendered_correctly()

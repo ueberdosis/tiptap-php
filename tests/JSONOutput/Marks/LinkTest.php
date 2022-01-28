@@ -7,7 +7,7 @@ use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class LinkTest extends TestCase
+class LinkTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function link_gets_rendered_correctly()

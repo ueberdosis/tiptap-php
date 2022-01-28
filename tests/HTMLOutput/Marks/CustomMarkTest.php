@@ -11,7 +11,7 @@ class CustomBold extends Bold
     protected $markType = 'strong';
 }
 
-class CustomMarkTest extends TestCase
+class CustomMarkTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function custom_mark_gets_rendered_correctly()

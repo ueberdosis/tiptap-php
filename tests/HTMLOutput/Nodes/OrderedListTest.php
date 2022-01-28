@@ -1,68 +1,62 @@
 <?php
 
-namespace Tiptap\Tests\Nodes;
-
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class OrderedListTest extends TestCase
-{
-    /** @test */
-    public function orderedList_node_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'orderedList',
-                    'content' => [
-                        [
-                            'type' => 'listItem',
-                            'content' => [
-                                [
-                                    'type' => 'text',
-                                    'text' => 'first list item',
-                                ],
+test('orderedList node gets rendered correctly', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'orderedList',
+                'content' => [
+                    [
+                        'type' => 'listItem',
+                        'content' => [
+                            [
+                                'type' => 'text',
+                                'text' => 'first list item',
                             ],
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<ol><li>first list item</li></ol>';
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
+    expect($output)->toEqual('<ol><li>first list item</li></ol>');
+});
 
-    /** @test */
-    public function orderedList_has_offset()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'orderedList',
-                    'attrs' => [
-                        'order' => 3,
-                    ],
-                    'content' => [
-                        [
-                            'type' => 'listItem',
-                            'content' => [
-                                [
-                                    'type' => 'text',
-                                    'text' => 'first list item',
-                                ],
+test('function orderedList has offset', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'orderedList',
+                'attrs' => [
+                    'order' => 3,
+                ],
+                'content' => [
+                    [
+                        'type' => 'listItem',
+                        'content' => [
+                            [
+                                'type' => 'text',
+                                'text' => 'first list item',
                             ],
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<ol start="3"><li>first list item</li></ol>';
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
-}
+    expect($output)->toEqual('<ol start="3"><li>first list item</li></ol>');
+});

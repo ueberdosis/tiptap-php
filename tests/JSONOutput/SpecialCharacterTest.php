@@ -4,7 +4,7 @@ namespace Tiptap\Tests\JSONOutput;
 
 use Tiptap\Editor;
 
-class SpecialCharacterTest extends TestCase
+class SpecialCharacterTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function emojis_are_transformed_correctly()

@@ -7,7 +7,7 @@ use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Superscript;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class SuperscriptTest extends TestCase
+class SuperscriptTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function superscript_gets_rendered_correctly()

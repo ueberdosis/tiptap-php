@@ -4,7 +4,7 @@ namespace Tiptap\Tests\HTMLOutput;
 
 use Tiptap\Editor;
 
-class ConfiguredNodesTest extends TestCase
+class ConfiguredNodesTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function paragraph_is_enabled_by_default()

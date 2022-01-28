@@ -4,7 +4,7 @@ namespace Tiptap\Tests\JSONOutput;
 
 use Tiptap\Editor;
 
-class ConfiguredMarksTest extends TestCase
+class ConfiguredMarksTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function bold_is_enabled_by_default()

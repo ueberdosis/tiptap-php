@@ -30,14 +30,18 @@ test('mark gets rendered correctly', function () {
         ],
     ];
 
-    $html = '<p><mark data-color="red" style="background-color: red;">Example</mark> Text</p>';
 
-    expect((new Editor([
+
+    $output = (new Editor([
         'extensions' => [
             new \Tiptap\Extensions\StarterKit,
             new \Tiptap\Marks\Highlight,
         ],
-    ]))->setContent($document)->getHTML())->toEqual($html);
+    ]))->setContent($document)->getHTML();
+
+    $html = '<p><mark data-color="red" style="background-color: red;">Example</mark> Text</p>';
+
+    expect($output)->toEqual($html);
 });
 
 test('color is parsed from data attribute', function () {
@@ -70,17 +74,25 @@ test('color is parsed from data attribute', function () {
         ],
     ];
 
-    expect($document)->toEqual((new Editor([
+    $output = (new Editor([
         'extensions' => [
-            new \Tiptap\Nodes\Paragraph,
-            new \Tiptap\Nodes\Text,
+            new \Tiptap\Extensions\StarterKit,
             new \Tiptap\Marks\Highlight,
         ],
-    ]))->setContent($html)->getDocument());
+    ]))->setContent($html)->getDocument();
+
+    expect($output)->toEqual($document);
 });
 
 test('color is parsed from the background color inline style', function () {
     $html = '<p><mark style="background-color: #ffcc00">Example</mark> Text</p>';
+
+    $output = (new Editor([
+        'extensions' => [
+            new \Tiptap\Extensions\StarterKit,
+            new \Tiptap\Marks\Highlight,
+        ],
+    ]))->setContent($html)->getDocument();
 
     $document = [
         'type' => 'doc',
@@ -109,11 +121,5 @@ test('color is parsed from the background color inline style', function () {
         ],
     ];
 
-    expect($document)->toEqual((new Editor([
-        'extensions' => [
-            new \Tiptap\Nodes\Paragraph,
-            new \Tiptap\Nodes\Text,
-            new \Tiptap\Marks\Highlight,
-        ],
-    ]))->setContent($html)->getDocument());
+    expect($output)->toEqual($document);
 });

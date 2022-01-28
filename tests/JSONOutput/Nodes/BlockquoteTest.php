@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class BlockquoteTest extends TestCase
+class BlockquoteTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function blockquote_gets_rendered_correctly()

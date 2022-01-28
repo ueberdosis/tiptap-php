@@ -11,7 +11,7 @@ use Tiptap\Nodes\TableRow;
 use Tiptap\Nodes\Text;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class TableTest extends TestCase
+class TableTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function table_gets_rendered_correctly()

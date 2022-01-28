@@ -5,7 +5,7 @@ namespace Tiptap\Tests\HTMLOutput\Mix;
 use Tiptap\Editor;
 use Tiptap\Tests\HTMLOutput\TestCase;
 
-class MultipleMarksTest extends TestCase
+class MultipleMarksTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function multiple_marks_get_rendered_correctly()

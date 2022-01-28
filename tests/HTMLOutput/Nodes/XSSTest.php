@@ -1,29 +1,19 @@
 <?php
 
-namespace Tiptap\Tests\Nodes;
-
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class XSSTest extends TestCase
-{
-    /** @test */
-    public function text_should_not_get_rendered_as_html()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => '<script>alert(1)</script>',
-                ],
+test('text should not get rendered as html', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => '<script>alert(1)</script>',
             ],
-        ];
+        ],
+    ];
 
-        // assert that the input has been sanitized
-        $this->assertEquals(
-            '&lt;script&gt;alert(1)&lt;/script&gt;',
-            (new Editor)->setContent($document)->getHTML()
-        );
-    }
-}
+    $output = (new Editor)->setContent($document)->getHTML();
+
+    expect($output)->toEqual('&lt;script&gt;alert(1)&lt;/script&gt;');
+});

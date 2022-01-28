@@ -18,7 +18,9 @@ test('getHTML() outputs HTML', function () {
         ],
     ];
 
-    $output = (new Editor)->setContent($input)->getHTML();
+    $output = (new Editor)
+        ->setContent($input)
+        ->getHTML();
 
-    expect('<p>Example Text</p>')->toEqual($output);
+    expect($output)->toEqual('<p>Example Text</p>');
 });

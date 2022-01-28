@@ -6,131 +6,124 @@ use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
 
-class WrongFormatTest extends TestCase
-{
-    /** @test */
-    public function node_content_is_string_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => 'test',
-        ];
+test('node_content_is_string_gets_rendered_correctly()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => 'test',
+    ];
 
-        $this->assertEmpty((new Editor([
-            'extensions' => [
-                new StarterKit,
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($output)->toBeEmpty();
+});
+
+test('node_content_is_empty_array_gets_rendered_correctly_1()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [],
+    ];
+
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($output)->toBeEmpty();
+});
+
+test('node_content_is_empty_array_gets_rendered_correctly_2()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [], [],
+        ],
+    ];
+
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($output)->toBeEmpty();
+});
+
+test('node_content_contains_empty_array_gets_rendered_correctly_3()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [],
+            'test',
+            [],
+            '',
+            [],
+            [
+                'type' => 'codeBlock',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
+                    ],
+                ],
             ],
-        ]))->setContent($document)->getHTML());
-    }
+            [],
+            [],
+            [],
+            '',
+        ],
+    ];
 
-    /** @test */
-    public function node_content_is_empty_array_gets_rendered_correctly_1()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [],
-        ];
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEmpty((new Editor([
-            'extensions' => [
-                new StarterKit,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
+    expect($output)->toEqual('<pre><code>Example Text</code></pre>');
+});
 
-    /** @test */
-    public function node_content_is_empty_array_gets_rendered_correctly_2()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [], [],
-            ],
-        ];
-
-        $this->assertEmpty((new Editor([
-            'extensions' => [
-                new StarterKit,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
-
-    /** @test */
-    public function node_content_contains_empty_array_gets_rendered_correctly_3()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [],
-                'test',
-                [],
-                '',
-                [],
-                [
-                    'type' => 'codeBlock',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Text',
+test('node_content_contains_empty_array_empty_mark_gets_rendered_correctly()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [],
+            'test',
+            [],
+            '',
+            [],
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [],
+                    '',
+                    'test',
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
                         ],
                     ],
                 ],
-                [],
-                [],
-                [],
-                '',
             ],
-        ];
+            [],
+            [],
+            [],
+            '',
+        ],
+    ];
 
-        $html = '<pre><code>Example Text</code></pre>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
-
-    /** @test */
-    public function node_content_contains_empty_array_empty_mark_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [],
-                'test',
-                [],
-                '',
-                [],
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [],
-                        '',
-                        'test',
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                            ],
-                        ],
-                    ],
-                ],
-                [],
-                [],
-                [],
-                '',
-            ],
-        ];
-
-        $html = '<a href="https://tiptap.dev">Example Link</a>';
-
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
-}
+    expect($output)->toEqual('<a href="https://tiptap.dev">Example Link</a>');
+});

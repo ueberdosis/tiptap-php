@@ -1,32 +1,24 @@
 <?php
 
-namespace Tiptap\Tests\Nodes;
-
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class BlockquoteTest extends TestCase
-{
-    /** @test */
-    public function blockquote_node_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'blockquote',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Quote',
-                        ],
+test('blockquote node gets rendered correctly', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'blockquote',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Quote',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<blockquote>Example Quote</blockquote>';
+    $output = (new Editor)->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
-}
+    expect($output)->toEqual('<blockquote>Example Quote</blockquote>');
+});

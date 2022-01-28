@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class HeadingTest extends TestCase
+class HeadingTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function h1_gets_rendered_correctly()

@@ -1,81 +1,77 @@
 <?php
 
-namespace Tiptap\Tests\HTMLOutput;
-
 use Tiptap\Editor;
 
-class InputTest extends TestCase
-{
-    /** @test */
-    public function array_gets_rendered_to_html()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Text',
-                ],
+test('array gets rendered to html', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Text',
             ],
-        ];
+        ],
+    ];
 
-        $html = 'Example Text';
+    $html = 'Example Text';
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
+    expect($output)->toEqual($html);
+});
 
-    /** @test */
-    public function json_gets_rendered_to_html()
-    {
-        $document = json_encode([
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Text',
-                ],
+test('json gets rendered to html', function () {
+    $document = json_encode([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Text',
             ],
-        ]);
+        ],
+    ]);
 
-        $html = 'Example Text';
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
+    expect($output)->toEqual('Example Text');
+});
 
-    /** @test */
-    public function encoding_is_correct()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Äffchen',
-                ],
+test('encoding is correct', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Äffchen',
             ],
-        ];
+        ],
+    ];
 
-        $html = 'Äffchen';
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
+    expect($output)->toEqual('Äffchen');
+});
 
-    /** @test */
-    public function quotes_are_not_escaped()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => '"Example Text"',
-                ],
+test('quotes are not escaped', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => '"Example Text"',
             ],
-        ];
+        ],
+    ];
 
-        $html = '&quot;Example Text&quot;';
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
-}
+    expect($output)->toEqual('&quot;Example Text&quot;');
+});

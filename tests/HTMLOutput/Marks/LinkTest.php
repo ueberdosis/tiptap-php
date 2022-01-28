@@ -1,203 +1,197 @@
 <?php
 
-namespace Tiptap\Tests\Marks;
-
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class LinkTest extends TestCase
-{
-    /** @test */
-    public function link_mark_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                            ],
+test('link_mark_gets_rendered_correctly()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<a href="https://tiptap.dev">Example Link</a>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
+    $html = '<a href="https://tiptap.dev">Example Link</a>';
 
-    /** @test */
-    public function link_mark_has_support_for_rel()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                                'rel' => 'noopener',
-                            ],
+    expect($output)->toEqual($html);
+});
+
+test('link_mark_has_support_for_rel()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'rel' => 'noopener',
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<a href="https://tiptap.dev" rel="noopener">Example Link</a>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
+    $html = '<a href="https://tiptap.dev" rel="noopener">Example Link</a>';
 
-    /** @test */
-    public function link_mark_has_support_for_target()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                                'target' => '_blank',
-                            ],
+    expect($output)->toEqual($html);
+});
+
+test('link_mark_has_support_for_target()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'target' => '_blank',
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<a href="https://tiptap.dev" target="_blank">Example Link</a>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
+    $html = '<a href="https://tiptap.dev" target="_blank">Example Link</a>';
 
-    /** @test */
-    public function link_with_marks_generates_clean_output()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://example.com',
-                            ],
+    expect($output)->toEqual($html);
+});
+
+test('link_with_marks_generates_clean_output()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://example.com',
                         ],
                     ],
-                    'text' => 'Example ',
                 ],
-                [
-                    'type' => 'text',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://example.com',
-                            ],
-                        ],
-                        [
-                            'type' => 'bold',
+                'text' => 'Example ',
+            ],
+            [
+                'type' => 'text',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://example.com',
                         ],
                     ],
-                    'text' => 'Link',
+                    [
+                        'type' => 'bold',
+                    ],
                 ],
+                'text' => 'Link',
             ],
-        ];
+        ],
+    ];
 
-        $html = '<a href="https://example.com">Example <strong>Link</strong></a>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
+    $html = '<a href="https://example.com">Example <strong>Link</strong></a>';
 
-    /** @test */
-    public function link_with_marks_inside_node_generates_clean_output()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'marks' => [
-                                [
-                                    'type' => 'link',
-                                    'attrs' => [
-                                        'href' => 'https://example.com',
-                                    ],
+    expect($output)->toEqual($html);
+});
+
+test('link_with_marks_inside_node_generates_clean_output()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'marks' => [
+                            [
+                                'type' => 'link',
+                                'attrs' => [
+                                    'href' => 'https://example.com',
                                 ],
                             ],
-                            'text' => 'Example ',
                         ],
-                        [
-                            'type' => 'text',
-                            'marks' => [
-                                [
-                                    'type' => 'link',
-                                    'attrs' => [
-                                        'href' => 'https://example.com',
-                                    ],
-                                ],
-                                [
-                                    'type' => 'bold',
+                        'text' => 'Example ',
+                    ],
+                    [
+                        'type' => 'text',
+                        'marks' => [
+                            [
+                                'type' => 'link',
+                                'attrs' => [
+                                    'href' => 'https://example.com',
                                 ],
                             ],
-                            'text' => 'Link',
+                            [
+                                'type' => 'bold',
+                            ],
                         ],
+                        'text' => 'Link',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<p><a href="https://example.com">Example <strong>Link</strong></a></p>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
-}
+    $html = '<p><a href="https://example.com">Example <strong>Link</strong></a></p>';
+
+    expect($output)->toEqual($html);
+});

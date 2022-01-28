@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class ParagraphTest extends TestCase
+class ParagraphTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function simple_text_gets_rendered_correctly()

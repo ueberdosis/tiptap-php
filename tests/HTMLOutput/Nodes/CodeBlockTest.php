@@ -1,32 +1,26 @@
 <?php
 
-namespace Tiptap\Tests\Nodes;
-
 use Tiptap\Editor;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class CodeBlockTest extends TestCase
-{
-    /** @test */
-    public function codeBlock_node_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'codeBlock',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Text',
-                        ],
+test('codeBlock node gets rendered correctly', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'codeBlock',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<pre><code>Example Text</code></pre>';
+    $output = (new Editor)
+        ->setContent($document)
+        ->getHTML();
 
-        $this->assertEquals($html, (new Editor)->setContent($document)->getHTML());
-    }
-}
+    expect($output)->toEqual('<pre><code>Example Text</code></pre>');
+});

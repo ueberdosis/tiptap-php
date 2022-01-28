@@ -4,7 +4,7 @@ namespace Tiptap\Tests\JSONOutput;
 
 use Tiptap\Editor;
 
-class KeepContentOfUnknownTagsTest extends TestCase
+class KeepContentOfUnknownTagsTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function keeps_content_of_unknown_tags()

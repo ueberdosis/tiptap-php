@@ -5,7 +5,7 @@ namespace Tiptap\Tests\JSONOutput\Marks;
 use Tiptap\Editor;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class NestedMarksTest extends TestCase
+class NestedMarksTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function nested_marks_get_rendered_correctly()

@@ -10,6 +10,6 @@ class Bold extends Mark
 
     public function renderHTML($DOMNode)
     {
-        return 'b';
+        return ['b', 0];
     }
 }

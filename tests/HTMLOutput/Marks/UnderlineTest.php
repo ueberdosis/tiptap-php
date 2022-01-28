@@ -5,35 +5,29 @@ namespace Tiptap\Tests\Marks;
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Underline;
-use Tiptap\Tests\HTMLOutput\TestCase;
 
-class UnderlineTest extends TestCase
-{
-    /** @test */
-    public function underline_mark_gets_rendered_correctly()
-    {
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Text',
-                    'marks' => [
-                        [
-                            'type' => 'underline',
-                        ],
+test('underline_mark_gets_rendered_correctly()', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Text',
+                'marks' => [
+                    [
+                        'type' => 'underline',
                     ],
                 ],
             ],
-        ];
+        ],
+    ];
 
-        $html = '<u>Example Text</u>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Underline,
+        ],
+    ]))->setContent($document)->getHTML();
 
-        $this->assertEquals($html, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Underline,
-            ],
-        ]))->setContent($document)->getHTML());
-    }
-}
+    expect($output)->toEqual('<u>Example Text</u>');
+});

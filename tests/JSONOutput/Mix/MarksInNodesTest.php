@@ -7,7 +7,7 @@ use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
 use Tiptap\Tests\JSONOutput\TestCase;
 
-class MarksInNodesTest extends TestCase
+class MarksInNodesTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function paragraph_with_marks_gets_rendered_correctly()

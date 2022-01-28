@@ -4,7 +4,7 @@ namespace Tiptap\Tests\HTMLOutput\Mix;
 
 use Tiptap\Editor;
 
-test('multiple marks get rendered correctly', function() {
+test('multiple marks get rendered correctly', function () {
     $document = [
         'type' => 'doc',
         'content' => [
@@ -31,4 +31,4 @@ test('multiple marks get rendered correctly', function() {
     $result = (new Editor)->setContent($document)->getHTML();
 
     expect($result)->toEqual('<p><strong><em>Example Text</em></strong></p>');
-}
+});

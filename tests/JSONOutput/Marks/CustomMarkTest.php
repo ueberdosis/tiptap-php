@@ -1,46 +1,69 @@
 <?php
 
-namespace Tiptap\Tests\JSONOutput\Marks;
+use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
 
-
-class CustomMarkTest extends \PHPUnit\Framework\TestCase
+class CustomMark extends \Tiptap\Core\Mark
 {
-    /** @test */
-    public function b_and_strong_get_rendered_correctly()
+    public static $name = 'custom';
+
+    public function parseHTML()
     {
-        $this->markTestSkipped('This test has not been implemented yet.');
-        // $html = '<p><span data-foo="bla bla" bar="nanana">Example text inside custom mark</span> and some more text.</p>';
+        return [
+            [
+                'tag' => 'span',
+            ]
+        ];
+    }
 
-        // $document = [
-        //     'type'    => 'doc',
-        //     'content' => [
-        //         [
-        //             'type'    => 'paragraph',
-        //             'content' => [
-        //                 [
-        //                     'type'  => 'text',
-        //                     'text'  => 'Example text inside custom mark',
-        //                     'marks' => [
-        //                         [
-        //                             'type' => 'custom',
-        //                             'attrs' => [
-        //                                 'foo' => 'bla bla',
-        //                                 'bar' => 'nanana',
-        //                             ],
-        //                         ],
-        //                     ],
-        //                 ],
-        //                 [
-        //                     'type' => 'text',
-        //                     'text' => ' and some more text.',
-        //                 ],
-        //             ],
-        //         ],
-        //     ],
-        // ];
-
-        // $renderer = (new Renderer())->addMark(Custom::class);
-
-        // $this->assertEquals($document, $renderer->render($html));
+    public static function addAttributes()
+    {
+        return [
+            'foo' => [
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-foo'),
+            ],
+            'bar' => [],
+        ];
     }
 }
+
+test('b and strong get rendered correctly', function () {
+    $html = '<p><span data-foo="bla bla" bar="nanana">Example text inside custom mark</span> and some more text.</p>';
+
+    $output = (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new CustomMark,
+            ],
+        ]))
+        ->setContent($html)
+        ->getDocument();
+
+    expect($output)->toEqual([
+        'type'    => 'doc',
+        'content' => [
+            [
+                'type'    => 'paragraph',
+                'content' => [
+                    [
+                        'type'  => 'text',
+                        'text'  => 'Example text inside custom mark',
+                        'marks' => [
+                            [
+                                'type' => 'custom',
+                                'attrs' => [
+                                    'foo' => 'bla bla',
+                                    'bar' => 'nanana',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => ' and some more text.',
+                    ],
+                ],
+            ],
+        ],
+    ]);
+});

@@ -1,105 +1,95 @@
 <?php
 
-namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
 
-class LinkTest extends \PHPUnit\Framework\TestCase
-{
-    /** @test */
-    public function link_gets_rendered_correctly()
-    {
-        $html = '<a href="https://tiptap.dev">Example Link</a>';
+test('link_gets_rendered_correctly', function () {
+    $html = '<a href="https://tiptap.dev">Example Link</a>';
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                            ],
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($html)->getDocument();
+
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ]);
+});
 
-        $this->assertEquals($document, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($html)->getDocument());
-    }
+test('link_mark_has_support_for_rel', function () {
+    $html = '<a href="https://tiptap.dev" rel="noopener">Example Link</a>';
 
-    /** @test */
-    public function link_mark_has_support_for_rel()
-    {
-        $html = '<a href="https://tiptap.dev" rel="noopener">Example Link</a>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($html)->getDocument();
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                                'rel' => 'noopener',
-                            ],
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'rel' => 'noopener',
                         ],
                     ],
                 ],
             ],
-        ];
+        ],
+    ]);
+});
 
-        $this->assertEquals($document, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($html)->getDocument());
-    }
+test('link_mark_has_support_for_target', function () {
+    $html = '<a href="https://tiptap.dev" target="_blank">Example Link</a>';
 
-    /** @test */
-    public function link_mark_has_support_for_target()
-    {
-        $html = '<a href="https://tiptap.dev" target="_blank">Example Link</a>';
+    $output = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($html)->getDocument();
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Example Link',
-                    'marks' => [
-                        [
-                            'type' => 'link',
-                            'attrs' => [
-                                'href' => 'https://tiptap.dev',
-                                'target' => '_blank',
-                            ],
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'target' => '_blank',
                         ],
                     ],
                 ],
             ],
-        ];
-
-        $this->assertEquals($document, (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new Link,
-            ],
-        ]))->setContent($html)->getDocument());
-    }
-}
+        ],
+    ]);
+});

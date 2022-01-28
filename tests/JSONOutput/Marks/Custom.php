@@ -1,34 +1,31 @@
 <?php
 
-namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\JSONOutput\Marks\Mark;
 
-class Custom extends Mark
-{
-    public function matching()
-    {
-        return $this->DOMNode->nodeName === 'span';
-    }
+// class Custom extends Mark
+// {
+// test('matching', function() {
+//         return $this->DOMNode->nodeName === 'span';
+//     }
 
-    public function data()
-    {
-        $data = [
-            'type' => 'custom',
-        ];
+// test('data', function() {
+//         $data = [
+//             'type' => 'custom',
+//         ];
 
-        $attrs = [];
+//         $attrs = [];
 
-        if ($foo = $this->DOMNode->getAttribute('data-foo')) {
-            $attrs['foo'] = $foo;
-        }
+//         if ($foo = $this->DOMNode->getAttribute('data-foo')) {
+//             $attrs['foo'] = $foo;
+//         }
 
-        if ($bar = $this->DOMNode->getAttribute('bar')) {
-            $attrs['bar'] = $bar;
-        }
+//         if ($bar = $this->DOMNode->getAttribute('bar')) {
+//             $attrs['bar'] = $bar;
+//         }
 
-        $data['attrs'] = $attrs;
+//         $data['attrs'] = $attrs;
 
-        return $data;
-    }
-}
+//         return $data;
+//     }
+// }

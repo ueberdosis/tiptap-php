@@ -5,7 +5,15 @@ use Tiptap\Editor;
 test('span gets rendered correctly', function () {
     $html = '<p><span style="color: red">Example</span> Text</p>';
 
-    $document = [
+    $output = (new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Marks\TextStyle,
+            new \Tiptap\Nodes\Text,
+        ],
+    ]))->setContent($html)->getDocument();
+
+    expect($output)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -27,21 +35,21 @@ test('span gets rendered correctly', function () {
                 ],
             ],
         ],
-    ];
-
-    expect((new Editor([
-        'extensions' => [
-            new \Tiptap\Nodes\Paragraph,
-            new \Tiptap\Marks\TextStyle,
-            new \Tiptap\Nodes\Text,
-        ],
-    ]))->setContent($html)->getDocument())->toEqual($document);
+    ]);
 });
 
 test('span without inline style is ignored', function () {
     $html = '<p><span>Example</span> Text</p>';
 
-    $document = [
+    $output = (new Editor([
+        'extensions' => [
+            new \Tiptap\Nodes\Paragraph,
+            new \Tiptap\Marks\TextStyle,
+            new \Tiptap\Nodes\Text,
+        ],
+    ]))->setContent($html)->getDocument();
+
+    expect($output)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -54,13 +62,5 @@ test('span without inline style is ignored', function () {
                 ],
             ],
         ],
-    ];
-
-    expect((new Editor([
-        'extensions' => [
-            new \Tiptap\Nodes\Paragraph,
-            new \Tiptap\Marks\TextStyle,
-            new \Tiptap\Nodes\Text,
-        ],
-    ]))->setContent($html)->getDocument())->toEqual($document);
+    ]);
 });

@@ -6,13 +6,11 @@ use Tiptap\JSONOutput\Marks\Mark;
 
 class Bold extends Mark
 {
-    public function matching()
-    {
+test('matching', function() {
         return $this->DOMNode->nodeName === 'strong' || $this->DOMNode->nodeName === 'b';
     }
 
-    public function data()
-    {
+test('data', function() {
         return [
             'type' => 'bold',
         ];

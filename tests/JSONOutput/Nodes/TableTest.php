@@ -9,7 +9,6 @@ use Tiptap\Nodes\TableCell;
 use Tiptap\Nodes\TableHeader;
 use Tiptap\Nodes\TableRow;
 use Tiptap\Nodes\Text;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class TableTest extends \PHPUnit\Framework\TestCase
 {

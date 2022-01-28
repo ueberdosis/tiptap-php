@@ -3,7 +3,6 @@
 namespace Tiptap\Tests\JSONOutput\Marks;
 
 use Tiptap\Editor;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class NestedMarksTest extends \PHPUnit\Framework\TestCase
 {

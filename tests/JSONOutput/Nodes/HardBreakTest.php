@@ -3,7 +3,6 @@
 namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class HardBreakTest extends \PHPUnit\Framework\TestCase
 {

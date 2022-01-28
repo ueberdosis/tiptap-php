@@ -5,7 +5,6 @@ namespace Tiptap\Tests\JSONOutput\Marks;
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Link;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class LinkTest extends \PHPUnit\Framework\TestCase
 {

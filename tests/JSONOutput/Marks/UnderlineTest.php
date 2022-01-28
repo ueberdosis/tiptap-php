@@ -5,7 +5,6 @@ namespace Tiptap\Tests\JSONOutput\Marks;
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\Underline;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class UnderlineTest extends \PHPUnit\Framework\TestCase
 {

@@ -6,7 +6,6 @@ use Tiptap\Editor;
 use Tiptap\Nodes\Mention;
 use Tiptap\Nodes\Paragraph;
 use Tiptap\Nodes\Text;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class MentionTest extends \PHPUnit\Framework\TestCase
 {

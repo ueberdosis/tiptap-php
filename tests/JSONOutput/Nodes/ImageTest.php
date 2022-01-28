@@ -4,7 +4,6 @@ namespace Tiptap\Tests\JSONOutput\Nodes;
 
 use Tiptap\Editor;
 use Tiptap\Nodes\Image;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class ImageTest extends \PHPUnit\Framework\TestCase
 {

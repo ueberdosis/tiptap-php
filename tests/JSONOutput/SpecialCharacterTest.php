@@ -1,100 +1,95 @@
 <?php
 
-namespace Tiptap\Tests\JSONOutput;
-
 use Tiptap\Editor;
 
-class SpecialCharacterTest extends \PHPUnit\Framework\TestCase
-{
-    /** @test */
-    public function emojis_are_transformed_correctly()
-    {
-        $html = "<p>🔥</p>";
+test('emojis are transformed correctly()', function () {
+    $html = "<p>🔥</p>";
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => "🔥",
-                        ],
+    $output = (new Editor)
+        ->setContent($html)
+        ->getDocument();
+
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => "🔥",
                     ],
                 ],
             ],
-        ];
+        ],
+    ]);
+});
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
-    }
+test('extended emojis are transformed correctly()', function () {
+    $html = "<p>👩‍👩‍👦</p>";
 
-    /** @test */
-    public function extended_emojis_are_transformed_correctly()
-    {
-        $html = "<p>👩‍👩‍👦</p>";
+    $output = (new Editor)
+        ->setContent($html)
+        ->getDocument();
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => "👩‍👩‍👦",
-                        ],
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => "👩‍👩‍👦",
                     ],
                 ],
             ],
-        ];
+        ],
+    ]);
+});
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
-    }
+test('umlauts are transformed correctly()', function () {
+    $html = "<p>äöüÄÖÜß</p>";
 
-    /** @test */
-    public function umlauts_are_transformed_correctly()
-    {
-        $html = "<p>äöüÄÖÜß</p>";
+    $output = (new Editor)
+        ->setContent($html)
+        ->getDocument();
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => "äöüÄÖÜß",
-                        ],
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => "äöüÄÖÜß",
                     ],
                 ],
             ],
-        ];
+        ],
+    ]);
+});
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
-    }
+test('html entities are transformed correctly()', function () {
+    $html = "<p>&lt;</p>";
 
-    /** @test */
-    public function html_entities_are_transformed_correctly()
-    {
-        $html = "<p>&lt;</p>";
+    $output = (new Editor)
+        ->setContent($html)
+        ->getDocument();
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => "<",
-                        ],
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => "<",
                     ],
                 ],
             ],
-        ];
-
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
-    }
-}
+        ],
+    ]);
+});

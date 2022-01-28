@@ -1,69 +1,64 @@
 <?php
 
-namespace Tiptap\Tests\JSONOutput;
-
 use Tiptap\Editor;
 
-class WhitespaceTest extends \PHPUnit\Framework\TestCase
-{
-    /** @test */
-    public function whitespace_at_the_beginning_is_stripped()
-    {
-        $html = "<p>\nExample\n Text</p>";
+test('whitespace at the beginning is stripped', function () {
+    $html = "<p>\nExample\n Text</p>";
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => "Example\nText",
-                        ],
+    $output = (new Editor)
+        ->setContent($html)
+        ->getDocument();
+
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => "Example\nText",
                     ],
                 ],
             ],
-        ];
+        ],
+    ]);
+});
 
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
-    }
+test('whitespace in codeBlocks is ignored', function () {
+    $html = "<p>\n" .
+            "    Example Text\n" .
+            "</p>\n" .
+            "<pre><code>\n" .
+            "Line of Code\n" .
+            "    Line of Code 2\n" .
+            "Line of Code</code></pre>";
 
-    /** @test */
-    public function whitespace_in_codeBlocks_is_ignored()
-    {
-        $html = "<p>\n" .
-                "    Example Text\n" .
-                "</p>\n" .
-                "<pre><code>\n" .
-                "Line of Code\n" .
-                "    Line of Code 2\n" .
-                "Line of Code</code></pre>";
+    $output = (new Editor)
+        ->setContent($html)
+        ->getDocument();
 
-        $document = [
-            'type' => 'doc',
-            'content' => [
-                [
-                    'type' => 'paragraph',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => 'Example Text',
-                        ],
-                    ],
-                ],
-                [
-                    'type' => 'codeBlock',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' => "Line of Code\n    Line of Code 2\nLine of Code",
-                        ],
+    expect($output)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
                     ],
                 ],
             ],
-        ];
-
-        $this->assertEquals($document, (new Editor)->setContent($html)->getDocument());
-    }
-}
+            [
+                'type' => 'codeBlock',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => "Line of Code\n    Line of Code 2\nLine of Code",
+                    ],
+                ],
+            ],
+        ],
+    ]);
+});

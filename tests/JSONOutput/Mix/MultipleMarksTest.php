@@ -3,7 +3,6 @@
 namespace Tiptap\Tests\JSONOutput\Mix;
 
 use Tiptap\Editor;
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class MultipleMarksTest extends \PHPUnit\Framework\TestCase
 {

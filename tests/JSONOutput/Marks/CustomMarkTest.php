@@ -2,7 +2,6 @@
 
 namespace Tiptap\Tests\JSONOutput\Marks;
 
-use Tiptap\Tests\JSONOutput\TestCase;
 
 class CustomMarkTest extends \PHPUnit\Framework\TestCase
 {

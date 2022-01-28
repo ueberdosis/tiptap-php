@@ -2,12 +2,12 @@
 
 use Tiptap\Editor;
 
-test('getHTML() returns HTML', function () {
-    $input = [
+test('codeBlock node gets rendered correctly', function () {
+    $document = [
         'type' => 'doc',
         'content' => [
             [
-                'type' => 'paragraph',
+                'type' => 'codeBlock',
                 'content' => [
                     [
                         'type' => 'text',
@@ -19,8 +19,8 @@ test('getHTML() returns HTML', function () {
     ];
 
     $result = (new Editor)
-        ->setContent($input)
+        ->setContent($document)
         ->getHTML();
 
-    expect($result)->toEqual('<p>Example Text</p>');
+    expect($result)->toEqual('<pre><code>Example Text</code></pre>');
 });

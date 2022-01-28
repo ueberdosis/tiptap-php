@@ -2,8 +2,8 @@
 
 use Tiptap\Editor;
 
-test('getHTML() returns HTML', function () {
-    $input = [
+test('paragraph node gets rendered correctly()', function () {
+    $document = [
         'type' => 'doc',
         'content' => [
             [
@@ -11,7 +11,7 @@ test('getHTML() returns HTML', function () {
                 'content' => [
                     [
                         'type' => 'text',
-                        'text' => 'Example Text',
+                        'text' => 'Example Paragraph',
                     ],
                 ],
             ],
@@ -19,8 +19,8 @@ test('getHTML() returns HTML', function () {
     ];
 
     $result = (new Editor)
-        ->setContent($input)
+        ->setContent($document)
         ->getHTML();
 
-    expect($result)->toEqual('<p>Example Text</p>');
+    expect($result)->toEqual('<p>Example Paragraph</p>');
 });

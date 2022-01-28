@@ -2,8 +2,14 @@
 
 use Tiptap\Editor;
 
-test('getHTML() returns HTML', function () {
-    $input = [
+test('getDocument() returns a PHP array', function () {
+    $html = "<p>Example Text</p>";
+
+    $result = (new Editor)
+        ->setContent($html)
+        ->getDocument();
+
+    expect($result)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -16,11 +22,5 @@ test('getHTML() returns HTML', function () {
                 ],
             ],
         ],
-    ];
-
-    $result = (new Editor)
-        ->setContent($input)
-        ->getHTML();
-
-    expect($result)->toEqual('<p>Example Text</p>');
+    ]);
 });

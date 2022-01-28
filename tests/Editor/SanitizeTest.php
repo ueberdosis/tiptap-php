@@ -18,7 +18,11 @@ test('unknown nodes are removed from the document', function () {
         ],
     ];
 
-    $sanitizedDocument = [
+    $result = (new Editor)
+        ->setContent($document)
+        ->getDocument();
+
+    expect($result)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -31,11 +35,7 @@ test('unknown nodes are removed from the document', function () {
                 ],
             ],
         ],
-    ];
-
-    $output = (new Editor)->setContent($document)->getDocument();
-
-    expect($output)->toEqual($sanitizedDocument);
+    ]);
 });
 
 
@@ -55,7 +55,9 @@ test('unknown nodes are removed from the document with the sanitized method', fu
         ],
     ];
 
-    $sanitizedDocument = [
+    $result = (new Editor)->sanitize($document);
+
+    expect($result)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -68,28 +70,23 @@ test('unknown nodes are removed from the document with the sanitized method', fu
                 ],
             ],
         ],
-    ];
-
-    $output = (new Editor)->sanitize($document);
-
-    expect($output)->toEqual($sanitizedDocument);
+    ]);
 });
 
 test('unknown HTML tags are removed', function () {
     $document = '<p>Example Text<script>alert("HACKED");</script></p>';
 
-    $output = (new Editor)->setContent($document)->getHTML();
+    $result = (new Editor)->setContent($document)->getHTML();
 
-    expect($output)->toEqual('<p>Example Text</p>');
+    expect($result)->toEqual('<p>Example Text</p>');
 });
 
 test('unknown HTML tags are removed with the sanitize method', function () {
     $document = '<p>Example Text<script>alert("HACKED");</script></p>';
 
+    $result = (new Editor)->sanitize($document);
 
-    $output = (new Editor)->sanitize($document);
-
-    expect($output)->toEqual('<p>Example Text</p>');
+    expect($result)->toEqual('<p>Example Text</p>');
 });
 
 test('unknown nodes are removed from the JSON', function () {
@@ -108,11 +105,11 @@ test('unknown nodes are removed from the JSON', function () {
         ],
     ]);
 
-    $output = (new Editor)
+    $result = (new Editor)
         ->setContent($document)
         ->getJSON();
 
-    $sanitizedDocument = json_encode([
+    expect($result)->toEqual(json_encode([
         'type' => 'doc',
         'content' => [
             [
@@ -125,9 +122,7 @@ test('unknown nodes are removed from the JSON', function () {
                 ],
             ],
         ],
-    ]);
-
-    expect($output)->toEqual($sanitizedDocument);
+    ]));
 });
 
 test('unknown nodes are removed from the json with the sanitized method', function () {
@@ -146,9 +141,9 @@ test('unknown nodes are removed from the json with the sanitized method', functi
         ],
     ]);
 
-    $output = (new Editor)->sanitize($document);
+    $result = (new Editor)->sanitize($document);
 
-    $sanitizedDocument = json_encode([
+    expect($result)->toEqual(json_encode([
         'type' => 'doc',
         'content' => [
             [
@@ -161,7 +156,5 @@ test('unknown nodes are removed from the json with the sanitized method', functi
                 ],
             ],
         ],
-    ]);
-
-    expect($output)->toEqual($sanitizedDocument);
+    ]));
 });

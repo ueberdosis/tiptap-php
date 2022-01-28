@@ -2,8 +2,14 @@
 
 use Tiptap\Editor;
 
-test('getHTML() returns HTML', function () {
-    $input = [
+test('emojis are transformed correctly', function () {
+    $html = "<p>🔥</p>";
+
+    $result = (new Editor)
+        ->setContent($html)
+        ->getDocument();
+
+    expect($result)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -11,16 +17,10 @@ test('getHTML() returns HTML', function () {
                 'content' => [
                     [
                         'type' => 'text',
-                        'text' => 'Example Text',
+                        'text' => "🔥",
                     ],
                 ],
             ],
         ],
-    ];
-
-    $result = (new Editor)
-        ->setContent($input)
-        ->getHTML();
-
-    expect($result)->toEqual('<p>Example Text</p>');
+    ]);
 });

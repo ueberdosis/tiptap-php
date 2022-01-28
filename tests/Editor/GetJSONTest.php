@@ -2,14 +2,12 @@
 
 use Tiptap\Editor;
 
-test('json_output_is_correct()', function () {
+test('getJSON() returns JSON', function () {
     $html = "<p>Example</p>";
 
-    $output = (new Editor)
+    $result = (new Editor)
         ->setContent($html)
         ->getJSON();
 
-    $json = '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Example"}]}]}';
-
-    expect($output)->toEqual($json);
+    expect($result)->toEqual('{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Example"}]}]}');
 });

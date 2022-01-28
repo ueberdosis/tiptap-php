@@ -3,7 +3,7 @@
 use Tiptap\Editor;
 
 test('json strings are detected', function () {
-    $output = (new Editor)->setContent('{
+    $result = (new Editor)->setContent('{
         "type": "doc",
         "content": [
             {
@@ -18,7 +18,7 @@ test('json strings are detected', function () {
         ]
     }')->getDocument();
 
-    $json = [
+    expect($result)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -31,14 +31,12 @@ test('json strings are detected', function () {
                 ],
             ],
         ],
-    ];
-
-    expect($output)->toEqual($json);
+    ]);
 });
 
 
 test('arrays are detected', function () {
-    $input = [
+    $document = [
         'type' => 'doc',
         'content' => [
             [
@@ -53,20 +51,20 @@ test('arrays are detected', function () {
         ],
     ];
 
-    $output = (new Editor)
-        ->setContent($input)
+    $result = (new Editor)
+        ->setContent($document)
         ->getDocument();
 
-    expect($output)->toEqual($input);
+    expect($result)->toEqual($document);
 });
 
 
 test('html is detected', function () {
-    $output = (new Editor)
+    $result = (new Editor)
         ->setContent('<p>Example <strong>Text</strong></p>')
         ->getDocument();
 
-    $json = [
+    expect($result)->toEqual([
         'type' => 'doc',
         'content' => [
             [
@@ -88,7 +86,5 @@ test('html is detected', function () {
                 ],
             ],
         ],
-    ];
-
-    expect($output)->toEqual($json);
+    ]);
 });

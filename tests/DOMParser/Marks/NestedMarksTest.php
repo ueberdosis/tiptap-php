@@ -5,7 +5,7 @@ use Tiptap\Editor;
 test('nested marks are rendered correctly', function () {
     $html = '<strong>only bold <em>bold and italic</em> only bold</strong>';
 
-        $result = (new Editor)
+    $result = (new Editor)
         ->setContent($html)
         ->getDocument();
 

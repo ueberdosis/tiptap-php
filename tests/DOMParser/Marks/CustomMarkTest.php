@@ -12,7 +12,7 @@ class CustomMark extends \Tiptap\Core\Mark
         return [
             [
                 'tag' => 'span',
-            ]
+            ],
         ];
     }
 
@@ -41,14 +41,14 @@ test('b and strong get rendered correctly', function () {
         ->getDocument();
 
     expect($result)->toEqual([
-        'type'    => 'doc',
+        'type' => 'doc',
         'content' => [
             [
-                'type'    => 'paragraph',
+                'type' => 'paragraph',
                 'content' => [
                     [
-                        'type'  => 'text',
-                        'text'  => 'Example',
+                        'type' => 'text',
+                        'text' => 'Example',
                         'marks' => [
                             [
                                 'type' => 'custom',

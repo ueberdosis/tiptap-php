@@ -1,8 +1,8 @@
 <?php
 
 use Tiptap\Editor;
-use Tiptap\Nodes\Mention;
 use Tiptap\Extensions\StarterKit;
+use Tiptap\Nodes\Mention;
 
 test('user mention gets rendered correctly', function () {
     $html = '<p>Hey <span data-type="mention" data-id="123"></span>, was geht?</p>';

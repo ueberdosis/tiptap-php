@@ -5,7 +5,7 @@ use Tiptap\Editor;
 test('output_must_not_have_empty_text_nodes()', function () {
     $html = "<em><br />\n</em>";
 
-        $result = (new Editor)
+    $result = (new Editor)
         ->setContent($html)
         ->getDocument();
 

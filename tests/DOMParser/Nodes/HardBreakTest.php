@@ -2,7 +2,7 @@
 
 use Tiptap\Editor;
 
-test('break_gets_rendered_correctly', function () {
+test('break gets rendered correctly', function () {
     $html = '<p>Hard <br />Break</p>';
 
     $result = (new Editor)
@@ -33,7 +33,7 @@ test('break_gets_rendered_correctly', function () {
 });
 
 
-test('multiple_nodes_get_rendered_correctly', function () {
+test('multiple nodes get rendered correctly', function () {
     $html = '<p>Example</p><p>Text</p>';
 
     $result = (new Editor)

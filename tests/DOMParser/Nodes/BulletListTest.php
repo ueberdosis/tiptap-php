@@ -2,7 +2,7 @@
 
 use Tiptap\Editor;
 
-test('bulletList_gets_rendered_correctly', function () {
+test('bulletList gets rendered correctly', function () {
     $html = '<ul><li><p>Example</p></li><li><p>Text</p></li></ul>';
 
     $result = (new Editor)
@@ -49,7 +49,7 @@ test('bulletList_gets_rendered_correctly', function () {
     ]);
 });
 
-test('bulletlistItem_with_text_only_gets_wrapped_in_paragraph', function () {
+test('bulletlistItem with text only gets wrapped in paragraph', function () {
     $html = '<ul><li>Example</li><li>Text <em>Test</em></li></ul>';
 
     $result = (new Editor)
@@ -105,7 +105,7 @@ test('bulletlistItem_with_text_only_gets_wrapped_in_paragraph', function () {
     ]);
 });
 
-test('listItems_with_space_get_rendered_correctly', function () {
+test('listItems with space get rendered correctly', function () {
     $html = '<ul><li> </li></ul>';
 
     $result = (new Editor)

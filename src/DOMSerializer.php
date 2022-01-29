@@ -2,8 +2,9 @@
 
 namespace Tiptap;
 
-use DOMDocument;
 use stdClass;
+use DOMDocument;
+use Tiptap\Utils\HTML;
 
 class DOMSerializer
 {
@@ -48,14 +49,22 @@ class DOMSerializer
             break;
         }
 
-        if (isset($node->content)) {
+        // ["content" => …]
+        $lastElement = $html[array_key_last($html)] ?? null;
+        if (isset($lastElement['content'])) {
+            $html[array_key_last($html)] = $lastElement['content'];
+        }
+        // child nodes
+        elseif (isset($node->content)) {
             foreach ($node->content as $index => $nestedNode) {
                 $previousNestedNode = $node->content[$index - 1] ?? null;
                 $nextNestedNode = $node->content[$index + 1] ?? null;
 
                 $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode);
             }
-        } elseif (isset($node->text)) {
+        }
+        // text
+        elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
         }
 
@@ -164,6 +173,11 @@ class DOMSerializer
             $renderHTML = $extension->renderHTML($nodeOrMark, $HTMLAttributes);
         }
 
+        // ["content" => …]
+        if (isset($renderHTML['content'])) {
+            return $renderHTML;
+        }
+
         // null
         if (is_null($renderHTML)) {
             return '';
@@ -180,7 +194,7 @@ class DOMSerializer
                     // next item: ['class' => 'foobar']
                     if ($nextTag = $renderHTML[$index + 1] ?? null) {
                         if (is_array($nextTag) && ! in_array(0, $nextTag, true)) {
-                            $attributes = $this->renderHTMLFromAttributes($nextTag);
+                            $attributes = HTML::renderAttributes($nextTag);
 
                             // <a href="#">
                             $html[] = "<{$renderInstruction}{$attributes}>";
@@ -208,17 +222,6 @@ class DOMSerializer
         throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
-    private function renderHTMLFromAttributes($attrs)
-    {
-        $attributes = [];
-
-        foreach (array_filter($attrs) ?? [] as $name => $value) {
-            $attributes[] = " {$name}=\"{$value}\"";
-        }
-
-        return join($attributes);
-    }
-
     private function isSelfClosing($tag)
     {
         $dom = new DOMDocument('1.0', 'utf-8');
@@ -234,6 +237,11 @@ class DOMSerializer
         // null
         if (is_null($renderHTML)) {
             return '';
+        }
+
+        // ["content" => …]
+        if (isset($renderHTML['content'])) {
+            return;
         }
 
         // ['table', ['tbody']]

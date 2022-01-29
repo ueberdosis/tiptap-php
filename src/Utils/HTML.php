@@ -27,4 +27,15 @@ class HTML
 
         return $attributes;
     }
+
+    public static function renderAttributes(array $attrs)
+    {
+        $attributes = [];
+
+        foreach (array_filter($attrs) ?? [] as $name => $value) {
+            $attributes[] = " {$name}=\"{$value}\"";
+        }
+
+        return join($attributes);
+    }
 }

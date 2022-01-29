@@ -16,7 +16,8 @@
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "scrivo/highlight.php": "v9.18.1.9"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",

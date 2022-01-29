@@ -70,6 +70,35 @@ This doesn’t fully adhere to the ProseMirror schema. Some things are supported
 
 If you need better schema support, create an issue with the feature you’re missing.
 
+### Syntax highlighting for code blocks
+The default `CodeBlock` extension doesn’t add syntax highlighting to your code blocks. However, if you want to add syntax highlighting to your code blocks, there’s a special `CodeBlockHighlight` extension.
+
+Swapping the default one out works like that:
+
+```php
+echo (new Tiptap\Editor([
+        'extensions' => [
+            new \Tiptap\Extensions\StarterKit([
+                'codeBlock' => false,
+            ]),
+            new \Tiptap\Nodes\CodeBlockHighlight(),
+        ],
+    ]))
+    ->setContent('<pre><code class="hljs php">&lt;?php phpinfo()</code></pre>')
+    ->getHTML();
+
+// Returns:
+// <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> phpinfo()</code></pre>
+```
+
+This is still unstyled. You need to [load a CSS file](https://highlightjs.org/download/) to add colors to the output, for example like that:
+
+```html
+<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.4.0/styles/default.min.css">
+```
+
+Boom, syntax highlighting! By the way, this is powered by the amazing [scrivo/highlight.php](https://github.com/scrivo/highlight.php).
+
 ### Convert content to plain text
 Content can also be transformed to plain text, for example to put it into a search index.
 

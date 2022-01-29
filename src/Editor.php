@@ -23,6 +23,10 @@ class Editor
 
         $this->configuration = array_merge_recursive($this->configuration, $configuration);
         $this->schema = Schema::from($this->configuration['extensions']);
+
+        if (isset($configuration['content'])) {
+            $this->setContent($configuration['content']);
+        }
     }
 
     public function setContent($value)

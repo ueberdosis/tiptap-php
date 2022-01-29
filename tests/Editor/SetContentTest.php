@@ -88,3 +88,24 @@ test('html is detected', function () {
         ],
     ]);
 });
+
+test('content can be passed to the configuration', function () {
+    $result = (new Editor([
+        'content' => '<p>Example Text</p>',
+    ]))->getDocument();
+
+    expect($result)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
+                    ],
+                ],
+            ],
+        ],
+    ]);
+});

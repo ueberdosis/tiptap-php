@@ -3,8 +3,8 @@
 namespace Tiptap\Nodes;
 
 use DomainException;
-use Tiptap\Utils\HTML;
 use Highlight\Highlighter;
+use Tiptap\Utils\HTML;
 
 class CodeBlockHighlight extends CodeBlock
 {

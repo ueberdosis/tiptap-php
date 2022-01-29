@@ -2,8 +2,8 @@
 
 namespace Tiptap;
 
-use stdClass;
 use DOMDocument;
+use stdClass;
 use Tiptap\Utils\HTML;
 
 class DOMSerializer

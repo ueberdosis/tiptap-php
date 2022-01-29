@@ -75,7 +75,7 @@ Content can also be transformed to plain text, for example to put it into a sear
 
 ```php
 (new Editor)
-    ->setContent('<h1>Heading</h1>')
+    ->setContent('<h1>Heading</h1><p>Paragraph</p>')
     ->getText();
 
 // Returns:
@@ -88,7 +88,7 @@ What’s coming between blocks can be configured, too.
 
 ```php
 (new Editor)
-    ->setContent('<h1>Heading</h1>')
+    ->setContent('<h1>Heading</h1><p>Paragraph</p>')
     ->getText([
         'blockSeparator' => "\n",
     ]);

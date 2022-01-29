@@ -70,6 +70,34 @@ This doesn’t fully adhere to the ProseMirror schema. Some things are supported
 
 If you need better schema support, create an issue with the feature you’re missing.
 
+### Convert content to plain text
+Content can also be transformed to plain text, for example to put it into a search index.
+
+```php
+(new Editor)
+    ->setContent('<h1>Heading</h1>')
+    ->getText();
+
+// Returns:
+// "Heading
+//
+// Paragraph"
+```
+
+What’s coming between blocks can be configured, too.
+
+```php
+(new Editor)
+    ->setContent('<h1>Heading</h1>')
+    ->getText([
+        'blockSeparator' => "\n",
+    ]);
+
+// Returns:
+// "Heading
+// Paragraph"
+```
+
 ### Sanitize content
 A great use case for the PHP package is to clean (or “sanitize”) the content. You can do that with the `sanitize()` method. Works with JSON strings, PHP arrays and HTML.
 

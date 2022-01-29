@@ -50,6 +50,11 @@ class Editor
         return json_encode($this->document);
     }
 
+    public function getText($configuration = [])
+    {
+        return (new TextSerializer($this->schema, $configuration))->render($this->document);
+    }
+
     public function getHTML()
     {
         return (new DOMSerializer($this->schema))->render($this->document);

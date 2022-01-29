@@ -76,16 +76,16 @@ The default `CodeBlock` extension doesn’t add syntax highlighting to your code
 Swapping the default one out works like that:
 
 ```php
-echo (new Tiptap\Editor([
-        'extensions' => [
-            new \Tiptap\Extensions\StarterKit([
-                'codeBlock' => false,
-            ]),
-            new \Tiptap\Nodes\CodeBlockHighlight(),
-        ],
-    ]))
-    ->setContent('<pre><code class="hljs php">&lt;?php phpinfo()</code></pre>')
-    ->getHTML();
+(new Tiptap\Editor([
+    'extensions' => [
+        new \Tiptap\Extensions\StarterKit([
+            'codeBlock' => false,
+        ]),
+        new \Tiptap\Nodes\CodeBlockHighlight(),
+    ],
+]))
+->setContent('<pre><code class="hljs php">&lt;?php phpinfo()</code></pre>')
+->getHTML();
 
 // Returns:
 // <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> phpinfo()</code></pre>

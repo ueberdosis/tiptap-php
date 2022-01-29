@@ -126,13 +126,27 @@ $editor->descendants(function (&$node) {
 });
 ```
 
+### Configuration
+Pass the configuration to the constructor of the editor. There’s not much to configure, but at least you can pass the initial content and load specific extensions.
+
+```php
+new Tiptap\Editor([
+    'content' => '<p>Example Text</p>',
+    'extensions' => [
+        new Tiptap\Extensions\StarterKit,
+    ],
+])
+```
+
+The `StarterKit` is loaded by default. If you just want to use that, there’s no need to set it.
+
 ### Extensions
 By default, the [`StarterKit`](https://tiptap.dev/api/extensions/starter-kit) is loaded, but you can pass a custom array of extensions aswell.
 
 ```php
 new Tiptap\Editor([
     'extensions' => [
-        new Tiptap\Nodes\StarterKit,
+        new Tiptap\Extensions\StarterKit,
         new Tiptap\Nodes\Link,
     ],
 ])
@@ -162,6 +176,23 @@ new Tiptap\Editor([
             'HTMLAttributes' => [
                 'class' => 'my-custom-class',
             ],
+        ]),
+    ],
+])
+```
+
+For the `StarterKit`, it’s slightly different, but works as you are used to from the JavaScript package.
+
+```php
+new Tiptap\Editor([
+    'extensions' => [
+        new Tiptap\Extensions\StarterKit([
+            'codeBlock' => false,
+            'heading' => [
+                'HTMLAttributes' => [
+                    'class' => 'my-custom-class',
+                ],
+            ]
         ]),
     ],
 ])

@@ -73,7 +73,7 @@ If you need better schema support, create an issue with the feature you’re mis
 ### Syntax highlighting for code blocks
 The default `CodeBlock` extension doesn’t add syntax highlighting to your code blocks. However, if you want to add syntax highlighting to your code blocks, there’s a special `CodeBlockHighlight` extension.
 
-Swapping the default one out works like that:
+Swapping our the default one works like that:
 
 ```php
 (new Tiptap\Editor([

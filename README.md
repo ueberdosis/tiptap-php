@@ -84,7 +84,7 @@ Swapping our the default one works like that:
         new \Tiptap\Nodes\CodeBlockHighlight(),
     ],
 ]))
-->setContent('<pre><code class="hljs php">&lt;?php phpinfo()</code></pre>')
+->setContent('<pre><code>&lt;?php phpinfo()</code></pre>')
 ->getHTML();
 
 // Returns:

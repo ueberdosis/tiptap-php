@@ -57,7 +57,7 @@ class CodeBlock extends Node
                         : null,
                 ],
                 0,
-            ]
+            ],
         ];
     }
 }

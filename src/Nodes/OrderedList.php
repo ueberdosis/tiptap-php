@@ -22,7 +22,7 @@ class OrderedList extends Node
     {
         return [
             'order' => [
-                'parseHTML' => fn ($DOMNode) => (int) $DOMNode->getAttribute('start') ?: null,
+                'parseHTML' => fn ($DOMNode) => (int)$DOMNode->getAttribute('start') ?: null,
                 'renderHTML' => fn ($attributes) => ($attributes->order ?? null) ? ['start' => $attributes->order] : null,
             ],
         ];

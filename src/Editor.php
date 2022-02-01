@@ -7,11 +7,9 @@ use Tiptap\Extensions\StarterKit;
 
 class Editor
 {
-    protected array $document;
-
     public Schema $schema;
-
     public array $configuration = [];
+    protected array $document;
 
     public function __construct(array $configuration = [])
     {
@@ -44,41 +42,6 @@ class Editor
         return $this;
     }
 
-    public function getDocument(): array
-    {
-        return $this->document;
-    }
-
-    public function getJSON()
-    {
-        return json_encode($this->document);
-    }
-
-    public function getText($configuration = []): string
-    {
-        return (new TextSerializer($this->schema, $configuration))->render($this->document);
-    }
-
-    public function getHTML(): string
-    {
-        return (new DOMSerializer($this->schema))->render($this->document);
-    }
-
-    /**
-     * @return array|false|string
-     * @throws Exception
-     */
-    public function sanitize($value)
-    {
-        if ($this->getContentType($value) === 'HTML') {
-            return $this->setContent($value)->getHTML();
-        } elseif ($this->getContentType($value) === 'Array') {
-            return $this->setContent($value)->getDocument();
-        }
-
-        return $this->setContent($value)->getJSON();
-    }
-
     public function getContentType($value): string
     {
         if (is_string($value)) {
@@ -99,6 +62,41 @@ class Editor
         }
 
         throw new Exception('Unknown format passed to setContent().');
+    }
+
+    public function getText($configuration = []): string
+    {
+        return (new TextSerializer($this->schema, $configuration))->render($this->document);
+    }
+
+    /**
+     * @return array|false|string
+     * @throws Exception
+     */
+    public function sanitize($value)
+    {
+        if ($this->getContentType($value) === 'HTML') {
+            return $this->setContent($value)->getHTML();
+        } elseif ($this->getContentType($value) === 'Array') {
+            return $this->setContent($value)->getDocument();
+        }
+
+        return $this->setContent($value)->getJSON();
+    }
+
+    public function getHTML(): string
+    {
+        return (new DOMSerializer($this->schema))->render($this->document);
+    }
+
+    public function getDocument(): array
+    {
+        return $this->document;
+    }
+
+    public function getJSON()
+    {
+        return json_encode($this->document);
     }
 
     public function descendants($closure): self

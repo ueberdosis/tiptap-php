@@ -60,11 +60,6 @@ class DOMParser
         return (new Minify)->process($value);
     }
 
-    private function getDocumentBody(): DOMNode
-    {
-        return $this->document->getElementsByTagName('body')->item(0);
-    }
-
     private function renderChildren(DOMNode $node): array
     {
         $nodes = [];
@@ -161,14 +156,6 @@ class DOMParser
     private function getMatchingNode(DOMNode $item)
     {
         return $this->getMatchingClass($item, $this->schema->nodes);
-    }
-
-    /**
-     * @return false|Mark|Node
-     */
-    private function getMatchingMark(DOMNode $item)
-    {
-        return $this->getMatchingClass($item, $this->schema->marks);
     }
 
     /**
@@ -347,5 +334,18 @@ class DOMParser
         }
 
         return $item;
+    }
+
+    /**
+     * @return false|Mark|Node
+     */
+    private function getMatchingMark(DOMNode $item)
+    {
+        return $this->getMatchingClass($item, $this->schema->marks);
+    }
+
+    private function getDocumentBody(): DOMNode
+    {
+        return $this->document->getElementsByTagName('body')->item(0);
     }
 }

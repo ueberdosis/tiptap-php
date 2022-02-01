@@ -9,20 +9,6 @@ class ListItem extends Node
 {
     public static string $name = 'listItem';
 
-    public function parseHTML(): array
-    {
-        return [
-            [
-                'tag' => 'li',
-            ],
-        ];
-    }
-
-    public function renderHTML($node, array $HTMLAttributes = []): ?array
-    {
-        return ['li', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
-    }
-
     public static function wrapper($DOMNode): ?array
     {
         if (
@@ -35,5 +21,19 @@ class ListItem extends Node
         return [
             'type' => 'paragraph',
         ];
+    }
+
+    public function parseHTML(): array
+    {
+        return [
+            [
+                'tag' => 'li',
+            ],
+        ];
+    }
+
+    public function renderHTML($node, array $HTMLAttributes = []): ?array
+    {
+        return ['li', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

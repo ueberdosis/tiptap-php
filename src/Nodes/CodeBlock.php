@@ -34,7 +34,7 @@ class CodeBlock extends Node
             'language' => [
                 'parseHTML' => function ($DOMNode) {
                     return preg_replace(
-                        "/^" . $this->options['languageClassPrefix']. "/",
+                        "/^" . $this->options['languageClassPrefix'] . "/",
                         "",
                         $DOMNode->childNodes[0]->getAttribute('class')
                     ) ?: null;
@@ -53,8 +53,8 @@ class CodeBlock extends Node
                 'code',
                 [
                     'class' => $node->attrs->language ?? null
-                        ? $this->options['languageClassPrefix'] . $node->attrs->language
-                        : null,
+                            ? $this->options['languageClassPrefix'] . $node->attrs->language
+                            : null,
                 ],
                 0,
             ],

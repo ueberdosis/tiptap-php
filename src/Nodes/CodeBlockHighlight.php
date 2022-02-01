@@ -34,7 +34,8 @@ class CodeBlockHighlight extends CodeBlock
                     'class' => $this->options['languageClassPrefix'] . $result->language,
                 ],
                 array_merge(
-                    $this->options['HTMLAttributes'], $HTMLAttributes
+                    $this->options['HTMLAttributes'],
+                    $HTMLAttributes
                 ),
             );
 

@@ -84,8 +84,7 @@ class DOMSerializer
         $lastElement = $html[array_key_last($html)] ?? null;
         if (isset($lastElement['content'])) {
             $html[array_key_last($html)] = $lastElement['content'];
-        }
-        // child nodes
+        } // child nodes
         elseif (isset($node->content)) {
             foreach ($node->content as $index => $nestedNode) {
                 $previousNestedNode = $node->content[$index - 1] ?? null;
@@ -93,8 +92,7 @@ class DOMSerializer
 
                 $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode);
             }
-        }
-        // text
+        } // text
         elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES);
         }
@@ -134,11 +132,6 @@ class DOMSerializer
     private function markShouldOpen($mark, $previousNode): bool
     {
         return $this->nodeHasMark($previousNode, $mark);
-    }
-
-    private function markShouldClose($mark, $nextNode): bool
-    {
-        return $this->nodeHasMark($nextNode, $mark);
     }
 
     private function nodeHasMark($node, $mark): bool
@@ -277,8 +270,7 @@ class DOMSerializer
                         return null;
                     }
                     $html[] = "</{$renderInstruction}>";
-                }
-                // ['tbody', 0]
+                } // ['tbody', 0]
                 elseif (is_array($renderInstruction) && in_array(0, $renderInstruction)) {
                     $html[] = $this->renderClosingTag($renderInstruction);
                 }
@@ -301,5 +293,10 @@ class DOMSerializer
         $rendered = $dom->saveHTML();
 
         return substr_count($rendered, $tag) === 1;
+    }
+
+    private function markShouldClose($mark, $nextNode): bool
+    {
+        return $this->nodeHasMark($nextNode, $mark);
     }
 }

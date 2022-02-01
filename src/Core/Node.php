@@ -13,12 +13,17 @@ abstract class Node
         $this->options = array_merge($this->addOptions(), $options);
     }
 
-     public function addOptions(): array
-     {
-         return [
-             'HTMLAttributes' => [],
-         ];
-     }
+    public function addOptions(): array
+    {
+        return [
+            'HTMLAttributes' => [],
+        ];
+    }
+
+    public static function wrapper($DOMNode): ?array
+    {
+        return null;
+    }
 
     public function parseHTML(): array
     {
@@ -26,11 +31,6 @@ abstract class Node
     }
 
     public function renderHTML($node, array $HTMLAttributes = []): ?array
-    {
-        return null;
-    }
-
-    public static function wrapper($DOMNode): ?array
     {
         return null;
     }

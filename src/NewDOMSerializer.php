@@ -3,6 +3,7 @@
 namespace Tiptap;
 
 use DOMDocument;
+use Exception;
 
 class NewDOMSerializer
 {
@@ -41,6 +42,29 @@ class NewDOMSerializer
     public function __construct()
     {
         $this->dom = new DOMDocument('1.0', 'utf-8');
+    }
+
+    public function render(array $value): string
+    {
+        // transform document to object
+        $this->document = json_decode(json_encode($value));
+
+        $content = is_array($this->document->content) ? $this->document->content : [];
+
+        foreach ($content as $index => $node) {
+            $prevNode = $content[$index - 1] ?? null;
+            $nextNode = $content[$index + 1] ?? null;
+
+            $current = $this->renderNode($node, $prevNode, $nextNode);
+
+            if ($current && $current->element) {
+                $this->dom->appendChild($current->element);
+            }
+        }
+
+        return trim(
+            $this->dom->saveHTML()
+        );
     }
 
     private function renderNode($node, $prevNode = null, $nextNode = null): ?DOMSerializerPointer
@@ -186,18 +210,18 @@ class NewDOMSerializer
         //     …
         // }
 
-        throw new \Exception('Failed to use renderHTML output.');
-    }
-
-    private function markShouldOpen($mark, $prevNode): bool
-    {
-        return $this->nodeHasMark($prevNode, $mark);
+        throw new Exception('Failed to use renderHTML output.');
     }
 
     // private function markShouldClose($mark, $nextNode): bool
     // {
     //     return $this->nodeHasMark($nextNode, $mark);
     // }
+
+    private function markShouldOpen($mark, $prevNode): bool
+    {
+        return $this->nodeHasMark($prevNode, $mark);
+    }
 
     private function nodeHasMark($node, $mark): bool
     {
@@ -217,28 +241,5 @@ class NewDOMSerializer
         }
 
         return true;
-    }
-
-    public function render(array $value): string
-    {
-        // transform document to object
-        $this->document = json_decode(json_encode($value));
-
-        $content = is_array($this->document->content) ? $this->document->content : [];
-
-        foreach ($content as $index => $node) {
-            $prevNode = $content[$index - 1] ?? null;
-            $nextNode = $content[$index + 1] ?? null;
-
-            $current = $this->renderNode($node, $prevNode, $nextNode);
-
-            if ($current && $current->element) {
-                $this->dom->appendChild($current->element);
-            }
-        }
-
-        return trim(
-            $this->dom->saveHTML()
-        );
     }
 }

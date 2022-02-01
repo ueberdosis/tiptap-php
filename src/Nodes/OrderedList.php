@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class OrderedList extends Node
 {
-    public static $name = 'orderedList';
+    public static string $name = 'orderedList';
 
     public function parseHTML(): array
     {
@@ -18,7 +18,7 @@ class OrderedList extends Node
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         return [
             'order' => [

@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Subscript extends Mark
 {
-    public static $name = 'subscript';
+    public static string $name = 'subscript';
 
     public function parseHTML(): array
     {

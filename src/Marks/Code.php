@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Code extends Mark
 {
-    public static $name = 'code';
+    public static string $name = 'code';
 
     public function parseHTML(): array
     {

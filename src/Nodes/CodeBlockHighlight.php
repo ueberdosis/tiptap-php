@@ -8,7 +8,7 @@ use Tiptap\Utils\HTML;
 
 class CodeBlockHighlight extends CodeBlock
 {
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'languageClassPrefix' => 'hljs ',
@@ -16,7 +16,7 @@ class CodeBlockHighlight extends CodeBlock
         ];
     }
 
-    public function renderHTML($node, $HTMLAttributes = [])
+    public function renderHTML($node, $HTMLAttributes = []): ?array
     {
         $code = $node->content[0]->text ?? null;
 
@@ -34,7 +34,7 @@ class CodeBlockHighlight extends CodeBlock
                     'class' => $this->options['languageClassPrefix'] . $result->language,
                 ],
                 $this->options['HTMLAttributes'],
-                $HTMLAttributes,
+                $HTMLAttributes, // TODO third parameter not supported, maybe merge spreaded elements into array of second argument
             );
 
             $renderedAttributes = HTML::renderAttributes($mergedAttributes);

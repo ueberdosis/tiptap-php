@@ -4,17 +4,22 @@ namespace Tiptap;
 
 use DOMDocument;
 use DOMElement;
+use DOMNode;
+use Exception;
+use Tiptap\Core\Mark;
+use Tiptap\Core\Node;
+use Tiptap\Nodes\Text;
 use Tiptap\Utils\InlineStyle;
 
 class DOMParser
 {
-    protected $document;
+    protected DOMDocument $document;
 
-    protected $schema;
+    protected Schema $schema;
 
-    protected $storedMarks = [];
+    protected array $storedMarks = [];
 
-    public function __construct($schema)
+    public function __construct(Schema $schema)
     {
         $this->schema = $schema;
     }
@@ -33,7 +38,7 @@ class DOMParser
         ];
     }
 
-    private function setDocument(string $value): DOMParser
+    private function setDocument(string $value)
     {
         libxml_use_internal_errors(true);
 
@@ -43,11 +48,9 @@ class DOMParser
                 $this->stripWhitespace($value)
             )
         );
-
-        return $this;
     }
 
-    private function wrapHtmlDocument($value)
+    private function wrapHtmlDocument(string $value): string
     {
         return '<?xml encoding="utf-8" ?>' . $value;
     }
@@ -57,15 +60,16 @@ class DOMParser
         return (new Minify)->process($value);
     }
 
-    private function getDocumentBody(): DOMElement
+    private function getDocumentBody(): DOMNode
     {
         return $this->document->getElementsByTagName('body')->item(0);
     }
 
-    private function renderChildren($node): array
+    private function renderChildren(DOMNode $node): array
     {
         $nodes = [];
 
+        /** @var DOMNode $child */
         foreach ($node->childNodes as $child) {
             if ($class = $this->getMatchingNode($child)) {
                 $item = $this->parseAttributes($class, $child);
@@ -98,9 +102,12 @@ class DOMParser
                     ];
                 }
 
-                array_push($nodes, $item);
+                $nodes[] = $item;
             } elseif ($class = $this->getMatchingMark($child)) {
-                array_push($this->storedMarks, $this->parseAttributes($class, $child));
+                $item = $this->parseAttributes($class, $child);
+                if ($item !== null) {
+                    $this->storedMarks[] = $this->parseAttributes($class, $child);
+                }
 
                 if ($child->hasChildNodes()) {
                     $nodes = array_merge($nodes, $this->renderChildren($child));
@@ -148,17 +155,26 @@ class DOMParser
         return $mergedNodes;
     }
 
-    private function getMatchingNode($item)
+    /**
+     * @return false|Mark|Node
+     */
+    private function getMatchingNode(DOMNode $item)
     {
         return $this->getMatchingClass($item, $this->schema->nodes);
     }
 
-    private function getMatchingMark($item)
+    /**
+     * @return false|Mark|Node
+     */
+    private function getMatchingMark(DOMNode $item)
     {
         return $this->getMatchingClass($item, $this->schema->marks);
     }
 
-    private function getMatchingClass($node, $classes)
+    /**
+     * @return false|Mark|Node
+     */
+    private function getMatchingClass(DOMNode $node, array $classes)
     {
         foreach ($classes as $class) {
             if ($this->checkParseRules($class->parseHTML($node), $node)) {
@@ -169,7 +185,7 @@ class DOMParser
         return false;
     }
 
-    private function checkParseRules($parseRules, $DOMNode)
+    private function checkParseRules($parseRules, DOMNode $DOMNode): bool
     {
         // TODO: Can we throw this away?
         // if (is_bool($parseRules)) {
@@ -189,7 +205,11 @@ class DOMParser
         return false;
     }
 
-    private function checkParseRule($parseRule, $DOMNode)
+    /**
+     * @param DOMElement|DOMNode $DOMNode
+     * @throws Exception
+     */
+    private function checkParseRule(array $parseRule, DOMNode $DOMNode): bool
     {
         // ['tag' => 'span[type="mention"]']
         if (isset($parseRule['tag'])) {
@@ -207,6 +227,7 @@ class DOMParser
                 return false;
             }
 
+            // TODO this if statement always return false this should have a fix
             if (isset($attribute) && ! $DOMNode->hasAttribute($attribute)) {
                 if (isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
                     return false;
@@ -236,9 +257,7 @@ class DOMParser
             }
         }
 
-        if (
-            ! is_array($parseRule)
-            || ! count($parseRule)
+        if (! count($parseRule)
             || (
                 ! isset($parseRule['tag'])
                 && ! isset($parseRule['style'])
@@ -250,14 +269,19 @@ class DOMParser
         return true;
     }
 
-    private function parseAttributes($class, $DOMNode)
+    /**
+     * @param Mark|Node $class
+     * @param DOMElement|DOMNode $DOMNode
+     * @throws Exception
+     */
+    private function parseAttributes($class, DOMNode $DOMNode): ?array
     {
         // TODO: I want to remove ::data
         $item = [
             'type' => $class::$name,
         ];
 
-        if ($class::$name === 'text') {
+        if ($class::$name === Text::$name) {
             $text = ltrim($DOMNode->nodeValue, "\n");
 
             if ($text === '') {
@@ -270,10 +294,6 @@ class DOMParser
         }
 
         $parseRules = $class->parseHTML();
-
-        if (! is_array($parseRules)) {
-            return $item;
-        }
 
         foreach ($parseRules as $parseRule) {
             if (! $this->checkParseRule($parseRule, $DOMNode)) {
@@ -310,23 +330,13 @@ class DOMParser
             }
         }
 
-        /**
-         * public function addAttributes()
-         * {
-         *     return [
-         *         'href' => [
-         *             'parseHTML' => function ($DOMNode) {
-         *                 $attrs['href'] = $DOMNode->getAttribute('href');
-         *             }
-         *         ],
-         *     ];
-         * }
-         */
         if (method_exists($class, 'addAttributes')) {
             foreach ($class->addAttributes() as $attribute => $configuration) {
+                $value = null;
+
                 if (isset($configuration['parseHTML'])) {
                     $value = $configuration['parseHTML']($DOMNode);
-                } else {
+                } elseif ($DOMNode instanceof DOMElement) {
                     $value = $DOMNode->getAttribute($attribute) ?: null;
                 }
 

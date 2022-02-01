@@ -2,11 +2,12 @@
 
 namespace Tiptap\Utils;
 
+use DOMNode;
 use Exception;
 
 class InlineStyle
 {
-    public static function get($DOMNode)
+    public static function get(DOMNode $DOMNode): array
     {
         $results = [];
 
@@ -30,7 +31,11 @@ class InlineStyle
         return $results;
     }
 
-    public static function hasAttribute($DOMNode, $value)
+    /**
+     * @param string|array $value
+     * @throws Exception
+     */
+    public static function hasAttribute(DOMNode $DOMNode, $value)
     {
         $styles = self::get($DOMNode);
 
@@ -45,7 +50,7 @@ class InlineStyle
         throw new Exception('Can’t compare inline styles to ' . json_encode($value));
     }
 
-    public static function getAttribute($DOMNode, $attribute)
+    public static function getAttribute(DOMNode $DOMNode, string $attribute): ?string
     {
         return self::get($DOMNode)[$attribute] ?? null;
     }

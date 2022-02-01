@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Superscript extends Mark
 {
-    public static $name = 'superscript';
+    public static string $name = 'superscript';
 
     public function parseHTML(): array
     {

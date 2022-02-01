@@ -2,12 +2,22 @@
 
 use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
+use Tiptap\Utils\HTML;
 
 class CustomMark extends \Tiptap\Core\Mark
 {
-    public static $name = 'custom';
+    public static string $name = 'custom';
 
-    public function parseHTML()
+    public function renderHTML($mark, array $HTMLAttributes = []): array
+    {
+        return [
+            'span',
+            HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes),
+            0,
+        ];
+    }
+
+    public function parseHTML(): array
     {
         return [
             [

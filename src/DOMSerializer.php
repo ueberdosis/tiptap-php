@@ -3,20 +3,51 @@
 namespace Tiptap;
 
 use DOMDocument;
+use DOMException;
+use Exception;
 use stdClass;
 use Tiptap\Utils\HTML;
 
 class DOMSerializer
 {
-    protected $document;
+    protected object $document;
 
-    protected $schema;
+    protected Schema $schema;
 
-    public function __construct($schema)
+    public function __construct(Schema $schema)
     {
         $this->schema = $schema;
     }
 
+    /**
+     * @throws Exception
+     */
+    public function render(array $value): string
+    {
+        $html = [];
+
+        // transform document to object
+        $this->document = json_decode(json_encode($value));
+
+        $content = is_array($this->document->content) ? $this->document->content : [];
+
+        foreach ($content as $index => $node) {
+            $previousNode = $content[$index - 1] ?? null;
+            $nextNode = $content[$index + 1] ?? null;
+
+            $html[] = $this->renderNode($node, $previousNode, $nextNode);
+        }
+
+        return implode($html);
+    }
+
+    /**
+     * @param object|array|null $node
+     * @param object|array|null $previousNode
+     * @param object|array|null $nextNode
+     * @return string
+     * @throws DOMException
+     */
     private function renderNode($node, $previousNode = null, $nextNode = null): string
     {
         $html = [];
@@ -65,7 +96,7 @@ class DOMSerializer
         }
         // text
         elseif (isset($node->text)) {
-            $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
+            $html[] = htmlspecialchars($node->text, ENT_QUOTES);
         }
 
         foreach ($this->schema->nodes as $extension) {
@@ -92,7 +123,7 @@ class DOMSerializer
             }
         }
 
-        return join($html);
+        return implode($html);
     }
 
     private function isMarkOrNode($markOrNode, $renderClass): bool
@@ -100,17 +131,17 @@ class DOMSerializer
         return isset($markOrNode->type) && $markOrNode->type === $renderClass::$name;
     }
 
-    private function markShouldOpen($mark, $previousNode)
+    private function markShouldOpen($mark, $previousNode): bool
     {
         return $this->nodeHasMark($previousNode, $mark);
     }
 
-    private function markShouldClose($mark, $nextNode)
+    private function markShouldClose($mark, $nextNode): bool
     {
         return $this->nodeHasMark($nextNode, $mark);
     }
 
-    private function nodeHasMark($node, $mark)
+    private function nodeHasMark($node, $mark): bool
     {
         if (! $node) {
             return true;
@@ -130,6 +161,10 @@ class DOMSerializer
         return true;
     }
 
+    /**
+     * @return string|array|null
+     * @throws Exception
+     */
     private function renderOpeningTag($extension, $nodeOrMark, $renderHTML = false)
     {
         /**
@@ -180,7 +215,7 @@ class DOMSerializer
 
         // null
         if (is_null($renderHTML)) {
-            return '';
+            return null;
         }
 
         // ['table', ['tbody', 0]]
@@ -210,38 +245,25 @@ class DOMSerializer
                 elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
                     $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $renderInstruction);
                 }
-                // ['class' => 'foobar']
-                elseif (is_array($renderInstruction)) {
-                    continue;
-                }
             }
 
-            return join($html);
+            return implode($html);
         }
 
-        throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
+        throw new Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
-    private function isSelfClosing($tag)
-    {
-        $dom = new DOMDocument('1.0', 'utf-8');
-        $element = $dom->createElement($tag, 'test');
-        $dom->appendChild($element);
-        $rendered = $dom->saveHTML();
-
-        return substr_count($rendered, $tag) === 1;
-    }
-
-    private function renderClosingTag($renderHTML)
+    /**
+     * @param object|array|null $renderHTML
+     * @throws DOMException
+     * @throws Exception
+     */
+    private function renderClosingTag($renderHTML): ?string
     {
         // null
-        if (is_null($renderHTML)) {
-            return '';
-        }
-
         // ["content" => …]
-        if (isset($renderHTML['content'])) {
-            return;
+        if ($renderHTML === null || isset($renderHTML['content'])) {
+            return null;
         }
 
         // ['table', ['tbody']]
@@ -262,28 +284,22 @@ class DOMSerializer
                 }
             }
 
-            return join($html);
+            return implode($html);
         }
 
-        throw new \Exception('[renderClosingTag] Failed to use renderHTML: ' . json_encode($renderHTML));
+        throw new Exception('[renderClosingTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
-    public function render(array $value)
+    /**
+     * @throws DOMException
+     */
+    private function isSelfClosing(string $tag): bool
     {
-        $html = [];
+        $dom = new DOMDocument('1.0', 'utf-8');
+        $element = $dom->createElement($tag, 'test');
+        $dom->appendChild($element);
+        $rendered = $dom->saveHTML();
 
-        // transform document to object
-        $this->document = json_decode(json_encode($value));
-
-        $content = is_array($this->document->content) ? $this->document->content : [];
-
-        foreach ($content as $index => $node) {
-            $previousNode = $content[$index - 1] ?? null;
-            $nextNode = $content[$index + 1] ?? null;
-
-            $html[] = $this->renderNode($node, $previousNode, $nextNode);
-        }
-
-        return join($html);
+        return substr_count($rendered, $tag) === 1;
     }
 }

@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Table extends Node
 {
-    public static $name = 'table';
+    public static string $name = 'table';
 
     public function parseHTML(): array
     {

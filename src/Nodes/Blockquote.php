@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Blockquote extends Node
 {
-    public static $name = 'blockquote';
+    public static string $name = 'blockquote';
 
     public function parseHTML(): array
     {

@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Underline extends Mark
 {
-    public static $name = 'underline';
+    public static string $name = 'underline';
 
     public function parseHTML(): array
     {

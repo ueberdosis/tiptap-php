@@ -8,9 +8,9 @@ use Tiptap\Utils\InlineStyle;
 
 class Highlight extends Mark
 {
-    public static $name = 'highlight';
+    public static string $name = 'highlight';
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'multicolor' => false,
@@ -27,7 +27,7 @@ class Highlight extends Mark
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         if (! $this->options['multicolor']) {
             return [];

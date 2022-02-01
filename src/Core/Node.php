@@ -4,8 +4,8 @@ namespace Tiptap\Core;
 
 abstract class Node
 {
-    public static $name;
-    public static $marks = '_';
+    public static string $name;
+    public static string $marks = '_';
     public array $options = [];
 
     public function __construct(array $options = [])

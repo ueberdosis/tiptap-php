@@ -4,21 +4,21 @@ namespace Tiptap;
 
 class TextSerializer
 {
-    protected $document;
+    protected object $document;
 
-    protected $schema;
+    protected Schema $schema;
 
-    protected $configuration = [
+    protected array $configuration = [
         'blockSeparator' => "\n\n",
     ];
 
-    public function __construct($schema, $configuration = [])
+    public function __construct(Schema $schema, array $configuration = [])
     {
         $this->schema = $schema;
         $this->configuration = array_merge($this->configuration, $configuration);
     }
 
-    public function render(array $value)
+    public function render(array $value): string
     {
         $html = [];
 
@@ -27,11 +27,11 @@ class TextSerializer
 
         $content = is_array($this->document->content) ? $this->document->content : [];
 
-        foreach ($content as $index => $node) {
+        foreach ($content as $node) {
             $html[] = $this->renderNode($node);
         }
 
-        return join($this->configuration['blockSeparator'], $html);
+        return implode($this->configuration['blockSeparator'], $html);
     }
 
     private function renderNode($node): string
@@ -39,13 +39,13 @@ class TextSerializer
         $text = [];
 
         if (isset($node->content)) {
-            foreach ($node->content as $index => $nestedNode) {
+            foreach ($node->content as $nestedNode) {
                 $text[] = $this->renderNode($nestedNode);
             }
         } elseif (isset($node->text)) {
-            $text[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
+            $text[] = htmlspecialchars($node->text, ENT_QUOTES);
         }
 
-        return join($this->configuration['blockSeparator'], $text);
+        return implode($this->configuration['blockSeparator'], $text);
     }
 }

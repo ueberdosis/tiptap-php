@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class HorizontalRule extends Node
 {
-    public static $name = 'horizontalRule';
+    public static string $name = 'horizontalRule';
 
     public function parseHTML(): array
     {

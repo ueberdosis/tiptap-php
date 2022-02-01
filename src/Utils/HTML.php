@@ -4,12 +4,12 @@ namespace Tiptap\Utils;
 
 class HTML
 {
-    public static function mergeAttributes(array $attributes, array $moreAttributes)
+    public static function mergeAttributes(array $attributes, array $moreAttributes): array
     {
         foreach ($moreAttributes as $key => $value) {
             // class="foo bar"
             if ($key === 'class') {
-                $attributes['class'] = trim($attributes['class'] ?? '' . ' ' . $value);
+                $attributes['class'] = trim($attributes['class'] ?? ' ' . $value);
 
                 continue;
             }
@@ -28,7 +28,7 @@ class HTML
         return $attributes;
     }
 
-    public static function renderAttributes(array $attrs)
+    public static function renderAttributes(array $attrs): string
     {
         $attributes = [];
 
@@ -36,6 +36,6 @@ class HTML
             $attributes[] = " {$name}=\"{$value}\"";
         }
 
-        return join($attributes);
+        return implode($attributes);
     }
 }

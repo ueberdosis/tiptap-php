@@ -6,7 +6,7 @@ use Tiptap\Core\Node;
 
 class Mention extends Node
 {
-    public static $name = 'mention';
+    public static string $name = 'mention';
 
     public function parseHTML(): array
     {
@@ -17,7 +17,7 @@ class Mention extends Node
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         return [
             'id' => [

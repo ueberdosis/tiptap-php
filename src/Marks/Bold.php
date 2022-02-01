@@ -8,7 +8,7 @@ use Tiptap\Utils\InlineStyle;
 
 class Bold extends Mark
 {
-    public static $name = 'bold';
+    public static string $name = 'bold';
 
     public function parseHTML(): array
     {
@@ -27,7 +27,7 @@ class Bold extends Mark
             [
                 'style' => 'font-weight',
                 'getAttrs' => function ($value) {
-                    return (bool) preg_match('/^(bold(er)?|[5-9]\d{2,})$/', $value) ? null : false;
+                    return preg_match('/^(bold(er)?|[5-9]\d{2,})$/', $value) ? null : false;
                 },
             ],
         ];

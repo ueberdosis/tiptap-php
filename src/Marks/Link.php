@@ -7,9 +7,9 @@ use Tiptap\Utils\HTML;
 
 class Link extends Mark
 {
-    public static $name = 'link';
+    public static string $name = 'link';
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [
             'HTMLAttributes' => [
@@ -28,7 +28,7 @@ class Link extends Mark
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         return [
             'href' => [],

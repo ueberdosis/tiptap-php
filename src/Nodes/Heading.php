@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Heading extends Node
 {
-    public static $name = 'heading';
+    public static string $name = 'heading';
 
     public function addOptions(): array
     {

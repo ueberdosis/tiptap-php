@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class TextStyle extends Mark
 {
-    public static $name = 'textStyle';
+    public static string $name = 'textStyle';
 
     public function parseHTML(): array
     {

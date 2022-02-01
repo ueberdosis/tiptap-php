@@ -8,7 +8,7 @@ use Tiptap\Utils\InlineStyle;
 
 class Italic extends Mark
 {
-    public static $name = 'italic';
+    public static string $name = 'italic';
 
     public function parseHTML(): array
     {

@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Strike extends Mark
 {
-    public static $name = 'strike';
+    public static string $name = 'strike';
 
     public function parseHTML(): array
     {

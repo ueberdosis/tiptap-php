@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class ListItem extends Node
 {
-    public static $name = 'listItem';
+    public static string $name = 'listItem';
 
     public function parseHTML(): array
     {

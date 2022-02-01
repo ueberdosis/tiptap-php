@@ -7,11 +7,11 @@ use Tiptap\Extensions\StarterKit;
 
 class Editor
 {
-    protected $document;
+    protected array $document;
 
-    public $schema;
+    public Schema $schema;
 
-    public $configuration = [];
+    public array $configuration = [];
 
     public function __construct(array $configuration = [])
     {
@@ -29,7 +29,7 @@ class Editor
         }
     }
 
-    public function setContent($value)
+    public function setContent($value): self
     {
         if ($this->getContentType($value) === 'HTML') {
             $this->document = (new DOMParser($this->schema))->render($value);
@@ -44,7 +44,7 @@ class Editor
         return $this;
     }
 
-    public function getDocument()
+    public function getDocument(): array
     {
         return $this->document;
     }
@@ -54,28 +54,32 @@ class Editor
         return json_encode($this->document);
     }
 
-    public function getText($configuration = [])
+    public function getText($configuration = []): string
     {
         return (new TextSerializer($this->schema, $configuration))->render($this->document);
     }
 
-    public function getHTML()
+    public function getHTML(): string
     {
         return (new DOMSerializer($this->schema))->render($this->document);
     }
 
+    /**
+     * @return array|false|string
+     * @throws Exception
+     */
     public function sanitize($value)
     {
         if ($this->getContentType($value) === 'HTML') {
             return $this->setContent($value)->getHTML();
         } elseif ($this->getContentType($value) === 'Array') {
             return $this->setContent($value)->getDocument();
-        } elseif ($this->getContentType($value) === 'JSON') {
-            return $this->setContent($value)->getJSON();
         }
+
+        return $this->setContent($value)->getJSON();
     }
 
-    public function getContentType($value)
+    public function getContentType($value): string
     {
         if (is_string($value)) {
             try {
@@ -97,7 +101,7 @@ class Editor
         throw new Exception('Unknown format passed to setContent().');
     }
 
-    public function descendants($closure)
+    public function descendants($closure): self
     {
         // Transform the document to an object
         $node = json_decode(json_encode($this->document));

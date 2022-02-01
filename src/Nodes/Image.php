@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Image extends Node
 {
-    public static $name = 'image';
+    public static string $name = 'image';
 
     public function parseHTML(): array
     {
@@ -18,7 +18,7 @@ class Image extends Node
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         return [
             'src' => [],

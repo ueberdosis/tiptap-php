@@ -4,19 +4,20 @@ namespace Tiptap\Core;
 
 abstract class Extension
 {
-    public static $name;
+    public static string $name;
+    public array $options = [];
 
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->addOptions(), $options);
     }
 
-    public function addOptions()
+    public function addOptions(): array
     {
         return [];
     }
 
-    public function addExtensions()
+    public function addExtensions(): array
     {
         return [];
     }

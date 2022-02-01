@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class HardBreak extends Node
 {
-    public static $name = 'hardBreak';
+    public static string $name = 'hardBreak';
 
     public function parseHTML(): array
     {

@@ -16,8 +16,11 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "scrivo/highlight.php": "v9.18.1.9"
+        "php": "^7.4 || ^8.0",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "scrivo/highlight.php": "^9.18.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",

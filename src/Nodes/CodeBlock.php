@@ -7,9 +7,9 @@ use Tiptap\Utils\HTML;
 
 class CodeBlock extends Node
 {
-    public static $name = 'codeBlock';
+    public static string $name = 'codeBlock';
 
-    public static $marks = '';
+    public static string $marks = '';
 
     public function addOptions(): array
     {
@@ -28,7 +28,7 @@ class CodeBlock extends Node
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         return [
             'language' => [

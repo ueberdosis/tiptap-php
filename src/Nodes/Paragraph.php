@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class Paragraph extends Node
 {
-    public static $name = 'paragraph';
+    public static string $name = 'paragraph';
 
     public function parseHTML(): array
     {

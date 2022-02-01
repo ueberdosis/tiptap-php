@@ -6,7 +6,7 @@ use Tiptap\Core\Node;
 
 class Text extends Node
 {
-    public static $name = 'text';
+    public static string $name = 'text';
 
     public function parseHTML(): array
     {

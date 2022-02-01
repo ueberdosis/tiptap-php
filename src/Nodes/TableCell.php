@@ -6,7 +6,7 @@ use Tiptap\Core\Node;
 
 class TableCell extends Node
 {
-    public static $name = 'tableCell';
+    public static string $name = 'tableCell';
 
     public function parseHTML(): array
     {
@@ -17,7 +17,7 @@ class TableCell extends Node
         ];
     }
 
-    public function addAttributes()
+    public function addAttributes(): array
     {
         return [
             'rowspan' => [
@@ -49,7 +49,7 @@ class TableCell extends Node
         ];
     }
 
-    protected static function getAttrs($node)
+    protected static function getAttrs($node): array
     {
         $attrs = [];
 

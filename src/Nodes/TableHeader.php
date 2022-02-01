@@ -4,7 +4,7 @@ namespace Tiptap\Nodes;
 
 class TableHeader extends TableCell
 {
-    public static $name = 'tableHeader';
+    public static string $name = 'tableHeader';
 
     public function parseHTML(): array
     {

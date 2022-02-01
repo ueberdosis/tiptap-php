@@ -7,7 +7,7 @@ use Tiptap\Utils\HTML;
 
 class BulletList extends Node
 {
-    public static $name = 'bulletList';
+    public static string $name = 'bulletList';
 
     public function parseHTML(): array
     {

@@ -12,6 +12,7 @@
         <ignoreFiles>
             <directory name="vendor"/>
             <file name="src/NewDOMSerializer.php" />
+            <file name="src/DOMSerializerPointer.php" />
         </ignoreFiles>
     </projectFiles>
 </psalm>

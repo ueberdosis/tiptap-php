@@ -4,11 +4,11 @@ namespace Tiptap;
 
 class Minify
 {
-    protected $_replacementHash;
-    protected $_placeholders = [];
-    protected $_html;
+    protected array $_placeholders = [];
+    protected string $_replacementHash;
+    protected string $_html;
 
-    public function process($html)
+    public function process(string $html)
     {
         $this->_html = str_replace("\r\n", "\n", trim($html));
 
@@ -37,12 +37,12 @@ class Minify
         return $this->_html;
     }
 
-    protected function _removePreCB($m)
+    protected function _removePreCB(array $m): string
     {
         return $this->_reservePlace("<pre{$m[1]}");
     }
 
-    protected function _reservePlace($content)
+    protected function _reservePlace(string $content): string
     {
         $placeholder = '%' . $this->_replacementHash . count($this->_placeholders) . '%';
         $this->_placeholders[$placeholder] = $content;

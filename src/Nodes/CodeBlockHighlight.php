@@ -33,8 +33,9 @@ class CodeBlockHighlight extends CodeBlock
                 [
                     'class' => $this->options['languageClassPrefix'] . $result->language,
                 ],
-                $this->options['HTMLAttributes'],
-                $HTMLAttributes, // TODO third parameter not supported, maybe merge spreaded elements into array of second argument
+                array_merge(
+                    $this->options['HTMLAttributes'], $HTMLAttributes
+                ),
             );
 
             $renderedAttributes = HTML::renderAttributes($mergedAttributes);

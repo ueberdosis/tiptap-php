@@ -28,6 +28,9 @@ class OrderedList extends Node
         ];
     }
 
+    /**
+     * @psalm-suppress UnusedVariable
+     */
     public function renderHTML($node, array $HTMLAttributes = []): ?array
     {
         // TODO: Move to `addAttributes`

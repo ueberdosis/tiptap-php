@@ -94,7 +94,7 @@ class DOMParser
                     ]);
                 }
 
-                if ($wrapper = $class::wrapper($child)) {
+                if (is_subclass_of($class, Node::class) && $wrapper = $class::wrapper($child)) {
                     $item['content'] = [
                         array_merge($wrapper, [
                             'content' => @$item['content'] ?: [],

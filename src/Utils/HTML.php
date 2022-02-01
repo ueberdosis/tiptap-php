@@ -32,7 +32,7 @@ class HTML
     {
         $attributes = [];
 
-        foreach (array_filter($attrs) ?? [] as $name => $value) {
+        foreach (array_filter($attrs) as $name => $value) {
             $attributes[] = " {$name}=\"{$value}\"";
         }
 

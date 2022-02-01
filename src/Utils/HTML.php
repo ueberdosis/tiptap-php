@@ -4,25 +4,31 @@ namespace Tiptap\Utils;
 
 class HTML
 {
-    public static function mergeAttributes(array $attributes, array $moreAttributes)
+    public static function mergeAttributes()
     {
-        foreach ($moreAttributes as $key => $value) {
-            // class="foo bar"
-            if ($key === 'class') {
-                $attributes['class'] = trim($attributes['class'] ?? '' . ' ' . $value);
+        $args = func_get_args();
 
-                continue;
+        $attributes = array_shift($args);
+
+        foreach ($args as $moreAttributes) {
+            foreach ($moreAttributes as $key => $value) {
+                // class="foo bar"
+                if ($key === 'class') {
+                    $attributes['class'] = trim($attributes['class'] ?? '' . ' ' . $value);
+
+                    continue;
+                }
+
+                // style="color: red;"
+                if ($key === 'style') {
+                    $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value, ';') . '; ';
+                    $attributes['style'] = ltrim(trim($style), '; ');
+
+                    continue;
+                }
+
+                $attributes[$key] = $value;
             }
-
-            // style="color: red;"
-            if ($key === 'style') {
-                $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value, ';') . '; ';
-                $attributes['style'] = ltrim(trim($style), '; ');
-
-                continue;
-            }
-
-            $attributes[$key] = $value;
         }
 
         return $attributes;
@@ -30,6 +36,19 @@ class HTML
 
     public static function renderAttributes(array $attrs)
     {
+        // Make boolean values a string, so they can be rendered in HTML
+        $attrs = array_map(function ($attribute) {
+            if ($attribute === true) {
+                return 'true';
+            }
+
+            if ($attribute === false) {
+                return 'false';
+            }
+
+            return $attribute;
+        }, $attrs);
+
         $attributes = [];
 
         foreach (array_filter($attrs) ?? [] as $name => $value) {

@@ -150,18 +150,31 @@ class DOMSerializer
 
         if (method_exists($extension, 'addAttributes')) {
             foreach ($extension->addAttributes() as $attribute => $configuration) {
+                // 'rendered' => false
                 if (isset($configuration['rendered']) && $configuration['rendered'] === false) {
                     continue;
                 }
 
+                // 'default' => 'foobar'
+                if (!isset($nodeOrMark->attrs->{$attribute}) && isset($configuration['default'])) {
+                    if (!isset($nodeOrMark->attrs)) {
+                        $nodeOrMark->attrs = new stdClass;
+                    }
+
+                    $nodeOrMark->attrs->{$attribute} = $configuration['default'];
+                }
+
+                // 'renderHTML' => fn($attributes) …
                 if (isset($configuration['renderHTML'])) {
                     $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
                 } else {
-                    $value = [$attribute => $nodeOrMark->attrs->{$attribute} ?? null] ?? null;
+                    $value = [
+                        $attribute => $nodeOrMark->attrs->{$attribute} ?? null
+                    ];
                 }
 
                 if ($value !== null) {
-                    $HTMLAttributes = array_merge($HTMLAttributes, $value);
+                    $HTMLAttributes = HTML::mergeAttributes($HTMLAttributes, $value);
                 }
             }
         }
@@ -189,21 +202,45 @@ class DOMSerializer
             $html = [];
 
             foreach ($renderHTML as $index => $renderInstruction) {
-                // 'table'
+                // ['div', …]
                 if (is_string($renderInstruction)) {
-                    // next item: ['class' => 'foobar']
                     if ($nextTag = $renderHTML[$index + 1] ?? null) {
-                        if (is_array($nextTag) && ! in_array(0, $nextTag, true)) {
-                            $attributes = HTML::renderAttributes($nextTag);
+                        // ['table', ['class' => 'custom-class']]
+                        if (! in_array(0, $nextTag, true)) {
+                            if (is_array($nextTag) && $this->isAnAttributeArray($nextTag)) {
+                                $attributes = HTML::renderAttributes($nextTag);
+                            } else {
+                                $attributes = '';
+                            }
 
                             // <a href="#">
                             $html[] = "<{$renderInstruction}{$attributes}>";
+                        } else {
+                            $html[] = "<{$renderInstruction}>";
+                        }
+                    } else {
+                        $html[] = "<{$renderInstruction}>";
+                    }
 
-                            continue;
+                    // ['div', 'span']
+                    if (is_array($nextTag) && !in_array(0, $nextTag, true)) {
+                        if (!$this->isAnAttributeArray($nextTag)) {
+                            $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
+                            $html[] = $this->renderClosingTag($nextTag);
                         }
                     }
 
-                    $html[] = "<{$renderInstruction}>";
+                    // ['div', ?, 'span']
+                    if ($nextTag = $renderHTML[$index + 2] ?? null) {
+                        if (!in_array(0, $nextTag, true)) {
+                            if (!$this->isAnAttributeArray($nextTag)) {
+                                $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
+                                $html[] = $this->renderClosingTag($nextTag);
+                            }
+                        }
+                    }
+
+                    continue;
                 }
                 // ['tbody', 0]
                 // TODO: Make in_array recursive
@@ -220,6 +257,17 @@ class DOMSerializer
         }
 
         throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
+    }
+
+    private function isAnAttributeArray($items)
+    {
+        if (!is_array($items)) {
+            return false;
+        }
+
+        $keys = array_keys($items);
+
+        return $keys !== array_keys($keys);
     }
 
     private function isSelfClosing($tag)
@@ -248,18 +296,56 @@ class DOMSerializer
         if (is_array($renderHTML)) {
             $html = [];
 
-            foreach (array_reverse($renderHTML) as $renderInstruction) {
-                // 'table
+            foreach (array_reverse($renderHTML) as $index => $renderInstruction) {
+                // // ['div', …]
+                // if (is_string($renderInstruction)) {
+                //     $html[] = "</{$renderInstruction}>";
+
+                //     $nextTag = $renderHTML[$index + 1] ?? null;
+
+                //     // ['div', 'span']
+                //     if (is_array($nextTag) && !in_array(0, $nextTag, true)) {
+                //         if (!$this->isAnAttributeArray($nextTag)) {
+                //             $html[] = $this->renderClosingTag($nextTag);
+                //         }
+                //     }
+
+                //     // ['div', ?, 'span']
+                //     if ($nextTag = $renderHTML[$index + 2] ?? null) {
+                //         if (!in_array(0, $nextTag, true)) {
+                //             if (!$this->isAnAttributeArray($nextTag)) {
+                //                 $html[] = $this->renderClosingTag($nextTag);
+                //             }
+                //         }
+                //     }
+
+                //     continue;
+                // }
+                // // ['tbody', 0]
+                // // TODO: Make in_array recursive
+                // elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
+                //     $html[] = $this->renderClosingTag($renderInstruction);
+                // }
+                // // ['class' => 'foobar']
+                // elseif (is_array($renderInstruction)) {
+                //     continue;
+                // }
+                // 'div'
                 if (is_string($renderInstruction)) {
                     if ($this->isSelfClosing($renderInstruction)) {
                         return null;
                     }
+
                     $html[] = "</{$renderInstruction}>";
                 }
-                // ['tbody', 0]
+                // ['div', 0]
                 elseif (is_array($renderInstruction) && in_array(0, $renderInstruction)) {
                     $html[] = $this->renderClosingTag($renderInstruction);
                 }
+                // // ['div', ['span']]
+                // elseif (is_array($renderInstruction) && count($renderInstruction) &&!$this->isAnAttributeArray($renderInstruction)) {
+                //     $html[] = $this->renderClosingTag($renderInstruction);
+                // }
             }
 
             return join($html);

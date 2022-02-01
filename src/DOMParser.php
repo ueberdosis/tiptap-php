@@ -193,7 +193,7 @@ class DOMParser
     {
         // ['tag' => 'span[type="mention"]']
         if (isset($parseRule['tag'])) {
-            if (preg_match('/([a-z-]*)\[([a-z-]+)(="([a-z]*)")?\]$/', $parseRule['tag'], $matches)) {
+            if (preg_match('/([a-z-]*)\[([a-z-]+)(="([a-zA-Z]*)")?\]$/', $parseRule['tag'], $matches)) {
                 $tag = $matches[1];
                 $attribute = $matches[2];
                 if (isset($matches[4])) {
@@ -208,10 +208,10 @@ class DOMParser
             }
 
             if (isset($attribute) && ! $DOMNode->hasAttribute($attribute)) {
-                if (isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
-                    return false;
-                }
+                return false;
+            }
 
+            if (isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
                 return false;
             }
         }

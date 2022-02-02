@@ -339,7 +339,7 @@ class DOMSerializer
                     $html[] = "</{$renderInstruction}>";
                 }
                 // ['div', 0]
-                elseif (is_array($renderInstruction) && in_array(0, $renderInstruction)) {
+                elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
                     $html[] = $this->renderClosingTag($renderInstruction);
                 }
                 // // ['div', ['span']]

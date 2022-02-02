@@ -32,8 +32,8 @@ class Schema
             return is_subclass_of($extension, \Tiptap\Core\Extension::class);
         });
 
-        $this->defaultNode = reset($this->nodes) ?? null;
-        $this->topNode = current(array_filter($this->nodes, fn ($node) => $node::$topNode)) ?? null;
+        $this->defaultNode = reset($this->nodes);
+        $this->topNode = current(array_filter($this->nodes, fn ($node) => $node::$topNode));
 
         return $this;
     }

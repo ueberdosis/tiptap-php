@@ -39,6 +39,9 @@ class DOMParser
         libxml_use_internal_errors(true);
 
         $this->document = new DOMDocument;
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         */
         $this->document->loadHTML(
             $this->wrapHtmlDocument(
                 $this->stripWhitespace($value)

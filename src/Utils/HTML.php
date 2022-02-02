@@ -4,6 +4,10 @@ namespace Tiptap\Utils;
 
 class HTML
 {
+    /**
+     * Merge an associative array of attributes,
+     * and make sure to merge classes and inline styles.
+     */
     public static function mergeAttributes()
     {
         $args = func_get_args();
@@ -34,6 +38,10 @@ class HTML
         return $attributes;
     }
 
+    /**
+     * Render an associative array of attributes
+     * as a HTML string.
+     */
     public static function renderAttributes(array $attrs)
     {
         // Make boolean values a string, so they can be rendered in HTML
@@ -51,6 +59,7 @@ class HTML
 
         $attributes = [];
 
+        // class="custom"
         foreach (array_filter($attrs) as $name => $value) {
             $attributes[] = " {$name}=\"{$value}\"";
         }

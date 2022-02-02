@@ -1,10 +1,11 @@
 <?php
 
-namespace Tiptap;
+namespace Tiptap\Core;
 
 use DOMDocument;
 use DOMElement;
 use Tiptap\Utils\InlineStyle;
+use Tiptap\Utils\Minify;
 
 class DOMParser
 {
@@ -171,11 +172,6 @@ class DOMParser
 
     private function checkParseRules($parseRules, $DOMNode)
     {
-        // TODO: Can we throw this away?
-        // if (is_bool($parseRules)) {
-        //     return $parseRules;
-        // }
-
         if (is_array($parseRules)) {
             foreach ($parseRules as $parseRule) {
                 if (! $this->checkParseRule($parseRule, $DOMNode)) {
@@ -193,7 +189,7 @@ class DOMParser
     {
         // ['tag' => 'span[type="mention"]']
         if (isset($parseRule['tag'])) {
-            if (preg_match('/([a-z-]*)\[([a-z-]+)(="([a-zA-Z]*)")?\]$/', $parseRule['tag'], $matches)) {
+            if (preg_match('/([a-zA-Z-]*)\[([a-z-]+)(="?([a-zA-Z]*)"?)?\]$/', $parseRule['tag'], $matches)) {
                 $tag = $matches[1];
                 $attribute = $matches[2];
                 if (isset($matches[4])) {
@@ -218,7 +214,23 @@ class DOMParser
 
         // ['style' => 'font-weight']
         if (isset($parseRule['style'])) {
-            if (! InlineStyle::hasAttribute($DOMNode, $parseRule['style'])) {
+            // ['style' => 'font-weight=italic']
+
+            if (preg_match('/([a-zA-Z-]*)(="?([a-zA-Z-]*)"?)?$/', $parseRule['style'], $matches)) {
+                $style = $matches[1];
+
+                if (isset($matches[3])) {
+                    $value = $matches[3];
+                }
+            } else {
+                $style = $parseRule['style'];
+            }
+
+            if (! InlineStyle::hasAttribute($DOMNode, $style)) {
+                return false;
+            }
+
+            if (isset($value) && InlineStyle::getAttribute($DOMNode, $style) !== $value) {
                 return false;
             }
         }
@@ -252,7 +264,6 @@ class DOMParser
 
     private function parseAttributes($class, $DOMNode)
     {
-        // TODO: I want to remove ::data
         $item = [
             'type' => $class::$name,
         ];

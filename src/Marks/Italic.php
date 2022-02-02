@@ -32,11 +32,7 @@ class Italic extends Mark
                 },
             ],
             [
-                // TODO: font-style=italic
-                'style' => 'font-style',
-                'getAttrs' => function ($value) {
-                    return $value === 'italic' ? null : false;
-                },
+                'style' => 'font-style=italic',
             ],
         ];
     }

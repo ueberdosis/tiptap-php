@@ -23,10 +23,7 @@ class Subscript extends Mark
                 'tag' => 'sub',
             ],
             [
-                'style' => 'vertical-align',
-                'getAttrs' => function ($value) {
-                    return $value === 'sub' ? null : false;
-                },
+                'style' => 'vertical-align=sub',
             ],
         ];
     }

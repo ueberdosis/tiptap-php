@@ -3,6 +3,10 @@
 namespace Tiptap;
 
 use Exception;
+use Tiptap\Core\DOMParser;
+use Tiptap\Core\DOMSerializer;
+use Tiptap\Core\Schema;
+use Tiptap\Core\TextSerializer;
 use Tiptap\Extensions\StarterKit;
 
 class Editor
@@ -11,7 +15,10 @@ class Editor
 
     public $schema;
 
-    public $configuration = [];
+    public $configuration = [
+        'content' => null,
+        'extensions' => [],
+    ];
 
     public function __construct(array $configuration = [])
     {

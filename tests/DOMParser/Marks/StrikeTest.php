@@ -55,3 +55,31 @@ test('strike and s del get rendered correctly', function () {
         ],
     ]);
 });
+
+test('inline style is parsed correctly', function () {
+    $html = '<p><span style="text-decoration: line-through">Example Text</span></p>';
+
+    $result = (new Editor)
+        ->setContent($html)
+        ->getDocument();
+
+    expect($result)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Example Text',
+                        'marks' => [
+                            [
+                                'type' => 'strike',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]);
+});

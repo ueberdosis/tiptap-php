@@ -23,10 +23,7 @@ class Superscript extends Mark
                 'tag' => 'sup',
             ],
             [
-                'style' => 'vertical-align',
-                'getAttrs' => function ($value) {
-                    return $value === 'super' ? null : false;
-                },
+                'style' => 'vertical-align=super',
             ],
         ];
     }

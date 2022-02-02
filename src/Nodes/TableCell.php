@@ -3,6 +3,7 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class TableCell extends Node
 {
@@ -45,48 +46,29 @@ class TableCell extends Node
                         return intval($w);
                     }, explode(',', $colwidth));
 
-                    // TODO: Should be in the renderHTML function
-                    // if (count($widths) === $attrs['colspan']) {
-                    //     return $widths;
-                    // }
-
                     return $widths;
+                },
+                'renderHTML' => function ($attributes) {
+                    if (! isset($attributes->colwidth)) {
+                        return null;
+                    }
+
+                    return [
+                        'data-colwidth' => join(',', $attributes->colwidth),
+                    ];
                 },
             ],
         ];
     }
 
-    protected static function getAttrs($node)
-    {
-        $attrs = [];
-
-        if (isset($node->attrs)) {
-            if (isset($node->attrs->colspan)) {
-                $attrs['colspan'] = $node->attrs->colspan;
-            }
-
-            if (isset($node->attrs->colwidth)) {
-                if ($widths = $node->attrs->colwidth) {
-                    if (count($widths) === $attrs['colspan']) {
-                        $attrs['data-colwidth'] = implode(',', $widths);
-                    }
-                }
-            }
-
-            if (isset($node->attrs->rowspan)) {
-                $attrs['rowspan'] = $node->attrs->rowspan;
-            }
-        }
-
-        return $attrs;
-    }
-
     public function renderHTML($node, $HTMLAttributes = [])
     {
-        // TODO: Add HTML Attributes
         return [
             'td',
-            self::getAttrs($node),
+            HTML::mergeAttributes(
+                $this->options['HTMLAttributes'],
+                $HTMLAttributes,
+            ),
             0,
         ];
     }

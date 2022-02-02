@@ -29,10 +29,7 @@ class Strike extends Mark
                 'tag' => 'strike',
             ],
             [
-                'style' => 'text-decoration',
-                'getAttrs' => function ($value) {
-                    return $value === 'line-through' ? null : false;
-                },
+                'style' => 'text-decoration=line-through',
             ],
         ];
     }

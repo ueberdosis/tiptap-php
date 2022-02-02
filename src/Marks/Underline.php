@@ -23,10 +23,7 @@ class Underline extends Mark
                 'tag' => 'u',
             ],
             [
-                'style' => 'text-decoration',
-                'getAttrs' => function ($value) {
-                    return $value === 'underline' ? null : false;
-                },
+                'style' => 'text-decoration=underline',
             ],
         ];
     }

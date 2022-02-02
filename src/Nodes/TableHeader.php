@@ -2,6 +2,8 @@
 
 namespace Tiptap\Nodes;
 
+use Tiptap\Utils\HTML;
+
 class TableHeader extends TableCell
 {
     public static $name = 'tableHeader';
@@ -24,7 +26,13 @@ class TableHeader extends TableCell
 
     public function renderHTML($node, $HTMLAttributes = [])
     {
-        // TODO: Add HTMLAttributes
-        return ['th', self::getAttrs($node), 0];
+        return [
+            'th',
+            HTML::mergeAttributes(
+                $this->options['HTMLAttributes'],
+                $HTMLAttributes,
+            ),
+            0,
+        ];
     }
 }

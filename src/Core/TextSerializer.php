@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap;
+namespace Tiptap\Core;
 
 class TextSerializer
 {

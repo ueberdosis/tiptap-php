@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiptap;
+namespace Tiptap\Core;
 
 use DOMDocument;
 use stdClass;
@@ -247,7 +247,6 @@ class DOMSerializer
                     continue;
                 }
                 // ['tbody', 0]
-                // TODO: Make in_array recursive
                 elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
                     $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $renderInstruction);
                 }

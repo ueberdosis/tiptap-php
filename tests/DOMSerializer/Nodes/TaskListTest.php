@@ -1,9 +1,9 @@
 <?php
 
 use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Nodes\TaskItem;
 use Tiptap\Nodes\TaskList;
-use Tiptap\Extensions\StarterKit;
 
 test('task list gets rendered correctly', function () {
     $document = [
@@ -20,7 +20,7 @@ test('task list gets rendered correctly', function () {
                                 'content' => [
                                     [
                                         'type' => 'text',
-                                        'text' => 'Example Text'
+                                        'text' => 'Example Text',
                                     ],
                                 ],
                             ],
@@ -60,7 +60,7 @@ test('task item status is rendered correctly', function () {
                                 'content' => [
                                     [
                                         'type' => 'text',
-                                        'text' => 'Example Text'
+                                        'text' => 'Example Text',
                                     ],
                                 ],
                             ],

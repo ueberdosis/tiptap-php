@@ -156,8 +156,8 @@ class DOMSerializer
                 }
 
                 // 'default' => 'foobar'
-                if (!isset($nodeOrMark->attrs->{$attribute}) && isset($configuration['default'])) {
-                    if (!isset($nodeOrMark->attrs)) {
+                if (! isset($nodeOrMark->attrs->{$attribute}) && isset($configuration['default'])) {
+                    if (! isset($nodeOrMark->attrs)) {
                         $nodeOrMark->attrs = new stdClass;
                     }
 
@@ -169,7 +169,7 @@ class DOMSerializer
                     $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
                 } else {
                     $value = [
-                        $attribute => $nodeOrMark->attrs->{$attribute} ?? null
+                        $attribute => $nodeOrMark->attrs->{$attribute} ?? null,
                     ];
                 }
 
@@ -223,8 +223,8 @@ class DOMSerializer
                     }
 
                     // ['div', 'span']
-                    if (is_array($nextTag) && !in_array(0, $nextTag, true)) {
-                        if (!$this->isAnAttributeArray($nextTag)) {
+                    if (is_array($nextTag) && ! in_array(0, $nextTag, true)) {
+                        if (! $this->isAnAttributeArray($nextTag)) {
                             $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
                             $html[] = $this->renderClosingTag($nextTag);
                         }
@@ -232,8 +232,8 @@ class DOMSerializer
 
                     // ['div', ?, 'span']
                     if ($nextTag = $renderHTML[$index + 2] ?? null) {
-                        if (!in_array(0, $nextTag, true)) {
-                            if (!$this->isAnAttributeArray($nextTag)) {
+                        if (! in_array(0, $nextTag, true)) {
+                            if (! $this->isAnAttributeArray($nextTag)) {
                                 $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
                                 $html[] = $this->renderClosingTag($nextTag);
                             }
@@ -261,7 +261,7 @@ class DOMSerializer
 
     private function isAnAttributeArray($items)
     {
-        if (!is_array($items)) {
+        if (! is_array($items)) {
             return false;
         }
 

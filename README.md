@@ -30,7 +30,7 @@ Let’s start by converting a HTML snippet to a PHP array with a Tiptap-compatib
 // ['type' => 'doc', 'content' => …]
 ```
 
-The JavaScript package returns a JSON string. You can do this in PHP, too.
+You can get a JSON string in PHP, too.
 
 ```php
 (new Tiptap\Editor)

@@ -1,9 +1,9 @@
 <?php
 
 use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
 use Tiptap\Nodes\TaskItem;
 use Tiptap\Nodes\TaskList;
-use Tiptap\Extensions\StarterKit;
 
 test('task list gets parsed correctly', function () {
     $html = '<ul data-type="taskList"><li data-type="taskItem"><p>Example Text</p></li></ul>';
@@ -30,7 +30,7 @@ test('task list gets parsed correctly', function () {
                                 'content' => [
                                     [
                                         'type' => 'text',
-                                        'text' => 'Example Text'
+                                        'text' => 'Example Text',
                                     ],
                                 ],
                             ],
@@ -67,7 +67,7 @@ test('bullet lists are still parsed correctly', function () {
                                 'content' => [
                                     [
                                         'type' => 'text',
-                                        'text' => 'Example Text'
+                                        'text' => 'Example Text',
                                     ],
                                 ],
                             ],

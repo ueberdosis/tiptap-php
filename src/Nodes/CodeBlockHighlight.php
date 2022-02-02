@@ -18,7 +18,7 @@ class CodeBlockHighlight extends CodeBlock
 
     public function renderHTML($node, $HTMLAttributes = [])
     {
-        $code = $node->content[0]->text ?? null;
+        $code = $node->content[0]->text ?? '';
 
         try {
             $highlighter = new Highlighter();

@@ -94,7 +94,7 @@ class DOMParser
                 if ($wrapper = $class::wrapper($child)) {
                     $item['content'] = [
                         array_merge($wrapper, [
-                            'content' => @$item['content'] ?: [],
+                            'content' => $item['content'] ?? [],
                         ]),
                     ];
                 }
@@ -207,7 +207,7 @@ class DOMParser
                 return false;
             }
 
-            if (isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
+            if (isset($attribute) && isset($value) && $DOMNode->getAttribute($attribute) !== $value) {
                 return false;
             }
         }

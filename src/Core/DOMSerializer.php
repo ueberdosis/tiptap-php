@@ -50,9 +50,10 @@ class DOMSerializer
         }
 
         // ["content" => …]
-        $lastElement = $html[array_key_last($html)] ?? null;
-        if (isset($lastElement['content'])) {
-            $html[array_key_last($html)] = $lastElement['content'];
+        $lastKey = array_key_last($html);
+        $lastElement = $html[$lastKey] ?? null;
+        if (! is_null($lastKey) && isset($lastElement['content'])) {
+            $html[$lastKey] = $lastElement['content'];
         }
         // child nodes
         elseif (isset($node->content)) {
@@ -208,7 +209,7 @@ class DOMSerializer
             foreach ($renderHTML as $index => $renderInstruction) {
                 // ['div', …]
                 if (is_string($renderInstruction)) {
-                    if (is_numeric($index) && $nextTag = $renderHTML[$index + 1] ?? null) {
+                    if (is_integer($index) && $nextTag = $renderHTML[$index + 1] ?? null) {
                         // ['table', ['class' => 'custom-class']]
                         if (! in_array(0, $nextTag, true)) {
                             if (is_array($nextTag) && $this->isAnAttributeArray($nextTag)) {
@@ -227,7 +228,7 @@ class DOMSerializer
                     }
 
                     // ['div', 'span']
-                    if (is_array($nextTag) && ! in_array(0, $nextTag, true)) {
+                    if (isset($nextTag) && is_array($nextTag) && ! in_array(0, $nextTag, true)) {
                         if (! $this->isAnAttributeArray($nextTag)) {
                             $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
                             $html[] = $this->renderClosingTag($nextTag);
@@ -235,7 +236,7 @@ class DOMSerializer
                     }
 
                     // ['div', ?, 'span']
-                    if (is_numeric($index) && $nextTag = $renderHTML[$index + 2] ?? null) {
+                    if (is_integer($index) && $nextTag = $renderHTML[$index + 2] ?? null) {
                         if (! in_array(0, $nextTag, true)) {
                             if (! $this->isAnAttributeArray($nextTag)) {
                                 $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);

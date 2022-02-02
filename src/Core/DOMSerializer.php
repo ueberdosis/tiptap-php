@@ -153,34 +153,32 @@ class DOMSerializer
          */
         $HTMLAttributes = [];
 
-        if (method_exists($extension, 'addAttributes')) {
-            foreach ($extension->addAttributes() as $attribute => $configuration) {
-                // 'rendered' => false
-                if (isset($configuration['rendered']) && $configuration['rendered'] === false) {
-                    continue;
+        foreach ($this->schema->getAttributeConfigurations($extension) as $attribute => $configuration) {
+            // 'rendered' => false
+            if (isset($configuration['rendered']) && $configuration['rendered'] === false) {
+                continue;
+            }
+
+            // 'default' => 'foobar'
+            if (! isset($nodeOrMark->attrs->{$attribute}) && isset($configuration['default'])) {
+                if (! isset($nodeOrMark->attrs)) {
+                    $nodeOrMark->attrs = new stdClass;
                 }
 
-                // 'default' => 'foobar'
-                if (! isset($nodeOrMark->attrs->{$attribute}) && isset($configuration['default'])) {
-                    if (! isset($nodeOrMark->attrs)) {
-                        $nodeOrMark->attrs = new stdClass;
-                    }
+                $nodeOrMark->attrs->{$attribute} = $configuration['default'];
+            }
 
-                    $nodeOrMark->attrs->{$attribute} = $configuration['default'];
-                }
+            // 'renderHTML' => fn($attributes) …
+            if (isset($configuration['renderHTML'])) {
+                $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
+            } else {
+                $value = [
+                    $attribute => $nodeOrMark->attrs->{$attribute} ?? null,
+                ];
+            }
 
-                // 'renderHTML' => fn($attributes) …
-                if (isset($configuration['renderHTML'])) {
-                    $value = $configuration['renderHTML']($nodeOrMark->attrs ?? new stdClass);
-                } else {
-                    $value = [
-                        $attribute => $nodeOrMark->attrs->{$attribute} ?? null,
-                    ];
-                }
-
-                if ($value !== null) {
-                    $HTMLAttributes = HTML::mergeAttributes($HTMLAttributes, $value);
-                }
+            if ($value !== null) {
+                $HTMLAttributes = HTML::mergeAttributes($HTMLAttributes, $value);
             }
         }
 

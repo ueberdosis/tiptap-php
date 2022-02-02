@@ -4,22 +4,8 @@ use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Extensions\TextAlign;
 
-test('text align is parsed correctly', function () {
-    $html = '<p style="text-align: center;">Example Text</p>';
-
-    $result =
-        (new Editor([
-            'extensions' => [
-                new StarterKit,
-                new TextAlign([
-                    'types' => ['paragraph'],
-                ]),
-            ],
-        ]))
-        ->setContent($html)
-        ->getDocument();
-
-    expect($result)->toEqual([
+test('text align is rendered correctly', function () {
+    $document = [
         'type' => 'doc',
         'content' => [
             [
@@ -35,11 +21,7 @@ test('text align is parsed correctly', function () {
                 ],
             ],
         ],
-    ]);
-});
-
-test('text align uses default value', function () {
-    $html = '<p>Example Text</p>';
+    ];
 
     $result =
         (new Editor([
@@ -50,10 +32,14 @@ test('text align uses default value', function () {
                 ]),
             ],
         ]))
-        ->setContent($html)
-        ->getDocument();
+        ->setContent($document)
+        ->getHTML();
 
-    expect($result)->toEqual([
+    expect($result)->toEqual('<p style="text-align: center;">Example Text</p>');
+});
+
+test('default text align isn’t rendered', function () {
+    $document = [
         'type' => 'doc',
         'content' => [
             [
@@ -69,11 +55,7 @@ test('text align uses default value', function () {
                 ],
             ],
         ],
-    ]);
-});
-
-test('default text align is configureable', function () {
-    $html = '<p>Example Text</p>';
+    ];
 
     $result =
         (new Editor([
@@ -81,14 +63,17 @@ test('default text align is configureable', function () {
                 new StarterKit,
                 new TextAlign([
                     'types' => ['paragraph'],
-                    'defaultAlignment' => 'center',
                 ]),
             ],
         ]))
-        ->setContent($html)
-        ->getDocument();
+        ->setContent($document)
+        ->getHTML();
 
-    expect($result)->toEqual([
+    expect($result)->toEqual('<p>Example Text</p>');
+});
+
+test('default text align is configureable', function () {
+    $document = [
         'type' => 'doc',
         'content' => [
             [
@@ -104,5 +89,20 @@ test('default text align is configureable', function () {
                 ],
             ],
         ],
-    ]);
+    ];
+
+    $result =
+        (new Editor([
+            'extensions' => [
+                new StarterKit,
+                new TextAlign([
+                    'types' => ['paragraph'],
+                    'defaultAlignment' => 'center',
+                ]),
+            ],
+        ]))
+        ->setContent($document)
+        ->getHTML();
+
+    expect($result)->toEqual('<p>Example Text</p>');
 });

@@ -20,6 +20,11 @@ class Node
         return [];
     }
 
+    public function addAttributes()
+    {
+        return [];
+    }
+
     public function parseHTML()
     {
         return [];

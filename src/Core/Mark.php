@@ -18,6 +18,11 @@ class Mark
         return [];
     }
 
+    public function addAttributes()
+    {
+        return [];
+    }
+
     public function renderHTML($mark)
     {
         return null;

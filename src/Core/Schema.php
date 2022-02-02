@@ -2,48 +2,77 @@
 
 namespace Tiptap\Core;
 
-use Exception;
-
 class Schema
 {
-    public static array $extensions = [];
+    public array $allExtensions = [];
 
-    public static function from(array $extensions = []): self
+    public array $nodes = [];
+    public array $marks = [];
+    public array $extensions = [];
+
+    public array $globalAttributes = [];
+
+    public function __construct(array $extensions = [])
     {
-        static::$extensions = self::loadExtensions($extensions);
+        $this->allExtensions = $this->loadExtensions($extensions);
 
-        return new self;
+        $this->nodes = array_filter($this->allExtensions, function ($extension) {
+            return is_subclass_of($extension, \Tiptap\Core\Node::class);
+        });
+
+        $this->marks = array_filter($this->allExtensions, function ($extension) {
+            return is_subclass_of($extension, \Tiptap\Core\Mark::class);
+        });
+
+        $this->extensions = array_filter($this->allExtensions, function ($extension) {
+            return is_subclass_of($extension, \Tiptap\Core\Extension::class);
+        });
+
+        return $this;
     }
 
-    private static function loadExtensions($extensions = [])
+    private function loadExtensions($extensions = [])
     {
         foreach ($extensions as $extension) {
             if (method_exists($extension, 'addExtensions') && count($extension->addExtensions())) {
                 $extensions = array_merge(
                     $extensions,
-                    self::loadExtensions($extension->addExtensions()),
+                    $this->loadExtensions($extension->addExtensions()),
                 );
+            }
+
+            if (method_exists($extension, 'addGlobalAttributes')) {
+                $globalAttributes = $extension->addGlobalAttributes();
+
+                foreach ($globalAttributes as $globalAttributeConfiguration) {
+                    foreach ($globalAttributeConfiguration['types'] ?? [] as $type) {
+                        $this->globalAttributes[$type] = array_merge(
+                            $this->globalAttributes[$type] ?? [],
+                            $globalAttributeConfiguration['attributes']
+                        );
+                    }
+                }
             }
         }
 
         return $extensions;
     }
 
-    public static function apply($document)
+    public function apply($document)
     {
         if (! is_array($document['content'])) {
             return $document;
         }
 
         $document['content'] = array_map(function ($node) {
-            foreach (self::$extensions as $extension) {
+            foreach ($this->allExtensions as $extension) {
                 if (! isset($node['type']) || $node['type'] !== $extension::$name) {
                     continue;
                 }
 
                 if (property_exists($extension, 'marks')) {
                     if ($extension::$marks === '') {
-                        $node = self::filterMarks($node);
+                        $node = $this->filterMarks($node);
 
                         unset($node['marks']);
                     }
@@ -60,33 +89,24 @@ class Schema
         return $document;
     }
 
-    public static function filterMarks(&$node)
+    public function filterMarks(&$node)
     {
         unset($node['marks']);
 
         if (isset($node['content'])) {
             $node['content'] = array_map(function ($child) {
-                return self::filterMarks($child);
+                return $this->filterMarks($child);
             }, $node['content']);
         }
 
         return $node;
     }
 
-    public function __get($name)
+    public function getAttributeConfigurations($class)
     {
-        if ($name === 'nodes') {
-            return array_filter(self::$extensions, function ($extension) {
-                return is_subclass_of($extension, \Tiptap\Core\Node::class);
-            });
-        }
-
-        if ($name === 'marks') {
-            return array_filter(self::$extensions, function ($extension) {
-                return is_subclass_of($extension, \Tiptap\Core\Mark::class);
-            });
-        }
-
-        throw new Exception("[Schema] Can’t access `${name}`.");
+        return array_merge(
+            $this->globalAttributes[$class::$name] ?? [],
+            $class->addAttributes(),
+        );
     }
 }

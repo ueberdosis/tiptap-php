@@ -338,17 +338,15 @@ class DOMParser
          *     ];
          * }
          */
-        if (method_exists($class, 'addAttributes')) {
-            foreach ($class->addAttributes() as $attribute => $configuration) {
-                if (isset($configuration['parseHTML'])) {
-                    $value = $configuration['parseHTML']($DOMNode);
-                } else {
-                    $value = $DOMNode->getAttribute($attribute) ?: null;
-                }
+        foreach ($this->schema->getAttributeConfigurations($class) as $attribute => $configuration) {
+            if (isset($configuration['parseHTML'])) {
+                $value = $configuration['parseHTML']($DOMNode);
+            } else {
+                $value = $DOMNode->getAttribute($attribute) ?: null;
+            }
 
-                if ($value !== null) {
-                    $item['attrs'][$attribute] = $value;
-                }
+            if ($value !== null) {
+                $item['attrs'][$attribute] = $value;
             }
         }
 

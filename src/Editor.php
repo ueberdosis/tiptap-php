@@ -29,7 +29,7 @@ class Editor
         }
 
         $this->configuration = array_merge_recursive($this->configuration, $configuration);
-        $this->schema = Schema::from($this->configuration['extensions']);
+        $this->schema = new Schema($this->configuration['extensions']);
 
         if (isset($configuration['content'])) {
             $this->setContent($configuration['content']);
@@ -49,7 +49,7 @@ class Editor
             $this->document = json_decode($value, true);
         }
 
-        $this->document = $this->schema::apply($this->document);
+        $this->document = $this->schema->apply($this->document);
 
         return $this;
     }

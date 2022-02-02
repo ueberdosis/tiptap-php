@@ -63,6 +63,10 @@ class DOMSerializer
                 $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode);
             }
         }
+        // renderText($node)
+        elseif (isset($extension) && method_exists($extension, 'renderText')) {
+            $html[] = $extension->renderText($node);
+        }
         // text
         elseif (isset($node->text)) {
             $html[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');

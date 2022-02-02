@@ -3,6 +3,7 @@
 namespace Tiptap\Nodes;
 
 use Tiptap\Core\Node;
+use Tiptap\Utils\HTML;
 
 class Mention extends Node
 {
@@ -12,6 +13,7 @@ class Mention extends Node
     {
         return [
             'HTMLAttributes' => [],
+            'renderLabel' => fn () => null,
         ];
     }
 
@@ -29,9 +31,26 @@ class Mention extends Node
         return [
             'id' => [
                 'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-id') ?: null,
+                'renderHTML' => fn ($attributes) => ['data-id' => $attributes->id ?? null],
             ],
         ];
     }
 
-    // TODO: Render HTML
+    public function renderText($node)
+    {
+        return $this->options['renderLabel']($node);
+    }
+
+    public function renderHTML($node, $HTMLAttributes = [])
+    {
+        return [
+            'span',
+            HTML::mergeAttributes(
+                ['data-type' => self::$name],
+                $this->options['HTMLAttributes'],
+                $HTMLAttributes,
+            ),
+            0,
+        ];
+    }
 }

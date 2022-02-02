@@ -6,6 +6,8 @@ class Extension
 {
     public static $name;
 
+    public $options = [];
+
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->addOptions(), $options);

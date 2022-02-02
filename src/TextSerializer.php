@@ -27,7 +27,7 @@ class TextSerializer
 
         $content = is_array($this->document->content) ? $this->document->content : [];
 
-        foreach ($content as $index => $node) {
+        foreach ($content as $node) {
             $html[] = $this->renderNode($node);
         }
 
@@ -39,7 +39,7 @@ class TextSerializer
         $text = [];
 
         if (isset($node->content)) {
-            foreach ($node->content as $index => $nestedNode) {
+            foreach ($node->content as $nestedNode) {
                 $text[] = $this->renderNode($nestedNode);
             }
         } elseif (isset($node->text)) {

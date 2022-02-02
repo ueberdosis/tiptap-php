@@ -37,13 +37,6 @@ class OrderedList extends Node
 
     public function renderHTML($node, $HTMLAttributes = [])
     {
-        // TODO: Move to `addAttributes`
-        $attrs = [];
-
-        if (isset($node->attrs->order)) {
-            $attrs['start'] = $node->attrs->order;
-        }
-
         return ['ol', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }

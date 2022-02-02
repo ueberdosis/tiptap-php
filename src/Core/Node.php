@@ -8,6 +8,8 @@ class Node
 
     public static $marks = '_';
 
+    public $options = [];
+
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->addOptions(), $options);

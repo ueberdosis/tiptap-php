@@ -204,7 +204,7 @@ class DOMSerializer
             foreach ($renderHTML as $index => $renderInstruction) {
                 // ['div', …]
                 if (is_string($renderInstruction)) {
-                    if ($nextTag = $renderHTML[$index + 1] ?? null) {
+                    if (is_numeric($index) && $nextTag = $renderHTML[$index + 1] ?? null) {
                         // ['table', ['class' => 'custom-class']]
                         if (! in_array(0, $nextTag, true)) {
                             if (is_array($nextTag) && $this->isAnAttributeArray($nextTag)) {
@@ -231,7 +231,7 @@ class DOMSerializer
                     }
 
                     // ['div', ?, 'span']
-                    if ($nextTag = $renderHTML[$index + 2] ?? null) {
+                    if (is_numeric($index) && $nextTag = $renderHTML[$index + 2] ?? null) {
                         if (! in_array(0, $nextTag, true)) {
                             if (! $this->isAnAttributeArray($nextTag)) {
                                 $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
@@ -296,40 +296,7 @@ class DOMSerializer
         if (is_array($renderHTML)) {
             $html = [];
 
-            foreach (array_reverse($renderHTML) as $index => $renderInstruction) {
-                // // ['div', …]
-                // if (is_string($renderInstruction)) {
-                //     $html[] = "</{$renderInstruction}>";
-
-                //     $nextTag = $renderHTML[$index + 1] ?? null;
-
-                //     // ['div', 'span']
-                //     if (is_array($nextTag) && !in_array(0, $nextTag, true)) {
-                //         if (!$this->isAnAttributeArray($nextTag)) {
-                //             $html[] = $this->renderClosingTag($nextTag);
-                //         }
-                //     }
-
-                //     // ['div', ?, 'span']
-                //     if ($nextTag = $renderHTML[$index + 2] ?? null) {
-                //         if (!in_array(0, $nextTag, true)) {
-                //             if (!$this->isAnAttributeArray($nextTag)) {
-                //                 $html[] = $this->renderClosingTag($nextTag);
-                //             }
-                //         }
-                //     }
-
-                //     continue;
-                // }
-                // // ['tbody', 0]
-                // // TODO: Make in_array recursive
-                // elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
-                //     $html[] = $this->renderClosingTag($renderInstruction);
-                // }
-                // // ['class' => 'foobar']
-                // elseif (is_array($renderInstruction)) {
-                //     continue;
-                // }
+            foreach (array_reverse($renderHTML) as $renderInstruction) {
                 // 'div'
                 if (is_string($renderInstruction)) {
                     if ($this->isSelfClosing($renderInstruction)) {
@@ -342,10 +309,6 @@ class DOMSerializer
                 elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
                     $html[] = $this->renderClosingTag($renderInstruction);
                 }
-                // // ['div', ['span']]
-                // elseif (is_array($renderInstruction) && count($renderInstruction) &&!$this->isAnAttributeArray($renderInstruction)) {
-                //     $html[] = $this->renderClosingTag($renderInstruction);
-                // }
             }
 
             return join($html);

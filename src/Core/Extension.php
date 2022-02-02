@@ -18,6 +18,11 @@ class Extension
         return [];
     }
 
+    public function addGlobalAttributes()
+    {
+        return [];
+    }
+
     public function addExtensions()
     {
         return [];

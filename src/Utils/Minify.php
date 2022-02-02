@@ -8,7 +8,7 @@ class Minify
     protected $_placeholders = [];
     protected $_html;
 
-    public function process($html)
+    public function process($html): string
     {
         $this->_html = str_replace("\r\n", "\n", trim($html));
 
@@ -42,7 +42,7 @@ class Minify
         return $this->_reservePlace("<pre{$m[1]}");
     }
 
-    protected function _reservePlace($content)
+    protected function _reservePlace($content): string
     {
         $placeholder = '%' . $this->_replacementHash . count($this->_placeholders) . '%';
         $this->_placeholders[$placeholder] = $content;

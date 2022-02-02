@@ -8,7 +8,7 @@ class Schema
 {
     public static array $extensions = [];
 
-    public static function from(array $extensions = [])
+    public static function from(array $extensions = []): self
     {
         static::$extensions = self::loadExtensions($extensions);
 

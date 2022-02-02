@@ -42,7 +42,7 @@ class HTML
      * Render an associative array of attributes
      * as a HTML string.
      */
-    public static function renderAttributes(array $attrs)
+    public static function renderAttributes(array $attrs): string
     {
         // Make boolean values a string, so they can be rendered in HTML
         $attrs = array_map(function ($attribute) {

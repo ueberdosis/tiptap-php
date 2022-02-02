@@ -48,7 +48,7 @@ class DOMParser
         return $this;
     }
 
-    private function wrapHtmlDocument($value)
+    private function wrapHtmlDocument($value): string
     {
         return '<?xml encoding="utf-8" ?>' . $value;
     }
@@ -170,7 +170,7 @@ class DOMParser
         return false;
     }
 
-    private function checkParseRules($parseRules, $DOMNode)
+    private function checkParseRules($parseRules, $DOMNode): bool
     {
         if (is_array($parseRules)) {
             foreach ($parseRules as $parseRule) {
@@ -185,7 +185,7 @@ class DOMParser
         return false;
     }
 
-    private function checkParseRule($parseRule, $DOMNode)
+    private function checkParseRule($parseRule, $DOMNode): bool
     {
         // ['tag' => 'span[type="mention"]']
         if (isset($parseRule['tag'])) {
@@ -262,7 +262,12 @@ class DOMParser
         return true;
     }
 
-    private function parseAttributes($class, $DOMNode)
+    /**
+     * @return (array|mixed|string)[]|null
+     *
+     * @psalm-return array{type: mixed, text?: string, attrs?: array}|null
+     */
+    private function parseAttributes($class, $DOMNode): ?array
     {
         $item = [
             'type' => $class::$name,

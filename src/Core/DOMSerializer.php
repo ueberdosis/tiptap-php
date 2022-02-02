@@ -114,7 +114,7 @@ class DOMSerializer
         return $this->nodeHasMark($nextNode, $mark);
     }
 
-    private function nodeHasMark($node, $mark)
+    private function nodeHasMark($node, $mark): bool
     {
         if (! $node) {
             return true;
@@ -262,7 +262,7 @@ class DOMSerializer
         throw new \Exception('[renderOpeningTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
-    private function isAnAttributeArray($items)
+    private function isAnAttributeArray($items): bool
     {
         if (! is_array($items)) {
             return false;
@@ -273,7 +273,7 @@ class DOMSerializer
         return $keys !== array_keys($keys);
     }
 
-    private function isSelfClosing($tag)
+    private function isSelfClosing($tag): bool
     {
         $dom = new DOMDocument('1.0', 'utf-8');
         $element = $dom->createElement($tag, 'test');
@@ -283,6 +283,9 @@ class DOMSerializer
         return substr_count($rendered, $tag) === 1;
     }
 
+    /**
+     * @return null|string
+     */
     private function renderClosingTag($renderHTML)
     {
         // null
@@ -320,7 +323,7 @@ class DOMSerializer
         throw new \Exception('[renderClosingTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
-    public function render(array $value)
+    public function render(array $value): string
     {
         $html = [];
 

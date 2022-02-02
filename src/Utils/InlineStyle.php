@@ -6,7 +6,12 @@ use Exception;
 
 class InlineStyle
 {
-    public static function get($DOMNode)
+    /**
+     * @return string[]
+     *
+     * @psalm-return array<string, string>
+     */
+    public static function get($DOMNode): array
     {
         $results = [];
 
@@ -30,7 +35,7 @@ class InlineStyle
         return $results;
     }
 
-    public static function hasAttribute($DOMNode, $value)
+    public static function hasAttribute($DOMNode, $value): bool
     {
         $styles = self::get($DOMNode);
 

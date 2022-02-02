@@ -36,7 +36,10 @@ class Editor
         }
     }
 
-    public function setContent($value)
+    /**
+     * @return static
+     */
+    public function setContent($value): self
     {
         if ($this->getContentType($value) === 'HTML') {
             $this->document = (new DOMParser($this->schema))->render($value);
@@ -56,6 +59,9 @@ class Editor
         return $this->document;
     }
 
+    /**
+     * @return false|string
+     */
     public function getJSON()
     {
         return json_encode($this->document);
@@ -82,7 +88,7 @@ class Editor
         }
     }
 
-    public function getContentType($value)
+    public function getContentType($value): string
     {
         if (is_string($value)) {
             try {
@@ -104,7 +110,10 @@ class Editor
         throw new Exception('Unknown format passed to setContent().');
     }
 
-    public function descendants($closure)
+    /**
+     * @return static
+     */
+    public function descendants($closure): self
     {
         // Transform the document to an object
         $node = json_decode(json_encode($this->document));
@@ -117,6 +126,9 @@ class Editor
         return $this;
     }
 
+    /**
+     * @return void
+     */
     private function loopThroughNodes(&$node, $closure)
     {
         if ($node->type === 'text') {

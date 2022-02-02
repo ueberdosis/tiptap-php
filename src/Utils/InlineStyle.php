@@ -50,7 +50,7 @@ class InlineStyle
         throw new Exception('Can’t compare inline styles to ' . json_encode($value));
     }
 
-    public static function getAttribute($DOMNode, $attribute)
+    public static function getAttribute($DOMNode, $attribute): ?string
     {
         return self::get($DOMNode)[$attribute] ?? null;
     }

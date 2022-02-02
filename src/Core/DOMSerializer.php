@@ -105,12 +105,12 @@ class DOMSerializer
         return isset($markOrNode->type) && $markOrNode->type === $renderClass::$name;
     }
 
-    private function markShouldOpen($mark, $previousNode)
+    private function markShouldOpen($mark, $previousNode): bool
     {
         return $this->nodeHasMark($previousNode, $mark);
     }
 
-    private function markShouldClose($mark, $nextNode)
+    private function markShouldClose($mark, $nextNode): bool
     {
         return $this->nodeHasMark($nextNode, $mark);
     }

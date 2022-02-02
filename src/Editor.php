@@ -67,12 +67,12 @@ class Editor
         return json_encode($this->document);
     }
 
-    public function getText($configuration = [])
+    public function getText($configuration = []): string
     {
         return (new TextSerializer($this->schema, $configuration))->render($this->document);
     }
 
-    public function getHTML()
+    public function getHTML(): string
     {
         return (new DOMSerializer($this->schema))->render($this->document);
     }

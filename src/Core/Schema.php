@@ -102,7 +102,7 @@ class Schema
         return $node;
     }
 
-    public function getAttributeConfigurations($class)
+    public function getAttributeConfigurations($class): array
     {
         return array_merge(
             $this->globalAttributes[$class::$name] ?? [],

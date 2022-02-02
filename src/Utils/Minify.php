@@ -37,7 +37,7 @@ class Minify
         return $this->_html;
     }
 
-    protected function _removePreCB($m)
+    protected function _removePreCB($m): string
     {
         return $this->_reservePlace("<pre{$m[1]}");
     }

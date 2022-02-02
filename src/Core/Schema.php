@@ -10,11 +10,15 @@ class Schema
     public array $marks = [];
     public array $extensions = [];
 
+    public $defaultNode;
+    public $topNode;
+
     public array $globalAttributes = [];
 
     public function __construct(array $extensions = [])
     {
         $this->allExtensions = $this->loadExtensions($extensions);
+        usort($this->allExtensions, fn ($a, $b) => $b::$priority - $a::$priority);
 
         $this->nodes = array_filter($this->allExtensions, function ($extension) {
             return is_subclass_of($extension, \Tiptap\Core\Node::class);
@@ -27,6 +31,9 @@ class Schema
         $this->extensions = array_filter($this->allExtensions, function ($extension) {
             return is_subclass_of($extension, \Tiptap\Core\Extension::class);
         });
+
+        $this->defaultNode = reset($this->nodes) ?? null;
+        $this->topNode = current(array_filter($this->nodes, fn ($node) => $node::$topNode)) ?? null;
 
         return $this;
     }

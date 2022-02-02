@@ -9,6 +9,8 @@ class Paragraph extends Node
 {
     public static $name = 'paragraph';
 
+    public static $priority = 1000;
+
     public function addOptions()
     {
         return [

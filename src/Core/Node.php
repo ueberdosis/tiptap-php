@@ -6,6 +6,10 @@ class Node
 {
     public static $name;
 
+    public static $priority = 100;
+
+    public static $topNode = false;
+
     public static $marks = '_';
 
     public $options = [];

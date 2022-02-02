@@ -6,6 +6,8 @@ class Mark
 {
     public static $name;
 
+    public static $priority = 100;
+
     public $options = [];
 
     public function __construct(array $options = [])

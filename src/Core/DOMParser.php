@@ -29,7 +29,7 @@ class DOMParser
         );
 
         return [
-            'type' => 'doc',
+            'type' => $this->schema->topNode::$name,
             'content' => $content,
         ];
     }

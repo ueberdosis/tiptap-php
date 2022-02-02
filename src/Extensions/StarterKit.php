@@ -11,6 +11,7 @@ class StarterKit extends Extension
     public function addOptions()
     {
         return [
+            'document' => [],
             'blockquote' => [],
             'bulletList' => [],
             'codeBlock' => [],
@@ -31,6 +32,9 @@ class StarterKit extends Extension
     public function addExtensions()
     {
         return array_filter([
+            $this->options['document'] !== false
+                ? new \Tiptap\Nodes\Document($this->options['document'])
+                : null,
             $this->options['blockquote'] !== false
                 ? new \Tiptap\Nodes\Blockquote($this->options['blockquote'])
                 : null,

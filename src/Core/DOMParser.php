@@ -9,7 +9,7 @@ use Tiptap\Utils\Minify;
 
 class DOMParser
 {
-    protected $document;
+    protected $DOM;
 
     protected $schema;
 
@@ -20,11 +20,11 @@ class DOMParser
         $this->schema = $schema;
     }
 
-    public function render(string $value): array
+    public function process(string $value): array
     {
         $this->setDocument($value);
 
-        $content = $this->renderChildren(
+        $content = $this->processChildren(
             $this->getDocumentBody()
         );
 
@@ -38,45 +38,45 @@ class DOMParser
     {
         libxml_use_internal_errors(true);
 
-        $this->document = new DOMDocument;
+        $this->DOM = new DOMDocument;
         /**
          * @psalm-suppress ArgumentTypeCoercion
          */
-        $this->document->loadHTML(
-            $this->wrapHtmlDocument(
-                $this->stripWhitespace($value)
+        $this->DOM->loadHTML(
+            $this->makeValidXMLDocument(
+                $this->minify($value)
             )
         );
 
         return $this;
     }
 
-    private function wrapHtmlDocument($value): string
-    {
-        return '<?xml encoding="utf-8" ?>' . $value;
-    }
-
-    private function stripWhitespace(string $value): string
+    private function minify(string $value): string
     {
         return (new Minify)->process($value);
     }
 
-    private function getDocumentBody(): DOMElement
+    private function makeValidXMLDocument($value): string
     {
-        return $this->document->getElementsByTagName('body')->item(0);
+        return '<?xml encoding="utf-8" ?>' . $value;
     }
 
-    private function renderChildren($node): array
+    private function getDocumentBody(): DOMElement
+    {
+        return $this->DOM->getElementsByTagName('body')->item(0);
+    }
+
+    private function processChildren($node): array
     {
         $nodes = [];
 
         foreach ($node->childNodes as $child) {
-            if ($class = $this->getMatchingNode($child)) {
+            if ($class = $this->getNodeFor($child)) {
                 $item = $this->parseAttributes($class, $child);
 
                 if ($item === null) {
                     if ($child->hasChildNodes()) {
-                        $nodes = array_merge($nodes, $this->renderChildren($child));
+                        $nodes = array_merge($nodes, $this->processChildren($child));
                     }
 
                     continue;
@@ -84,7 +84,7 @@ class DOMParser
 
                 if ($child->hasChildNodes()) {
                     $item = array_merge($item, [
-                        'content' => $this->renderChildren($child),
+                        'content' => $this->processChildren($child),
                     ]);
                 }
 
@@ -103,34 +103,39 @@ class DOMParser
                 }
 
                 array_push($nodes, $item);
-            } elseif ($class = $this->getMatchingMark($child)) {
+            } elseif ($class = $this->getMarkFor($child)) {
                 array_push($this->storedMarks, $this->parseAttributes($class, $child));
 
                 if ($child->hasChildNodes()) {
-                    $nodes = array_merge($nodes, $this->renderChildren($child));
+                    $nodes = array_merge($nodes, $this->processChildren($child));
                 }
 
                 array_pop($this->storedMarks);
             } elseif ($child->hasChildNodes()) {
-                $nodes = array_merge($nodes, $this->renderChildren($child));
+                $nodes = array_merge($nodes, $this->processChildren($child));
             }
         }
 
 
-        // If similar nodes, just with different text follow each other,
+        // If similar nodes with different text follow each other,
         // we can merge them into a single node.
-        $mergedNodes = [];
+        return $this->mergeSimilarNodes($nodes);
+    }
+
+    private function mergeSimilarNodes($nodes)
+    {
+        $result = [];
 
         /**
          * @psalm-suppress UnusedFunctionCall
          */
-        array_reduce($nodes, function ($carry, $node) use (&$mergedNodes) {
+        array_reduce($nodes, function ($carry, $node) use (&$result) {
             // Ignore multidimensional arrays
             if (
                 count($node) !== count($node, COUNT_RECURSIVE)
                 || count($carry) !== count($carry, COUNT_RECURSIVE)
             ) {
-                $mergedNodes[] = $node;
+                $result[] = $node;
 
                 return $node;
             }
@@ -138,31 +143,32 @@ class DOMParser
             // Check if text is the only difference
             $differentKeys = array_keys(array_diff($carry, $node));
             if ($differentKeys != ['text']) {
-                $mergedNodes[] = $node;
+                $result[] = $node;
 
                 return $node;
             }
 
             // Merge it!
-            $mergedNodes[count($mergedNodes) - 1]['text'] .= $node['text'];
+            $result[count($result) - 1]['text'] .= $node['text'];
 
-            return $mergedNodes[count($mergedNodes) - 1];
+            return $result[count($result) - 1];
         }, []);
 
-        return $mergedNodes;
+        return $result;
     }
 
-    private function getMatchingNode($item)
+
+    private function getNodeFor($item)
     {
-        return $this->getMatchingClass($item, $this->schema->nodes);
+        return $this->getExtensionFor($item, $this->schema->nodes);
     }
 
-    private function getMatchingMark($item)
+    private function getMarkFor($item)
     {
-        return $this->getMatchingClass($item, $this->schema->marks);
+        return $this->getExtensionFor($item, $this->schema->marks);
     }
 
-    private function getMatchingClass($node, $classes)
+    private function getExtensionFor($node, $classes)
     {
         foreach ($classes as $class) {
             if ($this->checkParseRules($class->parseHTML($node), $node)) {
@@ -215,10 +221,8 @@ class DOMParser
             }
         }
 
-        // ['style' => 'font-weight']
+        // ['style' => 'font-weight=italic']
         if (isset($parseRule['style'])) {
-            // ['style' => 'font-weight=italic']
-
             if (preg_match('/([a-zA-Z-]*)(="?([a-zA-Z-]*)"?)?$/', $parseRule['style'], $matches)) {
                 $style = $matches[1];
 

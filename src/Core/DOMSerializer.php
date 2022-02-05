@@ -322,7 +322,7 @@ class DOMSerializer
         throw new \Exception('[renderClosingTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
-    public function render(array $value): string
+    public function process(array $value): string
     {
         $html = [];
 

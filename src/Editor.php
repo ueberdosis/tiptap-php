@@ -5,6 +5,7 @@ namespace Tiptap;
 use Exception;
 use Tiptap\Core\DOMParser;
 use Tiptap\Core\DOMSerializer;
+use Tiptap\Core\JSONSerializer;
 use Tiptap\Core\Schema;
 use Tiptap\Core\TextSerializer;
 use Tiptap\Extensions\StarterKit;
@@ -42,7 +43,7 @@ class Editor
     public function setContent($value): self
     {
         if ($this->getContentType($value) === 'HTML') {
-            $this->document = (new DOMParser($this->schema))->render($value);
+            $this->document = (new DOMParser($this->schema))->process($value);
         } elseif ($this->getContentType($value) === 'Array') {
             $this->document = json_decode(json_encode($value), true);
         } elseif ($this->getContentType($value) === 'JSON') {
@@ -59,22 +60,19 @@ class Editor
         return $this->document;
     }
 
-    /**
-     * @return false|string
-     */
-    public function getJSON()
+    public function getJSON(): string
     {
-        return json_encode($this->document);
-    }
-
-    public function getText($configuration = []): string
-    {
-        return (new TextSerializer($this->schema, $configuration))->render($this->document);
+        return (new JSONSerializer)->process($this->document);
     }
 
     public function getHTML(): string
     {
-        return (new DOMSerializer($this->schema))->render($this->document);
+        return (new DOMSerializer($this->schema))->process($this->document);
+    }
+
+    public function getText($configuration = []): string
+    {
+        return (new TextSerializer($this->schema, $configuration))->process($this->document);
     }
 
     public function sanitize($value)
@@ -107,20 +105,17 @@ class Editor
             return 'Array';
         }
 
-        throw new Exception('Unknown format passed to setContent().');
+        throw new Exception('Unknown format passed to setContent(). Try passing HTML, JSON or an Array.');
     }
 
-    /**
-     * @return static
-     */
-    public function descendants($closure): self
+    public function descendants($closure): Editor
     {
         // Transform the document to an object
         $node = json_decode(json_encode($this->document));
 
-        $this->loopThroughNodes($node, $closure);
+        $this->walkThroughNodes($node, $closure);
 
-        // Transform the object to a document
+        // Store the updated document.
         $this->setContent(json_decode(json_encode($node), true));
 
         return $this;
@@ -129,22 +124,27 @@ class Editor
     /**
      * @return void
      */
-    private function loopThroughNodes(&$node, $closure)
+    private function walkThroughNodes(&$node, $closure)
     {
+        // Skip, if it’s just text.
         if ($node->type === 'text') {
             return;
         }
 
+        // Call the closure.
         $closure($node);
 
+        // Skip, if there are no children.
         if (! isset($node->content)) {
             return;
         }
 
+        // Make sure content is an Array.
         $content = is_array($node->content) ? $node->content : [];
 
+        // Loop through all children.
         foreach ($content as $child) {
-            $this->loopThroughNodes($child, $closure);
+            $this->walkThroughNodes($child, $closure);
         }
     }
 }

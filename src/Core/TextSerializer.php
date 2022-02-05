@@ -18,7 +18,7 @@ class TextSerializer
         $this->configuration = array_merge($this->configuration, $configuration);
     }
 
-    public function render(array $value): string
+    public function process(array $value): string
     {
         $html = [];
 

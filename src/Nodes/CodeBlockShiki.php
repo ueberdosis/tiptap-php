@@ -3,16 +3,18 @@
 namespace Tiptap\Nodes;
 
 use DomainException;
-use Highlight\Highlighter;
 use Tiptap\Utils\HTML;
+use Spatie\ShikiPhp\Shiki;
 
-class CodeBlockHighlight extends CodeBlock
+class CodeBlockShiki extends CodeBlock
 {
     public function addOptions()
     {
         return [
             'languageClassPrefix' => 'skiki ',
             'HTMLAttributes' => [],
+            'defaultLanguage' => 'html',
+            'theme' => 'nord',
         ];
     }
 
@@ -23,29 +25,15 @@ class CodeBlockHighlight extends CodeBlock
         if($node->attrs->language === null) {
             $lang = str_replace('language-', '', $node->attrs->language);
         } else {
-            $lang = 'html'; // skiki requires a language, set default to html
+            $lang = $this->options['defaultLanguage']; // skiki requires a language, set default to html
         }
 
         try {
-            $result = Shiki::highlight(
+            $content = Shiki::highlight(
                 code: $code,
                 language: $lang,
                 theme: 'nord',
             );
-            
-            $mergedAttributes = HTML::mergeAttributes(
-                [
-                    'class' => $this->options['languageClassPrefix'] . $result->language,
-                ],
-                $this->options['HTMLAttributes'],
-                $HTMLAttributes,
-            );
-
-            $renderedAttributes = HTML::renderAttributes($mergedAttributes);
-
-            $content = "<pre><code" . $renderedAttributes . ">";
-            $content .= $result->value;
-            $content .= "</code></pre>";
         } catch (DomainException $exception) {
             $mergedAttributes = HTML::mergeAttributes(
                 $this->options['HTMLAttributes'],

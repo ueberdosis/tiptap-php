@@ -1,0 +1,9 @@
+{
+  "name": "tiptap-php",
+  "version": "1.0.0",
+  "description": "A PHP package to work with Tiptap content. You can transform Tiptap-compatible JSON to HTML, and the other way around, sanitize your content, or just modify it.",
+  "homepage": "https://github.com/ueberdosis/tiptap-php#readme",
+  "devDependencies": {
+    "shiki": "^0.10.0"
+  }
+}

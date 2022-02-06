@@ -142,6 +142,8 @@ To configure the theme or default language for code blocks pass additonal config
 ->getHTML();
 ```
 
+Under the hood the shiki extension utilizes [Shiki PHP by Spatie](https://github.com/spatie/shiki-php), so please see the documentation for additional details and considerations.
+
 ### Convert content to plain text
 Content can also be transformed to plain text, for example to put it into a search index.
 

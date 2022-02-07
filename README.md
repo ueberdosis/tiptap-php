@@ -70,7 +70,7 @@ This doesn’t fully adhere to the ProseMirror schema. Some things are supported
 
 If you need better schema support, create an issue with the feature you’re missing.
 
-### Syntax highlighting for code blocks
+### Syntax highlighting for code blocks with [highlight.php](https://github.com/scrivo/highlight.php)
 The default `CodeBlock` extension doesn’t add syntax highlighting to your code blocks. However, if you want to add syntax highlighting to your code blocks, there’s a special `CodeBlockHighlight` extension.
 
 Swapping our the default one works like that:
@@ -100,10 +100,9 @@ This is still unstyled. You need to [load a CSS file](https://highlightjs.org/do
 Boom, syntax highlighting! By the way, this is powered by the amazing [scrivo/highlight.php](https://github.com/scrivo/highlight.php).
 
 ### Syntax highlighting for code blocks with [Shiki](https://github.com/shikijs/shiki)
+There is an alternate syntax highlighter that utilizes [Shiki](https://github.com/shikijs/shiki). Shiki is a beautiful syntax highlighter powered by the same language engine that many code editors use. The major differences from the `CodeBlockHighlight` extensions are, 1) you must install the `shiki` npm package, 2) Shiki code highlighting works by injecting inline styles so pulling in a external css file is not required, 3) you can use most VS Code themes to highlight your code.
 
-There is an alternate syntax highlighter that utilizes [Shiki](https://github.com/shikijs/shiki), Shiki is a beautiful syntax highlighter powered by the same language engine that many code editors use. The major differences from the `CodeBlockHighlight` extensions are, 1) you must install the `shiki` npm package, 2) shiki code highlighting works by injecting inline styles so pulling in a external css file is not required, 3) you can use most VS Code themes to highlight your code. 
-
-To use the Shiki Extension, first install the npm package
+To use the Shiki extension, first install the npm package
 
 ```bash
 npm install shiki
@@ -135,6 +134,7 @@ To configure the theme or default language for code blocks pass additonal config
         new \Tiptap\Nodes\CodeBlockShiki([
             'theme' => 'github-dark', // default: nord, see https://github.com/shikijs/shiki/blob/main/docs/themes.md
             'defaultLanguage' => 'php' // default: html, see https://github.com/shikijs/shiki/blob/main/docs/languages.md
+            'guessLanguage' => true // default: true, if the language isn’t passed, it tries to guess the language with highlight.php
         ]),
     ],
 ]))
@@ -142,7 +142,7 @@ To configure the theme or default language for code blocks pass additonal config
 ->getHTML();
 ```
 
-Under the hood the shiki extension utilizes [Shiki PHP by Spatie](https://github.com/spatie/shiki-php), so please see the documentation for additional details and considerations.
+Under the hood the Shiki extension utilizes [Shiki PHP by Spatie](https://github.com/spatie/shiki-php), so please see the documentation for additional details and considerations.
 
 ### Convert content to plain text
 Content can also be transformed to plain text, for example to put it into a search index.

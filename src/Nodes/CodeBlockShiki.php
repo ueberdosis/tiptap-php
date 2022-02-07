@@ -41,7 +41,9 @@ class CodeBlockShiki extends CodeBlock
         }
 
         // Use the default language
-        $language = $language ?: $this->options['defaultLanguage'];
+        if (! isset($language)) {
+            $language = $this->options['defaultLanguage'];
+        }
 
         try {
             $content = Shiki::highlight(

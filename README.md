@@ -99,7 +99,7 @@ This is still unstyled. You need to [load a CSS file](https://highlightjs.org/do
 
 Boom, syntax highlighting! By the way, this is powered by the amazing [scrivo/highlight.php](https://github.com/scrivo/highlight.php).
 
-### Syntax highlighting for code blocks with [Shiki](https://github.com/shikijs/shiki)
+### Syntax highlighting for code blocks with [Shiki](https://github.com/shikijs/shiki) (Requires Node.js)
 There is an alternate syntax highlighter that utilizes [Shiki](https://github.com/shikijs/shiki). Shiki is a beautiful syntax highlighter powered by the same language engine that many code editors use. The major differences from the `CodeBlockHighlight` extensions are, 1) you must install the `shiki` npm package, 2) Shiki code highlighting works by injecting inline styles so pulling in a external css file is not required, 3) you can use most VS Code themes to highlight your code.
 
 To use the Shiki extension, first install the npm package

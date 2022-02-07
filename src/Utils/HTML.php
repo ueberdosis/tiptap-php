@@ -61,7 +61,9 @@ class HTML
 
         // class="custom"
         foreach (array_filter($attrs) as $name => $value) {
-            $attributes[] = " {$name}=\"{$value}\"";
+            $escapedValue = htmlentities($value);
+
+            $attributes[] = " {$name}=\"{$escapedValue}\"";
         }
 
         return join($attributes);

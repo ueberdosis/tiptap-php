@@ -3,8 +3,8 @@
 namespace Tiptap\Nodes;
 
 use DomainException;
-use Tiptap\Utils\HTML;
 use Spatie\ShikiPhp\Shiki;
+use Tiptap\Utils\HTML;
 
 class CodeBlockShiki extends CodeBlock
 {
@@ -22,7 +22,7 @@ class CodeBlockShiki extends CodeBlock
     {
         $code = $node->content[0]->text ?? '';
 
-        if($node->attrs->language === null) {
+        if ($node->attrs->language === null) {
             $lang = str_replace('language-', '', $node->attrs->language);
         } else {
             $lang = $this->options['defaultLanguage']; // skiki requires a language, set default to html

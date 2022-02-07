@@ -99,6 +99,51 @@ This is still unstyled. You need to [load a CSS file](https://highlightjs.org/do
 
 Boom, syntax highlighting! By the way, this is powered by the amazing [scrivo/highlight.php](https://github.com/scrivo/highlight.php).
 
+### Syntax highlighting for code blocks with [Shiki](https://github.com/shikijs/shiki)
+
+There is an alternate syntax highlighter that utilizes [Shiki](https://github.com/shikijs/shiki), Shiki is a beautiful syntax highlighter powered by the same language engine that many code editors use. The major differences from the `CodeBlockHighlight` extensions are, 1) you must install the `shiki` npm package, 2) shiki code highlighting works by injecting inline styles so pulling in a external css file is not required, 3) you can use most VS Code themes to highlight your code. 
+
+To use the Shiki Extension, first install the npm package
+
+```bash
+npm install shiki
+```
+
+Then follow the example below:
+
+```php
+(new Tiptap\Editor([
+    'extensions' => [
+        new \Tiptap\Extensions\StarterKit([
+            'codeBlock' => false,
+        ]),
+        new \Tiptap\Nodes\CodeBlockShiki,
+    ],
+]))
+->setContent('<pre><code>&lt;?php phpinfo()</code></pre>')
+->getHTML();
+```
+
+To configure the theme or default language for code blocks pass additonal configuration into the constructor as show below:
+
+```php
+(new Tiptap\Editor([
+    'extensions' => [
+        new \Tiptap\Extensions\StarterKit([
+            'codeBlock' => false,
+        ]),
+        new \Tiptap\Nodes\CodeBlockShiki([
+            'theme' => 'github-dark', // default: nord, see https://github.com/shikijs/shiki/blob/main/docs/themes.md
+            'defaultLanguage' => 'php' // default: html, see https://github.com/shikijs/shiki/blob/main/docs/languages.md
+        ]),
+    ],
+]))
+->setContent('<pre><code>&lt;?php phpinfo()</code></pre>')
+->getHTML();
+```
+
+Under the hood the shiki extension utilizes [Shiki PHP by Spatie](https://github.com/spatie/shiki-php), so please see the documentation for additional details and considerations.
+
 ### Convert content to plain text
 Content can also be transformed to plain text, for example to put it into a search index.
 

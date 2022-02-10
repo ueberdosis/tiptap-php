@@ -26,9 +26,10 @@ class CodeBlockShiki extends CodeBlock
         $code = $node->content[0]->text ?? '';
 
         // Language is set
-        if ($node->attrs->language === null) {
+        if (isset($node->attrs) && isset($node->attrs->language)) {
             $language = $node->attrs->language;
         }
+        
         // Auto-detect the language
         elseif ($this->options['guessLanguage']) {
             try {
@@ -49,7 +50,7 @@ class CodeBlockShiki extends CodeBlock
             $content = Shiki::highlight(
                 code: $code,
                 language: $language,
-                theme: 'nord',
+                theme: $this->options['theme'],
             );
         } catch (DomainException $exception) {
             $mergedAttributes = HTML::mergeAttributes(

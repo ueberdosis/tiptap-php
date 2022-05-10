@@ -73,9 +73,13 @@ test('descendants() loops through all nodes recursively', function () {
         'bulletList',
         'listItem',
         'paragraph',
+        'text',
         'listItem',
         'paragraph',
+        'text',
+        'text',
         'paragraph',
+        'text',
     ]);
 });
 

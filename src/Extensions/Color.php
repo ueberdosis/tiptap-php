@@ -36,7 +36,7 @@ class Color extends Extension
                             return preg_replace('/[\'"]+/', '', $attribute);
                         },
                         'renderHTML' => static function ($attributes): ?array {
-                            if ($attributes?->color === null) {
+                            if (!isset($attributes?->color)) {
                                 return null;
                             }
 

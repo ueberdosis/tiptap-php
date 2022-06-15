@@ -36,7 +36,7 @@ class FontFamily extends Extension
                             return preg_replace('/[\'"]+/', '', $attribute);
                         },
                         'renderHTML' => static function ($attributes) {
-                            if ($attributes?->fontFamily === null) {
+                            if (!isset($attributes?->fontFamily)) {
                                 return null;
                             }
 

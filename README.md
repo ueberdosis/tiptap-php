@@ -308,7 +308,7 @@ use Tiptap\Core\Node;
 
 class CustomNode extends Node
 {
-    public static $name = 'customNode'
+    public static $name = 'customNode';
     
     public static $priority = 100;
 

@@ -9,6 +9,8 @@ class TaskItem extends Node
 {
     public static $name = 'taskItem';
 
+    public static $priority = 1000;
+
     public function addOptions()
     {
         return [

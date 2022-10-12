@@ -9,6 +9,8 @@ class TaskList extends Node
 {
     public static $name = 'taskList';
 
+    public static $priority = 1000;
+
     public function addOptions()
     {
         return [

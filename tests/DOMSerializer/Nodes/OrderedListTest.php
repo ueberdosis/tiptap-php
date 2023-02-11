@@ -37,7 +37,7 @@ test('function orderedList has offset', function () {
             [
                 'type' => 'orderedList',
                 'attrs' => [
-                    'order' => 3,
+                    'start' => 3,
                 ],
                 'content' => [
                     [

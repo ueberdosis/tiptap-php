@@ -18,7 +18,7 @@ class HTML
             foreach ($moreAttributes as $key => $value) {
                 // class="foo bar"
                 if ($key === 'class') {
-                    $attributes['class'] = trim($attributes['class'] ?? '' . ' ' . $value);
+                    $attributes['class'] = trim(($attributes['class'] ?? '') . ' ' . $value);
 
                     continue;
                 }

@@ -1,6 +1,6 @@
 <?php
 
-use Tiptap\Utils\Html;
+use Tiptap\Utils\HTML;
 
 test('classes are merged properly', function () {
     $attributes = [
@@ -8,7 +8,7 @@ test('classes are merged properly', function () {
         ['class' => 'b'],
     ];
 
-    $result = Html::mergeAttributes(...$attributes);
+    $result = HTML::mergeAttributes(...$attributes);
 
     expect($result)->toEqual(['class' => 'a b']);
 });

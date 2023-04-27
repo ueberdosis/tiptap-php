@@ -15,8 +15,6 @@ You can install the package via composer:
 composer require ueberdosis/tiptap-php
 ```
 
-PHP 7.4 support: The package should work with PHP 7.4, but it requires `spatie/shiki-php` which requires PHP 8.0. You can still install the package though, if you pass `--ignore-platform-reqs`. You just won’t be able to use the `CodeBlockShiki` node then.
-
 ## Usage
 The PHP package mimics large parts of the JavaScript package. If you know your way around Tiptap, the PHP syntax will feel familiar to you.
 
@@ -311,6 +309,8 @@ use Tiptap\Core\Node;
 class CustomNode extends Node
 {
     public static $name = 'customNode';
+    
+    public static $priority = 100;
 
     public function addOptions()
     {
@@ -348,6 +348,12 @@ class CustomNode extends Node
     }
 }
 ```
+
+#### Extension priority
+
+Extensions are evaluated in the order of descending priority. By default, all Nodes, Marks, and Extensions, have a priority value of `100`.
+
+Priority should be defined when creating a Node extension to match markup that could be matched be other Nodes - an example of this is the [TaskItem Node](src/Nodes/TaskItem.php) which has evaluation priority over the [ListItem Node](src/Nodes/ListItem.php).
 
 ## Testing
 ```bash

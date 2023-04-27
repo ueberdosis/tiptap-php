@@ -46,11 +46,7 @@ class CodeBlockShiki extends CodeBlock
         }
 
         try {
-            $content = Shiki::highlight(
-                code: $code,
-                language: $language,
-                theme: 'nord',
-            );
+            $content = Shiki::highlight($code, $language, 'nord');
         } catch (DomainException $exception) {
             $mergedAttributes = HTML::mergeAttributes(
                 $this->options['HTMLAttributes'],

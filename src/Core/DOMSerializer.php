@@ -112,33 +112,33 @@ class DOMSerializer
         $markTagsToReopen = [];
         $closingTags = $this->closeMarkTags($markTagsToClose, $markStack, $markTagsToReopen);
         $reopeningTags = $this->reopenMarkTags($markTagsToReopen, $markStack);
+
         return array_merge($closingTags, $reopeningTags);
     }
 
     private function closeMarkTags($markTagsToClose, &$markStack, &$markTagsToReopen): array
     {
         $html = [];
-        while(!empty($markTagsToClose))
-        {
+        while(! empty($markTagsToClose)) {
             # close mark tag from the top of the stack
             $markTag = array_pop($markStack);
             $markExtension = $markTag[0];
             $mark = $markTag[1];
-            $html[] = $this->renderClosingTag($markExtension->renderHTML( $mark ));
+            $html[] = $this->renderClosingTag($markExtension->renderHTML($mark));
 
             # check if the last closed tag is overlapping and has to be reopened
-            if(count(array_filter($markTagsToClose, function($markToClose) use ($markExtension, $mark){
-                    return $markExtension == $markToClose[0] && $mark == $markToClose[1];
-                })) == 0)
-            {
+            if(count(array_filter($markTagsToClose, function ($markToClose) use ($markExtension, $mark) {
+                return $markExtension == $markToClose[0] && $mark == $markToClose[1];
+            })) == 0) {
                 $markTagsToReopen[] = $markTag;
-            }
-            else {
+            } else {
                 # mark tag does not have to be reopened, but deleted from the 'to close' list
                 $markTagsToClose = array_udiff($markTagsToClose, [$markTag], function ($a1, $a2) {
-                    return strcmp($a1[1]->type, $a2[1]->type);});
+                    return strcmp($a1[1]->type, $a2[1]->type);
+                });
             }
         }
+
         return $html;
     }
 
@@ -146,13 +146,13 @@ class DOMSerializer
     {
         $html = [];
         # reopen the overlapping mark tags and push them to the stack
-        foreach(array_reverse($markTagsToReopen) as $markTagToOpen)
-        {
+        foreach(array_reverse($markTagsToReopen) as $markTagToOpen) {
             $renderClass = $markTagToOpen[0];
             $mark = $markTagToOpen[1];
             $html[] = $this->renderOpeningTag($renderClass, $mark);
             $markStack[] = [$renderClass, $mark];
         }
+
         return $html;
     }
 

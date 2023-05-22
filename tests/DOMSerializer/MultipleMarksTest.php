@@ -110,39 +110,39 @@ test('multiple marks get rendered correctly, when overlapping marks exist', func
                         "type" => "text",
                         "marks" => [
                             [
-                                "type" => "bold"
-                            ]
+                                "type" => "bold",
+                            ],
                         ],
-                        "text" => "lorem "
+                        "text" => "lorem ",
                     ],
                     [
                         "type" => "text",
                         "marks" => [
                             [
-                                "type" => "bold"
+                                "type" => "bold",
                             ],
                             [
-                                "type" => "italic"
-                            ]
+                                "type" => "italic",
+                            ],
                         ],
-                        "text" => "ipsum"
+                        "text" => "ipsum",
                     ],
                     [
                         "type" => "text",
                         "marks" => [
                             [
-                                "type" => "italic"
-                            ]
+                                "type" => "italic",
+                            ],
                         ],
-                        "text" => " dolor"
+                        "text" => " dolor",
                     ],
                     [
                         "type" => "text",
-                        "text" => " sit"
+                        "text" => " sit",
                     ],
-                ]
-            ]
-        ]
+                ],
+            ],
+        ],
     ];
 
     $result = (new Editor)
@@ -164,44 +164,44 @@ test('multiple marks get rendered correctly, when overlapping passage with multi
                         "type" => "text",
                         "marks" => [
                             [
-                                "type" => "bold"
+                                "type" => "bold",
                             ],
                             [
-                                "type" => "strike"
-                            ]
+                                "type" => "strike",
+                            ],
                         ],
-                        "text" => "lorem "
+                        "text" => "lorem ",
                     ],
                     [
                         "type" => "text",
                         "marks" => [
                             [
-                                "type" => "italic"
+                                "type" => "italic",
                             ],
                             [
-                                "type" => "bold"
+                                "type" => "bold",
                             ],
                             [
-                                "type" => "strike"
-                            ]
+                                "type" => "strike",
+                            ],
                         ],
-                        "text" => "ipsum"
+                        "text" => "ipsum",
                     ],
                     [
                         "type" => "text",
                         "marks" => [
                             [
-                                "type" => "strike"
+                                "type" => "strike",
                             ],
                             [
-                                "type" => "italic"
+                                "type" => "italic",
                             ],
                         ],
-                        "text" => " dolor"
-                    ]
-                ]
-            ]
-        ]
+                        "text" => " dolor",
+                    ],
+                ],
+            ],
+        ],
     ];
 
     $result = (new Editor)

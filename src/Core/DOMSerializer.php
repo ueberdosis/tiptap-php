@@ -17,9 +17,10 @@ class DOMSerializer
         $this->schema = $schema;
     }
 
-    private function renderNode($node, $previousNode = null, $nextNode = null): string
+    private function renderNode($node, $previousNode = null, $nextNode = null, &$markStack = []): string
     {
         $html = [];
+        $markTagsToClose = [];
 
         if (isset($node->marks)) {
             foreach ($node->marks as $mark) {
@@ -35,6 +36,8 @@ class DOMSerializer
                     }
 
                     $html[] = $this->renderOpeningTag($renderClass, $mark);
+                    # push recently created mark tag to the stack
+                    $markStack[] = [$renderClass, $mark];
                 }
             }
         }
@@ -57,11 +60,12 @@ class DOMSerializer
         }
         // child nodes
         elseif (isset($node->content)) {
+            $nestedNodeMarkStack = [];
             foreach ($node->content as $index => $nestedNode) {
                 $previousNestedNode = $node->content[$index - 1] ?? null;
                 $nextNestedNode = $node->content[$index + 1] ?? null;
 
-                $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode);
+                $html[] = $this->renderNode($nestedNode, $previousNestedNode, $nextNestedNode, $nestedNodeMarkStack);
             }
         }
         // renderText($node)
@@ -92,12 +96,64 @@ class DOMSerializer
                         continue;
                     }
 
-                    $html[] = $this->renderClosingTag($extension->renderHTML($mark));
+                    # remember which mark tags to close
+                    $markTagsToClose[] = [$extension, $mark];
                 }
             }
+            # close mark tags and reopen when necessary
+            $html = array_merge($html, $this->closeAndReopenTags($markTagsToClose, $markStack));
         }
 
         return join($html);
+    }
+
+    private function closeAndReopenTags(array $markTagsToClose, array &$markStack): array
+    {
+        $markTagsToReopen = [];
+        $closingTags = $this->closeMarkTags($markTagsToClose, $markStack, $markTagsToReopen);
+        $reopeningTags = $this->reopenMarkTags($markTagsToReopen, $markStack);
+
+        return array_merge($closingTags, $reopeningTags);
+    }
+
+    private function closeMarkTags($markTagsToClose, &$markStack, &$markTagsToReopen): array
+    {
+        $html = [];
+        while(! empty($markTagsToClose)) {
+            # close mark tag from the top of the stack
+            $markTag = array_pop($markStack);
+            $markExtension = $markTag[0];
+            $mark = $markTag[1];
+            $html[] = $this->renderClosingTag($markExtension->renderHTML($mark));
+
+            # check if the last closed tag is overlapping and has to be reopened
+            if(count(array_filter($markTagsToClose, function ($markToClose) use ($markExtension, $mark) {
+                return $markExtension == $markToClose[0] && $mark == $markToClose[1];
+            })) == 0) {
+                $markTagsToReopen[] = $markTag;
+            } else {
+                # mark tag does not have to be reopened, but deleted from the 'to close' list
+                $markTagsToClose = array_udiff($markTagsToClose, [$markTag], function ($a1, $a2) {
+                    return strcmp($a1[1]->type, $a2[1]->type);
+                });
+            }
+        }
+
+        return $html;
+    }
+
+    private function reopenMarkTags($markTagsToReopen, &$markStack): array
+    {
+        $html = [];
+        # reopen the overlapping mark tags and push them to the stack
+        foreach(array_reverse($markTagsToReopen) as $markTagToOpen) {
+            $renderClass = $markTagToOpen[0];
+            $mark = $markTagToOpen[1];
+            $html[] = $this->renderOpeningTag($renderClass, $mark);
+            $markStack[] = [$renderClass, $mark];
+        }
+
+        return $html;
     }
 
     private function isMarkOrNode($markOrNode, $renderClass): bool
@@ -331,11 +387,13 @@ class DOMSerializer
 
         $content = is_array($this->document->content) ? $this->document->content : [];
 
+        $markStack = [];
+
         foreach ($content as $index => $node) {
             $previousNode = $content[$index - 1] ?? null;
             $nextNode = $content[$index + 1] ?? null;
 
-            $html[] = $this->renderNode($node, $previousNode, $nextNode);
+            $html[] = $this->renderNode($node, $previousNode, $nextNode, $markStack);
         }
 
         return join($html);

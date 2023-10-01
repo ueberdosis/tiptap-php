@@ -122,6 +122,17 @@ class DOMParser
         return $this->mergeSimilarNodes($nodes);
     }
 
+    private function isMultidimensionalArray($array)
+    {
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     private function mergeSimilarNodes($nodes)
     {
         $result = [];
@@ -131,10 +142,7 @@ class DOMParser
          */
         array_reduce($nodes, function ($carry, $node) use (&$result) {
             // Ignore multidimensional arrays
-            if (
-                count($node) !== count($node, COUNT_RECURSIVE)
-                || count($carry) !== count($carry, COUNT_RECURSIVE)
-            ) {
+            if ($this->isMultidimensionalArray($node) || $this->isMultidimensionalArray($carry)) {
                 $result[] = $node;
 
                 return $node;

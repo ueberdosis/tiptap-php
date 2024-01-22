@@ -33,11 +33,15 @@ class CodeBlock extends Node
         return [
             'language' => [
                 'parseHTML' => function ($DOMNode) {
-                    return preg_replace(
-                        "/^" . $this->options['languageClassPrefix']. "/",
-                        "",
-                        $DOMNode->childNodes[0]->getAttribute('class')
-                    ) ?: null;
+                    if ($DOMNode->childNodes[0] instanceof DOMElement) {
+                        return preg_replace(
+                            "/^" . $this->options['languageClassPrefix']. "/",
+                            "",
+                            $DOMNode->childNodes[0]->getAttribute('class')
+                        ) ?: null;
+                    }
+                
+                    return null;
                 },
                 'rendered' => false,
             ],

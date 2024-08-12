@@ -1,6 +1,17 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - next
+      - release/*
+  pull_request:
+    branches:
+      - main
+      - develop
+      - next
 
 jobs:
   test:

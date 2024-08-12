@@ -2,21 +2,28 @@ name: Psalm
 
 on:
   push:
-    paths:
-      - '**.php'
-      - 'psalm.xml.dist'
+    branches:
+      - main
+      - develop
+      - next
+      - release/*
+  pull_request:
+    branches:
+      - main
+      - develop
+      - next
 
 jobs:
   psalm:
     name: psalm
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: "8.0"
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
 

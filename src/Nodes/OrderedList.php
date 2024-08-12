@@ -28,9 +28,9 @@ class OrderedList extends Node
     public function addAttributes()
     {
         return [
-            'order' => [
+            'start' => [
                 'parseHTML' => fn ($DOMNode) => (int) $DOMNode->getAttribute('start') ?: null,
-                'renderHTML' => fn ($attributes) => ($attributes->order ?? null) ? ['start' => $attributes->order] : null,
+                'renderHTML' => fn ($attributes) => ($attributes->start ?? null) ? ['start' => $attributes->start] : null,
             ],
         ];
     }

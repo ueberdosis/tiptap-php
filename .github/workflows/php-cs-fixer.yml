@@ -1,6 +1,17 @@
 name: Check & fix styling
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - next
+      - release/*
+  pull_request:
+    branches:
+      - main
+      - develop
+      - next
 
 jobs:
   php-cs-fixer:
@@ -8,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
 

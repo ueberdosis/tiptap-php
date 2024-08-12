@@ -33,6 +33,10 @@ class CodeBlock extends Node
         return [
             'language' => [
                 'parseHTML' => function ($DOMNode) {
+                    if (! ($DOMNode->childNodes[0] instanceof \DOMElement)) {
+                        return null;
+                    }
+
                     return preg_replace(
                         "/^" . $this->options['languageClassPrefix']. "/",
                         "",

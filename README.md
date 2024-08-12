@@ -22,7 +22,7 @@ The PHP package mimics large parts of the JavaScript package. If you know your w
 Let’s start by converting a HTML snippet to a PHP array with a Tiptap-compatible structure:
 
 ```php
-(new Tiptap\Editor)
+(new \Tiptap\Editor)
     ->setContent('<p>Example Text</p>')
     ->getDocument();
 
@@ -33,7 +33,7 @@ Let’s start by converting a HTML snippet to a PHP array with a Tiptap-compatib
 You can get a JSON string in PHP, too.
 
 ```php
-(new Tiptap\Editor)
+(new \Tiptap\Editor)
     ->setContent('<p>Example Text</p>')
     ->getJSON();
 
@@ -45,7 +45,7 @@ You can get a JSON string in PHP, too.
 The other way works aswell. Just pass a JSON string or an PHP array to generate the HTML.
 
 ```php
-(new Tiptap\Editor)
+(new \Tiptap\Editor)
     ->setContent([
         'type' => 'doc',
         'content' => [
@@ -76,7 +76,7 @@ The default `CodeBlock` extension doesn’t add syntax highlighting to your code
 Swapping our the default one works like that:
 
 ```php
-(new Tiptap\Editor([
+(new \Tiptap\Editor([
     'extensions' => [
         new \Tiptap\Extensions\StarterKit([
             'codeBlock' => false,
@@ -111,7 +111,7 @@ npm install shiki
 Then follow the example below:
 
 ```php
-(new Tiptap\Editor([
+(new \Tiptap\Editor([
     'extensions' => [
         new \Tiptap\Extensions\StarterKit([
             'codeBlock' => false,
@@ -126,7 +126,7 @@ Then follow the example below:
 To configure the theme or default language for code blocks pass additonal configuration into the constructor as show below:
 
 ```php
-(new Tiptap\Editor([
+(new \Tiptap\Editor([
     'extensions' => [
         new \Tiptap\Extensions\StarterKit([
             'codeBlock' => false,
@@ -148,7 +148,7 @@ Under the hood the Shiki extension utilizes [Shiki PHP by Spatie](https://github
 Content can also be transformed to plain text, for example to put it into a search index.
 
 ```php
-(new Editor)
+(new \Tiptap\Editor)
     ->setContent('<h1>Heading</h1><p>Paragraph</p>')
     ->getText();
 
@@ -161,7 +161,7 @@ Content can also be transformed to plain text, for example to put it into a sear
 What’s coming between blocks can be configured, too.
 
 ```php
-(new Editor)
+(new \Tiptap\Editor)
     ->setContent('<h1>Heading</h1><p>Paragraph</p>')
     ->getText([
         'blockSeparator' => "\n",
@@ -178,7 +178,7 @@ A great use case for the PHP package is to clean (or “sanitize”) the content
 It’ll return the same format you’re using as the input format.
 
 ```php
-(new Tiptap\Editor)
+(new \Tiptap\Editor)
     ->sanitize('<p>Example Text<script>alert("HACKED!")</script></p>');
 
 // Returns:
@@ -204,10 +204,10 @@ $editor->descendants(function (&$node) {
 Pass the configuration to the constructor of the editor. There’s not much to configure, but at least you can pass the initial content and load specific extensions.
 
 ```php
-new Tiptap\Editor([
+new \Tiptap\Editor([
     'content' => '<p>Example Text</p>',
     'extensions' => [
-        new Tiptap\Extensions\StarterKit,
+        new \Tiptap\Extensions\StarterKit,
     ],
 ])
 ```
@@ -218,10 +218,10 @@ The `StarterKit` is loaded by default. If you just want to use that, there’s n
 By default, the [`StarterKit`](https://tiptap.dev/api/extensions/starter-kit) is loaded, but you can pass a custom array of extensions aswell.
 
 ```php
-new Tiptap\Editor([
+new \Tiptap\Editor([
     'extensions' => [
-        new Tiptap\Extensions\StarterKit,
-        new Tiptap\Nodes\Link,
+        new \Tiptap\Extensions\StarterKit,
+        new \Tiptap\Marks\Link,
     ],
 ])
 ```
@@ -230,10 +230,10 @@ new Tiptap\Editor([
 Some extensions can be configured. Just pass an array to the constructor, that’s it. We’re aiming to support the same configuration as the JavaScript package.
 
 ```php
-new Tiptap\Editor([
+new \Tiptap\Editor([
     'extensions' => [
         // …
-        new Tiptap\Nodes\Heading([
+        new \Tiptap\Nodes\Heading([
             'levels' => [1, 2, 3],
         ]),
     ],
@@ -243,10 +243,10 @@ new Tiptap\Editor([
 You can pass custom HTML attributes through the configuration, too.
 
 ```php
-new Tiptap\Editor([
+new \Tiptap\Editor([
     'extensions' => [
         // …
-        new Tiptap\Nodes\Heading([
+        new \Tiptap\Nodes\Heading([
             'HTMLAttributes' => [
                 'class' => 'my-custom-class',
             ],
@@ -258,7 +258,7 @@ new Tiptap\Editor([
 For the `StarterKit`, it’s slightly different, but works as you are used to from the JavaScript package.
 
 ```php
-new Tiptap\Editor([
+new \Tiptap\Editor([
     'extensions' => [
         new Tiptap\Extensions\StarterKit([
             'codeBlock' => false,
@@ -287,7 +287,7 @@ class CustomBold extends \Tiptap\Marks\Bold
     }
 }
 
-new Tiptap\Editor([
+new \Tiptap\Editor([
     'extensions' => [
         new Paragraph,
         new Text,

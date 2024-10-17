@@ -25,7 +25,7 @@ class HTML
 
                 // style="color: red;"
                 if ($key === 'style') {
-                    $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value, ';') . '; ';
+                    $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value ?? '', ';') . '; ';
                     $attributes['style'] = ltrim(trim($style), '; ');
 
                     continue;

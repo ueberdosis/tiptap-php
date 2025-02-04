@@ -116,7 +116,7 @@ Then follow the example below:
         new \Tiptap\Extensions\StarterKit([
             'codeBlock' => false,
         ]),
-        new \Tiptap\Nodes\CodeBlockShiki,
+        new \Tiptap\Nodes\CodeBlockShiki(),
     ],
 ]))
 ->setContent('<pre><code>&lt;?php phpinfo()</code></pre>')
@@ -133,8 +133,8 @@ To configure the theme or default language for code blocks pass additonal config
         ]),
         new \Tiptap\Nodes\CodeBlockShiki([
             'theme' => 'github-dark', // default: nord, see https://github.com/shikijs/shiki/blob/main/docs/themes.md
-            'defaultLanguage' => 'php' // default: html, see https://github.com/shikijs/shiki/blob/main/docs/languages.md
-            'guessLanguage' => true // default: true, if the language isn’t passed, it tries to guess the language with highlight.php
+            'defaultLanguage' => 'php', // default: html, see https://github.com/shikijs/shiki/blob/main/docs/languages.md
+            'guessLanguage' => true, // default: true, if the language isn’t passed, it tries to guess the language with highlight.php
         ]),
     ],
 ]))

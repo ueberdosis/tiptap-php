@@ -119,7 +119,7 @@ class DOMSerializer
     private function closeMarkTags($markTagsToClose, &$markStack, &$markTagsToReopen): array
     {
         $html = [];
-        while(! empty($markTagsToClose)) {
+        while (! empty($markTagsToClose)) {
             # close mark tag from the top of the stack
             $markTag = array_pop($markStack);
             $markExtension = $markTag[0];
@@ -127,7 +127,7 @@ class DOMSerializer
             $html[] = $this->renderClosingTag($markExtension->renderHTML($mark));
 
             # check if the last closed tag is overlapping and has to be reopened
-            if(count(array_filter($markTagsToClose, function ($markToClose) use ($markExtension, $mark) {
+            if (count(array_filter($markTagsToClose, function ($markToClose) use ($markExtension, $mark) {
                 return $markExtension == $markToClose[0] && $mark == $markToClose[1];
             })) == 0) {
                 $markTagsToReopen[] = $markTag;
@@ -146,7 +146,7 @@ class DOMSerializer
     {
         $html = [];
         # reopen the overlapping mark tags and push them to the stack
-        foreach(array_reverse($markTagsToReopen) as $markTagToOpen) {
+        foreach (array_reverse($markTagsToReopen) as $markTagToOpen) {
             $renderClass = $markTagToOpen[0];
             $mark = $markTagToOpen[1];
             $html[] = $this->renderOpeningTag($renderClass, $mark);

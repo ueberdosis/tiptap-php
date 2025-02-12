@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.0",
         "scrivo/highlight.php": "^9.18",
         "spatie/shiki-php": "^2.0"
     },

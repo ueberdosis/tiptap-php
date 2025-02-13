@@ -72,4 +72,18 @@ class TableCell extends Node
             0,
         ];
     }
+
+    public static function wrapper($DOMNode)
+    {
+        if (
+            $DOMNode->childNodes->length === 1
+            && $DOMNode->childNodes[0]->nodeName == "p"
+        ) {
+            return null;
+        }
+
+        return [
+            'type' => 'paragraph',
+        ];
+    }
 }

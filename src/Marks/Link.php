@@ -34,6 +34,7 @@ class Link extends Mark
             'href' => [],
             'target' => [],
             'rel' => [],
+            'class' => [],
         ];
     }
 

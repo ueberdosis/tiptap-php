@@ -12,6 +12,7 @@ on:
       - main
       - develop
       - next
+  workflow_dispatch:
 
 jobs:
   test:

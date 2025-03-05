@@ -76,7 +76,7 @@ test('link mark has support for class', function () {
                         'attrs' => [
                             'href' => 'https://tiptap.dev',
                             'rel' => 'noopener',
-                            'class' => 'tiptap'
+                            'class' => 'tiptap',
                         ],
                     ],
                 ],

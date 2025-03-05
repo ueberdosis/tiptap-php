@@ -63,6 +63,37 @@ test('link mark has support for rel', function () {
     expect($result)->toEqual('<a target="_blank" rel="noopener" href="https://tiptap.dev">Example Link</a>');
 });
 
+test('link mark has support for class', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'rel' => 'noopener',
+                            'class' => 'tiptap'
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a target="_blank" rel="noopener" href="https://tiptap.dev" class="tiptap">Example Link</a>');
+});
+
 test('link mark has support for target', function () {
     $document = [
         'type' => 'doc',

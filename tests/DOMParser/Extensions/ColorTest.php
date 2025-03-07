@@ -5,7 +5,7 @@ use Tiptap\Extensions\Color;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Marks\TextStyle;
 
-test('color is parsed correctly', function() {
+test('color is parsed correctly', function () {
     $html = '<p><span style="color: red;">red text</span></p>';
 
     $result =

@@ -208,5 +208,5 @@ test('multiple marks get rendered correctly, when overlapping passage with multi
         ->setContent($document)
         ->getHTML();
 
-    expect($result)->toEqual('<p><strong><strike>lorem <em>ipsum</em></strike></strong><strike><em> dolor</em></strike></p>');
+    expect($result)->toEqual('<p><strong><s>lorem <em>ipsum</em></s></strong><s><em> dolor</em></s></p>');
 });

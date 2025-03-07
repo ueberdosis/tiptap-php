@@ -23,5 +23,5 @@ test('strike gets rendered correctly', function () {
         ->setContent($document)
         ->getHTML();
 
-    expect($result)->toEqual('<strike>Example Text</strike>');
+    expect($result)->toEqual('<s>Example Text</s>');
 });

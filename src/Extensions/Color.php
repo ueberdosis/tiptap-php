@@ -34,11 +34,13 @@ class Color extends Extension
                             return preg_replace('/[\'"]+/', '', $attribute);
                         },
                         'renderHTML' => function ($attributes) {
-                            if (! isset($attributes?->color)) {
+                            $color = $attributes?->color ?? null;
+
+                            if ($color === null) {
                                 return null;
                             }
 
-                            return ['style' => "color: {$attributes->color}"];
+                            return ['style' => "color: {$color}"];
                         },
                     ],
                 ],

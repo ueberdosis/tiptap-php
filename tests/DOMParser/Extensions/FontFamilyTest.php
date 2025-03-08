@@ -75,7 +75,7 @@ test('multiple font family values are parsed correctly', function () {
                                 ],
                             ],
                         ],
-                        'text' => 'Complex font stack',
+                        'text' => 'Multiple fonts',
                     ],
                 ],
             ],

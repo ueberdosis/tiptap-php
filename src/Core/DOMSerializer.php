@@ -8,6 +8,8 @@ use Tiptap\Utils\HTML;
 
 class DOMSerializer
 {
+    use SerializerTrait;
+
     protected $document;
 
     protected $schema;
@@ -154,11 +156,6 @@ class DOMSerializer
         }
 
         return $html;
-    }
-
-    private function isMarkOrNode($markOrNode, $renderClass): bool
-    {
-        return isset($markOrNode->type) && $markOrNode->type === $renderClass::$name;
     }
 
     private function markShouldOpen($mark, $previousNode): bool

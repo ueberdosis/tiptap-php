@@ -82,7 +82,7 @@ class DOMParser
                     continue;
                 }
 
-                if ($child->hasChildNodes()) {
+                if (!$class::$noContent && $child->hasChildNodes()) {
                     $item = array_merge($item, [
                         'content' => $this->processChildren($child),
                     ]);

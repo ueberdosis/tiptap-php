@@ -5,7 +5,6 @@ labels:
   - "bug"
 body:
   - type: markdown
-    id: bug_report
     attributes:
       value: |
         ## Bug Report
@@ -27,19 +26,27 @@ body:
       placeholder: "e.g. 8.0"
     validations:
       required: true
-  - type: markdown
-    id: additional_context
+  - type: textarea
+    id: environment_details
     attributes:
-      value: |
-        ## Other Environment Details
-
-        <!-- Please provide any additional context or information that may be helpful in understanding the bug -->
-        <!-- e.g. server environment, dependencies, framework, etc. -->
-
-        ## Steps to Reproduce
-
-        <!-- Please provide a step-by-step guide on how to reproduce the bug. -->
-
-        ## Expected Behavior
-
-        <!-- Please describe what you expected to happen. -->
+      label: "Other Environment Details"
+      description: "Please provide any additional context or information that may be helpful in understanding the bug, e.g. server environment, dependencies, framework, etc."
+      placeholder: ""
+    validations:
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Please provide a step-by-step guide on how to reproduce the bug."
+      placeholder: ""
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "Please describe what you expected to happen."
+      placeholder: ""
+    validations:
+      required: true

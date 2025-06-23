@@ -1,52 +1,60 @@
-name: Report a bug
-description: Report a reproducable bug
+name: Bug Report
 title: "[Bug]: "
+description: Found a bug? Report it here to help us improve.
 labels:
   - "bug"
 body:
   - type: markdown
     attributes:
-      value: |
-        ## Bug Report
-
-        <!-- Please describe the bug you have encountered. -->
-  - type: input
-    id: tiptap_php_version
-    attributes:
-      label: "What version of Tiptap PHP are you using?"
-      description: "Please provide the version of Tiptap PHP you are using. You can find this in your `composer.json` file or by running `composer show ueberdosis/tiptap-php`."
-      placeholder: "e.g. 1.0.0"
-    validations:
-      required: true
+      value: "### Please provide details to help us diagnose the bug."
   - type: input
     id: php_version
     attributes:
-      label: "What version of PHP are you using?"
-      description: "Please provide the version of PHP you are using. You can find this by running `php -v`."
-      placeholder: "e.g. 8.0"
+      label: PHP Version
+      description: The version of PHP you are using.
+      placeholder: e.g. 8.0
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Specify the version of Tiptap PHP you are using.
+      placeholder: 1.0.0
     validations:
       required: true
   - type: textarea
-    id: environment_details
+    id: problem
     attributes:
-      label: "Other Environment Details"
-      description: "Please provide any additional context or information that may be helpful in understanding the bug, e.g. server environment, dependencies, framework, etc."
-      placeholder: ""
+      label: Bug Description
+      description: Provide a clear and concise description of what the bug is.
+      placeholder: "The issue occurs when..."
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ### Additional Information
+        Please provide any additional information that may help us understand the issue.
+  - type: textarea
+    id: expectation
+    attributes:
+      label: Expected Behavior
+      description: Describe what you expected to happen.
     validations:
       required: true
   - type: textarea
-    id: steps_to_reproduce
+    id: context
     attributes:
-      label: "Steps to Reproduce"
-      description: "Please provide a step-by-step guide on how to reproduce the bug."
-      placeholder: ""
-    validations:
-      required: true
-  - type: textarea
-    id: expected_behavior
+      label: Additional Context (Optional)
+      description: "Add any other context about the problem here, such as screenshots or videos."
+  - type: checkboxes
     attributes:
-      label: "Expected Behavior"
-      description: "Please describe what you expected to happen."
-      placeholder: ""
-    validations:
-      required: true
+      label: Dependency Updates
+      description: "Have you updated your dependencies? This can often resolve issues."
+      options:
+        - label: Yes, I've updated all my dependencies.
+          required: true
+  - type: markdown
+    attributes:
+      value: "Thank you for helping us improve our open-source projects by reporting this issue!"

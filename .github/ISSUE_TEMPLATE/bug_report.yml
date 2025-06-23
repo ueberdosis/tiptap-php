@@ -1,0 +1,45 @@
+name: Report a bug
+description: Report a reproducable bug
+title: "[Bug]: "
+labels:
+  - "bug"
+body:
+  - type: markdown
+    id: bug_report
+    attributes:
+      value: |
+        ## Bug Report
+
+        <!-- Please describe the bug you have encountered. -->
+  - type: input
+    id: tiptap_php_version
+    attributes:
+      label: "What version of Tiptap PHP are you using?"
+      description: "Please provide the version of Tiptap PHP you are using. You can find this in your `composer.json` file or by running `composer show ueberdosis/tiptap-php`."
+      placeholder: "e.g. 1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: php_version
+    attributes:
+      label: "What version of PHP are you using?"
+      description: "Please provide the version of PHP you are using. You can find this by running `php -v`."
+      placeholder: "e.g. 8.0"
+    validations:
+      required: true
+  - type: markdown
+    id: additional_context
+    attributes:
+      value: |
+        ## Other Environment Details
+
+        <!-- Please provide any additional context or information that may be helpful in understanding the bug -->
+        <!-- e.g. server environment, dependencies, framework, etc. -->
+
+        ## Steps to Reproduce
+
+        <!-- Please provide a step-by-step guide on how to reproduce the bug. -->
+
+        ## Expected Behavior
+
+        <!-- Please describe what you expected to happen. -->

@@ -1,0 +1,21 @@
+name: Request a feature
+description: Share ideas for new features
+title: "[Feature Request]: "
+labels:
+  - "enhancement"
+body:
+  - type: markdown
+    id: feature_request
+    attributes:
+      value: |
+        ## Feature Request
+
+        <!-- Please describe the feature you would like to see implemented. -->
+
+  - type: markdown
+    id: additional_context
+    attributes:
+      value: |
+        ## Additional context
+
+        <!-- Please provide any additional context or information that may be helpful in understanding your request. -->

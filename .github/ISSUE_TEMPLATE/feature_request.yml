@@ -9,10 +9,18 @@ body:
       value: |
         ## Feature Request
 
-        <!-- Please describe the feature you would like to see implemented. -->
+        Thank you for considering contributing to Tiptap PHP! We welcome your ideas and suggestions for new features.
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: "Feature Description"
+      description: "Please provide a clear and concise description of the feature you would like to see."
+      placeholder: "e.g. I would like to have a new command to..."
+    validations:
+      required: true
   - type: textarea
     id: additional_context
     attributes:
       label: "Additional Context"
-      description: "Please provide any additional context or information that may be helpful in understanding your request
+      description: "Please provide any additional context or information that may be helpful in understanding your request."
       placeholder: "e.g. use case, related features, etc."

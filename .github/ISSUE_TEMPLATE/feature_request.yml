@@ -5,17 +5,14 @@ labels:
   - "enhancement"
 body:
   - type: markdown
-    id: feature_request
     attributes:
       value: |
         ## Feature Request
 
         <!-- Please describe the feature you would like to see implemented. -->
-
-  - type: markdown
+  - type: textarea
     id: additional_context
     attributes:
-      value: |
-        ## Additional context
-
-        <!-- Please provide any additional context or information that may be helpful in understanding your request. -->
+      label: "Additional Context"
+      description: "Please provide any additional context or information that may be helpful in understanding your request
+      placeholder: "e.g. use case, related features, etc."

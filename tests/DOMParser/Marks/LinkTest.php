@@ -124,7 +124,8 @@ test('link_mark_has_support_for_target', function () {
     ]);
 });
 
-function getValidUrls() {
+function getValidUrls()
+{
     return [
         'https://example.com',
         'http://example.com',
@@ -135,7 +136,8 @@ function getValidUrls() {
     ];
 }
 
-function getInvalidUrls() {
+function getInvalidUrls()
+{
     // Copied from https://github.com/ueberdosis/tiptap/blob/next/tests/cypress/integration/extensions/link.spec.ts
 
     return [
@@ -191,8 +193,9 @@ function getInvalidUrls() {
     ];
 }
 
-function getJsonContent($url) {
-    return [ 
+function getJsonContent($url)
+{
+    return [
         'type' => 'doc',
         'content' => [
             [
@@ -216,11 +219,12 @@ function getJsonContent($url) {
     ];
 }
 
-function getHtmlContent($url) {
+function getHtmlContent($url)
+{
     return '<p><a href="' . $url . '">Click me</a></p>';
 }
 
-test('link_mark_does_output_href_tag_for_valid_JSON_schemas', function() {
+test('link_mark_does_output_href_tag_for_valid_JSON_schemas', function () {
     foreach (getValidUrls() as $url) {
         $content = getJsonContent($url);
 
@@ -237,7 +241,7 @@ test('link_mark_does_output_href_tag_for_valid_JSON_schemas', function() {
     }
 });
 
-test('link_mark_does_not_output_href_tag_for_valid_JSON_schemas', function() {
+test('link_mark_does_not_output_href_tag_for_valid_JSON_schemas', function () {
     foreach (getInvalidUrls() as $url) {
         $content = getJsonContent($url);
 
@@ -254,7 +258,7 @@ test('link_mark_does_not_output_href_tag_for_valid_JSON_schemas', function() {
     }
 });
 
-test('link_mark_does_output_href_tag_for_valid_HTML_schemas', function() {
+test('link_mark_does_output_href_tag_for_valid_HTML_schemas', function () {
     foreach (getValidUrls() as $url) {
         $content = getHtmlContent($url);
 
@@ -271,7 +275,7 @@ test('link_mark_does_output_href_tag_for_valid_HTML_schemas', function() {
     }
 });
 
-test('link_mark_does_not_output_href_tag_for_valid_HTML_schemas', function() {
+test('link_mark_does_not_output_href_tag_for_valid_HTML_schemas', function () {
     foreach (getInvalidUrls() as $url) {
         $content = getHtmlContent($url);
 

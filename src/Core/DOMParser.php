@@ -94,14 +94,6 @@ class DOMParser
                     ]);
                 }
 
-                if ($wrapper = $class::wrapper($child)) {
-                    $item['content'] = [
-                        array_merge($wrapper, [
-                            'content' => $item['content'] ?? [],
-                        ]),
-                    ];
-                }
-
                 array_push($nodes, $item);
             } elseif ($class = $this->getMarkFor($child)) {
                 array_push($this->storedMarks, $this->parseAttributes($class, $child));

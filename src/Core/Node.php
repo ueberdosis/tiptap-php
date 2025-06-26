@@ -25,8 +25,8 @@ class Node extends Extension
         return null;
     }
 
-    public static function wrapper($DOMNode)
-    {
-        return null;
-    }
+    // public static function wrapper($DOMNode)
+    // {
+    //     return null;
+    // }
 }

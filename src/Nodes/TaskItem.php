@@ -68,17 +68,17 @@ class TaskItem extends Node
         ];
     }
 
-    public static function wrapper($DOMNode)
-    {
-        if (
-            $DOMNode->childNodes->length === 1
-            && $DOMNode->childNodes[0]->nodeName == "p"
-        ) {
-            return null;
-        }
+    // public static function wrapper($DOMNode)
+    // {
+    //     if (
+    //         $DOMNode->childNodes->length === 1
+    //         && $DOMNode->childNodes[0]->nodeName == "p"
+    //     ) {
+    //         return null;
+    //     }
 
-        return [
-            'type' => 'paragraph',
-        ];
-    }
+    //     return [
+    //         'type' => 'paragraph',
+    //     ];
+    // }
 }

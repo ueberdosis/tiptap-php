@@ -21,9 +21,9 @@ class Link extends Mark
                 'rel' => 'noopener noreferrer nofollow',
             ],
             'allowedProtocols' => [
-                'http', 'https', 'ftp', 'ftps', 'mailto', 'tel', 'callto', 'sms', 'cid', 'xmpp'
+                'http', 'https', 'ftp', 'ftps', 'mailto', 'tel', 'callto', 'sms', 'cid', 'xmpp',
             ],
-            'isAllowedUri' => fn($uri) => $this->isAllowedUri($uri)
+            'isAllowedUri' => fn ($uri) => $this->isAllowedUri($uri),
         ];
     }
 
@@ -51,7 +51,7 @@ class Link extends Mark
 
                     if (
                         $href === '' ||
-                        !$this->options['isAllowedUri']($href)
+                        ! $this->options['isAllowedUri']($href)
                     ) {
                         return false;
                     }
@@ -76,7 +76,7 @@ class Link extends Mark
     {
         $isAllowed = $this->options['isAllowedUri']($HTMLAttributes['href'] ?? '');
 
-        if(!$isAllowed) {
+        if (! $isAllowed) {
             $HTMLAttributes['href'] = '';
         }
 

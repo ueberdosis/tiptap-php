@@ -141,7 +141,7 @@ test('listItems content get rendered correctly', function () {
 
     expect($result)->toEqual([
         'type' => 'doc',
-        'content' => [  
+        'content' => [
             [
                 'type' => 'bulletList',
                 'content' => [

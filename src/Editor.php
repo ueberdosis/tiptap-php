@@ -126,11 +126,6 @@ class Editor
      */
     private function walkThroughNodes(&$node, $closure)
     {
-        // Skip, if it’s just text.
-        if ($node->type === 'text') {
-            return;
-        }
-
         // Call the closure.
         $closure($node);
 

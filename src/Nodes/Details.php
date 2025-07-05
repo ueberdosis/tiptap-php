@@ -37,7 +37,7 @@ class Details extends Node
             'open' => [
                 'default' => false,
                 'parseHTML' => fn ($DOMNode) => $DOMNode->hasAttribute('open'),
-                'renderHTML' => fn ($attributes) => $attributes['open'] ? ['open' => ''] : [],
+                'renderHTML' => fn ($attributes) => $attributes->open ? ['open' => 'open'] : [],
             ],
         ];
     }

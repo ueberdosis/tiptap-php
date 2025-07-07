@@ -216,3 +216,63 @@ test('link with marks inside node generates clean output', function () {
 
     expect($result)->toEqual('<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://example.com">Example <strong>Link</strong></a></p>');
 });
+
+test('link mark can disable rel', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'rel' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a target="_blank" href="https://tiptap.dev">Example Link</a>');
+});
+
+test('link mark can disable target', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'target' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
+});

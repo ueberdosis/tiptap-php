@@ -89,6 +89,11 @@ class Editor
     public function getContentType($value): string
     {
         if (is_string($value)) {
+            // Ensure number strings are treated as HTML, e.g. "1999"
+            if (ctype_digit(mb_substr($value, 0, 1))) {
+                return 'HTML';
+            }
+
             try {
                 /**
                  * @psalm-suppress UnusedFunctionCall

@@ -109,3 +109,17 @@ test('content can be passed to the configuration', function () {
         ],
     ]);
 });
+
+test('link from html without target or rel should not have them in output', function () {
+    $html = '<a href="https://tiptap.dev">Example Link</a>';
+
+    $result = (new Editor([
+        'extensions' => [
+            new \Tiptap\Extensions\StarterKit,
+            new \Tiptap\Marks\Link,
+        ],
+    ]))->setContent($html)->getHTML();
+
+    expect($result)->not->toContain('target="_blank"');
+    expect($result)->not->toContain('rel=');
+});

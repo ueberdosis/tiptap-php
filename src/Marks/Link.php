@@ -56,7 +56,9 @@ class Link extends Mark
                         return false;
                     }
 
-                    return null;
+                    return [
+                        'target' => $DOMNode->getAttribute('target') ?: null,
+                    ];
                 },
             ],
         ];

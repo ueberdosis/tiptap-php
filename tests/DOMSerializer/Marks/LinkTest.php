@@ -277,6 +277,37 @@ test('link mark with non-string (array) href does not crash and is treated as di
     expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow">Example</a>');
 });
 
+test('link mark with array rel and target drops the attributes', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'rel' => ['a', 'b'],
+                            'target' => ['a', 'b'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a href="https://tiptap.dev">Example Link</a>');
+});
+
 test('link mark can disable target', function () {
     $document = [
         'type' => 'doc',

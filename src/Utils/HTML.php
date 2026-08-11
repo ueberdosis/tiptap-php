@@ -60,8 +60,16 @@ class HTML
         $attributes = [];
 
         // class="custom"
-        foreach (array_filter($attrs) as $name => $value) {
-            $escapedValue = htmlentities($value);
+        foreach ($attrs as $name => $value) {
+            if (! is_scalar($value) || $value === '') {
+                continue;
+            }
+
+            if (is_bool($value)) {
+                $value = $value ? 'true' : 'false';
+            }
+
+            $escapedValue = htmlentities((string) $value);
 
             $attributes[] = " {$name}=\"{$escapedValue}\"";
         }

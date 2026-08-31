@@ -8,16 +8,22 @@ class HTML
      * Merge an associative array of attributes,
      * and make sure to merge classes and inline styles.
      */
-    public static function mergeAttributes()
+    public static function mergeAttributes(...$args): array
     {
-        $args = func_get_args();
-
-        $attributes = array_shift($args);
+        $attributes = [];
 
         foreach ($args as $moreAttributes) {
+            if (! is_array($moreAttributes) && ! is_object($moreAttributes)) {
+                continue;
+            }
+
             foreach ($moreAttributes as $key => $value) {
                 // class="foo bar"
                 if ($key === 'class') {
+                    if (! self::isStringable($value)) {
+                        continue;
+                    }
+
                     $attributes['class'] = trim(($attributes['class'] ?? '') . ' ' . $value);
 
                     continue;
@@ -25,7 +31,11 @@ class HTML
 
                 // style="color: red;"
                 if ($key === 'style') {
-                    $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value ?? '', ';') . '; ';
+                    if (! self::isStringable($value)) {
+                        continue;
+                    }
+
+                    $style = rtrim($attributes['style'] ?? '', '; ') . '; ' . rtrim($value, ';') . '; ';
                     $attributes['style'] = ltrim(trim($style), '; ');
 
                     continue;
@@ -44,24 +54,11 @@ class HTML
      */
     public static function renderAttributes(array $attrs): string
     {
-        // Make boolean values a string, so they can be rendered in HTML
-        $attrs = array_map(function ($attribute) {
-            if ($attribute === true) {
-                return 'true';
-            }
-
-            if ($attribute === false) {
-                return 'false';
-            }
-
-            return $attribute;
-        }, $attrs);
-
         $attributes = [];
 
         // class="custom"
         foreach ($attrs as $name => $value) {
-            if (! is_scalar($value) || $value === '') {
+            if (! self::isStringable($value)) {
                 continue;
             }
 
@@ -69,11 +66,25 @@ class HTML
                 $value = $value ? 'true' : 'false';
             }
 
-            $escapedValue = htmlentities((string) $value);
+            $value = (string) $value;
+
+            if ($value === '') {
+                continue;
+            }
+
+            $escapedValue = htmlentities($value);
 
             $attributes[] = " {$name}=\"{$escapedValue}\"";
         }
 
         return join($attributes);
+    }
+
+    /**
+     * Whether a value can be rendered into an attribute. Excludes null.
+     */
+    private static function isStringable($value): bool
+    {
+        return is_scalar($value) || $value instanceof \Stringable;
     }
 }

@@ -308,6 +308,96 @@ test('link mark with array rel and target drops the attributes', function () {
     expect($result)->toEqual('<a href="https://tiptap.dev">Example Link</a>');
 });
 
+test('link mark with an object class drops the attribute', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'class' => ['k' => 'v'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
+});
+
+test('link mark with an array class drops the attribute', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'class' => ['a', 'b'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
+});
+
+test('link mark with an unrenderable class keeps a class configured on the extension', function () {
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'text',
+                'text' => 'Example Link',
+                'marks' => [
+                    [
+                        'type' => 'link',
+                        'attrs' => [
+                            'href' => 'https://tiptap.dev',
+                            'class' => ['a', 'b'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Link(['HTMLAttributes' => ['class' => 'tiptap']]),
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<a class="tiptap" href="https://tiptap.dev">Example Link</a>');
+});
+
 test('link mark can disable target', function () {
     $document = [
         'type' => 'doc',

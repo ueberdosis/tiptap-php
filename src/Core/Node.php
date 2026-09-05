@@ -8,6 +8,8 @@ class Node extends Extension
 
     public static $topNode = false;
 
+    public static $noContent = false;
+
     public static $marks = '_';
 
     public function addAttributes()

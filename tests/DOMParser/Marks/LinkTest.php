@@ -26,6 +26,7 @@ test('link gets rendered correctly', function () {
                         'type' => 'link',
                         'attrs' => [
                             'href' => 'https://tiptap.dev',
+                            'target' => null,
                         ],
                     ],
                 ],
@@ -56,6 +57,7 @@ test('link_mark_has_support_for_rel', function () {
                         'attrs' => [
                             'href' => 'https://tiptap.dev',
                             'rel' => 'noopener',
+                            'target' => null,
                         ],
                     ],
                 ],
@@ -86,6 +88,7 @@ test('link_mark_has_support_for_class', function () {
                         'attrs' => [
                             'href' => 'https://tiptap.dev',
                             'class' => 'tiptap',
+                            'target' => null,
                         ],
                     ],
                 ],
@@ -143,10 +146,10 @@ function getInvalidUrls()
     return [
         // A standard JavaScript protocol
         "javascript:alert(window.origin)",
-    
+
         // The protocol is not case sensitive
         "jAvAsCrIpT:alert(window.origin)",
-    
+
         // Characters \x01-\x20 are allowed before the protocol
         "\x00javascript:alert(window.origin)",
         "\x01javascript:alert(window.origin)",
@@ -180,12 +183,12 @@ function getInvalidUrls()
         "\x1djavascript:alert(window.origin)",
         "\x1ejavascript:alert(window.origin)",
         "\x1fjavascript:alert(window.origin)",
-    
+
         // Characters \x09,\x0a,\x0d are allowed inside the protocol
         "java\x09script:alert(window.origin)",
         "java\x0ascript:alert(window.origin)",
         "java\x0dscript:alert(window.origin)",
-    
+
         // Characters \x09,\x0a,\x0d are allowed after protocol name before the colon
         "javascript\x09:alert(window.origin)",
         "javascript\x0a:alert(window.origin)",

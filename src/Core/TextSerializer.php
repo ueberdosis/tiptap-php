@@ -4,6 +4,8 @@ namespace Tiptap\Core;
 
 class TextSerializer
 {
+    use SerializerTrait;
+
     protected $document;
 
     protected $schema;
@@ -37,6 +39,13 @@ class TextSerializer
     private function renderNode($node): string
     {
         $text = [];
+        $extension = null;
+        foreach ($this->schema->nodes as $curExtension) {
+            if ($this->isMarkOrNode($node, $curExtension)) {
+                $extension = $curExtension;
+                break;
+            }
+        }
 
         if (isset($node->content)) {
             foreach ($node->content as $nestedNode) {
@@ -44,6 +53,8 @@ class TextSerializer
             }
         } elseif (isset($node->text)) {
             $text[] = htmlspecialchars($node->text, ENT_QUOTES, 'UTF-8');
+        } elseif (isset($extension) && method_exists($extension, 'renderText')) {
+            $text[] = $extension->renderText($node);
         }
 
         return join($this->configuration['blockSeparator'], $text);

@@ -122,6 +122,15 @@ class DOMSerializer
         while (! empty($markTagsToClose)) {
             # close mark tag from the top of the stack
             $markTag = array_pop($markStack);
+
+            # the mark stack can run empty before every tag was closed when marks
+            # are nested inconsistently (e.g. a mark duplicated on a node that
+            # inherits the same mark from a sibling). Stop here instead of calling
+            # a method on null.
+            if ($markTag === null) {
+                break;
+            }
+
             $markExtension = $markTag[0];
             $mark = $markTag[1];
             $html[] = $this->renderClosingTag($markExtension->renderHTML($mark));

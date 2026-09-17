@@ -1,0 +1,17 @@
+{
+  "name": "text styles and alignment",
+  "profile": "styles",
+  "html": "<p style=\"text-align: center\"><span style=\"color: red; font-family: Arial\">Styled</span></p>",
+  "document": {
+    "type": "doc",
+    "content": [{
+      "type": "paragraph",
+      "attrs": { "textAlign": "center" },
+      "content": [{
+        "type": "text",
+        "marks": [{ "type": "textStyle", "attrs": { "color": "red", "fontFamily": "Arial" } }],
+        "text": "Styled"
+      }]
+    }]
+  }
+}

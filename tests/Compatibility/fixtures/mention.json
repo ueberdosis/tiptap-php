@@ -1,0 +1,16 @@
+{
+  "name": "mention id",
+  "profile": "mention",
+  "html": "<p>Hello <span data-type=\"mention\" data-id=\"123\"></span>!</p>",
+  "document": {
+    "type": "doc",
+    "content": [{
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Hello " },
+        { "type": "mention", "attrs": { "id": "123" } },
+        { "type": "text", "text": "!" }
+      ]
+    }]
+  }
+}

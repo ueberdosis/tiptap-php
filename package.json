@@ -3,6 +3,9 @@
   "private": true,
   "description": "This package.json has all Node dependencies for the local development of the package.",
   "homepage": "https://github.com/ueberdosis/tiptap-php",
+  "scripts": {
+    "install-compatibility-dependencies": "node tests/Compatibility/js/install-dependencies.mjs"
+  },
   "devDependencies": {
     "shiki": "^2.0.0"
   }

@@ -36,7 +36,7 @@ class TableCell extends Node
             ],
             'colwidth' => [
                 'parseHTML' => function ($DOMNode) {
-                    $colwidth = $DOMNode->getAttribute('data-colwidth');
+                    $colwidth = $DOMNode->getAttribute('colwidth') ?: $DOMNode->getAttribute('data-colwidth');
 
                     if (! $colwidth) {
                         return null;
@@ -53,8 +53,11 @@ class TableCell extends Node
                         return null;
                     }
 
+                    $colwidth = join(',', $attributes->colwidth);
+
                     return [
-                        'data-colwidth' => join(',', $attributes->colwidth),
+                        'colwidth' => $colwidth,
+                        'data-colwidth' => $colwidth,
                     ];
                 },
             ],

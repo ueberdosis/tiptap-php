@@ -212,7 +212,7 @@ test('table node gets rendered correctly', function () {
         '<table><tbody>' .
             '<tr>' .
                 '<th><p>text in header cell</p></th>' .
-                '<th colspan="2" data-colwidth="100,0"><p>text in header cell with colspan 2</p></th>' .
+                '<th colspan="2" colwidth="100,0" data-colwidth="100,0"><p>text in header cell with colspan 2</p></th>' .
             '</tr>' .
             '<tr>' .
                 '<td rowspan="2"><p>paragraph 1 in cell with rowspan 2</p><p>paragraph 2 in cell with rowspan 2</p></td>' .

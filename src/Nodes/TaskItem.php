@@ -23,6 +23,13 @@ class TaskItem extends Node
         return [
             'checked' => [
                 'default' => false,
+                'parseHTML' => function ($DOMNode) {
+                    if (! $DOMNode->hasAttribute('data-checked')) {
+                        return null;
+                    }
+
+                    return in_array($DOMNode->getAttribute('data-checked'), ['', 'true'], true);
+                },
                 'renderHTML' => fn ($attributes) => [
                     'data-checked' => $attributes->checked ?? null,
                 ],

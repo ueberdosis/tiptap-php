@@ -180,3 +180,22 @@ test('table gets rendered correctly', function () {
         ],
     ]);
 });
+
+test('table cell width is parsed from the JavaScript colwidth attribute', function () {
+    $html = '<table><tbody><tr>' .
+        '<td colwidth="120,80" data-colwidth="40,40" colspan="2"><p>Cell</p></td>' .
+        '</tr></tbody></table>';
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+            new Table,
+            new TableRow,
+            new TableCell,
+            new TableHeader,
+        ],
+    ]))->setContent($html)->getDocument();
+
+    expect($result['content'][0]['content'][0]['content'][0]['attrs']['colwidth'])
+        ->toEqual([120, 80]);
+});

@@ -84,7 +84,7 @@ class DOMParser
 
                 if ($child->hasChildNodes()) {
                     $item = array_merge($item, [
-                        'content' => $this->processChildren($child),
+                        'content' => $this->processChildren(isset($item['contentDom']) ? $item['contentDom'] : $child),
                     ]);
                 }
 
@@ -93,6 +93,8 @@ class DOMParser
                         'marks' => $this->storedMarks,
                     ]);
                 }
+
+                unset($item['contentDom']);
 
                 array_push($nodes, $item);
             } elseif ($class = $this->getMarkFor($child)) {
@@ -283,7 +285,7 @@ class DOMParser
     /**
      * @return (array|mixed|string)[]|null
      *
-     * @psalm-return array{type: mixed, text?: string, attrs?: array}|null
+     * @psalm-return array{type: mixed, text?: string, attrs?: array, contentDom?: mixed}|null
      */
     private function parseAttributes($class, $DOMNode): ?array
     {
@@ -312,6 +314,16 @@ class DOMParser
         foreach ($parseRules as $parseRule) {
             if (! $this->checkParseRule($parseRule, $DOMNode)) {
                 continue;
+            }
+
+            if (isset($parseRule['contentElement'])) {
+                if (is_string($parseRule['contentElement'])) {
+                    throw new \Exception("Tiptap for PHP does not support CSS selector in contentElement yet");
+                } else if (is_callable($parseRule['contentElement'])) {
+                    $item['contentDom'] = $parseRule['contentElement']($DOMNode);
+                } else {
+                    $item['contentDom'] = $parseRule['contentElement'];
+                }
             }
 
             $attributes = $parseRule['attrs'] ?? [];

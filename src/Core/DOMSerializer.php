@@ -385,6 +385,39 @@ class DOMSerializer
         throw new \Exception('[renderClosingTag] Failed to use renderHTML: ' . json_encode($renderHTML));
     }
 
+    
+    public function structuredHtml($node): array
+    {
+        $result = [
+            'type' => $node->type,
+            'html' => $this->serializeNode($node),
+        ];
+
+        // Add content field for nodes with content
+        if (isset($node->content) && is_array($node->content) && count($node->content) > 0) {
+            $result['children'] = [];
+            $contentHtml = [];
+
+            foreach ($node->content as $child) {
+                $childResult = $this->structuredHtml($child);
+                $result['children'][] = $childResult;
+                $contentHtml[] = $childResult['html'];
+            }
+
+            if (!empty($contentHtml)) {
+                $result['innerHtml'] = implode('', $contentHtml);
+            }
+        }
+
+        return $result;
+    }
+
+    private function serializeNode($node): string
+    {
+        $markStack = [];
+        return $this->renderNode($node, null, null, $markStack);
+    }
+
     public function process(array $value): string
     {
         $html = [];
@@ -404,5 +437,21 @@ class DOMSerializer
         }
 
         return join($html);
+    }
+
+
+    public function processStructured(array $value): array
+    {
+        // transform document to object
+        $this->document = json_decode(json_encode($value));
+
+        $content = is_array($this->document->content) ? $this->document->content : [];
+        $result = [];
+        
+        foreach ($content as $node) {
+            $result[] = $this->structuredHtml($node);
+        }
+
+        return $result;
     }
 }

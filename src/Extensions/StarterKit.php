@@ -25,7 +25,9 @@ class StarterKit extends Extension
             'bold' => [],
             'code' => [],
             'italic' => [],
+            'link' => [],
             'strike' => [],
+            'underline' => [],
         ];
     }
 
@@ -74,8 +76,14 @@ class StarterKit extends Extension
             $this->options['italic'] !== false
                 ? new \Tiptap\Marks\Italic($this->options['italic'])
                 : null,
+            $this->options['link'] !== false
+                ? new \Tiptap\Marks\Link($this->options['link'])
+                : null,
             $this->options['strike'] !== false
                 ? new \Tiptap\Marks\Strike($this->options['strike'])
+                : null,
+            $this->options['underline'] !== false
+                ? new \Tiptap\Marks\Underline($this->options['underline'])
                 : null,
         ]);
     }

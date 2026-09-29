@@ -17,7 +17,7 @@ class Schema
 
     public function __construct(array $extensions = [])
     {
-        $this->allExtensions = $this->loadExtensions($extensions);
+        $this->allExtensions = $this->removeDuplicateExtensions($this->loadExtensions($extensions));
         usort($this->allExtensions, fn ($a, $b) => $b::$priority - $a::$priority);
 
         $this->nodes = array_filter($this->allExtensions, function ($extension) {
@@ -63,6 +63,21 @@ class Schema
         }
 
         return $extensions;
+    }
+
+    private function removeDuplicateExtensions(array $extensions): array
+    {
+        $registeredNames = [];
+
+        return array_values(array_filter($extensions, function ($extension) use (&$registeredNames) {
+            if (in_array($extension::$name, $registeredNames, true)) {
+                return false;
+            }
+
+            $registeredNames[] = $extension::$name;
+
+            return true;
+        }));
     }
 
     public function apply($document)

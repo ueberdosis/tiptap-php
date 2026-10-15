@@ -36,7 +36,7 @@ class Color extends Extension
                         'renderHTML' => function ($attributes) {
                             $color = $attributes?->color ?? null;
 
-                            if ($color === null) {
+                            if (! InlineStyle::isValidCSSStyleValue($color)) {
                                 return null;
                             }
 

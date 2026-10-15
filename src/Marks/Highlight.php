@@ -43,13 +43,15 @@ class Highlight extends Mark
                     return InlineStyle::getAttribute($DOMNode, 'background-color') ?: null;
                 },
                 'renderHTML' => function ($attributes) {
-                    if (! $attributes->color) {
+                    $color = $attributes->color ?? null;
+
+                    if (! InlineStyle::isValidCSSStyleValue($color)) {
                         return null;
                     }
 
                     return [
-                        'data-color' => $attributes->color,
-                        'style' => "background-color: {$attributes->color}",
+                        'data-color' => $color,
+                        'style' => "background-color: {$color}",
                     ];
                 },
             ],

@@ -206,8 +206,14 @@ class DOMSerializer
          *     return [
          *        'color' => [
          *            'renderHTML' => function ($attributes) {
+         *                $color = $attributes->color ?? null;
+         *
+         *                if (! \Tiptap\Utils\InlineStyle::isValidCSSStyleValue($color)) {
+         *                    return null;
+         *                }
+         *
          *                return [
-         *                    'style' => "color: {$attributes['color']}",
+         *                    'style' => "color: {$color}",
          *                ];
          *            }
          *        ],

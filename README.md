@@ -276,6 +276,10 @@ new \Tiptap\Editor([
 ])
 ```
 
+The `Table` extension renders a `colgroup` for each non-empty table, matching the JavaScript extension. Stored column widths are applied to the columns, while columns without stored widths use `cellMinWidth` (25 pixels by default). The table gets a computed `width` when all columns have stored widths, or a `min-width` otherwise. You can configure the minimum width to match your JavaScript editor, for example `new \Tiptap\Nodes\Table(['cellMinWidth' => 50])`.
+
+Computed sizing takes precedence over sizing in the extension's configured `HTMLAttributes`. Styles provided by node attributes are preserved.
+
 ### Extend existing extensions
 If you need to change minor details of the supported extensions, you can just extend an extension.
 

@@ -294,33 +294,20 @@ class DOMSerializer
                         $html[] = "<{$renderInstruction}>";
                     }
 
-                    // ['div', 'span']
-                    if (isset($nextTag) && is_array($nextTag) && ! in_array(0, $nextTag, true)) {
-                        if (! $this->isAnAttributeArray($nextTag)) {
-                            $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
-                            $html[] = $this->renderClosingTag($nextTag);
-                        }
-                    }
-
-                    // ['div', ?, 'span']
-                    if (is_integer($index) && $nextTag = $renderHTML[$index + 2] ?? null) {
-                        if (! in_array(0, $nextTag, true)) {
-                            if (! $this->isAnAttributeArray($nextTag)) {
-                                $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
-                                $html[] = $this->renderClosingTag($nextTag);
-                            }
-                        }
-                    }
-
                     continue;
                 }
                 // ['tbody', 0]
                 elseif (is_array($renderInstruction) && in_array(0, $renderInstruction, true)) {
                     $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $renderInstruction);
                 }
-                // ['class' => 'foobar']
+                // ['colgroup', ['col', …], …]
                 elseif (is_array($renderInstruction)) {
-                    continue;
+                    if ($this->isAnAttributeArray($renderInstruction) || $renderInstruction === []) {
+                        continue;
+                    }
+
+                    $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $renderInstruction);
+                    $html[] = $this->renderClosingTag($renderInstruction);
                 }
             }
 

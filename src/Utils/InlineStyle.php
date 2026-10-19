@@ -7,6 +7,18 @@ use Exception;
 class InlineStyle
 {
     /**
+     * Whether a value fits inside one CSS declaration: a non-empty string without `;`, `{` or `}`.
+     *
+     * @param mixed $value
+     */
+    public static function isValidCSSStyleValue($value): bool
+    {
+        return is_string($value)
+            && trim($value) !== ''
+            && preg_match('/[;{}]/', $value) === 0;
+    }
+
+    /**
      * @return string[]
      *
      * @psalm-return array<string, string>

@@ -2,6 +2,19 @@
 
 use Tiptap\Editor;
 
+test('injected data color is omitted when rendering HTML', function () {
+    $html = '<p><mark data-color="red; position: fixed; inset: 0; z-index: 2147483647">Example</mark></p>';
+
+    $result = (new Editor([
+        'extensions' => [
+            new \Tiptap\Extensions\StarterKit,
+            new \Tiptap\Marks\Highlight(['multicolor' => true]),
+        ],
+    ]))->setContent($html)->getHTML();
+
+    expect($result)->toEqual('<p><mark>Example</mark></p>');
+});
+
 test('mark gets rendered correctly', function () {
     $html = '<p><mark>Example</mark> Text</p>';
 

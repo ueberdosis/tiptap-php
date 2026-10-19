@@ -40,7 +40,7 @@ test('mark doesn’t allow specific colors by default', function () {
     expect($result)->toEqual('<p><mark>Example</mark> Text</p>');
 });
 
-test('mark allows specific colors when configured', function () {
+test('mark allows specific colors when configured', function ($color) {
     $document = [
         'type' => 'doc',
         'content' => [
@@ -54,7 +54,7 @@ test('mark allows specific colors when configured', function () {
                             [
                                 'type' => 'highlight',
                                 'attrs' => [
-                                    'color' => 'red',
+                                    'color' => $color,
                                 ],
                             ],
                         ],
@@ -77,5 +77,28 @@ test('mark allows specific colors when configured', function () {
         ],
     ]))->setContent($document)->getHTML();
 
-    expect($result)->toEqual('<p><mark data-color="red" style="background-color: red;">Example</mark> Text</p>');
-});
+    expect($result)->toEqual('<p><mark data-color="' . $color . '" style="background-color: ' . $color . ';">Example</mark> Text</p>');
+})->with(['red', '#ff0000', 'rgb(255, 0, 0)', 'hsl(0, 100%, 50%)', 'var(--text-color)', ' red ']);
+
+test('invalid highlight color values omit generated attributes and preserve text', function ($format) {
+    $document = [
+        'type' => 'doc',
+        'content' => [[
+            'type' => 'paragraph',
+            'content' => [[
+                'type' => 'text',
+                'text' => 'Example',
+                'marks' => [[
+                    'type' => 'highlight',
+                    'attrs' => ['color' => 'red; position: fixed; inset: 0; z-index: 2147483647'],
+                ]],
+            ]],
+        ]],
+    ];
+
+    $html = (new Editor([
+        'extensions' => [new \Tiptap\Extensions\StarterKit(), new \Tiptap\Marks\Highlight(['multicolor' => true])],
+    ]))->setContent($format === 'json' ? json_encode($document) : $document)->getHTML();
+
+    expect($html)->toEqual('<p><mark>Example</mark></p>');
+})->with(['array', 'json']);

@@ -36,7 +36,7 @@ class FontFamily extends Extension
                         'renderHTML' => function ($attributes) {
                             $fontFamily = $attributes?->fontFamily ?? null;
 
-                            if ($fontFamily === null) {
+                            if (! InlineStyle::isValidCSSStyleValue($fontFamily)) {
                                 return null;
                             }
 

@@ -225,10 +225,9 @@ By default, the [`StarterKit`](https://tiptap.dev/api/extensions/starter-kit) is
 new \Tiptap\Editor([
     'extensions' => [
         new \Tiptap\Extensions\StarterKit,
-        new \Tiptap\Marks\Link,
+        new \Tiptap\Marks\Highlight,
     ],
-])
-```
+])```
 
 ### Configure extensions
 Some extensions can be configured. Just pass an array to the constructor, that’s it. We’re aiming to support the same configuration as the JavaScript package.

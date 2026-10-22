@@ -1,0 +1,22 @@
+{
+  "name": "additional marks",
+  "profile": "marks",
+  "html": "<p><a href=\"https://tiptap.dev\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">link</a> <u>underline</u> <mark data-color=\"yellow\" style=\"background-color: yellow\">highlight</mark> H<sub>2</sub>O x<sup>2</sup></p>",
+  "document": {
+    "type": "doc",
+    "content": [{
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "link", "attrs": { "href": "https://tiptap.dev", "target": "_blank", "rel": "noopener noreferrer nofollow" } }], "text": "link" },
+        { "type": "text", "text": " " },
+        { "type": "text", "marks": [{ "type": "underline" }], "text": "underline" },
+        { "type": "text", "text": " " },
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "yellow" } }], "text": "highlight" },
+        { "type": "text", "text": " H" },
+        { "type": "text", "marks": [{ "type": "subscript" }], "text": "2" },
+        { "type": "text", "text": "O x" },
+        { "type": "text", "marks": [{ "type": "superscript" }], "text": "2" }
+      ]
+    }]
+  }
+}

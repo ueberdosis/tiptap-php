@@ -370,6 +370,30 @@ You can install nodemon (`npm install -g nodemon`) to keep the test suite runnin
 composer test-watch
 ```
 
+### JavaScript compatibility
+
+The compatibility suite verifies that the PHP and JavaScript packages parse the same HTML into equivalent Tiptap JSON. It also checks both cross-runtime rendering directions: HTML rendered by PHP must be parseable by JavaScript, and HTML rendered by JavaScript must be parseable by PHP.
+
+By default, the suite installs and tests the latest Tiptap JavaScript release:
+
+```bash
+npm ci
+composer test-compatibility
+```
+
+Pass an npm version or dist-tag to test a specific Tiptap release:
+
+```bash
+composer test-compatibility -- 3.27.3
+composer test-compatibility -- next
+```
+
+The version can also be provided through the `TIPTAP_VERSION` environment variable:
+
+```bash
+TIPTAP_VERSION=3.27.3 composer test-compatibility
+```
+
 ## Contributing
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 

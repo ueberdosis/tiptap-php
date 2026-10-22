@@ -1,0 +1,26 @@
+{
+  "name": "starter kit nodes and marks",
+  "profile": "starterKit",
+  "html": "<h2>Heading</h2><blockquote><p>Quote</p></blockquote><p>Plain <strong>bold <em>and italic</em></strong><br>next</p><ul><li><p>Bullet</p></li></ul><ol start=\"3\"><li><p>Third</p></li></ol><pre><code class=\"language-css\">body { color: red; }</code></pre><hr>",
+  "document": {
+    "type": "doc",
+    "content": [
+      { "type": "heading", "attrs": { "level": 2 }, "content": [{ "type": "text", "text": "Heading" }] },
+      { "type": "blockquote", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Quote" }] }] },
+      {
+        "type": "paragraph",
+        "content": [
+          { "type": "text", "text": "Plain " },
+          { "type": "text", "marks": [{ "type": "bold" }], "text": "bold " },
+          { "type": "text", "marks": [{ "type": "bold" }, { "type": "italic" }], "text": "and italic" },
+          { "type": "hardBreak" },
+          { "type": "text", "text": "next" }
+        ]
+      },
+      { "type": "bulletList", "content": [{ "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Bullet" }] }] }] },
+      { "type": "orderedList", "attrs": { "start": 3 }, "content": [{ "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Third" }] }] }] },
+      { "type": "codeBlock", "attrs": { "language": "css" }, "content": [{ "type": "text", "text": "body { color: red; }" }] },
+      { "type": "horizontalRule" }
+    ]
+  }
+}

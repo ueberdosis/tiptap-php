@@ -1,0 +1,16 @@
+{
+  "name": "persisted details state",
+  "profile": "details",
+  "html": "<details open><summary>Summary</summary><div data-type=\"detailsContent\"><p>Content</p></div></details>",
+  "document": {
+    "type": "doc",
+    "content": [{
+      "type": "details",
+      "attrs": { "open": true },
+      "content": [
+        { "type": "detailsSummary", "content": [{ "type": "text", "text": "Summary" }] },
+        { "type": "detailsContent", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Content" }] }] }
+      ]
+    }]
+  }
+}

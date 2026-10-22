@@ -44,11 +44,22 @@ class DOMParser
          */
         $this->DOM->loadHTML(
             $this->makeValidXMLDocument(
-                $this->minify($value)
+                $this->minify(
+                    $this->wrapPlainText($value)
+                )
             )
         );
 
         return $this;
+    }
+
+    private function wrapPlainText(string $value): string
+    {
+        if ($value !== '' && strip_tags($value) === $value) {
+            return '<p>' . $value . '</p>';
+        }
+
+        return $value;
     }
 
     private function minify(string $value): string

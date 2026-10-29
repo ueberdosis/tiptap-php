@@ -127,3 +127,43 @@ test('node content contains empty array empty mark gets rendered correctly', fun
 
     expect($result)->toEqual('<a target="_blank" rel="noopener noreferrer nofollow" href="https://tiptap.dev">Example Link</a>');
 });
+
+test('duplicated mark inherited from a sibling does not crash the serializer', function () {
+    // The second text node carries the same mark twice while inheriting it from
+    // the first node. Opening is skipped for both duplicates (the sibling already
+    // "has" the mark), but closing fires for both, popping the mark stack once more
+    // than it was filled. This used to call a method on null in closeMarkTags().
+    $document = [
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'paragraph',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'a',
+                        'marks' => [
+                            ['type' => 'bold'],
+                        ],
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'b',
+                        'marks' => [
+                            ['type' => 'bold'],
+                            ['type' => 'bold'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    $result = (new Editor([
+        'extensions' => [
+            new StarterKit,
+        ],
+    ]))->setContent($document)->getHTML();
+
+    expect($result)->toEqual('<p><strong>ab</strong></p>');
+});

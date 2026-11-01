@@ -70,6 +70,11 @@ class Editor
         return (new DOMSerializer($this->schema))->process($this->document);
     }
 
+    public function getStructuredHTML(): array
+    {
+        return (new DOMSerializer($this->schema))->processStructured($this->document);
+    }
+
     public function getText($configuration = []): string
     {
         return (new TextSerializer($this->schema, $configuration))->process($this->document);

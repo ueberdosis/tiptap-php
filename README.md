@@ -176,6 +176,53 @@ What’s coming between blocks can be configured, too.
 // Paragraph"
 ```
 
+### Get structured HTML representation
+For advanced use cases like analytics, custom rendering, or content transformation, you can get a structured representation of the document that preserves the node hierarchy while providing both complete and inner HTML for each node.
+
+```php
+(new \Tiptap\Editor)
+    ->setContent('<h1>Title</h1><p>Content with <strong>bold</strong> text</p>')
+    ->getStructuredHTML();
+
+// Returns:
+// [
+//   [
+//     'type' => 'heading',
+//     'html' => '<h1>Title</h1>',
+//     'innerHtml' => 'Title',
+//     'children' => [
+//       [
+//         'type' => 'text',
+//         'html' => 'Title',
+//         'children' => []
+//       ]
+//     ]
+//   ],
+//   [
+//     'type' => 'paragraph',
+//     'html' => '<p>Content with <strong>bold</strong> text</p>',
+//     'innerHtml' => 'Content with <strong>bold</strong> text',
+//     'children' => [
+//       [
+//         'type' => 'text',
+//         'html' => 'Content with ',
+//         'children' => []
+//       ],
+//       [
+//         'type' => 'text',
+//         'html' => '<strong>bold</strong>',
+//         'children' => []
+//       ],
+//       [
+//         'type' => 'text',
+//         'html' => ' text',
+//         'children' => []
+//       ]
+//     ]
+//   ]
+// ]
+```
+
 ### Sanitize content
 A great use case for the PHP package is to clean (or “sanitize”) the content. You can do that with the `sanitize()` method. Works with JSON strings, PHP arrays and HTML.
 

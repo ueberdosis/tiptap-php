@@ -34,8 +34,6 @@ class Schema
 
         $this->defaultNode = reset($this->nodes);
         $this->topNode = current(array_filter($this->nodes, fn ($node) => $node::$topNode));
-
-        return $this;
     }
 
     private function loadExtensions($extensions = [])

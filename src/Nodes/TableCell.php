@@ -9,6 +9,8 @@ class TableCell extends Node
 {
     public static $name = 'tableCell';
 
+    public static $wrapInlineContent = true;
+
     public function addOptions()
     {
         return [

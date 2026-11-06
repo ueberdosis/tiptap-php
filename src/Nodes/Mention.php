@@ -9,6 +9,8 @@ class Mention extends Node
 {
     public static $name = 'mention';
 
+    public static $inline = true;
+
     public function addOptions()
     {
         return [

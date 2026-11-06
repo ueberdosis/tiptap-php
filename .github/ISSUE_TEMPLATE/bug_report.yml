@@ -1,0 +1,60 @@
+name: Bug Report
+title: "[Bug]: "
+description: Found a bug? Report it here to help us improve.
+labels:
+  - "bug"
+body:
+  - type: markdown
+    attributes:
+      value: "### Please provide details to help us diagnose the bug."
+  - type: input
+    id: php_version
+    attributes:
+      label: PHP Version
+      description: The version of PHP you are using.
+      placeholder: e.g. 8.0
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Specify the version of Tiptap PHP you are using.
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Bug Description
+      description: Provide a clear and concise description of what the bug is.
+      placeholder: "The issue occurs when..."
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ### Additional Information
+        Please provide any additional information that may help us understand the issue.
+  - type: textarea
+    id: expectation
+    attributes:
+      label: Expected Behavior
+      description: Describe what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context (Optional)
+      description: "Add any other context about the problem here, such as screenshots or videos."
+  - type: checkboxes
+    attributes:
+      label: Dependency Updates
+      description: "Have you updated your dependencies? This can often resolve issues."
+      options:
+        - label: Yes, I've updated all my dependencies.
+          required: true
+  - type: markdown
+    attributes:
+      value: "Thank you for helping us improve our open-source projects by reporting this issue!"

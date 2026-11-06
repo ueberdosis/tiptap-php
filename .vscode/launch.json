@@ -1,0 +1,28 @@
+{
+    "configurations": [
+      {
+        "type": "php",
+        "request": "launch",
+        "name": "Run Test",
+        "program": "${workspaceFolder}/vendor/bin/pest",
+        "args": [
+            "--filter",
+            "${input:testFilter}"
+        ],
+        "runtimeArgs": [
+            "-dxdebug.mode=debug",
+            "-dxdebug.start_with_request=trigger"
+        ],
+        "cwd": "${workspaceFolder}",
+        "port": 9003
+      }
+    ],
+    "inputs": [
+      {
+        "type": "promptString",
+        "id": "testFilter",
+        "description": "Filter by test",
+        "default": ""
+      }
+    ]
+  }

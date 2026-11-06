@@ -31,6 +31,8 @@ class Image extends Node
             'src' => [],
             'alt' => [],
             'title' => [],
+            'width' => [],
+            'height' => [],
         ];
     }
 

@@ -94,14 +94,6 @@ class DOMParser
                     ]);
                 }
 
-                if ($wrapper = $class::wrapper($child)) {
-                    $item['content'] = [
-                        array_merge($wrapper, [
-                            'content' => $item['content'] ?? [],
-                        ]),
-                    ];
-                }
-
                 array_push($nodes, $item);
             } elseif ($class = $this->getMarkFor($child)) {
                 array_push($this->storedMarks, $this->parseAttributes($class, $child));
@@ -129,7 +121,7 @@ class DOMParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -178,28 +170,39 @@ class DOMParser
 
     private function getExtensionFor($node, $classes)
     {
+        $parseRules = [];
+
         foreach ($classes as $class) {
-            if ($this->checkParseRules($class->parseHTML($node), $node)) {
-                return $class;
+            $classParseRules = $this->getClassParseRules($class, $node);
+            $parseRules = array_merge($parseRules, $classParseRules);
+        }
+
+        usort($parseRules, fn ($parseRuleA, $parseRuleB) => $parseRuleB['priority'] - $parseRuleA['priority']);
+
+        foreach ($parseRules as $parseRule) {
+            if ($this->checkParseRule($parseRule, $node)) {
+                return $parseRule['class'];
             }
         }
 
         return false;
     }
 
-    private function checkParseRules($parseRules, $DOMNode): bool
+    private function getClassParseRules($class, $node): array
     {
-        if (is_array($parseRules)) {
-            foreach ($parseRules as $parseRule) {
-                if (! $this->checkParseRule($parseRule, $DOMNode)) {
-                    continue;
-                }
+        $parseRules = $class->parseHTML($node);
 
-                return true;
-            }
+        if (! is_array($parseRules)) {
+            return [];
+        }
+        $classParseRules = [];
+        foreach ($parseRules as $parseRule) {
+            $parseRule['class'] = $class;
+            $parseRule['priority'] = $parseRule['priority'] ?? 50;
+            $classParseRules[] = $parseRule;
         }
 
-        return false;
+        return $classParseRules;
     }
 
     private function checkParseRule($parseRule, $DOMNode): bool

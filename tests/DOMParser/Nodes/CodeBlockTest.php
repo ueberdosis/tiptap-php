@@ -123,3 +123,24 @@ test('code block and inline code are rendered correctly', function () {
         ],
     ]);
 });
+
+test('it handles code blocks without a code tag', function () {
+    $html = '<pre>body { display: none }</pre>';
+
+    $result = (new Editor)->setContent($html)->getDocument();
+
+    expect($result)->toEqual([
+        'type' => 'doc',
+        'content' => [
+            [
+                'type' => 'codeBlock',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'body { display: none }',
+                    ],
+                ],
+            ],
+        ],
+    ]);
+});

@@ -4,14 +4,14 @@ use Tiptap\Editor;
 use Tiptap\Extensions\StarterKit;
 use Tiptap\Extensions\TextAlign;
 
-test('text align is rendered correctly', function () {
+test('text align is rendered correctly', function ($alignment) {
     $document = [
         'type' => 'doc',
         'content' => [
             [
                 'type' => 'paragraph',
                 'attrs' => [
-                    'textAlign' => 'center',
+                    'textAlign' => $alignment,
                 ],
                 'content' => [
                     [
@@ -35,8 +35,8 @@ test('text align is rendered correctly', function () {
         ->setContent($document)
         ->getHTML();
 
-    expect($result)->toEqual('<p style="text-align: center;">Example Text</p>');
-});
+    expect($result)->toEqual('<p style="text-align: ' . $alignment . ';">Example Text</p>');
+})->with(['center', 'right', 'justify', 'start', 'end', 'inherit']);
 
 test('default text align isn’t rendered', function () {
     $document = [
@@ -106,3 +106,23 @@ test('default text align is configureable', function () {
 
     expect($result)->toEqual('<p>Example Text</p>');
 });
+
+test('invalid text alignment values omit generated attributes and preserve text', function ($format) {
+    $document = [
+        'type' => 'doc',
+        'content' => [[
+            'type' => 'paragraph',
+            'attrs' => ['textAlign' => 'left; position: fixed; inset: 0; z-index: 2147483647'],
+            'content' => [[
+                'type' => 'text',
+                'text' => 'Example',
+            ]],
+        ]],
+    ];
+
+    $html = (new Editor([
+        'extensions' => [new StarterKit(), new TextAlign(['types' => ['paragraph']])],
+    ]))->setContent($format === 'json' ? json_encode($document) : $document)->getHTML();
+
+    expect($html)->toEqual('<p>Example</p>');
+})->with(['array', 'json']);

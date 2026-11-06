@@ -151,14 +151,14 @@ test('multiple lists gets rendered correctly', function () {
     $html = '
         <h2>Headline 2</h2>
         <ol>
-            <li>ordered list item</li>
-            <li>ordered list item</li>
-            <li>ordered list item</li>
+            <li><p>ordered list item</p></li>
+            <li><p>ordered list item</p></li>
+            <li><p>ordered list item</p></li>
         </ol>
         <ul>
-            <li>unordered list item</li>
-            <li>unordered list item with <a href="https://tiptap.dev"><strong>link</strong></a></li>
-            <li>unordered list item</li>
+            <li><p>unordered list item</p></li>
+            <li><p>unordered list item with <a href="https://tiptap.dev"><strong>link</strong></a></p></li>
+            <li><p>unordered list item</p></li>
         </ul>
         <p>Some Text.</p>
     ';

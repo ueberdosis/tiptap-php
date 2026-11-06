@@ -83,8 +83,14 @@ class DOMParser
                 }
 
                 if ($child->hasChildNodes()) {
+                    $content = $this->processChildren($child);
+
+                    if ($class::$wrapInlineContent) {
+                        $content = $this->wrapInlineContent($content);
+                    }
+
                     $item = array_merge($item, [
-                        'content' => $this->processChildren($child),
+                        'content' => $content,
                     ]);
                 }
 
@@ -112,6 +118,47 @@ class DOMParser
         // If similar nodes with different text follow each other,
         // we can merge them into a single node.
         return $this->mergeSimilarNodes($nodes);
+    }
+
+    /**
+     * Wrap each run of inline nodes in a paragraph and keep block nodes as they are.
+     */
+    private function wrapInlineContent(array $content): array
+    {
+        $result = [];
+        $inlineNodes = [];
+
+        foreach ($content as $node) {
+            if ($this->isInlineNode($node)) {
+                $inlineNodes[] = $node;
+
+                continue;
+            }
+
+            if (count($inlineNodes)) {
+                $result[] = ['type' => 'paragraph', 'content' => $inlineNodes];
+                $inlineNodes = [];
+            }
+
+            $result[] = $node;
+        }
+
+        if (count($inlineNodes)) {
+            $result[] = ['type' => 'paragraph', 'content' => $inlineNodes];
+        }
+
+        return $result;
+    }
+
+    private function isInlineNode(array $node): bool
+    {
+        foreach ($this->schema->nodes as $class) {
+            if ($class::$name === $node['type']) {
+                return $class::$inline;
+            }
+        }
+
+        return false;
     }
 
     private function isMultidimensionalArray($array)

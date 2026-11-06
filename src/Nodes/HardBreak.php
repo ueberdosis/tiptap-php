@@ -9,6 +9,8 @@ class HardBreak extends Node
 {
     public static $name = 'hardBreak';
 
+    public static $inline = true;
+
     public function addOptions()
     {
         return [

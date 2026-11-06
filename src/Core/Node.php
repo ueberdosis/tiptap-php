@@ -10,6 +10,13 @@ class Node extends Extension
 
     public static $marks = '_';
 
+    public static $inline = false;
+
+    /**
+     * Wrap inline content in a paragraph, for nodes that only allow block content.
+     */
+    public static $wrapInlineContent = false;
+
     public function addAttributes()
     {
         return [];

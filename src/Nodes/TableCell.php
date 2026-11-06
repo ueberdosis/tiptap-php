@@ -9,6 +9,8 @@ class TableCell extends Node
 {
     public static $name = 'tableCell';
 
+    public static $wrapInlineContent = true;
+
     public function addOptions()
     {
         return [
@@ -70,20 +72,6 @@ class TableCell extends Node
                 $HTMLAttributes,
             ),
             0,
-        ];
-    }
-
-    public static function wrapper($DOMNode)
-    {
-        if (
-            $DOMNode->childNodes->length === 1
-            && $DOMNode->childNodes[0]->nodeName == "p"
-        ) {
-            return null;
-        }
-
-        return [
-            'type' => 'paragraph',
         ];
     }
 }

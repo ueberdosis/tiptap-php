@@ -276,7 +276,7 @@ class DOMSerializer
             foreach ($renderHTML as $index => $renderInstruction) {
                 // ['div', …]
                 if (is_string($renderInstruction)) {
-                    if (is_integer($index) && $nextTag = $renderHTML[$index + 1] ?? null) {
+                    if (is_int($index) && $nextTag = $renderHTML[$index + 1] ?? null) {
                         // ['table', ['class' => 'custom-class']]
                         if (! in_array(0, $nextTag, true)) {
                             if (is_array($nextTag) && $this->isAnAttributeArray($nextTag)) {
@@ -303,7 +303,7 @@ class DOMSerializer
                     }
 
                     // ['div', ?, 'span']
-                    if (is_integer($index) && $nextTag = $renderHTML[$index + 2] ?? null) {
+                    if (is_int($index) && $nextTag = $renderHTML[$index + 2] ?? null) {
                         if (! in_array(0, $nextTag, true)) {
                             if (! $this->isAnAttributeArray($nextTag)) {
                                 $html[] = $this->renderOpeningTag($extension, $nodeOrMark, $nextTag);
